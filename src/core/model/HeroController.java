@@ -12,12 +12,16 @@ public class HeroController {
         switch (direction) {
             case 0:
                 hero.setX(hero.getX() + hero.getSpeed());
+                break;
             case 1:
                 hero.setY(hero.getY() - hero.getSpeed());
+                break;
             case 2:
                 hero.setX(hero.getX() - hero.getSpeed());
+                break;
             case 3:
                 hero.setY(hero.getY() + hero.getSpeed());
+                break;
         }
     }
 

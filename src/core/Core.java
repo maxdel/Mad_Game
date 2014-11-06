@@ -28,7 +28,7 @@ public class Core extends BasicGame {
 
     @Override
     public void update(GameContainer gc, int i) throws SlickException {
-        world.update();
+        controller.update(gc);
     }
 
     @Override
