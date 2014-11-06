@@ -33,7 +33,7 @@ public class Core extends BasicGame {
 
     @Override
     public void render(GameContainer gc, Graphics g) throws SlickException {
-        renderer.render();
+        renderer.render(g);
     }
 
 }
