@@ -16,4 +16,8 @@ public class World {
 
     }
 
+    public ArrayList<GameObject> getGameObjects() {
+        return gameObjects;
+    }
+
 }
