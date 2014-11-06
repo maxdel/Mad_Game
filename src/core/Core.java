@@ -22,7 +22,7 @@ public class Core extends BasicGame {
     @Override
     public void init(GameContainer gc) throws SlickException {
         world = new World();
-        renderer = new Renderer(world);
+        renderer = new Renderer(world.getGameObjects());
         controller = new Controller(world, renderer);
     }
 

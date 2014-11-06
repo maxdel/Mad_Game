@@ -8,8 +8,8 @@ public class HeroManager {
         this.hero = hero;
     }
 
-    public void move(int direction) {
-        switch (direction) {
+    public void move(int key) {
+        switch (key) {
             case 0:
                 hero.setX(hero.getX() + hero.getSpeed());
                 break;
@@ -24,5 +24,7 @@ public class HeroManager {
                 break;
         }
     }
+
+    
 
 }

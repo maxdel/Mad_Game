@@ -7,24 +7,26 @@ import org.newdawn.slick.SlickException;
 
 import core.model.GameObject;
 import core.model.Wall;
-import core.model.World;
+
+import java.util.ArrayList;
+
 
 public class Renderer {
 
-    World world;
+    ArrayList<GameObject> gameObjects;
 
     Image wallImage;
     Image heroImage;
 
-    public Renderer(World world) throws SlickException {
-        this.world = world;
+    public Renderer(final ArrayList<GameObject> gameObjects) throws SlickException {
+        this.gameObjects = gameObjects;
 
         wallImage = new Image("/res/Wall.png");
         heroImage = new Image("/res/Hero.png");
     }
 
     public void render(Graphics g) {
-        for (GameObject gameObject : world.getGameObjects()) {
+        for (GameObject gameObject : gameObjects) {
             if (gameObject instanceof Wall) {
                 g.drawImage(wallImage, gameObject.getX(), gameObject.getY());
             } else if (gameObject instanceof Hero) {

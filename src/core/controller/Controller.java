@@ -15,6 +15,7 @@ public class Controller {
         this.world = world;
         this.renderer = renderer;
 
+
         heroController = new HeroController(world.getHeroManager());
     }
 

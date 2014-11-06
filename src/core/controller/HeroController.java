@@ -4,9 +4,6 @@ import core.model.HeroManager;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 
-/**
- * Created by Alex on 06.11.2014.
- */
 public class HeroController {
 
     private HeroManager heroManager;
@@ -28,6 +25,7 @@ public class HeroController {
         if (gc.getInput().isKeyDown(Input.KEY_S)) {
             heroManager.move(3);
         }
+
     }
 
 }
