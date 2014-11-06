@@ -21,14 +21,16 @@ public class Core extends BasicGame {
 
     @Override
     public void init(GameContainer gc) throws SlickException {
+        gc.setVSync(true);
+
         world = new World();
         renderer = new Renderer(world.getGameObjects());
         controller = new Controller(world, renderer);
     }
 
     @Override
-    public void update(GameContainer gc, int i) throws SlickException {
-        controller.update(gc);
+    public void update(GameContainer gc, final int delta) throws SlickException {
+        controller.update(gc, delta);
     }
 
     @Override

@@ -15,12 +15,11 @@ public class Controller {
         this.world = world;
         this.renderer = renderer;
 
-
         heroController = new HeroController(world.getHeroManager());
     }
 
-    public void update(GameContainer gc) {
-        heroController.update(gc);
+    public void update(GameContainer gc, final int delta) {
+        heroController.update(gc, delta);
     }
 
 }

@@ -8,23 +8,21 @@ public class HeroManager {
         this.hero = hero;
     }
 
-    public void move(int key) {
-        switch (key) {
+    public void move(final int keyIndex, final int delta) {
+        switch (keyIndex) {
             case 0:
-                hero.setX(hero.getX() + hero.getSpeed());
+                hero.setX(hero.getX() + hero.getSpeed() * delta);
                 break;
             case 1:
-                hero.setY(hero.getY() - hero.getSpeed());
+                hero.setY(hero.getY() - hero.getSpeed() * delta);
                 break;
             case 2:
-                hero.setX(hero.getX() - hero.getSpeed());
+                hero.setX(hero.getX() - hero.getSpeed() * delta);
                 break;
             case 3:
-                hero.setY(hero.getY() + hero.getSpeed());
+                hero.setY(hero.getY() + hero.getSpeed() * delta);
                 break;
         }
     }
-
-    
 
 }

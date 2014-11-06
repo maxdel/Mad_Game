@@ -12,18 +12,18 @@ public class HeroController {
         this.heroManager = heroManager;
     }
 
-    public void update(GameContainer gc) {
+    public void update(GameContainer gc, final int delta) {
         if (gc.getInput().isKeyDown(Input.KEY_D)) {
-            heroManager.move(0);
+            heroManager.move(0, delta);
         }
         if (gc.getInput().isKeyDown(Input.KEY_W)) {
-            heroManager.move(1);
+            heroManager.move(1, delta);
         }
         if (gc.getInput().isKeyDown(Input.KEY_A)) {
-            heroManager.move(2);
+            heroManager.move(2, delta);
         }
         if (gc.getInput().isKeyDown(Input.KEY_S)) {
-            heroManager.move(3);
+            heroManager.move(3, delta);
         }
 
     }
