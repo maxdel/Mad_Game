@@ -2,51 +2,51 @@ package core.model;
 
 public abstract class GameObject {
 
-    private float x;
-    private float y;
-    private float direction;
-    private float speed;
+    private double x;
+    private double y;
+    private double direction;
+    private double speed;
 
     public GameObject() {
 
     }
 
-    public GameObject(float x, float y, float direction, float speed) {
+    public GameObject(double x, double y, double direction, double speed) {
         this.x = x;
         this.y = y;
         this.direction = direction;
         this.speed = speed;
     }
 
-    public float getSpeed() {
+    public double getSpeed() {
         return speed;
     }
 
-    public void setSpeed(float speed) {
+    public void setSpeed(double speed) {
         this.speed = speed;
     }
 
-    public float getX() {
+    public double getX() {
         return x;
     }
 
-    public void setX(float x) {
+    public void setX(double x) {
         this.x = x;
     }
 
-    public float getY() {
+    public double getY() {
         return y;
     }
 
-    public void setY(float y) {
+    public void setY(double y) {
         this.y = y;
     }
 
-    public float getDirection() {
+    public double getDirection() {
         return direction;
     }
 
-    public void setDirection(float direction) {
+    public void setDirection(double direction) {
         this.direction = direction;
     }
 

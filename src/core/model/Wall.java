@@ -6,7 +6,7 @@ public class Wall extends GameObject {
         super();
     }
 
-    public Wall(float x, float y, float direction, float speed) {
+    public Wall(double x, double y, double direction, double speed) {
         super(x, y, direction, speed);
     }
 

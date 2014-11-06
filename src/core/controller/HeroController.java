@@ -27,6 +27,8 @@ public class HeroController {
             heroManager.move(3, delta);
         }
 
+        heroManager.rotate(gc.getInput().getMouseX(), gc.getInput().getMouseY());
+
     }
 
 }
