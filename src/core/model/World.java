@@ -6,7 +6,7 @@ public class World {
 
     private ArrayList<GameObject> gameObjects;
 
-    private HeroController heroController;
+    private HeroManager heroManager;
 
     public World() {
         gameObjects = new ArrayList<GameObject>();
@@ -16,7 +16,7 @@ public class World {
         gameObjects.add(new Wall(100, 100, 0, 0));
         gameObjects.add(hero);
 
-        heroController = new HeroController(hero);
+        heroManager = new HeroManager(hero);
     }
 
     public void update() {
@@ -27,8 +27,8 @@ public class World {
         return gameObjects;
     }
 
-    public HeroController getHeroController() {
-        return heroController;
+    public HeroManager getHeroManager() {
+        return heroManager;
     }
 
 }

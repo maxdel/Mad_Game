@@ -1,10 +1,10 @@
 package core.model;
 
-public class HeroController {
+public class HeroManager {
 
     private Hero hero;
 
-    public HeroController(Hero hero) {
+    public HeroManager(Hero hero) {
         this.hero = hero;
     }
 
