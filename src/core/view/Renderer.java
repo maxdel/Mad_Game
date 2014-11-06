@@ -27,7 +27,8 @@ public class Renderer {
             }
         }
 
-        g.drawString("Hello, IDEA git plugin!", 300, 200);
+        g.drawString("Hello, IDEA git plugin0!", 300, 200);
+        g.drawString("Hello, IDEA git plugin2!", 200, 200);
     }
 
 }
