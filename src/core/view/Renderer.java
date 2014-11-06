@@ -1,14 +1,14 @@
 package core.view;
 
-import core.model.Hero;
+import java.util.ArrayList;
+
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import core.model.GameObject;
+import core.model.Hero;
 import core.model.Wall;
-
-import java.util.ArrayList;
 
 
 public class Renderer {
