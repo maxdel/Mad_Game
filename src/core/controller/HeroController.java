@@ -1,8 +1,9 @@
 package core.controller;
 
-import core.model.HeroManager;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
+
+import core.model.HeroManager;
 
 public class HeroController {
 
