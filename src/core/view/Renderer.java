@@ -26,9 +26,7 @@ public class Renderer {
                 g.drawImage(wallImage, gameObject.getX(), gameObject.getY());
             }
         }
-
-        g.drawString("Hello, IDEA git plugin0!", 300, 200);
-        g.drawString("Hello, IDEA git plugin2!", 200, 200);
+        g.drawString("Hello, IDEA git plugin1!", 300, 200);
     }
 
 }
