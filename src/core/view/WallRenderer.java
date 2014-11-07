@@ -25,4 +25,19 @@ public class WallRenderer extends GameObjectRenderer {
         g.drawImage(wallImage, (float)gameObject.getX() - wallImage.getWidth() / 2,
                 (float)gameObject.getY() - wallImage.getHeight() / 2);
     }
+
+    @Override
+    public void render(Graphics g, final double viewX, final double viewY, final double direction) {
+        float rotateAngle = (float) (direction / Math.PI * 180 + 90);
+
+        float xx = 320;
+        float yy = 240;
+
+        g.rotate(xx, yy, -rotateAngle);
+        g.drawImage(wallImage, (float) (gameObject.getX() - wallImage.getWidth() / 2 - viewX),
+                (float) (gameObject.getY() - wallImage.getHeight() / 2 - viewY));
+        g.drawString("(" + String.valueOf(gameObject.getX()) + ";" + String.valueOf(gameObject.getY()) + ")",
+                (float) (gameObject.getX() - viewX), (float) (gameObject.getY() - viewY));
+        g.rotate(xx, yy, rotateAngle);
+    }
 }

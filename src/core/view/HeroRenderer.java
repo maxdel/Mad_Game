@@ -19,6 +19,7 @@ public class HeroRenderer extends GameObjectRenderer {
         animation = new Animation(spriteSheet, ANIMATIONSPEED);
     }
 
+    @Override
     public void render(Graphics g) {
         //double rotateAngle = gameObject.getDirection() / Math.PI * 180 + 90;
         double rotateAngle = 90;
@@ -30,9 +31,27 @@ public class HeroRenderer extends GameObjectRenderer {
         while (direction > 2 * Math.PI)
             direction -= 2 * Math.PI;
 
-        animation.draw(320, 240 - imageHeight/2);
+        animation.draw(320 - imageWidth/2, 240 - imageHeight/2);
+        g.drawString("(" + String.valueOf((int)gameObject.getX()) + ";" + String.valueOf((int)gameObject.getY())
+                        + ") dir=" + String.valueOf((int)(gameObject.getDirection() / Math.PI * 180) % 360), 320, 240);
 
         //g.rotate((float) gameObject.getX(), (float) gameObject.getY(), (float) -rotateAngle);
+    }
+
+    @Override
+    public void render(Graphics g, double viewX, double viewY, final double direction) {
+        float rotateAngle = (float) (direction / Math.PI * 180);
+
+        float xx = 320;
+        float yy = 240;
+
+        //g.rotate(xx, yy, rotateAngle);
+        animation.draw((float) (gameObject.getX() - imageWidth / 2 + viewX),
+                (float) (gameObject.getY() - imageHeight / 2 + viewY));
+        g.drawString("(" + String.valueOf((int)gameObject.getX()) + ";" + String.valueOf((int)gameObject.getY())
+                        + ") dir=" + String.valueOf((int)gameObject.getDirection()), (float) gameObject.getX(),
+                (float) gameObject.getY());
+        //g.rotate(xx, yy, -rotateAngle);
     }
 
 }

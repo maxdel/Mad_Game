@@ -13,4 +13,6 @@ public abstract class GameObjectRenderer {
 
     public abstract void render(Graphics g);
 
+    public abstract void render(Graphics g, final double offsetX, final double offsetY, final double direction);
+
 }

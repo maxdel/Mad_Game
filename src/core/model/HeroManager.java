@@ -25,13 +25,13 @@ public class HeroManager {
         }
     }
 
-    public void advancedMove(final int keyIndex, final int delta, final int targetX, final int targetY) {
+    public void advancedMove(final int keyIndex, final int delta) {
         double length, lengthDirX, lengthDirY;
         length = hero.getSpeed() * delta;
         switch (keyIndex) {
             case 0: //right
-                lengthDirX = Math.cos(hero.getDirection() - Math.PI / 2) * length;
-                lengthDirY = Math.sin(hero.getDirection() - Math.PI / 2) * length;
+                lengthDirX = Math.cos(hero.getDirection() + Math.PI / 2) * length;
+                lengthDirY = Math.sin(hero.getDirection() + Math.PI / 2) * length;
                 hero.setX(hero.getX() + lengthDirX);
                 hero.setY(hero.getY() + lengthDirY);
                 break;
@@ -42,8 +42,8 @@ public class HeroManager {
                 hero.setY(hero.getY() - lengthDirY);
                 break;
             case 2: // left
-                lengthDirX = Math.cos(hero.getDirection() + Math.PI / 2) * length;
-                lengthDirY = Math.sin(hero.getDirection() + Math.PI / 2) * length;
+                lengthDirX = Math.cos(hero.getDirection() - Math.PI / 2) * length;
+                lengthDirY = Math.sin(hero.getDirection() - Math.PI / 2) * length;
                 hero.setX(hero.getX() + lengthDirX);
                 hero.setY(hero.getY() + lengthDirY);
                 break;
@@ -66,6 +66,10 @@ public class HeroManager {
         angle = Math.atan2((targetY - hero.getY()), (targetX - hero.getX()));
 
         hero.setDirection(angle);
+    }
+
+    public void rotate(final double angleOffset) {
+        hero.setDirection(hero.getDirection() + angleOffset);
     }
 
 }

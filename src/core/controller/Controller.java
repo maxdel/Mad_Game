@@ -21,9 +21,6 @@ public class Controller {
 
     public void update(GameContainer gc, final int delta) {
         heroController.update(gc, delta);
-
-        renderer.setMouseX(gc.getInput().getMouseX());
-        renderer.setMouseY(gc.getInput().getMouseY());
     }
 
 }
