@@ -10,17 +10,21 @@ public class HeroManager {
 
     public void move(final int keyIndex, final int delta) {
         switch (keyIndex) {
-            case 0:
+            case 0: //rigth
                 hero.setX(hero.getX() + hero.getSpeed() * delta);
+                hero.setLastDirection('r');
                 break;
-            case 1:
+            case 1: // up
                 hero.setY(hero.getY() - hero.getSpeed() * delta);
+                hero.setLastDirection('u');
                 break;
-            case 2:
+            case 2: // left
                 hero.setX(hero.getX() - hero.getSpeed() * delta);
+                hero.setLastDirection('l');
                 break;
-            case 3:
+            case 3: // down
                 hero.setY(hero.getY() + hero.getSpeed() * delta);
+                hero.setLastDirection('d');
                 break;
         }
     }
@@ -37,4 +41,7 @@ public class HeroManager {
         hero.setDirection(angle);
     }
 
+    public char getLastDirection() {
+        return hero.getLastDirection();
+    }
 }
