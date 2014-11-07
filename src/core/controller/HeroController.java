@@ -1,11 +1,12 @@
 package core.controller;
 
+/*import java.awt.Robot;
+import java.awt.AWTException;*/
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 
 import core.model.HeroManager;
-
-//import java.awt.Robot;
 
 public class HeroController {
 
@@ -25,7 +26,8 @@ public class HeroController {
 
         heroManager.rotate((mouseX - oldMouseX) * Math.PI / 144);
 
-/*        Robot robot = null;
+/*        // ----- Work fine with fullscreen ----
+        Robot robot = null;
         try {
             robot = new Robot();
         } catch (AWTException e) {
@@ -34,8 +36,13 @@ public class HeroController {
 
         if (gc.getInput().getMouseX() > 320 + 288) {
             assert robot != null;
-            robot.mouseMove(gc.getInput().getAbsoluteMouseX() - 144, gc.getInput().getAbsoluteMouseY());
-        }*/
+            robot.mouseMove(gc.getInput().getMouseX() - 288, gc.getInput().getMouseY());
+        }
+        if (gc.getInput().getMouseX() < 320 - 288) {
+            assert robot != null;
+            robot.mouseMove(gc.getInput().getMouseX() + 288, gc.getInput().getMouseY());
+        }
+        // ----- End -----*/
 
         if (gc.getInput().isKeyDown(Input.KEY_D)) {
             //heroManager.move(0, delta);
