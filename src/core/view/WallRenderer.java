@@ -1,15 +1,16 @@
 package core.view;
 
-import core.model.Wall;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-public class WallRepresentation extends GameObjectRepresentation {
+import core.model.Wall;
+
+public class WallRenderer extends GameObjectRenderer {
 
     Image wallImage;
 
-    public WallRepresentation(Wall wall) {
+    public WallRenderer(Wall wall) {
         super(wall);
 
         try {
@@ -17,11 +18,11 @@ public class WallRepresentation extends GameObjectRepresentation {
         } catch (SlickException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(wallImage, (float)gameObject.getX(), (float)gameObject.getY());
+        g.drawImage(wallImage, (float)gameObject.getX() - wallImage.getWidth() / 2,
+                (float)gameObject.getY() - wallImage.getHeight() / 2);
     }
 }

@@ -10,28 +10,24 @@ public class HeroManager {
 
     public void move(final int keyIndex, final int delta) {
         switch (keyIndex) {
-            case 0: //rigth
+            case 0: //right
                 hero.setX(hero.getX() + hero.getSpeed() * delta);
-                hero.setLastDirection('r');
                 break;
-            case 1: // up
-                hero.setY(hero.getY() - hero.getSpeed() * delta);
-                hero.setLastDirection('u');
+            case 1: // down
+                hero.setY(hero.getY() + hero.getSpeed() * delta);
                 break;
             case 2: // left
                 hero.setX(hero.getX() - hero.getSpeed() * delta);
-                hero.setLastDirection('l');
                 break;
-            case 3: // down
-                hero.setY(hero.getY() + hero.getSpeed() * delta);
-                hero.setLastDirection('d');
+            case 3: // up
+                hero.setY(hero.getY() - hero.getSpeed() * delta);
                 break;
         }
     }
 
-    public void rotate(final int targetX, int targetY) {
+    public void rotate(final int targetX, final int targetY) {
         double angle;
-/*        if (targetX - hero.getX() >= 0) {
+        /*if (targetX - hero.getX() >= 0) {
             angle = Math.atan((targetY - hero.getY()) / (targetX - hero.getX()));
         } else {
             angle = Math.atan((targetY - hero.getY())/(targetX - hero.getX())) + Math.PI;
@@ -41,7 +37,4 @@ public class HeroManager {
         hero.setDirection(angle);
     }
 
-    public char getLastDirection() {
-        return hero.getLastDirection();
-    }
 }

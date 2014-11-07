@@ -6,14 +6,13 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-public class HeroRepresentation extends GameObjectRepresentation {
+public class HeroRenderer extends GameObjectRenderer {
 
     private static final int ANIMATIONSPEED = 100;
     private Animation hero, movementUp, movementDown, movementLeft, movementRight, stillUp, stillDown, stillLeft, stillRight;
     private int w, h;
 
-
-    public HeroRepresentation(Hero heroEntity) throws SlickException {
+    public HeroRenderer(Hero heroEntity) throws SlickException {
         super(heroEntity);
         /**
          * Set the Image arrays needed for the animations.
@@ -49,13 +48,23 @@ public class HeroRepresentation extends GameObjectRepresentation {
     }
 
     public void render(Graphics g) {
-
         g.rotate((float) gameObject.getX(), (float) gameObject.getY(),
                 (float) (gameObject.getDirection() / Math.PI * 180 + 90));
 
-        hero.draw((float) gameObject.getX() - w/2, (float) gameObject.getY() - h/2);
-        g.rotate(0, 0, 0);
+        if (-Math.PI / 4 <= gameObject.getDirection() && gameObject.getDirection() < Math.PI / 4) {
+            setHero(movementRight);
+        } else if (Math.PI / 4 <= gameObject.getDirection() && gameObject.getDirection() < 3 * Math.PI / 4) {
+            setHero(movementDown);
+        } else if (3 * Math.PI / 4 <= gameObject.getDirection() && gameObject.getDirection() < 5 * Math.PI / 4) {
+            setHero(movementLeft);
+        } else if (7 * Math.PI / 4 <= gameObject.getDirection() && gameObject.getDirection() < 7 * Math.PI / 4) {
+            setHero(movementUp);
+        }
 
+        hero.draw((float) gameObject.getX() - w/2, (float) gameObject.getY() - h/2);
+
+        g.rotate((float) gameObject.getX(), (float) gameObject.getY(),
+                (float) -(gameObject.getDirection() / Math.PI * 180 + 90));
     }
 
 

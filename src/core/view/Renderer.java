@@ -11,30 +11,23 @@ import core.model.Wall;
 
 public class Renderer {
 
-    ArrayList<GameObject> gameObjects;
-
-    HeroRepresentation heroRepresentation;
-    WallRepresentation wallRepresentation;
+    ArrayList<GameObjectRenderer> gameObjectRenderers;
 
     public Renderer(final ArrayList<GameObject> gameObjects) throws SlickException {
-        heroRepresentation = new HeroRepresentation((Hero) gameObjects.get(1));
-        this.gameObjects = gameObjects;
-        }
-
-    public void render(Graphics g) throws SlickException {
+        gameObjectRenderers = new ArrayList<GameObjectRenderer>();
         for (GameObject gameObject : gameObjects) {
-            if (gameObject instanceof Wall) {
-                wallRepresentation = new WallRepresentation((Wall) gameObject);
-                wallRepresentation.render(g);
+            if (gameObject instanceof Hero) {
+                gameObjectRenderers.add(new HeroRenderer((Hero) gameObject));
+            } else if (gameObject instanceof Wall) {
+                gameObjectRenderers.add(new WallRenderer((Wall) gameObject));
             }
         }
-
-        // MUST BE RENDERED LAST
-        heroRepresentation.render(g);
     }
 
-    public HeroRepresentation getHeroRepresentation() {
-        return heroRepresentation;
+    public void render(Graphics g) throws SlickException {
+        for (GameObjectRenderer gameObjectRenderer : gameObjectRenderers) {
+            gameObjectRenderer.render(g);
+        }
     }
 
 }
