@@ -13,8 +13,13 @@ public class World {
 
         Hero hero = new Hero(200, 100, 0, 0.4f);
 
+
+
         gameObjects.add(new Wall(100, 100, 0, 0));
         gameObjects.add(hero);
+        gameObjects.add(new Wall(300, 300, 0, 0));
+
+
 
         heroManager = new HeroManager(hero);
     }

@@ -3,7 +3,6 @@ package core.view;
 import java.util.ArrayList;
 
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import core.model.GameObject;
@@ -14,28 +13,28 @@ public class Renderer {
 
     ArrayList<GameObject> gameObjects;
 
-    Image wallImage;
-    Image heroImage;
+    HeroRepresentation heroRepresentation;
+    WallRepresentation wallRepresentation;
 
     public Renderer(final ArrayList<GameObject> gameObjects) throws SlickException {
+        heroRepresentation = new HeroRepresentation((Hero) gameObjects.get(1));
         this.gameObjects = gameObjects;
+        }
 
-        wallImage = new Image("/res/Wall.png");
-        heroImage = new Image("/res/Hero.png");
-    }
-
-    public void render(Graphics g) {
+    public void render(Graphics g) throws SlickException {
         for (GameObject gameObject : gameObjects) {
             if (gameObject instanceof Wall) {
-                g.drawImage(wallImage, (float)gameObject.getX(), (float)gameObject.getY());
-            } else if (gameObject instanceof Hero) {
-                g.rotate((float)gameObject.getX(), (float)gameObject.getY(),
-                        (float)(gameObject.getDirection() / Math.PI * 180));
-                g.drawImage(heroImage, (float)gameObject.getX() - heroImage.getWidth() / 2,
-                        (float)gameObject.getY() - heroImage.getHeight() / 2);
-                g.rotate(0, 0, 0); // ??
+                wallRepresentation = new WallRepresentation((Wall) gameObject);
+                wallRepresentation.render(g);
             }
         }
+
+        // MUST BE RENDERED LAST
+        heroRepresentation.render(g);
+    }
+
+    public HeroRepresentation getHeroRepresentation() {
+        return heroRepresentation;
     }
 
 }
