@@ -31,9 +31,9 @@ public class Renderer {
             } else if (gameObject instanceof Hero) {
                 g.rotate((float)gameObject.getX(), (float)gameObject.getY(),
                         (float)(gameObject.getDirection() / Math.PI * 180));
-                g.drawImage(heroImage, (float) gameObject.getX() - heroImage.getWidth() / 2,
-                        (float) gameObject.getY() - heroImage.getHeight() / 2);
-                g.rotate(0, 0, 0); //???
+                g.drawImage(heroImage, (float)gameObject.getX() - heroImage.getWidth() / 2,
+                        (float)gameObject.getY() - heroImage.getHeight() / 2);
+                g.rotate(0, 0, 0); // ??
             }
         }
     }

@@ -25,13 +25,15 @@ public class HeroManager {
         }
     }
 
-    public void rotate(final int targetX, final int targetY) {
+    public void rotate(final int targetX, int targetY) {
         double angle;
-        if (targetX - hero.getX() >= 0) {
-            angle = Math.atan((targetY - hero.getY())/(targetX - hero.getX()));
+/*        if (targetX - hero.getX() >= 0) {
+            angle = Math.atan((targetY - hero.getY()) / (targetX - hero.getX()));
         } else {
-            angle = Math.atan((targetY - hero.getY())/(targetX - hero.getX())) - Math.PI;
-        }
+            angle = Math.atan((targetY - hero.getY())/(targetX - hero.getX())) + Math.PI;
+        }*/
+        angle = Math.atan2((targetY - hero.getY()), (targetX - hero.getX()));
+
         hero.setDirection(angle);
     }
 
