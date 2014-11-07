@@ -11,7 +11,12 @@ import core.model.Wall;
 
 public class Renderer {
 
-    ArrayList<GameObjectRenderer> gameObjectRenderers;
+    private ArrayList<GameObjectRenderer> gameObjectRenderers;
+
+    private int mouseX, mouseY;
+    private int oldMouseX, oldMouseY;
+
+    private double globalRenderAngle;
 
     public Renderer(final ArrayList<GameObject> gameObjects) throws SlickException {
         gameObjectRenderers = new ArrayList<GameObjectRenderer>();
@@ -22,12 +27,44 @@ public class Renderer {
                 gameObjectRenderers.add(new WallRenderer((Wall) gameObject));
             }
         }
+
+        globalRenderAngle = 0;
     }
 
     public void render(Graphics g) throws SlickException {
+        float x = 0, y = 0;
         for (GameObjectRenderer gameObjectRenderer : gameObjectRenderers) {
-            gameObjectRenderer.render(g);
+            if (gameObjectRenderer instanceof HeroRenderer) {
+                //globalRenderAngle = gameObjectRenderer.gameObject.getDirection();
+                x = (float) gameObjectRenderer.gameObject.getX();
+                y = (float) gameObjectRenderer.gameObject.getY();
+            }
         }
+
+        globalRenderAngle += (mouseX - oldMouseX);
+
+        float rotateAngle = (float) (globalRenderAngle / Math.PI * 180);
+
+        g.rotate(x, y, rotateAngle);
+        for (GameObjectRenderer gameObjectRenderer : gameObjectRenderers) {
+            if (gameObjectRenderer instanceof HeroRenderer) {
+                g.rotate(x, y, -rotateAngle);
+                gameObjectRenderer.render(g);
+                g.rotate(x, y, rotateAngle);
+            } else {
+                gameObjectRenderer.render(g);
+            }
+        }
+        g.rotate(x, y, -rotateAngle);
     }
 
+    public void setMouseX(int mouseX) {
+        oldMouseX = this.mouseX;
+        this.mouseX = mouseX;
+    }
+
+    public void setMouseY(int mouseY) {
+        oldMouseY = this.mouseY;
+        this.mouseY = mouseY;
+    }
 }
