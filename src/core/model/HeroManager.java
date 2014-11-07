@@ -1,7 +1,5 @@
 package core.model;
 
-import main.Main;
-
 public class HeroManager {
 
     private Hero hero;
@@ -27,9 +25,15 @@ public class HeroManager {
         }
     }
 
-    public void rotate(final int mouseX, final int mouseY) {
+    public void rotate(final int targetX, int targetY) {
         double angle;
-        angle = Math.atan2(mouseY - hero.getY(), mouseX - hero.getX());
+/*        if (targetX - hero.getX() >= 0) {
+            angle = Math.atan((targetY - hero.getY()) / (targetX - hero.getX()));
+        } else {
+            angle = Math.atan((targetY - hero.getY())/(targetX - hero.getX())) + Math.PI;
+        }*/
+        angle = Math.atan2((targetY - hero.getY()), (targetX - hero.getX()));
+
         hero.setDirection(angle);
     }
 
