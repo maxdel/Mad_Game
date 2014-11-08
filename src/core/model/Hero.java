@@ -5,7 +5,7 @@ package core.model;
  * */
 public class Hero extends GameObject {
 
-    public Hero(double x, double y, double direction, double speed) {
+    public Hero(final double x, final double y, final double direction, final double speed) {
         super(x, y, direction, speed);
     }
 

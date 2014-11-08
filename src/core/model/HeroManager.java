@@ -1,5 +1,7 @@
 package core.model;
 
+import core.controller.DirKey;
+
 /**
  * Contains methods to define hero behavior
  * */
@@ -7,7 +9,7 @@ public class HeroManager {
 
     private Hero hero;
 
-    public HeroManager(Hero hero) {
+    public HeroManager(final Hero hero) {
         this.hero = hero;
     }
 
@@ -30,29 +32,30 @@ public class HeroManager {
     }
 */
 
-    public void move(final int keyIndex, final int delta) {
+    public void move(final DirKey keyIndex, final int delta) {
         double length, lengthDirX, lengthDirY;
         length = hero.getSpeed() * delta;
+
         switch (keyIndex) {
-            case 0: //right
+            case RIGHT: //right
                 lengthDirX = Math.cos(hero.getDirection() + Math.PI / 2) * length;
                 lengthDirY = Math.sin(hero.getDirection() + Math.PI / 2) * length;
                 hero.setX(hero.getX() + lengthDirX);
                 hero.setY(hero.getY() + lengthDirY);
                 break;
-            case 1: // back
+            case BOT: // back
                 lengthDirX = Math.cos(hero.getDirection()) * length;
                 lengthDirY = Math.sin(hero.getDirection()) * length;
                 hero.setX(hero.getX() - lengthDirX);
                 hero.setY(hero.getY() - lengthDirY);
                 break;
-            case 2: // left
+            case LEFT: // left
                 lengthDirX = Math.cos(hero.getDirection() - Math.PI / 2) * length;
                 lengthDirY = Math.sin(hero.getDirection() - Math.PI / 2) * length;
                 hero.setX(hero.getX() + lengthDirX);
                 hero.setY(hero.getY() + lengthDirY);
                 break;
-            case 3: // forward
+            case TOP: // forward
                 lengthDirX = Math.cos(hero.getDirection()) * length;
                 lengthDirY = Math.sin(hero.getDirection()) * length;
                 hero.setX(hero.getX() + lengthDirX);
@@ -73,7 +76,7 @@ public class HeroManager {
         hero.setDirection(angle);
     }
 
-    public void rotate(double angleOffset) {
+    public void rotate(final double angleOffset) {
 /*        if (angleOffset > 0.1) {
             angleOffset = 0.1;
         } else if (angleOffset < -0.1) {

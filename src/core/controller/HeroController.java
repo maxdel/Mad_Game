@@ -14,7 +14,9 @@ public class HeroController {
     private int mouseX, mouseY;
     private int oldMouseX, oldMouseY;
 
-    public HeroController(HeroManager heroManager) {
+    final double rotateSpeed = 1/288;
+
+    public HeroController(final HeroManager heroManager) {
         this.heroManager = heroManager;
     }
 
@@ -24,26 +26,28 @@ public class HeroController {
         mouseX = gc.getInput().getMouseX();
         mouseY = gc.getInput().getMouseY();
 
-        heroManager.rotate((mouseX - oldMouseX) * Math.PI / 144);
+        heroManager.rotate((mouseX - oldMouseX) * (2 * Math.PI) * rotateSpeed);
 
-        if (gc.getInput().getMouseX() > 320 + 288) {
-            org.lwjgl.input.Mouse.setCursorPosition(gc.getInput().getMouseX() - 288, gc.getInput().getMouseY());
+        if (gc.getInput().getMouseX() > gc.getWidth() + 1 / rotateSpeed) {
+            org.lwjgl.input.Mouse.setCursorPosition((int) (gc.getInput().getMouseX() - (1 / rotateSpeed)),
+                    gc.getInput().getMouseY());
         }
-        if (gc.getInput().getMouseX() < 320 - 288) {
-            org.lwjgl.input.Mouse.setCursorPosition(gc.getInput().getMouseX() + 288, gc.getInput().getMouseY());
+        if (gc.getInput().getMouseX() < gc.getWidth() - 1 / rotateSpeed) {
+            org.lwjgl.input.Mouse.setCursorPosition((int) (gc.getInput().getMouseX() + (1 / rotateSpeed)),
+                    gc.getInput().getMouseY());
         }
 
         if (gc.getInput().isKeyDown(Input.KEY_D)) {
-            heroManager.move(0, delta);
+            heroManager.move(DirKey.RIGHT, delta);
         }
         if (gc.getInput().isKeyDown(Input.KEY_S)) {
-            heroManager.move(1, delta);
+            heroManager.move(DirKey.BOT, delta);
         }
         if (gc.getInput().isKeyDown(Input.KEY_A)) {
-            heroManager.move(2, delta);
+            heroManager.move(DirKey.LEFT, delta);
         }
         if (gc.getInput().isKeyDown(Input.KEY_W)) {
-            heroManager.move(3, delta);
+            heroManager.move(DirKey.TOP, delta);
         }
     }
 

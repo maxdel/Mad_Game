@@ -15,7 +15,7 @@ public abstract class GameObject {
 
     }
 
-    public GameObject(double x, double y, double direction, double speed) {
+    public GameObject(final double x, final double y, final double direction, final double speed) {
         this.x = x;
         this.y = y;
         this.direction = direction;

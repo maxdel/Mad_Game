@@ -11,11 +11,11 @@ import core.view.Renderer;
  */
 public class Controller {
 
-    World world;
-    Renderer renderer;
-    HeroController heroController;
+    private World world;
+    private Renderer renderer;
+    private HeroController heroController;
 
-    public Controller(World world, Renderer renderer) throws SlickException{
+    public Controller(final World world, final Renderer renderer) throws SlickException{
         this.world = world;
         this.renderer = renderer;
 
