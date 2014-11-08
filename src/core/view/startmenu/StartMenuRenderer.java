@@ -11,7 +11,6 @@ import java.awt.Font;
  */
 public class StartMenuRenderer {
 
-    private StartMenuController startMenuController = new StartMenuController(); // must be singleton
     private String[] playerChoices = new String[] {"NEW", "LOAD", "HELP", "EXIT"};
     private Font menuItemFont;
     private TrueTypeFont menuItemTTF;
