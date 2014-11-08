@@ -1,4 +1,4 @@
-package core.model;
+package core.model.gameplay;
 
 /**
  * Contains methods to define hero behavior

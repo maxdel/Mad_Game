@@ -60,6 +60,15 @@ public class HeroController {
             direction += Math.PI / 2; // because top (270) means forward (0) for hero
             heroManager.move(direction, delta);
         }
+        if (gc.getInput().isKeyDown(Input.KEY_S)) {
+            heroManager.move(DirectionKey.BOTTOM, delta);
+        }
+        if (gc.getInput().isKeyDown(Input.KEY_A)) {
+            heroManager.move(DirectionKey.LEFT, delta);
+        }
+        if (gc.getInput().isKeyDown(Input.KEY_W)) {
+            heroManager.move(DirectionKey.TOP, delta);
+        }
     }
-
+    
 }
