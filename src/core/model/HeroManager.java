@@ -68,7 +68,12 @@ public class HeroManager {
         hero.setDirection(angle);
     }
 
-    public void rotate(final double angleOffset) {
+    public void rotate(double angleOffset) {
+/*        if (angleOffset > 0.1) {
+            angleOffset = 0.1;
+        } else if (angleOffset < -0.1) {
+            angleOffset = -0.1;
+        }*/
         hero.setDirection(hero.getDirection() + angleOffset);
     }
 
