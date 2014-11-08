@@ -52,5 +52,14 @@ public class StartMenuState extends BasicGameState {
         startMenuController.update(gameContainer, stateBasedGame);
     }
 
+    @Override
+    public void enter(GameContainer container, StateBasedGame game) throws SlickException {
+        super.enter(container, game);
+    }
+
+    @Override
+    public void leave(GameContainer container, StateBasedGame game) throws SlickException {
+        super.leave(container, game);
+    }
 }
 

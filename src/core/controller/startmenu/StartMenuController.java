@@ -5,6 +5,7 @@ import core.model.startmenu.StartMenu;
 import core.model.startmenu.StartMenuManager;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 /*
@@ -23,7 +24,7 @@ public class StartMenuController {
 
     StartMenuManager startMenuManager = new StartMenuManager();
 
-    public void update(GameContainer gameContainer, StateBasedGame stateBasedGame) {
+    public void update(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException {
         Input input = gameContainer.getInput();
         if (input.isKeyPressed(Input.KEY_S)) {
             startMenuManager.stepDown();
@@ -37,6 +38,8 @@ public class StartMenuController {
             switch (StartMenu.getCurrentChoice()) {
                 case StartMenu.START:
                     stateBasedGame.enterState(GamePlayState.STATE_ID);
+                    //stateBasedGame.
+                    //GamePlayState.getInstance().enter(gameContainer, stateBasedGame);
                     break;
                 case StartMenu.LOAD:
                     break;
