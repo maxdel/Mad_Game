@@ -24,14 +24,11 @@ public class HeroController {
         heroManager.rotate((mouseX - oldMouseX) * Math.PI / 144);
 
         if (gc.getInput().getMouseX() > 320 + 288) {
-            org.lwjgl.input.Mouse.setCursorPosition(gc.getInput().getMouseX() - 288, gc.getInput().getMouseY());
-            //robot.mouseMove(gc.getInput().getMouseX() - 288, gc.getInput().getMouseY());
+            org.lwjgl.input.Mouse.setCursorPosition(gc.getInput().getMouseX() - 288, gc.getHeight() - gc.getInput().getMouseY());
         }
         if (gc.getInput().getMouseX() < 320 - 288) {
-            org.lwjgl.input.Mouse.setCursorPosition(gc.getInput().getMouseX() + 288, gc.getInput().getMouseY());
-            //robot.mouseMove(gc.getInput().getMouseX() + 288, gc.getInput().getMouseY());
+            org.lwjgl.input.Mouse.setCursorPosition(gc.getInput().getMouseX() + 288, gc.getHeight() - gc.getInput().getMouseY());
         }
-        // ----- End -----*/
 
         if (gc.getInput().isKeyDown(Input.KEY_D)) {
             //heroManager.move(0, delta);

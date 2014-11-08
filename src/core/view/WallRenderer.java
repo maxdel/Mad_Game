@@ -27,8 +27,8 @@ public class WallRenderer extends GameObjectRenderer {
     }
 
     @Override
-    public void render(Graphics g, final double viewX, final double viewY, final double direction) {
-        float rotateAngle = (float) (direction / Math.PI * 180 + 90);
+    public void render(Graphics g, final double viewX, final double viewY, final double viewDirection) {
+        float rotateAngle = (float) (viewDirection / Math.PI * 180 + 90);
 
         float xx = 320;
         float yy = 240;
@@ -40,4 +40,5 @@ public class WallRenderer extends GameObjectRenderer {
                 (float) (gameObject.getX() - viewX), (float) (gameObject.getY() - viewY));
         g.rotate(xx, yy, rotateAngle);
     }
+
 }

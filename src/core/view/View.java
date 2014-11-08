@@ -5,6 +5,8 @@ public class View {
     private double x;
     private double y;
 
+    private double direction;
+
     public View() {
         x = 0;
         y = 0;
@@ -30,4 +32,13 @@ public class View {
     public void setY(double y) {
         this.y = y;
     }
+
+    public double getDirection() {
+        return direction;
+    }
+
+    public void setDirection(double direction) {
+        this.direction = direction;
+    }
+
 }
