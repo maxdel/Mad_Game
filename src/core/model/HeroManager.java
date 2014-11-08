@@ -1,7 +1,5 @@
 package core.model;
 
-import core.DirectionKey;
-
 /**
  * Contains methods to define hero behavior
  * */
@@ -13,41 +11,20 @@ public class HeroManager {
         this.hero = hero;
     }
 
-    public void move(final DirectionKey keyIndex, final int delta) {
+    /**
+     * Relatively moves hero in specified direction
+     * @param direction relative direction to move in radians
+     * @param delta time in ms from the previous update
+     */
+    public void move(final double direction, final int delta) {
         double length, lengthDirX, lengthDirY;
         length = hero.getSpeed() * delta;
 
-        switch (keyIndex) {
-            case RIGHT:
-                lengthDirX = Math.cos(hero.getDirection() + Math.PI / 2) * length;
-                lengthDirY = Math.sin(hero.getDirection() + Math.PI / 2) * length;
-                hero.setX(hero.getX() + lengthDirX);
-                hero.setY(hero.getY() + lengthDirY);
-                break;
-            case BOTTOM:
-                lengthDirX = Math.cos(hero.getDirection()) * length;
-                lengthDirY = Math.sin(hero.getDirection()) * length;
-                hero.setX(hero.getX() - lengthDirX);
-                hero.setY(hero.getY() - lengthDirY);
-                break;
-            case LEFT:
-                lengthDirX = Math.cos(hero.getDirection() - Math.PI / 2) * length;
-                lengthDirY = Math.sin(hero.getDirection() - Math.PI / 2) * length;
-                hero.setX(hero.getX() + lengthDirX);
-                hero.setY(hero.getY() + lengthDirY);
-                break;
-            case TOP:
-                lengthDirX = Math.cos(hero.getDirection()) * length;
-                lengthDirY = Math.sin(hero.getDirection()) * length;
-                hero.setX(hero.getX() + lengthDirX);
-                hero.setY(hero.getY() + lengthDirY);
-                break;
-        }
-    }
+        lengthDirX = Math.cos(hero.getDirection() + direction) * length;
+        lengthDirY = Math.sin(hero.getDirection() + direction) * length;
 
-    public void rotate(final int targetX, final int targetY) {
-        double angle = Math.atan2((targetY - hero.getY()), (targetX - hero.getX()));
-        hero.setDirection(angle);
+        hero.setX(hero.getX() + lengthDirX);
+        hero.setY(hero.getY() + lengthDirY);
     }
 
     public void rotate(final double angleOffset) {
