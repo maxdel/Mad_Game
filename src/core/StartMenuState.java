@@ -21,8 +21,9 @@ public class StartMenuState extends BasicGameState {
     private final int LOAD = 1;
     private final int HELP = 2;
     private final int EXIT = 3;
-    private String[] playerChoices = new String[NUMBER_OF_CHOICES];
-    private int currentChoice = NUMBER_OF_CHOICES - 1;
+    private String[] playerChoices = new String[] {"NEW", "LOAD", "HELP", "EXIT"};
+
+    private int currentChoice = 0;
 
 
     private Font menuItemFont, helpMsgFont;
@@ -52,16 +53,17 @@ public class StartMenuState extends BasicGameState {
         menuItemTTF = new TrueTypeFont(menuItemFont, true);
         heplMsgTTF = new TrueTypeFont(helpMsgFont, true);
 
+
     }
 
     @Override
     public void render(GameContainer gameContainer, StateBasedGame stateBasedGame, Graphics graphics) throws SlickException {
         for (int i = 0; i < NUMBER_OF_CHOICES; i++) {
             if (i != currentChoice) {
-                menuItemTTF.drawString( 300, i * 50 + 200, playerChoices[i], new Color(200, 200, 200));
+                menuItemTTF.drawString(255, i * 50 + 130, playerChoices[i], new Color(200, 200, 200));
             }
             else {
-                menuItemTTF.drawString( 300, i * 50 + 200, playerChoices[i], new Color(255, 153, 0));
+                menuItemTTF.drawString(255, i * 50 + 130, playerChoices[i], new Color(255, 153, 0));
             }
         }
     }
@@ -70,17 +72,21 @@ public class StartMenuState extends BasicGameState {
     public void update(GameContainer gameContainer, StateBasedGame stateBasedGame, int delta) throws SlickException {
         Input input = gameContainer.getInput();
         if (input.isKeyPressed(Input.KEY_S)) {
-            if (currentChoice == 0) {
-                currentChoice = NUMBER_OF_CHOICES - 1;
-            }
-            currentChoice--;
-        }
-
-        if (input.isKeyPressed(Input.KEY_W)) {
             if (currentChoice == NUMBER_OF_CHOICES - 1) {
                 currentChoice = 0;
             }
-            currentChoice++;
+            else {
+                currentChoice++;
+            }
+        }
+
+        if (input.isKeyPressed(Input.KEY_W)) {
+            if (currentChoice == 0) {
+                currentChoice = NUMBER_OF_CHOICES - 1;
+            }
+            else {
+                currentChoice--;
+            }
         }
 
         if (input.isKeyPressed(Input.KEY_ENTER)) {
