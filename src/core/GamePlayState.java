@@ -56,8 +56,6 @@ public class GamePlayState extends BasicGameState {
 
     @Override
     public void enter(GameContainer gc, StateBasedGame game) throws SlickException {
-        gc.setVSync(true);
-
         world = World.getInstance();
         gamePlayRenderer = GamePlayRenderer.getInstance(world.getGameObjects(), world.getHero());
         gamePlayController = GamePlayController.getInstance(world, gamePlayRenderer);

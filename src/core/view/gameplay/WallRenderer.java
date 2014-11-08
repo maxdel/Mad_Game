@@ -1,5 +1,6 @@
 package core.view.gameplay;
 
+import core.model.gameplay.GameObject;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -10,7 +11,7 @@ public class WallRenderer extends GameObjectRenderer {
 
     Image wallImage;
 
-    public WallRenderer(Wall wall) {
+    public WallRenderer(GameObject wall) {
         super(wall);
 
         try {

@@ -41,17 +41,17 @@ public class StartMenuController {
         }
 
         if (input.isKeyPressed(Input.KEY_ENTER)) {
-            switch (startMenu.getCurrentChoice()) {
-                case StartMenu.START:
-                    game.enterState(GamePlayState.getInstance().getID());
-                    break;
-                case StartMenu.LOAD:
-                    break;
-                case StartMenu.HELP:
-                    break;
-                case StartMenu.EXIT:
-                    gc.exit();
-                    break;
+            if (startMenu.getCurrentChoice() == startMenu.getMenuId("Start")) {
+                game.enterState(GamePlayState.getInstance().getID());
+            }
+            else if (startMenu.getCurrentChoice() == startMenu.getMenuId("Load")) {
+
+            }
+            else if (startMenu.getCurrentChoice() == startMenu.getMenuId("Help")) {
+
+            }
+            else if (startMenu.getCurrentChoice() == startMenu.getMenuId("Exit")) {
+                gc.exit();
             }
         }
     }

@@ -33,7 +33,7 @@ public class StartMenuRenderer {
     }
 
     public void render() {
-        for (int i = 0; i < startMenu.NUMBER_OF_CHOICES; i++) {
+        for (int i = 0; i < startMenu.getNumberOfChoices(); i++) {
             if (i != startMenu.getCurrentChoice()) {
                 menuItemTTF.drawString(255, i * 50 + 130, playerChoices[i], new org.newdawn.slick.Color(200, 200, 200));
             }

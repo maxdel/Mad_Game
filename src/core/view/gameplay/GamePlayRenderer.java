@@ -25,7 +25,7 @@ public class GamePlayRenderer {
         gameObjectRenderers = new ArrayList<GameObjectRenderer>();
         for (GameObject gameObject : gameObjects) {
             if (gameObject instanceof Wall) {
-                gameObjectRenderers.add(new WallRenderer((Wall) gameObject));
+                gameObjectRenderers.add(new WallRenderer(gameObject));
             }
         }
 
@@ -53,6 +53,5 @@ public class GamePlayRenderer {
             gameObjectRenderer.render(g, view.getX(), view.getY(), view.getDirection());
         }
     }
-
 
 }

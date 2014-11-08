@@ -2,6 +2,9 @@ package core.model.startmenu;
 
 import org.newdawn.slick.state.StateBasedGame;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Contains state of the start menu
  */
@@ -9,16 +12,16 @@ public class StartMenu {
 
     private static StartMenu instance;
 
-    public static final int NUMBER_OF_CHOICES = 4;
-    public static final int START = 0;
-    public static final int LOAD = 1;
-    public static final int HELP = 2;
-    public static final int EXIT = 3;
+    private Map<String, Integer> menuMap;
 
     private int currentChoice;
 
     private StartMenu() {
-
+        menuMap = new HashMap<String, Integer>();
+        menuMap.put("Start", 0);
+        menuMap.put("Load", 1);
+        menuMap.put("Help", 2);
+        menuMap.put("Exit", 3);
     }
 
     public static StartMenu getInstance() {
@@ -34,6 +37,14 @@ public class StartMenu {
 
     public void setCurrentChoice(int currentChoice) {
         this.currentChoice = currentChoice;
+    }
+
+    public int getMenuId(String string) {
+        return menuMap.get(string);
+    }
+
+    public int getNumberOfChoices() {
+        return menuMap.size();
     }
 
 }

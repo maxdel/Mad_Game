@@ -15,6 +15,7 @@ public class Main {
         try {
             AppGameContainer appgc;
             appgc = new AppGameContainer(GameStatesContainer.getInstance("Mad Game"));
+            appgc.setVSync(true);
             appgc.setDisplayMode(640, 480, false);
             appgc.start();
         }
