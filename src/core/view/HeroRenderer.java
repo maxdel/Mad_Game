@@ -14,7 +14,7 @@ import core.model.Hero;
 public class HeroRenderer extends GameObjectRenderer {
 
     private int imageWidth, imageHeight;
-    private final int animationSpeed;
+    private final int animationSpeed = 100;
     private Animation animation;
 
     public HeroRenderer(Hero hero) throws SlickException {
@@ -23,7 +23,6 @@ public class HeroRenderer extends GameObjectRenderer {
         imageWidth = 50;
         imageHeight = 50;
 
-        animationSpeed = 100;
         SpriteSheet spriteSheet = new SpriteSheet("/res/Hero.png", imageWidth, imageHeight);
         animation = new Animation(spriteSheet, animationSpeed);
     }

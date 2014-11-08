@@ -1,6 +1,6 @@
 package core.model;
 
-import core.controller.DirKey;
+import core.DirectionKey;
 
 /**
  * Contains methods to define hero behavior
@@ -32,30 +32,30 @@ public class HeroManager {
     }
 */
 
-    public void move(final DirKey keyIndex, final int delta) {
+    public void move(final DirectionKey keyIndex, final int delta) {
         double length, lengthDirX, lengthDirY;
         length = hero.getSpeed() * delta;
 
         switch (keyIndex) {
-            case RIGHT: //right
+            case RIGHT:
                 lengthDirX = Math.cos(hero.getDirection() + Math.PI / 2) * length;
                 lengthDirY = Math.sin(hero.getDirection() + Math.PI / 2) * length;
                 hero.setX(hero.getX() + lengthDirX);
                 hero.setY(hero.getY() + lengthDirY);
                 break;
-            case BOT: // back
+            case BOTTOM:
                 lengthDirX = Math.cos(hero.getDirection()) * length;
                 lengthDirY = Math.sin(hero.getDirection()) * length;
                 hero.setX(hero.getX() - lengthDirX);
                 hero.setY(hero.getY() - lengthDirY);
                 break;
-            case LEFT: // left
+            case LEFT:
                 lengthDirX = Math.cos(hero.getDirection() - Math.PI / 2) * length;
                 lengthDirY = Math.sin(hero.getDirection() - Math.PI / 2) * length;
                 hero.setX(hero.getX() + lengthDirX);
                 hero.setY(hero.getY() + lengthDirY);
                 break;
-            case TOP: // forward
+            case TOP:
                 lengthDirX = Math.cos(hero.getDirection()) * length;
                 lengthDirY = Math.sin(hero.getDirection()) * length;
                 hero.setX(hero.getX() + lengthDirX);
@@ -84,5 +84,4 @@ public class HeroManager {
         }*/
         hero.setDirection(hero.getDirection() + angleOffset);
     }
-
 }
