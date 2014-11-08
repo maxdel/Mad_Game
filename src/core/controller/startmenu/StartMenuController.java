@@ -12,6 +12,15 @@ import org.newdawn.slick.state.StateBasedGame;
 * */
 public class StartMenuController {
 
+    private static StartMenuController instance;
+
+    public static StartMenuController getInstance() {
+        if (instance == null) {
+            instance = new StartMenuController();
+        }
+        return instance;
+    }
+
     StartMenuManager startMenuManager = new StartMenuManager();
 
     public void update(GameContainer gameContainer, StateBasedGame stateBasedGame) {
@@ -39,4 +48,5 @@ public class StartMenuController {
             }
         }
     }
+
 }

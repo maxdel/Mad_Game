@@ -1,6 +1,5 @@
 package core.view.startmenu;
 
-import core.controller.startmenu.StartMenuController;
 import core.model.startmenu.StartMenu;
 import org.newdawn.slick.*;
 
@@ -15,10 +14,19 @@ public class StartMenuRenderer {
     private Font menuItemFont;
     private TrueTypeFont menuItemTTF;
 
-    public StartMenuRenderer() {
+    private static StartMenuRenderer instance;
+
+    private StartMenuRenderer() {
         menuItemFont = new Font("Verdana", Font.BOLD, 40);
         menuItemTTF = new TrueTypeFont(menuItemFont, true);
 
+    }
+
+    public static StartMenuRenderer getInstance() {
+        if (instance == null) {
+            instance = new StartMenuRenderer();
+        }
+        return instance;
     }
 
     public void render() {
@@ -31,4 +39,5 @@ public class StartMenuRenderer {
             }
         }
     }
+
 }

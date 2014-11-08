@@ -22,8 +22,8 @@ public class StartMenuState extends BasicGameState {
     private StartMenuRenderer startMenuRenderer;
 
     private StartMenuState() {
-        startMenuController = new StartMenuController();
-        startMenuRenderer = new StartMenuRenderer();
+        startMenuController = StartMenuController.getInstance();
+        startMenuRenderer = StartMenuRenderer.getInstance();
     }
 
     public static StartMenuState getInstance() {
@@ -51,5 +51,6 @@ public class StartMenuState extends BasicGameState {
     public void update(GameContainer gameContainer, StateBasedGame stateBasedGame, int delta) throws SlickException {
         startMenuController.update(gameContainer, stateBasedGame);
     }
+
 }
 

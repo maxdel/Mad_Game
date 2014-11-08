@@ -23,4 +23,5 @@ public class StartMenuManager {
             StartMenu.setCurrentChoice(StartMenu.getCurrentChoice() + 1);
         }
     }
+
 }

@@ -7,7 +7,6 @@ import org.newdawn.slick.state.StateBasedGame;
  */
 public abstract class StartMenu {
 
-
     public static final int NUMBER_OF_CHOICES = 4;
     public static final int START = 0;
     public static final int LOAD = 1;
@@ -24,4 +23,5 @@ public abstract class StartMenu {
     public static void setCurrentChoice(int currentChoice) {
         StartMenu.currentChoice = currentChoice;
     }
+
 }

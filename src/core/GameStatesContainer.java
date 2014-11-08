@@ -24,4 +24,5 @@ public class GameStatesContainer extends StateBasedGame {
         addState(StartMenuState.getInstance());
         addState(GamePlayState.getInstance());
     }
+
 }
