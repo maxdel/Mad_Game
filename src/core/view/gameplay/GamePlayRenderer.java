@@ -1,4 +1,4 @@
-package core.view;
+package core.view.gameplay;
 
 import java.util.ArrayList;
 
@@ -6,19 +6,22 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-import core.model.GameObject;
-import core.model.Hero;
-import core.model.Wall;
+import core.model.gameplay.GameObject;
+import core.model.gameplay.Hero;
+import core.model.gameplay.Wall;
 
-public class Renderer {
+/*
+* Renders game play game state
+* */
+public class GamePlayRenderer {
 
-    private static Renderer instance;
+    private static GamePlayRenderer instance;
 
     private ArrayList<GameObjectRenderer> gameObjectRenderers;
     private HeroRenderer heroRenderer;
     private View view;
 
-    private Renderer(ArrayList<GameObject> gameObjects, Hero hero) throws SlickException {
+    private GamePlayRenderer(ArrayList<GameObject> gameObjects, Hero hero) throws SlickException {
         gameObjectRenderers = new ArrayList<GameObjectRenderer>();
         for (GameObject gameObject : gameObjects) {
             if (gameObject instanceof Wall) {
@@ -32,9 +35,9 @@ public class Renderer {
     }
 
     // Singleton pattern method
-    public static Renderer getInstance(ArrayList<GameObject> gameObjects, Hero hero) throws SlickException {
+    public static GamePlayRenderer getInstance(ArrayList<GameObject> gameObjects, Hero hero) throws SlickException {
         if (instance == null) {
-            instance = new Renderer(gameObjects, hero);
+            instance = new GamePlayRenderer(gameObjects, hero);
         }
         return instance;
     }

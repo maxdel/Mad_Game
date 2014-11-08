@@ -1,4 +1,4 @@
-package core.model;
+package core.model.gameplay;
 
 import java.util.ArrayList;
 
@@ -36,6 +36,7 @@ public class World {
         }
         return instance;
     }
+
     public ArrayList<GameObject> getGameObjects() {
         return gameObjects;
     }
