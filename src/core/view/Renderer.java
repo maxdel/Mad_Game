@@ -2,6 +2,7 @@ package core.view;
 
 import java.util.ArrayList;
 
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
@@ -12,38 +13,31 @@ import core.model.Wall;
 public class Renderer {
 
     private ArrayList<GameObjectRenderer> gameObjectRenderers;
+    private HeroRenderer heroRenderer;
+    private View view;
 
-    View view;
-
-    public Renderer(final ArrayList<GameObject> gameObjects) throws SlickException {
+    public Renderer(ArrayList<GameObject> gameObjects, Hero hero) throws SlickException {
         gameObjectRenderers = new ArrayList<GameObjectRenderer>();
         for (GameObject gameObject : gameObjects) {
-            if (gameObject instanceof Hero) {
-                gameObjectRenderers.add(new HeroRenderer((Hero) gameObject));
-            } else if (gameObject instanceof Wall) {
+            if (gameObject instanceof Wall) {
                 gameObjectRenderers.add(new WallRenderer((Wall) gameObject));
             }
         }
 
+        heroRenderer = new HeroRenderer(hero);
+
         view = new View();
     }
 
-    public void render(Graphics g) throws SlickException {
-        float x = 0, y = 0, dir = 0;
-        for (GameObjectRenderer gameObjectRenderer : gameObjectRenderers) {
-            if (gameObjectRenderer instanceof HeroRenderer) {
-                dir = (float) gameObjectRenderer.gameObject.getDirection();
-                view.setX(gameObjectRenderer.gameObject.getX() - 320);
-                view.setY(gameObjectRenderer.gameObject.getY() - 240);
-            }
-        }
+    public void render(GameContainer gc, Graphics g) throws SlickException {
+        view.setDirection(heroRenderer.getHero().getDirection());
+        view.setX(heroRenderer.getHero().getX() - gc.getWidth() / 2);
+        view.setY(heroRenderer.getHero().getY() - gc.getHeight() / 2);
+
+        heroRenderer.render(g);
 
         for (GameObjectRenderer gameObjectRenderer : gameObjectRenderers) {
-            if (gameObjectRenderer instanceof HeroRenderer) {
-                gameObjectRenderer.render(g);
-            } else {
-                gameObjectRenderer.render(g, view.getX(), view.getY(), dir);
-            }
+            gameObjectRenderer.render(g, view.getX(), view.getY(), view.getDirection());
         }
     }
 

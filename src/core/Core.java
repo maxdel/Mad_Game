@@ -24,7 +24,7 @@ public class Core extends BasicGame {
         gc.setVSync(true);
 
         world = new World();
-        renderer = new Renderer(world.getGameObjects());
+        renderer = new Renderer(world.getGameObjects(), world.getHero());
         controller = new Controller(world, renderer);
     }
 
@@ -35,7 +35,7 @@ public class Core extends BasicGame {
 
     @Override
     public void render(GameContainer gc, Graphics g) throws SlickException {
-        renderer.render(g);
+        renderer.render(gc, g);
     }
 
 }

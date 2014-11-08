@@ -1,7 +1,11 @@
 package core.view;
 
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Animation;
+import org.newdawn.slick.SpriteSheet;
+import org.newdawn.slick.SlickException;
+
 import core.model.Hero;
-import org.newdawn.slick.*;
 
 /**
  * Provides functions for the definition of actors, as well as actor
@@ -9,9 +13,9 @@ import org.newdawn.slick.*;
  */
 public class HeroRenderer extends GameObjectRenderer {
 
-    private final int ANIMATIONSPEED = 100;
-    private Animation animation;
     private int imageWidth, imageHeight;
+    private final int animationSpeed;
+    private Animation animation;
 
     public HeroRenderer(Hero hero) throws SlickException {
         super(hero);
@@ -19,16 +23,13 @@ public class HeroRenderer extends GameObjectRenderer {
         imageWidth = 50;
         imageHeight = 50;
 
+        animationSpeed = 100;
         SpriteSheet spriteSheet = new SpriteSheet("/res/Hero.png", imageWidth, imageHeight);
-        animation = new Animation(spriteSheet, ANIMATIONSPEED);
+        animation = new Animation(spriteSheet, animationSpeed);
     }
 
     @Override
     public void render(Graphics g) {
-        //double rotateAngle = gameObject.getDirection() / Math.PI * 180 + 90;
-        double rotateAngle = 90;
-        //g.rotate((float) gameObject.getX(), (float) gameObject.getY(), (float) rotateAngle);
-
         double direction = gameObject.getDirection();
         while (direction < 0)
             direction += 2 * Math.PI;
@@ -36,26 +37,19 @@ public class HeroRenderer extends GameObjectRenderer {
             direction -= 2 * Math.PI;
 
         animation.draw(320 - imageWidth/2, 240 - imageHeight/2);
+
+        // For debug
         g.drawString("(" + String.valueOf((int)gameObject.getX()) + ";" + String.valueOf((int)gameObject.getY())
                         + ") dir=" + String.valueOf((int)(gameObject.getDirection() / Math.PI * 180) % 360), 320, 240);
-
-        //g.rotate((float) gameObject.getX(), (float) gameObject.getY(), (float) -rotateAngle);
     }
 
     @Override
-    public void render(Graphics g, double viewX, double viewY, final double direction) {
-        float rotateAngle = (float) (direction / Math.PI * 180);
+    public void render(Graphics g, final double viewX, final double viewY, final double viewDirection) {
+        render(g);
+    }
 
-        float xx = 320;
-        float yy = 240;
-
-        //g.rotate(xx, yy, rotateAngle);
-        animation.draw((float) (gameObject.getX() - imageWidth / 2 + viewX),
-                (float) (gameObject.getY() - imageHeight / 2 + viewY));
-        g.drawString("(" + String.valueOf((int)gameObject.getX()) + ";" + String.valueOf((int)gameObject.getY())
-                        + ") dir=" + String.valueOf((int)gameObject.getDirection()), (float) gameObject.getX(),
-                (float) gameObject.getY());
-        //g.rotate(xx, yy, -rotateAngle);
+    public Hero getHero() {
+        return (Hero) gameObject;
     }
 
 }

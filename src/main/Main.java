@@ -14,7 +14,7 @@ public class Main {
         try {
             AppGameContainer appgc;
             appgc = new AppGameContainer(new Core("Mad Game"));
-            appgc.setDisplayMode(640, 480, true);
+            appgc.setDisplayMode(640, 480, false);
             appgc.start();
         }
         catch (SlickException ex) {

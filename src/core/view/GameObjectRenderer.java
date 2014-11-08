@@ -1,7 +1,8 @@
 package core.view;
 
-import core.model.GameObject;
 import org.newdawn.slick.Graphics;
+
+import core.model.GameObject;
 
 public abstract class GameObjectRenderer {
 
@@ -13,6 +14,6 @@ public abstract class GameObjectRenderer {
 
     public abstract void render(Graphics g);
 
-    public abstract void render(Graphics g, final double offsetX, final double offsetY, final double direction);
+    public abstract void render(Graphics g, final double viewX, final double viewY, final double viewDirection);
 
 }
