@@ -3,6 +3,10 @@ package core.view;
 import core.model.Hero;
 import org.newdawn.slick.*;
 
+/**
+ * Provides functions for the definition of actors, as well as actor
+ * operations, such as `receive`, `react`, `reply`, etc.
+ */
 public class HeroRenderer extends GameObjectRenderer {
 
     private final int ANIMATIONSPEED = 100;

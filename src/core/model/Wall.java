@@ -1,5 +1,8 @@
 package core.model;
 
+/**
+ * Contains fields to define the wall state
+ * */
 public class Wall extends GameObject {
 
     public Wall() {
