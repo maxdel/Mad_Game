@@ -1,6 +1,7 @@
 package core.controller.gameplay;
 
 import core.StartMenuState;
+import core.controller.gameplay.HeroController;
 import core.model.startmenu.StartMenu;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;

@@ -1,9 +1,9 @@
-package core.controller;
+package core.controller.gameplay;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 
-import core.model.HeroManager;
+import core.model.gameplay.HeroManager;
 
 /**
  * Handles user input events using "HeroManager" methods.
@@ -59,15 +59,6 @@ public class HeroController {
         if (direction >= 0) {
             direction += Math.PI / 2; // because top (270) means forward (0) for hero
             heroManager.move(direction, delta);
-        }
-        if (gc.getInput().isKeyDown(Input.KEY_S)) {
-            heroManager.move(DirectionKey.BOTTOM, delta);
-        }
-        if (gc.getInput().isKeyDown(Input.KEY_A)) {
-            heroManager.move(DirectionKey.LEFT, delta);
-        }
-        if (gc.getInput().isKeyDown(Input.KEY_W)) {
-            heroManager.move(DirectionKey.TOP, delta);
         }
     }
     

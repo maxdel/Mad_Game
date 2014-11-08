@@ -3,12 +3,12 @@ package core;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.state.BasicGameState;
+import org.newdawn.slick.state.StateBasedGame;
 
 import core.controller.gameplay.GamePlayController;
 import core.model.gameplay.World;
 import core.view.gameplay.GamePlayRenderer;
-import org.newdawn.slick.state.BasicGameState;
-import org.newdawn.slick.state.StateBasedGame;
 
 /*
 * Execute game play
@@ -24,6 +24,7 @@ public class GamePlayState extends BasicGameState {
     GamePlayController gamePlayController;
 
     private GamePlayState() {
+
     }
 
     public static GamePlayState getInstance() {
