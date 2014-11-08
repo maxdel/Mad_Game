@@ -1,5 +1,7 @@
 package core;
 
+import core.controller.startmenu.StartMenuController;
+import core.view.startmenu.StartMenuRenderer;
 import org.newdawn.slick.*;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.state.BasicGameState;
@@ -16,23 +18,13 @@ public class StartMenuState extends BasicGameState {
 
     public static final int STATE_ID = 0;
 
-    private int NUMBER_OF_CHOICES = 4;
-    private final int START = 0;
-    private final int LOAD = 1;
-    private final int HELP = 2;
-    private final int EXIT = 3;
-    private String[] playerChoices = new String[] {"NEW", "LOAD", "HELP", "EXIT"};
+    private StartMenuController startMenuController;
+    private StartMenuRenderer startMenuRenderer;
 
-    private int currentChoice = 0;
-
-
-    private Font menuItemFont, helpMsgFont;
-    private TrueTypeFont menuItemTTF, heplMsgTTF;
-
-
-
-
-    private StartMenuState() {}
+    private StartMenuState() {
+        startMenuController = new StartMenuController();
+        startMenuRenderer = new StartMenuRenderer();
+    }
 
     public static StartMenuState getInstance() {
         if (instance == null) {
@@ -48,61 +40,16 @@ public class StartMenuState extends BasicGameState {
 
     @Override
     public void init(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException {
-        menuItemFont = new Font("Verdana", Font.BOLD, 40);
-        helpMsgFont = new Font("Verdana", Font.PLAIN, 16);
-        menuItemTTF = new TrueTypeFont(menuItemFont, true);
-        heplMsgTTF = new TrueTypeFont(helpMsgFont, true);
-
-
     }
 
     @Override
     public void render(GameContainer gameContainer, StateBasedGame stateBasedGame, Graphics graphics) throws SlickException {
-        for (int i = 0; i < NUMBER_OF_CHOICES; i++) {
-            if (i != currentChoice) {
-                menuItemTTF.drawString(255, i * 50 + 130, playerChoices[i], new Color(200, 200, 200));
-            }
-            else {
-                menuItemTTF.drawString(255, i * 50 + 130, playerChoices[i], new Color(255, 153, 0));
-            }
-        }
+        startMenuRenderer.render();
     }
 
     @Override
     public void update(GameContainer gameContainer, StateBasedGame stateBasedGame, int delta) throws SlickException {
-        Input input = gameContainer.getInput();
-        if (input.isKeyPressed(Input.KEY_S)) {
-            if (currentChoice == NUMBER_OF_CHOICES - 1) {
-                currentChoice = 0;
-            }
-            else {
-                currentChoice++;
-            }
-        }
-
-        if (input.isKeyPressed(Input.KEY_W)) {
-            if (currentChoice == 0) {
-                currentChoice = NUMBER_OF_CHOICES - 1;
-            }
-            else {
-                currentChoice--;
-            }
-        }
-
-        if (input.isKeyPressed(Input.KEY_ENTER)) {
-            switch (currentChoice) {
-                case START:
-                    stateBasedGame.enterState(GamePlayState.STATE_ID);
-                    break;
-                case LOAD:
-                    break;
-                case HELP:
-                    break;
-                case EXIT:
-                    gameContainer.exit();
-                    break;
-            }
-        }
+        startMenuController.update(gameContainer, stateBasedGame);
     }
 }
 
