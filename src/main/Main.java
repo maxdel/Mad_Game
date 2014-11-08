@@ -13,7 +13,7 @@ public class Main {
     public static void main(String[] args) {
         try {
             AppGameContainer appgc;
-            appgc = new AppGameContainer(new Core("Mad Game"));
+            appgc = new AppGameContainer(Core.getInstance("Mad Game"));
             appgc.setDisplayMode(640, 480, false);
             appgc.start();
         }

@@ -12,11 +12,13 @@ import core.model.Wall;
 
 public class Renderer {
 
+    private static Renderer instance;
+
     private ArrayList<GameObjectRenderer> gameObjectRenderers;
     private HeroRenderer heroRenderer;
     private View view;
 
-    public Renderer(ArrayList<GameObject> gameObjects, Hero hero) throws SlickException {
+    private Renderer(ArrayList<GameObject> gameObjects, Hero hero) throws SlickException {
         gameObjectRenderers = new ArrayList<GameObjectRenderer>();
         for (GameObject gameObject : gameObjects) {
             if (gameObject instanceof Wall) {
@@ -27,6 +29,14 @@ public class Renderer {
         heroRenderer = new HeroRenderer(hero);
 
         view = new View();
+    }
+
+    // Singleton pattern method
+    public static Renderer getInstance(ArrayList<GameObject> gameObjects, Hero hero) throws SlickException {
+        if (instance == null) {
+            instance = new Renderer(gameObjects, hero);
+        }
+        return instance;
     }
 
     public void render(GameContainer gc, Graphics g) throws SlickException {
@@ -40,5 +50,6 @@ public class Renderer {
             gameObjectRenderer.render(g, view.getX(), view.getY(), view.getDirection());
         }
     }
+
 
 }

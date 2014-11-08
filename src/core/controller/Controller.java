@@ -11,15 +11,24 @@ import core.view.Renderer;
  */
 public class Controller {
 
+    private static Controller instance;
     private World world;
     private Renderer renderer;
     private HeroController heroController;
 
-    public Controller(final World world, final Renderer renderer) throws SlickException{
+    private Controller(final World world, final Renderer renderer) throws SlickException {
         this.world = world;
         this.renderer = renderer;
 
         heroController = new HeroController(world.getHeroManager());
+    }
+
+    // Singleton pattern method
+    public static Controller getInstance(final World world, final Renderer renderer) throws SlickException {
+        if (instance == null) {
+            instance = new Controller(world, renderer);
+        }
+        return instance;
     }
 
 

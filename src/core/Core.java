@@ -11,11 +11,13 @@ import core.view.Renderer;
 
 public class Core extends BasicGame {
 
+    private static Core instance;
+
     World world;
     Renderer renderer;
     Controller controller;
 
-    public Core(String gameName) {
+    private Core(String gameName) {
         super(gameName);
     }
 
@@ -23,9 +25,16 @@ public class Core extends BasicGame {
     public void init(GameContainer gc) throws SlickException {
         gc.setVSync(true);
 
-        world = new World();
-        renderer = new Renderer(world.getGameObjects(), world.getHero());
-        controller = new Controller(world, renderer);
+        world = World.getInstance();
+        renderer = Renderer.getInstance(world.getGameObjects(), world.getHero());
+        controller = Controller.getInstance(world, renderer);
+    }
+
+    public static Core getInstance(String getName) {
+        if (instance == null) {
+            instance = new Core(getName);
+        }
+        return instance;
     }
 
     @Override
