@@ -53,4 +53,5 @@ public class HeroManager {
     public void rotate(final double angleOffset) {
         hero.setDirection(hero.getDirection() + angleOffset);
     }
+
 }
