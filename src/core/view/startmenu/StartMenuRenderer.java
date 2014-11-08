@@ -10,16 +10,19 @@ import java.awt.Font;
  */
 public class StartMenuRenderer {
 
+    private static StartMenuRenderer instance;
+
+    private StartMenu startMenu;
+
     private String[] playerChoices = new String[] {"NEW", "LOAD", "HELP", "EXIT"};
     private Font menuItemFont;
     private TrueTypeFont menuItemTTF;
 
-    private static StartMenuRenderer instance;
-
     private StartMenuRenderer() {
+        startMenu = StartMenu.getInstance();
+
         menuItemFont = new Font("Verdana", Font.BOLD, 40);
         menuItemTTF = new TrueTypeFont(menuItemFont, true);
-
     }
 
     public static StartMenuRenderer getInstance() {
@@ -30,8 +33,8 @@ public class StartMenuRenderer {
     }
 
     public void render() {
-        for (int i = 0; i < StartMenu.NUMBER_OF_CHOICES; i++) {
-            if (i != StartMenu.getCurrentChoice()) {
+        for (int i = 0; i < startMenu.NUMBER_OF_CHOICES; i++) {
+            if (i != startMenu.getCurrentChoice()) {
                 menuItemTTF.drawString(255, i * 50 + 130, playerChoices[i], new org.newdawn.slick.Color(200, 200, 200));
             }
             else {

@@ -15,6 +15,12 @@ public class StartMenuController {
 
     private static StartMenuController instance;
 
+    private StartMenu startMenu;
+
+    private StartMenuController() {
+        startMenu = StartMenu.getInstance();
+    }
+
     public static StartMenuController getInstance() {
         if (instance == null) {
             instance = new StartMenuController();
@@ -24,8 +30,8 @@ public class StartMenuController {
 
     StartMenuManager startMenuManager = new StartMenuManager();
 
-    public void update(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException {
-        Input input = gameContainer.getInput();
+    public void update(GameContainer gc, StateBasedGame game) throws SlickException {
+        Input input = gc.getInput();
         if (input.isKeyPressed(Input.KEY_S)) {
             startMenuManager.stepDown();
         }
@@ -35,18 +41,16 @@ public class StartMenuController {
         }
 
         if (input.isKeyPressed(Input.KEY_ENTER)) {
-            switch (StartMenu.getCurrentChoice()) {
+            switch (startMenu.getCurrentChoice()) {
                 case StartMenu.START:
-                    stateBasedGame.enterState(GamePlayState.STATE_ID);
-                    //stateBasedGame.
-                    //GamePlayState.getInstance().enter(gameContainer, stateBasedGame);
+                    game.enterState(GamePlayState.getInstance().getID());
                     break;
                 case StartMenu.LOAD:
                     break;
                 case StartMenu.HELP:
                     break;
                 case StartMenu.EXIT:
-                    gameContainer.exit();
+                    gc.exit();
                     break;
             }
         }

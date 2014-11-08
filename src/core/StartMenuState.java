@@ -1,13 +1,13 @@
 package core;
 
-import core.controller.startmenu.StartMenuController;
-import core.view.startmenu.StartMenuRenderer;
-import org.newdawn.slick.*;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import java.awt.Font;
+import core.controller.startmenu.StartMenuController;
+import core.view.startmenu.StartMenuRenderer;
 
 /*
 * Execute start menu
@@ -16,14 +16,12 @@ public class StartMenuState extends BasicGameState {
 
     private static StartMenuState instance;
 
-    public static final int STATE_ID = 0;
+    private final int STATE_ID = 0;
 
     private StartMenuController startMenuController;
     private StartMenuRenderer startMenuRenderer;
 
     private StartMenuState() {
-        startMenuController = StartMenuController.getInstance();
-        startMenuRenderer = StartMenuRenderer.getInstance();
     }
 
     public static StartMenuState getInstance() {
@@ -39,27 +37,32 @@ public class StartMenuState extends BasicGameState {
     }
 
     @Override
-    public void init(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException {
+    public void init(GameContainer gc, StateBasedGame game) throws SlickException {
+
     }
 
     @Override
-    public void render(GameContainer gameContainer, StateBasedGame stateBasedGame, Graphics graphics) throws SlickException {
+    public void render(GameContainer gc, StateBasedGame game, Graphics graphics) throws SlickException {
         startMenuRenderer.render();
     }
 
     @Override
-    public void update(GameContainer gameContainer, StateBasedGame stateBasedGame, int delta) throws SlickException {
-        startMenuController.update(gameContainer, stateBasedGame);
+    public void update(GameContainer gc, StateBasedGame game, int delta) throws SlickException {
+        startMenuController.update(gc, game);
     }
 
     @Override
-    public void enter(GameContainer container, StateBasedGame game) throws SlickException {
-        super.enter(container, game);
+    public void enter(GameContainer gc, StateBasedGame game) throws SlickException {
+        gc.getInput().clearKeyPressedRecord();
+        startMenuController = StartMenuController.getInstance();
+        startMenuRenderer = StartMenuRenderer.getInstance();
     }
 
     @Override
-    public void leave(GameContainer container, StateBasedGame game) throws SlickException {
-        super.leave(container, game);
+    public void leave(GameContainer gc, StateBasedGame game) throws SlickException {
+        startMenuController = null;
+        startMenuRenderer = null;
+        System.gc();
     }
 }
 

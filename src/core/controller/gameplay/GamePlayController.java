@@ -1,8 +1,6 @@
 package core.controller.gameplay;
 
 import core.StartMenuState;
-import core.controller.gameplay.HeroController;
-import core.model.startmenu.StartMenu;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
@@ -17,6 +15,7 @@ import org.newdawn.slick.state.StateBasedGame;
 public class GamePlayController {
 
     private static GamePlayController instance;
+
     private World world;
     private GamePlayRenderer gamePlayRenderer;
     private HeroController heroController;
@@ -36,12 +35,11 @@ public class GamePlayController {
         return instance;
     }
 
-
-    public void update(GameContainer gc, StateBasedGame stateBasedGame, final int delta) {
+    public void update(GameContainer gc, StateBasedGame game, final int delta) {
         /* Must enter to pause menu in future */
         Input input = gc.getInput();
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
-            stateBasedGame.enterState(StartMenuState.STATE_ID);
+            game.enterState(StartMenuState.getInstance().getID());
         }
 
         heroController.update(gc, delta);

@@ -5,7 +5,9 @@ import org.newdawn.slick.state.StateBasedGame;
 /**
  * Contains state of the start menu
  */
-public abstract class StartMenu {
+public class StartMenu {
+
+    private static StartMenu instance;
 
     public static final int NUMBER_OF_CHOICES = 4;
     public static final int START = 0;
@@ -13,15 +15,25 @@ public abstract class StartMenu {
     public static final int HELP = 2;
     public static final int EXIT = 3;
 
-    private static int currentChoice;
+    private int currentChoice;
 
+    private StartMenu() {
 
-    public static int getCurrentChoice() {
+    }
+
+    public static StartMenu getInstance() {
+        if (instance == null) {
+            instance = new StartMenu();
+        }
+        return instance;
+    }
+
+    public int getCurrentChoice() {
         return currentChoice;
     }
 
-    public static void setCurrentChoice(int currentChoice) {
-        StartMenu.currentChoice = currentChoice;
+    public void setCurrentChoice(int currentChoice) {
+        this.currentChoice = currentChoice;
     }
 
 }

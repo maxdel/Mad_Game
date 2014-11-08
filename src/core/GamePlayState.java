@@ -17,11 +17,11 @@ public class GamePlayState extends BasicGameState {
 
     private static GamePlayState instance;
 
-    public static final int STATE_ID = 1;
+    private final int STATE_ID = 1;
 
-    World world;
-    GamePlayRenderer gamePlayRenderer;
-    GamePlayController gamePlayController;
+    private World world;
+    private GamePlayRenderer gamePlayRenderer;
+    private GamePlayController gamePlayController;
 
     private GamePlayState() {
 
@@ -40,39 +40,34 @@ public class GamePlayState extends BasicGameState {
     }
 
     @Override
-    public void init(GameContainer gc, StateBasedGame stateBasedGame) throws SlickException {
+    public void init(GameContainer gc, StateBasedGame game) throws SlickException {
+
     }
 
     @Override
-    public void render(GameContainer gc, StateBasedGame stateBasedGame, Graphics g) throws SlickException {
+    public void render(GameContainer gc, StateBasedGame game, Graphics g) throws SlickException {
         gamePlayRenderer.render(gc, g);
     }
 
     @Override
-    public void update(GameContainer gc, StateBasedGame stateBasedGame, int delta) throws SlickException {
-        gamePlayController.update(gc, stateBasedGame, delta);
+    public void update(GameContainer gc, StateBasedGame game, int delta) throws SlickException {
+        gamePlayController.update(gc, game, delta);
     }
 
     @Override
-    public void enter(GameContainer container, StateBasedGame game) throws SlickException {
-        super.enter(container, game);
+    public void enter(GameContainer gc, StateBasedGame game) throws SlickException {
+        gc.setVSync(true);
 
         world = World.getInstance();
         gamePlayRenderer = GamePlayRenderer.getInstance(world.getGameObjects(), world.getHero());
         gamePlayController = GamePlayController.getInstance(world, gamePlayRenderer);
-
-        container.setVSync(true);
     }
 
     @Override
-    public void leave(GameContainer container, StateBasedGame game) throws SlickException {
-        super.leave(container, game);
+    public void leave(GameContainer gc, StateBasedGame game) throws SlickException {
         world = null;
         gamePlayRenderer = null;
         gamePlayController = null;
-
-        container.setVSync(false); // to check, that it method works
-
         System.gc();
     }
 }
