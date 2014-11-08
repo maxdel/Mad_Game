@@ -1,5 +1,9 @@
 package core.model;
 
+
+/**
+ * Contains common fields to define the game object
+ * */
 public abstract class GameObject {
 
     private double x;

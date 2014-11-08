@@ -2,6 +2,10 @@ package core.model;
 
 import java.util.ArrayList;
 
+/**
+ * Main model class, that imitates game world.
+ * Contains all game objects.
+ */
 public class World {
 
     private ArrayList<GameObject> gameObjects;

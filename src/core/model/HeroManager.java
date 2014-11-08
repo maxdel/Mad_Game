@@ -1,5 +1,8 @@
 package core.model;
 
+/**
+ * Contains methods to define hero behavior
+ * */
 public class HeroManager {
 
     private Hero hero;
@@ -8,6 +11,7 @@ public class HeroManager {
         this.hero = hero;
     }
 
+/*
     public void move(final int keyIndex, final int delta) {
         switch (keyIndex) {
             case 0: //right
@@ -24,8 +28,9 @@ public class HeroManager {
                 break;
         }
     }
+*/
 
-    public void advancedMove(final int keyIndex, final int delta) {
+    public void move(final int keyIndex, final int delta) {
         double length, lengthDirX, lengthDirY;
         length = hero.getSpeed() * delta;
         switch (keyIndex) {

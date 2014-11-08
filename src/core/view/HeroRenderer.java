@@ -7,6 +7,10 @@ import org.newdawn.slick.SlickException;
 
 import core.model.Hero;
 
+/**
+ * Provides functions for the definition of actors, as well as actor
+ * operations, such as `receive`, `react`, `reply`, etc.
+ */
 public class HeroRenderer extends GameObjectRenderer {
 
     private int imageWidth, imageHeight;
