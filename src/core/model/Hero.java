@@ -1,18 +1,12 @@
 package core.model;
 
+/**
+ * Contains fields to define the hero state
+ * */
 public class Hero extends GameObject {
 
-    private char lastDirection;
-
-    public Hero(double x, double y, double direction, double speed) {
+    public Hero(final double x, final double y, final double direction, final double speed) {
         super(x, y, direction, speed);
     }
 
-    public char getLastDirection() {
-        return lastDirection;
-    }
-
-    public void setLastDirection(char lastDirection) {
-        this.lastDirection = lastDirection;
-    }
 }

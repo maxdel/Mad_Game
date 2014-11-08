@@ -2,6 +2,7 @@ package core.view;
 
 import java.util.ArrayList;
 
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
@@ -11,30 +12,33 @@ import core.model.Wall;
 
 public class Renderer {
 
-    ArrayList<GameObject> gameObjects;
+    private ArrayList<GameObjectRenderer> gameObjectRenderers;
+    private HeroRenderer heroRenderer;
+    private View view;
 
-    HeroRepresentation heroRepresentation;
-    WallRepresentation wallRepresentation;
-
-    public Renderer(final ArrayList<GameObject> gameObjects) throws SlickException {
-        heroRepresentation = new HeroRepresentation((Hero) gameObjects.get(1));
-        this.gameObjects = gameObjects;
-        }
-
-    public void render(Graphics g) throws SlickException {
+    public Renderer(ArrayList<GameObject> gameObjects, Hero hero) throws SlickException {
+        gameObjectRenderers = new ArrayList<GameObjectRenderer>();
         for (GameObject gameObject : gameObjects) {
             if (gameObject instanceof Wall) {
-                wallRepresentation = new WallRepresentation((Wall) gameObject);
-                wallRepresentation.render(g);
+                gameObjectRenderers.add(new WallRenderer((Wall) gameObject));
             }
         }
 
-        // MUST BE RENDERED LAST
-        heroRepresentation.render(g);
+        heroRenderer = new HeroRenderer(hero);
+
+        view = new View();
     }
 
-    public HeroRepresentation getHeroRepresentation() {
-        return heroRepresentation;
+    public void render(GameContainer gc, Graphics g) throws SlickException {
+        view.setDirection(heroRenderer.getHero().getDirection());
+        view.setX(heroRenderer.getHero().getX() - gc.getWidth() / 2);
+        view.setY(heroRenderer.getHero().getY() - gc.getHeight() / 2);
+
+        heroRenderer.render(g);
+
+        for (GameObjectRenderer gameObjectRenderer : gameObjectRenderers) {
+            gameObjectRenderer.render(g, view.getX(), view.getY(), view.getDirection());
+        }
     }
 
 }
