@@ -1,22 +1,20 @@
 package core.view.gameplay;
 
+import core.model.gameplay.GameObject;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
-import core.model.gameplay.GameObject;
+public class EnemyRenderer extends GameObjectRenderer {
 
-public class WallRenderer extends GameObjectRenderer {
+    Image enemyImage;
 
-    Image wallImage;
-
-    public WallRenderer(GameObject wall, Image wallImage) {
-        super(wall);
-        this.wallImage = wallImage;
+    public EnemyRenderer(GameObject enemy, Image enemyImage) {
+        super(enemy);
+        this.enemyImage = enemyImage;
     }
 
     @Override
-    public void render(Graphics g, final double viewX, final double viewY, final double viewDirection,
-                       final int viewWidth, final int viewHeight) {
+    public void render(Graphics g, double viewX, double viewY, double viewDirection, int viewWidth, int viewHeight) {
         float viewDegreeAngle = (float) (viewDirection / Math.PI * 180);
 
         //Rotate around view center to set position on the View
@@ -26,8 +24,8 @@ public class WallRenderer extends GameObjectRenderer {
                 (float) (gameObject.getY() - viewY),
                 (float)(gameObject.getDirection() / Math.PI * 180));
         // Coordinates to draw image according to position on the View
-        wallImage.draw((float) (gameObject.getX() - viewX - wallImage.getWidth() / 2),
-                (float) (gameObject.getY() - viewY - wallImage.getHeight() / 2));
+        enemyImage.draw((float) (gameObject.getX() - viewX - enemyImage.getWidth() / 2),
+                (float) (gameObject.getY() - viewY - enemyImage.getHeight() / 2));
         g.rotate((float) (gameObject.getX() - viewX),
                 (float) (gameObject.getY() - viewY),
                 -(float) (gameObject.getDirection() / Math.PI * 180));
@@ -35,7 +33,7 @@ public class WallRenderer extends GameObjectRenderer {
         g.rotate((float) (gameObject.getX() - viewX),
                 (float) (gameObject.getY() - viewY),
                 viewDegreeAngle);
-        g.drawString("(" + String.valueOf(gameObject.getX()) + ";" + String.valueOf(gameObject.getY()) + ")",
+        g.drawString("(" + String.valueOf((int)gameObject.getX()) + ";" + String.valueOf((int)gameObject.getY()) + ")",
                 (float) (gameObject.getX() - viewX), (float) (gameObject.getY() - viewY));
         g.rotate((float) (gameObject.getX() - viewX),
                 (float) (gameObject.getY() - viewY),

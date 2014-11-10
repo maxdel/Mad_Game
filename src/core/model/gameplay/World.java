@@ -14,19 +14,34 @@ public class World {
     private Hero hero;
     private HeroManager heroManager;
 
+    private ArrayList<EnemyManager> enemyManagers;
+
     private World() {
         gameObjects = new ArrayList<GameObject>();
 
-        hero = new Hero(200, 100, 0, 0.12f);
+        hero = (new Hero(200, 100, 0, 0.18f));
 
-        gameObjects.add(new Wall(100, 100, 0, 0));
+        gameObjects.add(new Wall(100, 100, Math.PI / 4, 0));
         gameObjects.add(new Wall(300, 300, 0, 0));
+
+        Enemy enemy1 = new Enemy(300, 100, 0, 0.06f);
+        Enemy enemy2 = new Enemy(300, 100, 0, 0.03f);
+
+        gameObjects.add(enemy1);
+        gameObjects.add(enemy2);
+
+        enemyManagers = new ArrayList<EnemyManager>();
+        enemyManagers.add(new EnemyManager(enemy1));
+        enemyManagers.add(new EnemyManager(enemy2));
 
         heroManager = new HeroManager(hero);
     }
 
-    public void update() {
-        // TODO
+    public void update(final int delta) {
+        for (EnemyManager enemyManager : enemyManagers) {
+            enemyManager.update(hero.getX(), hero.getY(), delta);
+        }
+        heroManager.update(delta);
     }
 
     // Singleton pattern method
@@ -48,6 +63,5 @@ public class World {
     public Hero getHero() {
         return hero;
     }
-
 
 }

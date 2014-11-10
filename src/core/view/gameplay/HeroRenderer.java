@@ -14,37 +14,66 @@ import core.model.gameplay.Hero;
 public class HeroRenderer extends GameObjectRenderer {
 
     private int imageWidth, imageHeight;
-    private final int animationSpeed = 100;
     private Animation animation;
+    private String previousState;
+
+    private Hero hero;
 
     public HeroRenderer(Hero hero) throws SlickException {
         super(hero);
+
+        this.hero = hero;
 
         imageWidth = 50;
         imageHeight = 50;
 
         SpriteSheet spriteSheet = new SpriteSheet("/res/Hero.png", imageWidth, imageHeight);
-        animation = new Animation(spriteSheet, animationSpeed);
+        animation = new Animation(spriteSheet, 1);
+        animation.setSpeed((float)gameObject.getMaximumSpeed() / 10F);
+
+        previousState = "";
     }
 
     @Override
-    public void render(Graphics g) {
-        double direction = gameObject.getDirection();
-        while (direction < 0)
-            direction += 2 * Math.PI;
-        while (direction > 2 * Math.PI)
-            direction -= 2 * Math.PI;
+    public void render(Graphics g, final double viewX, final double viewY, final double viewDirection,
+                       final int viewWidth, final int viewHeight) {
+        Hero hero = (Hero)gameObject;
+        if (!hero.getCurrentState().equals(previousState)) {
+            if (hero.getCurrentState().equals("Walk")) {
+                animation.start();
+                animation.setSpeed((float)gameObject.getCurrentSpeed() / 6F);
+            }
+            else if (hero.getCurrentState().equals("Stand")) {
+                animation.stop();
+                animation.setCurrentFrame(4);
+            } else if (hero.getCurrentState().equals("Run")) {
+                animation.start();
+                animation.setSpeed((float)gameObject.getCurrentSpeed() / 6F);
+            }
+        }
+        previousState = hero.getCurrentState();
 
-        animation.draw(320 - imageWidth/2, 240 - imageHeight/2);
+        float viewDegreeAngle = (float) (viewDirection / Math.PI * 180);
+
+        //Rotate around view center to set position on the View
+        g.rotate(viewWidth / 2, viewHeight / 2, - viewDegreeAngle);
+        //Rotate around gameObject coordinates to set direction of gameObject
+        g.rotate((float) (gameObject.getX() - viewX),
+                (float) (gameObject.getY() - viewY),
+                (float)(gameObject.getDirection() / Math.PI * 180));
+        // Coordinates to draw image according to position on the View
+        animation.draw((float) (gameObject.getX() - viewX - animation.getWidth() / 2),
+                (float) (gameObject.getY() - viewY - animation.getHeight() / 2));
+        g.rotate((float) (gameObject.getX() - viewX),
+                (float) (gameObject.getY() - viewY),
+                -(float) (gameObject.getDirection() / Math.PI * 180));
+        g.rotate(viewWidth / 2, viewHeight / 2, viewDegreeAngle);
 
         // For debug
-        g.drawString("(" + String.valueOf((int)gameObject.getX()) + ";" + String.valueOf((int)gameObject.getY())
-                        + ") dir=" + String.valueOf((int)(gameObject.getDirection() / Math.PI * 180) % 360), 320, 240);
-    }
-
-    @Override
-    public void render(Graphics g, final double viewX, final double viewY, final double viewDirection) {
-        render(g);
+        g.drawString("(" + String.valueOf((int) gameObject.getX()) + ";" + String.valueOf((int) gameObject.getY())
+                + ") dir=" + String.valueOf((int) (gameObject.getDirection() / Math.PI * 180) % 360),
+                (float) (gameObject.getX() - viewX),
+                (float) (gameObject.getY() - viewY));
     }
 
     public Hero getHero() {

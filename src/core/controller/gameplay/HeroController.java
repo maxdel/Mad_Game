@@ -18,16 +18,20 @@ public class HeroController {
 
     public HeroController(final HeroManager heroManager) {
         this.heroManager = heroManager;
+        oldMouseX = -1;
+        oldMouseY = -1;
+        mouseX = -1;
+        mouseY = -1;
     }
 
-    public void update(GameContainer gc, final int delta) {
+    public void update(GameContainer gc) {
         // Controls the direction of the hero
         oldMouseX = mouseX;
         oldMouseY = mouseY;
         mouseX = gc.getInput().getMouseX();
         mouseY = gc.getInput().getMouseY();
 
-        heroManager.rotate((mouseX - oldMouseX) * (2 * Math.PI) * rotateSpeed);
+        if (oldMouseX >= 0) heroManager.rotate((mouseX - oldMouseX) * (2 * Math.PI) * rotateSpeed);
 
         if (gc.getInput().getMouseX() > gc.getWidth() / 2 + 1 / rotateSpeed) {
             org.lwjgl.input.Mouse.setCursorPosition((int) (gc.getInput().getMouseX() - (1.0 / rotateSpeed)),
@@ -46,19 +50,25 @@ public class HeroController {
         if (gc.getInput().isKeyDown(Input.KEY_W)) downKeys[3] = true;
 
         double direction = -1;
-        if (downKeys[0] && !downKeys[1] && !downKeys[2] && !downKeys[3]) direction = 0;
-        else if (downKeys[0] && downKeys[1] && !downKeys[2] && !downKeys[3]) direction = 45;
-        else if (!downKeys[0] && downKeys[1] && !downKeys[2] && !downKeys[3]) direction = 90;
-        else if (!downKeys[0] && downKeys[1] && downKeys[2] && !downKeys[3]) direction = 135;
-        else if (!downKeys[0] && !downKeys[1] && downKeys[2] && !downKeys[3]) direction = 180;
-        else if (!downKeys[0] && !downKeys[1] && downKeys[2] && downKeys[3]) direction = 225;
-        else if (!downKeys[0] && !downKeys[1] && !downKeys[2] && downKeys[3]) direction = 270;
-        else if (downKeys[0] && !downKeys[1] && !downKeys[2] && downKeys[3]) direction = 315;
+        if (downKeys[0] && !downKeys[1] && !downKeys[2] && !downKeys[3]) direction = 90;
+        else if (downKeys[0] && downKeys[1] && !downKeys[2] && !downKeys[3]) direction = 135;
+        else if (!downKeys[0] && downKeys[1] && !downKeys[2] && !downKeys[3]) direction = 180;
+        else if (!downKeys[0] && downKeys[1] && downKeys[2] && !downKeys[3]) direction = 225;
+        else if (!downKeys[0] && !downKeys[1] && downKeys[2] && !downKeys[3]) direction = 270;
+        else if (!downKeys[0] && !downKeys[1] && downKeys[2] && downKeys[3]) direction = 315;
+        else if (!downKeys[0] && !downKeys[1] && !downKeys[2] && downKeys[3]) direction = 360;
+        else if (downKeys[0] && !downKeys[1] && !downKeys[2] && downKeys[3]) direction = 45;
 
         direction *= Math.PI / 180;
         if (direction >= 0) {
-            direction += Math.PI / 2; // because top (270) means forward (0) for hero
-            heroManager.move(direction, delta);
+            //direction += Math.PI / 2; // because top (270) means forward (0) for hero
+            if (gc.getInput().isKeyDown(Input.KEY_LSHIFT)) {
+                heroManager.run(direction);
+            } else {
+                heroManager.walk(direction);
+            }
+        } else {
+            heroManager.stand();
         }
     }
     

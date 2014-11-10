@@ -20,6 +20,10 @@ public class GamePlayController {
     private GamePlayRenderer gamePlayRenderer;
     private HeroController heroController;
 
+    private GamePlayController() {
+
+    }
+
     private GamePlayController(final World world, final GamePlayRenderer gamePlayRenderer) throws SlickException {
         this.world = world;
         this.gamePlayRenderer = gamePlayRenderer;
@@ -42,7 +46,7 @@ public class GamePlayController {
             game.enterState(StartMenuState.getInstance().getID());
         }
 
-        heroController.update(gc, delta);
+        heroController.update(gc);
     }
 
 }

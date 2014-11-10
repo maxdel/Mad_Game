@@ -5,28 +5,24 @@ package core.model.gameplay;
  * */
 public abstract class GameObject {
 
-    private double x;
-    private double y;
-    private double direction;
-    private double speed;
+    protected double x;
+    protected double y;
+    protected double direction;
+    protected double currentSpeed;
+    protected double maximumSpeed;
 
-    public GameObject() {
-
+    public GameObject(final double x, final double y, final double direction, final double maximumSpeed) {
+        this(x, y, direction, maximumSpeed, 0);
     }
 
-    public GameObject(final double x, final double y, final double direction, final double speed) {
+    public GameObject(final double x, final double y, final double direction, final double maximumSpeed,
+                      final double currentSpeed) {
         this.x = x;
         this.y = y;
         this.direction = direction;
-        this.speed = speed;
-    }
 
-    public double getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(double speed) {
-        this.speed = speed;
+        this.maximumSpeed = maximumSpeed;
+        this.currentSpeed = currentSpeed;
     }
 
     public double getX() {
@@ -51,6 +47,22 @@ public abstract class GameObject {
 
     public void setDirection(double direction) {
         this.direction = direction;
+    }
+
+    public double getMaximumSpeed() {
+        return maximumSpeed;
+    }
+
+    public void setMaximumSpeed(double maximumSpeed) {
+        this.maximumSpeed = maximumSpeed;
+    }
+
+    public double getCurrentSpeed() {
+        return currentSpeed;
+    }
+
+    public void setCurrentSpeed(double currentSpeed) {
+        this.currentSpeed = currentSpeed;
     }
 
 }

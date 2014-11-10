@@ -12,8 +12,7 @@ public abstract class GameObjectRenderer {
         this.gameObject = gameObject;
     }
 
-    public abstract void render(Graphics g);
-
-    public abstract void render(Graphics g, final double viewX, final double viewY, final double viewDirection);
+    public abstract void render(Graphics g, final double viewX, final double viewY, final double viewDirection,
+                                final int viewWidth, final int viewHeight);
 
 }
