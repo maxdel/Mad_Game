@@ -13,7 +13,6 @@ public class World {
     private ArrayList<GameObject> gameObjects;
     private Hero hero;
     private HeroManager heroManager;
-
     private ArrayList<EnemyManager> enemyManagers;
 
     private World() {
@@ -37,13 +36,6 @@ public class World {
         heroManager = new HeroManager(hero);
     }
 
-    public void update(final int delta) {
-        for (EnemyManager enemyManager : enemyManagers) {
-            enemyManager.update(hero.getX(), hero.getY(), delta);
-        }
-        heroManager.update(delta);
-    }
-
     // Singleton pattern method
     public static World getInstance() {
         if (instance == null) {
@@ -62,6 +54,10 @@ public class World {
 
     public Hero getHero() {
         return hero;
+    }
+
+    public ArrayList<EnemyManager> getEnemyManagers() {
+        return enemyManagers;
     }
 
 }

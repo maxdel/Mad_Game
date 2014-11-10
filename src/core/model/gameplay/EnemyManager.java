@@ -8,14 +8,12 @@ public class EnemyManager {
         this.enemy = enemy;
     }
 
-    private void followTarget(final double x, final double y) {
+    public void followTarget(final double x, final double y) {
         enemy.setDirection(Math.atan2(y - enemy.getY(), x - enemy.getX()));
         enemy.setCurrentSpeed(enemy.getMaximumSpeed());
     }
 
-    public void update(final double x, final double y, final int delta) {
-        followTarget(x, y);
-
+    public void update(final int delta) {
         double length, lengthDirX, lengthDirY;
         length = enemy.getCurrentSpeed() * delta;
 

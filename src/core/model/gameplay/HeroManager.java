@@ -23,13 +23,13 @@ public class HeroManager {
         hero.setRelativeDirection(direction);
     }
 
-    public void rotate(final double angleOffset) {
-        hero.setDirection(hero.getDirection() + angleOffset);
-    }
-
     public void stand() {
         hero.setCurrentState("Stand");
         hero.setCurrentSpeed(0);
+    }
+
+    public void rotate(final double angleOffset) {
+        hero.setDirection(hero.getDirection() + angleOffset);
     }
 
     public void update(final int delta) {

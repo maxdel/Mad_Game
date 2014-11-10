@@ -24,7 +24,7 @@ public class HeroController {
         mouseY = -1;
     }
 
-    public void update(GameContainer gc) {
+    public void update(GameContainer gc, final int delta) {
         // Controls the direction of the hero
         oldMouseX = mouseX;
         oldMouseY = mouseY;
@@ -61,7 +61,6 @@ public class HeroController {
 
         direction *= Math.PI / 180;
         if (direction >= 0) {
-            //direction += Math.PI / 2; // because top (270) means forward (0) for hero
             if (gc.getInput().isKeyDown(Input.KEY_LSHIFT)) {
                 heroManager.run(direction);
             } else {
@@ -70,6 +69,8 @@ public class HeroController {
         } else {
             heroManager.stand();
         }
+
+        heroManager.update(delta);
     }
     
 }
