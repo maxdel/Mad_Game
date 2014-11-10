@@ -11,10 +11,6 @@ public class HeroManager {
         this.hero = hero;
     }
 
-    /**
-     * Relatively moves hero in specified direction
-     * @param direction relative direction to move in radians
-     */
     public void walk(final double direction) {
         hero.setCurrentState("Walk");
         hero.setCurrentSpeed(hero.getMaximumSpeed() / 2);
@@ -36,16 +32,6 @@ public class HeroManager {
         hero.setCurrentSpeed(0);
     }
 
-/*    private void updateState() {
-        if (hero.getCurrentSpeed() == 0) {
-            hero.setCurrentState("Stand");
-        } else if (hero.getCurrentSpeed() == hero.getMaximumSpeed() / 2) {
-            hero.setCurrentState("Walk");
-        } else {
-            hero.setCurrentState("Run");
-        }
-    }*/
-
     public void update(final int delta) {
         double length, lengthDirX, lengthDirY;
         length = hero.getCurrentSpeed() * delta;
@@ -55,8 +41,6 @@ public class HeroManager {
 
         hero.setX(hero.getX() + lengthDirX);
         hero.setY(hero.getY() + lengthDirY);
-
-        //updateState();
     }
 
 }
