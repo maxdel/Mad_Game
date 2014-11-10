@@ -32,7 +32,7 @@ public class GamePlayRenderer {
 
     }
 
-    public GamePlayRenderer(ArrayList<GameObject> gameObjects, Hero hero) throws SlickException {
+    public GamePlayRenderer(GameContainer gc, ArrayList<GameObject> gameObjects, Hero hero) throws SlickException {
         renderersMap = new HashMap<Class, Class>();
         renderersMap.put(Wall.class, WallRenderer.class);
 
@@ -50,33 +50,25 @@ public class GamePlayRenderer {
             }
         }
 
-        view = new View();
+        view = new View(gc.getWidth(), gc.getHeight());
     }
 
     // Singleton pattern method
-    public static GamePlayRenderer getInstance(ArrayList<GameObject> gameObjects, Hero hero) throws SlickException {
+    public static GamePlayRenderer getInstance(GameContainer gc, ArrayList<GameObject> gameObjects, Hero hero) throws SlickException {
         if (instance == null) {
-            instance = new GamePlayRenderer(gameObjects, hero);
+            instance = new GamePlayRenderer(gc, gameObjects, hero);
         }
         return instance;
     }
 
     public void render(GameContainer gc, Graphics g) throws SlickException {
-        updateView(gc);
+        view.update(heroRenderer.getHero().getX(), heroRenderer.getHero().getY(), heroRenderer.getHero().getDirection());
 
         heroRenderer.render(g, view.getX(), view.getY(), view.getDirection(), view.getWidth(), view.getHeight());
 
         for (GameObjectRenderer gameObjectRenderer : gameObjectRenderers) {
             gameObjectRenderer.render(g, view.getX(), view.getY(), view.getDirection(), view.getWidth(), view.getHeight());
         }
-    }
-
-    private void updateView(GameContainer gc) {
-        view.setWidth(gc.getWidth());
-        view.setHeight(gc.getHeight());
-        view.setDirection(heroRenderer.getHero().getDirection() + Math.PI / 2);
-        view.setX(heroRenderer.getHero().getX() - view.getWidth() / 2);
-        view.setY(heroRenderer.getHero().getY() - view.getHeight() / 2);
     }
 
 }

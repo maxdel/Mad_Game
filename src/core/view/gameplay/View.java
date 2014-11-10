@@ -61,4 +61,10 @@ public class View {
         this.height = height;
     }
 
+    public void update(final double x, final double y, final double direction) {
+        setDirection(direction + Math.PI / 2);
+        setX(x - getWidth() / 2);
+        setY(y - getHeight() / 2);
+    }
+
 }
