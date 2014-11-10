@@ -1,9 +1,10 @@
 package core.view.startmenu;
 
-import core.model.startmenu.StartMenu;
+import java.awt.Font;
+
 import org.newdawn.slick.*;
 
-import java.awt.Font;
+import core.model.startmenu.StartMenu;
 
 /**
  * Renders start menu

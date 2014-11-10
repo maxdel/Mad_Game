@@ -1,15 +1,13 @@
 package core.view.gameplay;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
-import core.model.gameplay.Enemy;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+import core.model.gameplay.Enemy;
 import core.model.gameplay.GameObject;
 import core.model.gameplay.Hero;
 import core.model.gameplay.Wall;
@@ -26,16 +24,11 @@ public class GamePlayRenderer {
     private HeroRenderer heroRenderer;
     private View view;
 
-    private Map<Class, Class> renderersMap;
-
     private GamePlayRenderer() {
 
     }
 
     public GamePlayRenderer(GameContainer gc, ArrayList<GameObject> gameObjects, Hero hero) throws SlickException {
-        renderersMap = new HashMap<Class, Class>();
-        renderersMap.put(Wall.class, WallRenderer.class);
-
         this.gameObjects = gameObjects;
 
         heroRenderer = new HeroRenderer(hero);

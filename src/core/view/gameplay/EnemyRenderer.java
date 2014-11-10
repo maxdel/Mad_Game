@@ -1,8 +1,9 @@
 package core.view.gameplay;
 
-import core.model.gameplay.GameObject;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+
+import core.model.gameplay.GameObject;
 
 public class EnemyRenderer extends GameObjectRenderer {
 
