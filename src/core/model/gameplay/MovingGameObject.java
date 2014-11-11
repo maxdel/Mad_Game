@@ -2,9 +2,9 @@ package core.model.gameplay;
 
 
 public class MovingGameObject extends GameObject {
-    protected double currentSpeed = 0;
+    protected double currentSpeed;
     protected double maximumSpeed;
-    protected double relativeDirection = 1;
+    protected double relativeDirection;
 
     public MovingGameObject(final double x, final double y, final double direction, final double relativeDirection,
                             final double maximumSpeed, final double currentSpeed) {
