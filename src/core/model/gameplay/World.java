@@ -42,7 +42,6 @@ public class World {
             instance = new World();
         }
         return instance;
-
     }
 
     public ArrayList<GameObject> getGameObjects() {
