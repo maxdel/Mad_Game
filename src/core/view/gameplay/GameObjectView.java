@@ -1,25 +1,27 @@
 package core.view.gameplay;
 
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.Graphics;
 
 import core.model.gameplay.GameObject;
-import org.newdawn.slick.Renderable;
 
 public abstract class GameObjectView {
 
     protected GameObject gameObject;
+    protected Animation animation;
 
     public GameObjectView(GameObject gameObject) {
+        this(gameObject, null);
+    }
+
+    public GameObjectView(GameObject gameObject, Animation animation) {
         this.gameObject = gameObject;
+        this.animation = animation;
     }
 
     public abstract void render(Graphics g, final double viewX, final double viewY, final float viewDegreeAngle,
                                 final int viewWidth, final int viewHeight);
 
-    /*
-    * Do rotation of game object
-    * Returns view angle in degrees
-    * */
     public void rotate(Graphics g, final double viewX, final double viewY, final float viewDegreeAngle,
                        final int viewWidth, final int viewHeight, final boolean isFront) {
         if (isFront) {
@@ -38,9 +40,9 @@ public abstract class GameObjectView {
         }
     }
 
-    public void draw(Renderable picture, final int pictureWidth, final int pictureHeight, double viewX, double viewY) {
-        picture.draw((float) (gameObject.getX() - viewX - pictureWidth / 2),
-                (float) (gameObject.getY() - viewY - pictureHeight / 2));
+    public void draw(final double viewX, final double viewY) {
+        animation.draw((float) (gameObject.getX() - viewX - animation.getWidth() / 2),
+                (float) (gameObject.getY() - viewY - animation.getHeight() / 2));
     }
 
 }

@@ -1,5 +1,6 @@
 package core.view.gameplay;
 
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
@@ -9,9 +10,9 @@ public class WallView extends GameObjectView {
 
     Image wallImage;
 
-    public WallView(GameObject wall, Image wallImage) {
-        super(wall);
-        this.wallImage = wallImage;
+    public WallView(GameObject wall, Animation animation) {
+        super(wall, animation);
+        this.animation = animation;
     }
 
     @Override
@@ -20,7 +21,7 @@ public class WallView extends GameObjectView {
 
 
         rotate(g, viewX, viewY, viewDegreeAngle, viewWidth, viewHeight, true);
-        draw(wallImage, wallImage.getWidth(), wallImage.getHeight(), viewX, viewY);
+        draw(viewX, viewY);
         // ----- For debug and FUN -----
         g.rotate((float) (gameObject.getX() - viewX),
                 (float) (gameObject.getY() - viewY),

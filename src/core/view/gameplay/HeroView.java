@@ -14,7 +14,6 @@ import core.model.gameplay.Hero;
  */
 public class HeroView extends GameObjectView {
 
-    private Animation animation;
     private GameObjectState previousState;
 
     public HeroView(Hero hero) throws SlickException {
@@ -25,8 +24,6 @@ public class HeroView extends GameObjectView {
 
         SpriteSheet spriteSheet = new SpriteSheet("/res/Hero.png", imageWidth, imageHeight);
         animation = new Animation(spriteSheet, 1);
-
-        animation.setSpeed((float)hero.getMaximumSpeed() / 10F);
     }
 
     @Override
@@ -49,7 +46,7 @@ public class HeroView extends GameObjectView {
         previousState = hero.getCurrentState();
 
         rotate(g, viewX, viewY, viewDegreeAngle, viewWidth, viewHeight, true);
-        draw(animation, animation.getWidth(), animation.getHeight(), viewX, viewY);
+        draw(viewX, viewY);
         rotate(g, viewX, viewY, viewDegreeAngle, viewWidth, viewHeight, false);
 
         // For debug

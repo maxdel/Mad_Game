@@ -2,10 +2,7 @@ package core.view.gameplay;
 
 import java.util.ArrayList;
 
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
+import org.newdawn.slick.*;
 
 import core.model.gameplay.Enemy;
 import core.model.gameplay.GameObject;
@@ -34,10 +31,16 @@ public class GamePlayView {
         gameObjectViews = new ArrayList<GameObjectView>();
         for (GameObject gameObject : gameObjects) {
             if (gameObject.getClass() == Wall.class) {
-                gameObjectViews.add(new WallView(gameObject, new Image("/res/Wall.png")));
+                Image image = new Image("/res/Wall.png");
+                SpriteSheet spriteSheet = new SpriteSheet(image, image.getWidth(), image.getHeight());
+                Animation animation = new Animation(spriteSheet, 1);
+                gameObjectViews.add(new WallView(gameObject, animation));
             }
             else if (gameObject.getClass() == Enemy.class) {
-                gameObjectViews.add(new EnemyView(gameObject, new Image("/res/Enemy.png")));
+                Image image = new Image("/res/Enemy.png");
+                SpriteSheet spriteSheet = new SpriteSheet(image, image.getWidth(), image.getHeight());
+                Animation animation = new Animation(spriteSheet, 1);
+                gameObjectViews.add(new EnemyView(gameObject, animation));
             }
         }
 

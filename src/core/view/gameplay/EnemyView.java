@@ -1,5 +1,6 @@
 package core.view.gameplay;
 
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
@@ -7,17 +8,15 @@ import core.model.gameplay.GameObject;
 
 public class EnemyView extends GameObjectView {
 
-    Image enemyImage;
-
-    public EnemyView(GameObject enemy, Image enemyImage) {
+    public EnemyView(GameObject enemy, Animation animation) {
         super(enemy);
-        this.enemyImage = enemyImage;
+        this.animation = animation;
     }
 
     @Override
     public void render(Graphics g, double viewX, double viewY, float viewDegreeAngle, int viewWidth, int viewHeight) {
         rotate(g, viewX, viewY, viewDegreeAngle, viewWidth, viewHeight, true);
-        draw(enemyImage, enemyImage.getWidth(), enemyImage.getHeight(), viewX, viewY);
+        draw(viewX, viewY);
         // ----- For debug and FUN -----
         g.rotate((float) (gameObject.getX() - viewX),
                 (float) (gameObject.getY() - viewY),
