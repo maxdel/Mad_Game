@@ -3,29 +3,29 @@ package core.model.gameplay;
 /**
  * Contains methods to define hero behavior
  * */
-public class HeroManager extends MovingGameObjectManager {
+public class HeroManager extends GameObjectMovingManager {
 
     private Hero hero;
 
-    public HeroManager(final MovingGameObject hero) {
+    public HeroManager(final GameObjectMoving hero) {
         super(hero);
         this.hero = (Hero) hero;
     }
 
     public void walk(final double direction) {
-        hero.setCurrentState("Walk");
+        hero.setCurrentState(GameObjectState.WALK);
         hero.setCurrentSpeed(hero.getMaximumSpeed() / 2);
         hero.setRelativeDirection(direction);
     }
 
     public void run(final double direction) {
-        hero.setCurrentState("Run");
+        hero.setCurrentState(GameObjectState.RUN);
         hero.setCurrentSpeed(hero.getMaximumSpeed());
         hero.setRelativeDirection(direction);
     }
 
     public void stand() {
-        hero.setCurrentState("Stand");
+        hero.setCurrentState(GameObjectState.STAND);
         hero.setCurrentSpeed(0);
     }
 

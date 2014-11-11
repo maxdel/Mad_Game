@@ -1,9 +1,7 @@
 package core.controller.gameplay;
 
 import core.PauseMenuState;
-import core.StartMenuState;
 import core.model.gameplay.EnemyManager;
-import core.model.menu.PauseMenu;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;

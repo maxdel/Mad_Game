@@ -1,12 +1,12 @@
 package core.model.gameplay;
 
+public class GameObjectMoving extends GameObject {
 
-public class MovingGameObject extends GameObject {
     protected double currentSpeed;
     protected double maximumSpeed;
     protected double relativeDirection;
 
-    public MovingGameObject(final double x, final double y, final double direction, final double relativeDirection,
+    public GameObjectMoving(final double x, final double y, final double direction, final double relativeDirection,
                             final double maximumSpeed, final double currentSpeed) {
         super(x, y, direction);
 
@@ -15,11 +15,9 @@ public class MovingGameObject extends GameObject {
         this.currentSpeed = currentSpeed;
     }
 
-    public MovingGameObject(final double x, final double y, final double direction,
+    public GameObjectMoving(final double x, final double y, final double direction,
                             final double maximumSpeed) {
-        super(x, y, direction);
-
-        this.maximumSpeed = maximumSpeed;
+        this(x, y, direction, 0, maximumSpeed, 0);
     }
 
     public double getMaximumSpeed() {
@@ -45,4 +43,5 @@ public class MovingGameObject extends GameObject {
     public void setRelativeDirection(double relativeDirection) {
         this.relativeDirection = relativeDirection;
     }
+
 }

@@ -1,5 +1,6 @@
 package core.view.gameplay;
 
+import core.model.gameplay.GameObjectState;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.SpriteSheet;
@@ -14,7 +15,7 @@ import core.model.gameplay.Hero;
 public class HeroRenderer extends GameObjectRenderer {
 
     private Animation animation;
-    private String previousState;
+    private GameObjectState previousState;
 
     public HeroRenderer(Hero hero) throws SlickException {
         super(hero);
@@ -26,23 +27,21 @@ public class HeroRenderer extends GameObjectRenderer {
         animation = new Animation(spriteSheet, 1);
 
         animation.setSpeed((float)hero.getMaximumSpeed() / 10F);
-
-        previousState = "";
     }
 
     @Override
     public void render(Graphics g, final double viewX, final double viewY, final float viewDegreeAngle,
                        final int viewWidth, final int viewHeight) {
         Hero hero = (Hero)gameObject;
-        if (!hero.getCurrentState().equals(previousState)) {
-            if (hero.getCurrentState().equals("Walk")) {
+        if (hero.getCurrentState() != previousState) {
+            if (hero.getCurrentState() == GameObjectState.WALK) {
                 animation.start();
-                animation.setSpeed((float)hero.getCurrentSpeed() / 6F);
+                animation.setSpeed((float) hero.getCurrentSpeed() / 6F);
             }
-            else if (hero.getCurrentState().equals("Stand")) {
+            else if (hero.getCurrentState() == GameObjectState.STAND) {
                 animation.stop();
                 animation.setCurrentFrame(4);
-            } else if (hero.getCurrentState().equals("Run")) {
+            } else if (hero.getCurrentState() == GameObjectState.RUN) {
                 animation.start();
                 animation.setSpeed((float)hero.getCurrentSpeed() / 6F);
             }
