@@ -53,6 +53,7 @@ public class PauseMenuController {
             }
             else if (pauseMenu.getCurrentChoice() == pauseMenu.getMenuId("Main menu")) {
                 game.enterState(StartMenuState.getInstance().getID());
+                World.deleteInstance();
             }
         }
     }

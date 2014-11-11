@@ -44,6 +44,10 @@ public class World {
         return instance;
     }
 
+    public static void deleteInstance() {
+        instance = null;
+    }
+
     public ArrayList<GameObject> getGameObjects() {
         return gameObjects;
     }
