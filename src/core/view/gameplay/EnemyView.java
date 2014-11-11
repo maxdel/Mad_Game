@@ -11,7 +11,6 @@ public class EnemyView extends GameObjectView {
         super(enemy);
 
         setAnimation("/res/Enemy.png");
-
     }
 
     @Override

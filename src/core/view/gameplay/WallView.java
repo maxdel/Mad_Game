@@ -17,8 +17,6 @@ public class WallView extends GameObjectView {
     @Override
     public void render(Graphics g, final double viewX, final double viewY, final float viewDegreeAngle,
                        final int viewWidth, final int viewHeight) {
-
-
         rotate(g, viewX, viewY, viewDegreeAngle, viewWidth, viewHeight, true);
         draw(viewX, viewY);
         // ----- For debug and FUN -----
@@ -32,7 +30,6 @@ public class WallView extends GameObjectView {
                 - viewDegreeAngle);
         // ----- END -----
         rotate(g, viewX, viewY, viewDegreeAngle, viewWidth, viewHeight, false);
-
     }
 
 }

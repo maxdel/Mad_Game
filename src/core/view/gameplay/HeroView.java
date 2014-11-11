@@ -1,15 +1,11 @@
 package core.view.gameplay;
 
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Animation;
-import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.SlickException;
 
 import core.model.gameplay.GameObject;
 import core.model.gameplay.Hero;
 import core.model.gameplay.GameObjectState;
-
-import java.awt.*;
 
 /**
  * Provides functions for the definition of actors, as well as actor
@@ -31,13 +27,12 @@ public class HeroView extends GameObjectView {
     @Override
     public void render(Graphics g, final double viewX, final double viewY, final float viewDegreeAngle,
                        final int viewWidth, final int viewHeight) {
-        Hero hero = (Hero)gameObject;
+        Hero hero = getHero();
         if (hero.getCurrentState() != previousState) {
             if (hero.getCurrentState() == GameObjectState.WALK) {
                 animation.start();
-                animation.setSpeed((float) hero.getCurrentSpeed() / 6F);
-            }
-            else if (hero.getCurrentState() == GameObjectState.STAND) {
+                animation.setSpeed((float)hero.getCurrentSpeed() / 6F);
+            } else if (hero.getCurrentState() == GameObjectState.STAND) {
                 animation.stop();
                 animation.setCurrentFrame(4);
             } else if (hero.getCurrentState() == GameObjectState.RUN) {
@@ -58,7 +53,7 @@ public class HeroView extends GameObjectView {
                 (float) (gameObject.getY() - viewY));
     }
 
-    public Hero getHero() {
+    private Hero getHero() {
         return (Hero) gameObject;
     }
 
