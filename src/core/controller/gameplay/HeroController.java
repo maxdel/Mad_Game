@@ -36,10 +36,12 @@ public class HeroController {
         if (gc.getInput().getMouseX() > gc.getWidth() / 2 + 1 / rotateSpeed) {
             org.lwjgl.input.Mouse.setCursorPosition((int) (gc.getInput().getMouseX() - (1.0 / rotateSpeed)),
                     gc.getHeight() - gc.getInput().getMouseY());
+            mouseX = gc.getInput().getMouseX();
         }
         if (gc.getInput().getMouseX() < gc.getWidth() / 2 - 1 / rotateSpeed) {
             org.lwjgl.input.Mouse.setCursorPosition((int) (gc.getInput().getMouseX() + (1.0 / rotateSpeed)),
                     gc.getHeight() - gc.getInput().getMouseY());
+            mouseX = gc.getInput().getMouseX();
         }
 
         // Controls the movement of the hero

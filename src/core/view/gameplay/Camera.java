@@ -17,6 +17,7 @@ public class Camera {
     }
 
     public Camera(int width, int height) {
+        this();
         this.width = width;
         this.height = height;
     }
@@ -69,7 +70,16 @@ public class Camera {
     }
 
     public void update(final double x, final double y, final double direction) {
-        setDirection(direction + Math.PI / 2);
+        // smooth change of direction
+        double resultDirection = direction + Math.PI / 2;
+        if (resultDirection > getDirection() && resultDirection - 0.005 > getDirection()) {
+            resultDirection = getDirection() + (resultDirection - getDirection()) / 2;
+        }
+        if (resultDirection < getDirection() && resultDirection + 0.005 < getDirection()) {
+            resultDirection = getDirection() - (getDirection() - resultDirection) / 2;
+        }
+
+        setDirection(resultDirection);
         setX(x - getWidth() / 2);
         setY(y - getHeight() / 2);
     }
