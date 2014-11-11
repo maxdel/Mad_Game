@@ -12,12 +12,12 @@ import core.model.gameplay.Hero;
  * Provides functions for the definition of actors, as well as actor
  * operations, such as `receive`, `react`, `reply`, etc.
  */
-public class HeroRenderer extends GameObjectRenderer {
+public class HeroView extends GameObjectView {
 
     private Animation animation;
     private GameObjectState previousState;
 
-    public HeroRenderer(Hero hero) throws SlickException {
+    public HeroView(Hero hero) throws SlickException {
         super(hero);
 
         final int imageWidth = 50;
@@ -47,7 +47,6 @@ public class HeroRenderer extends GameObjectRenderer {
             }
         }
         previousState = hero.getCurrentState();
-
 
         rotate(g, viewX, viewY, viewDegreeAngle, viewWidth, viewHeight, true);
         draw(animation, animation.getWidth(), animation.getHeight(), viewX, viewY);

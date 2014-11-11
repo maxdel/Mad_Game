@@ -17,8 +17,6 @@ public class GameObjectMovingManager {
 
         gameObjectMoving.setX(gameObjectMoving.getX() + lengthDirX);
         gameObjectMoving.setY(gameObjectMoving.getY() + lengthDirY);
-
     }
 
 }
-

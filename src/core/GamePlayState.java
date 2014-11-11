@@ -8,7 +8,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import core.controller.gameplay.GamePlayController;
 import core.model.gameplay.World;
-import core.view.gameplay.GamePlayRenderer;
+import core.view.gameplay.GamePlayView;
 
 /*
 * Execute game play
@@ -20,7 +20,7 @@ public class GamePlayState extends BasicGameState {
     private final int STATE_ID = 0;
 
     private World world;
-    private GamePlayRenderer gamePlayRenderer;
+    private GamePlayView gamePlayView;
     private GamePlayController gamePlayController;
 
     private GamePlayState() {
@@ -46,7 +46,7 @@ public class GamePlayState extends BasicGameState {
 
     @Override
     public void render(GameContainer gc, StateBasedGame game, Graphics g) throws SlickException {
-        gamePlayRenderer.render(gc, g);
+        gamePlayView.render(gc, g);
     }
 
     @Override
@@ -57,14 +57,14 @@ public class GamePlayState extends BasicGameState {
     @Override
     public void enter(GameContainer gc, StateBasedGame game) throws SlickException {
         world = World.getInstance(false);
-        gamePlayRenderer = new GamePlayRenderer(gc, world.getGameObjects(), world.getHero());
-        gamePlayController = new GamePlayController(world, gamePlayRenderer);
+        gamePlayView = new GamePlayView(gc, world.getGameObjects(), world.getHero());
+        gamePlayController = new GamePlayController(world, gamePlayView);
     }
 
     @Override
     public void leave(GameContainer gc, StateBasedGame game) throws SlickException {
         world = null;
-        gamePlayRenderer = null;
+        gamePlayView = null;
         gamePlayController = null;
         System.gc();
     }

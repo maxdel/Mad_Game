@@ -39,5 +39,4 @@ public abstract class GameObject {
         this.direction = direction;
     }
 
-
 }

@@ -7,7 +7,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 import core.model.gameplay.World;
-import core.view.gameplay.GamePlayRenderer;
+import core.view.gameplay.GamePlayView;
 import org.newdawn.slick.state.StateBasedGame;
 
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class GamePlayController {
 
     private World world;
-    private GamePlayRenderer gamePlayRenderer;
+    private GamePlayView gamePlayView;
     private HeroController heroController;
     private ArrayList<EnemyController> enemyControllers;
 
@@ -26,9 +26,9 @@ public class GamePlayController {
 
     }
 
-    public GamePlayController(final World world, final GamePlayRenderer gamePlayRenderer) throws SlickException {
+    public GamePlayController(final World world, final GamePlayView gamePlayView) throws SlickException {
         this.world = world;
-        this.gamePlayRenderer = gamePlayRenderer;
+        this.gamePlayView = gamePlayView;
 
         heroController = new HeroController(world.getHeroManager());
         enemyControllers = new ArrayList<EnemyController>();

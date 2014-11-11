@@ -11,8 +11,7 @@ public class MenuManager {
     public void stepUp() {
         if (menu.getCurrentChoice() == 0) {
             menu.setCurrentChoice(menu.getNumberOfChoices() - 1);
-        }
-        else {
+        } else {
             menu.setCurrentChoice(menu.getCurrentChoice() - 1);
         }
     }
@@ -20,8 +19,7 @@ public class MenuManager {
     public void stepDown() {
         if (menu.getCurrentChoice() == menu.getNumberOfChoices() - 1) {
             menu.setCurrentChoice(0);
-        }
-        else {
+        } else {
             menu.setCurrentChoice(menu.getCurrentChoice() + 1);
         }
     }

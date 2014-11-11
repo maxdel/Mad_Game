@@ -5,11 +5,11 @@ import org.newdawn.slick.Image;
 
 import core.model.gameplay.GameObject;
 
-public class EnemyRenderer extends GameObjectRenderer {
+public class EnemyView extends GameObjectView {
 
     Image enemyImage;
 
-    public EnemyRenderer(GameObject enemy, Image enemyImage) {
+    public EnemyView(GameObject enemy, Image enemyImage) {
         super(enemy);
         this.enemyImage = enemyImage;
     }

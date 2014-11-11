@@ -1,6 +1,6 @@
 package core.view.gameplay;
 
-public class View {
+public class Camera {
 
     private double x;
     private double y;
@@ -8,7 +8,7 @@ public class View {
     private int width;
     private int height;
 
-    public View() {
+    public Camera() {
         x = 0;
         y = 0;
         direction = 0;
@@ -16,7 +16,7 @@ public class View {
         height = 0;
     }
 
-    public View(int width, int height) {
+    public Camera(int width, int height) {
         this.width = width;
         this.height = height;
     }
@@ -42,11 +42,12 @@ public class View {
     }
 
     /*
-    *  Returns view direction angle in degrees.
+    *  Returns camera direction angle in degrees.
     * */
     public float getDirectionAngle() {
         return (float) (direction / Math.PI * 180);
     }
+
     public void setDirection(double direction) {
         this.direction = direction;
     }

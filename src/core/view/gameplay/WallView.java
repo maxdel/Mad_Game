@@ -5,11 +5,11 @@ import org.newdawn.slick.Image;
 
 import core.model.gameplay.GameObject;
 
-public class WallRenderer extends GameObjectRenderer {
+public class WallView extends GameObjectView {
 
     Image wallImage;
 
-    public WallRenderer(GameObject wall, Image wallImage) {
+    public WallView(GameObject wall, Image wallImage) {
         super(wall);
         this.wallImage = wallImage;
     }

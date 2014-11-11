@@ -5,11 +5,11 @@ import org.newdawn.slick.Graphics;
 import core.model.gameplay.GameObject;
 import org.newdawn.slick.Renderable;
 
-public abstract class GameObjectRenderer {
+public abstract class GameObjectView {
 
     protected GameObject gameObject;
 
-    public GameObjectRenderer(GameObject gameObject) {
+    public GameObjectView(GameObject gameObject) {
         this.gameObject = gameObject;
     }
 
