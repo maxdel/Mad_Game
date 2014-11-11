@@ -3,12 +3,13 @@ package core.model.gameplay;
 /**
  * Contains methods to define hero behavior
  * */
-public class HeroManager {
+public class HeroManager extends MovingGameObjectManager {
 
     private Hero hero;
 
-    public HeroManager(final Hero hero) {
-        this.hero = hero;
+    public HeroManager(final MovingGameObject hero) {
+        super(hero);
+        this.hero = (Hero) hero;
     }
 
     public void walk(final double direction) {
@@ -30,17 +31,6 @@ public class HeroManager {
 
     public void rotate(final double angleOffset) {
         hero.setDirection(hero.getDirection() + angleOffset);
-    }
-
-    public void update(final int delta) {
-        double length, lengthDirX, lengthDirY;
-        length = hero.getCurrentSpeed() * delta;
-
-        lengthDirX = Math.cos(hero.getDirection() + hero.getRelativeDirection()) * length;
-        lengthDirY = Math.sin(hero.getDirection() + hero.getRelativeDirection()) * length;
-
-        hero.setX(hero.getX() + lengthDirX);
-        hero.setY(hero.getY() + lengthDirY);
     }
 
 }

@@ -29,7 +29,8 @@ public class HeroRenderer extends GameObjectRenderer {
 
         SpriteSheet spriteSheet = new SpriteSheet("/res/Hero.png", imageWidth, imageHeight);
         animation = new Animation(spriteSheet, 1);
-        animation.setSpeed((float)gameObject.getMaximumSpeed() / 10F);
+
+        animation.setSpeed((float)hero.getMaximumSpeed() / 10F);
 
         previousState = "";
     }
@@ -41,14 +42,14 @@ public class HeroRenderer extends GameObjectRenderer {
         if (!hero.getCurrentState().equals(previousState)) {
             if (hero.getCurrentState().equals("Walk")) {
                 animation.start();
-                animation.setSpeed((float)gameObject.getCurrentSpeed() / 6F);
+                animation.setSpeed((float)hero.getCurrentSpeed() / 6F);
             }
             else if (hero.getCurrentState().equals("Stand")) {
                 animation.stop();
                 animation.setCurrentFrame(4);
             } else if (hero.getCurrentState().equals("Run")) {
                 animation.start();
-                animation.setSpeed((float)gameObject.getCurrentSpeed() / 6F);
+                animation.setSpeed((float)hero.getCurrentSpeed() / 6F);
             }
         }
         previousState = hero.getCurrentState();

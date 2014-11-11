@@ -20,8 +20,8 @@ public class World {
 
         hero = (new Hero(200, 100, 0, 0.18f));
 
-        gameObjects.add(new Wall(100, 100, Math.PI / 4, 0));
-        gameObjects.add(new Wall(300, 300, 0, 0));
+        gameObjects.add(new Wall(100, 100, Math.PI / 4));
+        gameObjects.add(new Wall(300, 300, 0));
 
         Enemy enemy1 = new Enemy(300, 100, 0, 0.06f);
         Enemy enemy2 = new Enemy(300, 100, 0, 0.03f);

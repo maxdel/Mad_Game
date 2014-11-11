@@ -5,8 +5,8 @@ package core.model.gameplay;
  * */
 public class Wall extends GameObject {
 
-    public Wall(double x, double y, double direction, double speed) {
-        super(x, y, direction, speed);
+    public Wall(double x, double y, double direction) {
+        super(x, y, direction);
     }
 
 }

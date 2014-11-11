@@ -8,21 +8,11 @@ public abstract class GameObject {
     protected double x;
     protected double y;
     protected double direction;
-    protected double currentSpeed;
-    protected double maximumSpeed;
 
-    public GameObject(final double x, final double y, final double direction, final double maximumSpeed) {
-        this(x, y, direction, maximumSpeed, 0);
-    }
-
-    public GameObject(final double x, final double y, final double direction, final double maximumSpeed,
-                      final double currentSpeed) {
+    public GameObject(final double x, final double y, final double direction) {
         this.x = x;
         this.y = y;
         this.direction = direction;
-
-        this.maximumSpeed = maximumSpeed;
-        this.currentSpeed = currentSpeed;
     }
 
     public double getX() {
@@ -49,20 +39,5 @@ public abstract class GameObject {
         this.direction = direction;
     }
 
-    public double getMaximumSpeed() {
-        return maximumSpeed;
-    }
-
-    public void setMaximumSpeed(double maximumSpeed) {
-        this.maximumSpeed = maximumSpeed;
-    }
-
-    public double getCurrentSpeed() {
-        return currentSpeed;
-    }
-
-    public void setCurrentSpeed(double currentSpeed) {
-        this.currentSpeed = currentSpeed;
-    }
 
 }

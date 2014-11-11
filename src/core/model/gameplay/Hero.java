@@ -6,9 +6,7 @@ import java.util.Arrays;
 /**
  * Contains fields to define the hero state
  * */
-public class Hero extends GameObject {
-
-    private double relativeDirection;
+public class Hero extends MovingGameObject {
 
     private ArrayList<String> states;
     private String currentState;
@@ -24,14 +22,6 @@ public class Hero extends GameObject {
 
     public Hero(final double x, final double y, final double direction, final double maximumSpeed) {
         this(x, y, direction, maximumSpeed, 0, 0);
-    }
-
-    public double getRelativeDirection() {
-        return relativeDirection;
-    }
-
-    public void setRelativeDirection(double relativeDirection) {
-        this.relativeDirection = relativeDirection;
     }
 
     public String getCurrentState() {
