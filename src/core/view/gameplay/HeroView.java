@@ -1,12 +1,13 @@
 package core.view.gameplay;
 
-import core.model.gameplay.GameObjectState;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.SlickException;
 
+import core.model.gameplay.GameObject;
 import core.model.gameplay.Hero;
+import core.model.gameplay.GameObjectState;
 
 /**
  * Provides functions for the definition of actors, as well as actor
@@ -16,7 +17,7 @@ public class HeroView extends GameObjectView {
 
     private GameObjectState previousState;
 
-    public HeroView(Hero hero) throws SlickException {
+    public HeroView(GameObject hero) throws SlickException {
         super(hero);
 
         final int imageWidth = 50;

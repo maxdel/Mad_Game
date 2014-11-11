@@ -31,16 +31,10 @@ public class GamePlayView {
         gameObjectViews = new ArrayList<GameObjectView>();
         for (GameObject gameObject : gameObjects) {
             if (gameObject.getClass() == Wall.class) {
-                Image image = new Image("/res/Wall.png");
-                SpriteSheet spriteSheet = new SpriteSheet(image, image.getWidth(), image.getHeight());
-                Animation animation = new Animation(spriteSheet, 1);
-                gameObjectViews.add(new WallView(gameObject, animation));
+                gameObjectViews.add(new WallView(gameObject));
             }
             else if (gameObject.getClass() == Enemy.class) {
-                Image image = new Image("/res/Enemy.png");
-                SpriteSheet spriteSheet = new SpriteSheet(image, image.getWidth(), image.getHeight());
-                Animation animation = new Animation(spriteSheet, 1);
-                gameObjectViews.add(new EnemyView(gameObject, animation));
+                gameObjectViews.add(new EnemyView(gameObject));
             }
         }
 

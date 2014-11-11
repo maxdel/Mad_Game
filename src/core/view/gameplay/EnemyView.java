@@ -1,16 +1,18 @@
 package core.view.gameplay;
 
-import org.newdawn.slick.Animation;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
+import core.model.gameplay.Enemy;
+import org.newdawn.slick.*;
 
 import core.model.gameplay.GameObject;
 
 public class EnemyView extends GameObjectView {
 
-    public EnemyView(GameObject enemy, Animation animation) {
+    public EnemyView(GameObject enemy) throws SlickException {
         super(enemy);
-        this.animation = animation;
+
+        Image image = new Image("/res/Enemy.png");
+        SpriteSheet spriteSheet = new SpriteSheet(image, image.getWidth(), image.getHeight());
+        animation = new Animation(spriteSheet, 1);
     }
 
     @Override

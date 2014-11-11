@@ -1,18 +1,19 @@
 package core.view.gameplay;
 
-import org.newdawn.slick.Animation;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
+import core.model.gameplay.Enemy;
+import core.model.gameplay.Wall;
+import org.newdawn.slick.*;
 
 import core.model.gameplay.GameObject;
 
 public class WallView extends GameObjectView {
 
-    Image wallImage;
+    public WallView(GameObject wall) throws SlickException {
+        super(wall);
 
-    public WallView(GameObject wall, Animation animation) {
-        super(wall, animation);
-        this.animation = animation;
+        Image image = new Image("/res/Wall.png");
+        SpriteSheet spriteSheet = new SpriteSheet(image, image.getWidth(), image.getHeight());
+        animation = new Animation(spriteSheet, 1);
     }
 
     @Override
