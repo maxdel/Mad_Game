@@ -28,23 +28,30 @@ public class HeroView extends GameObjectView {
         setAnimation("/res/Hero.png", imageWidth, imageHeight);
     }
 
+    private void processAnimation(GameObjectState state) {
+
+    }
     @Override
     public void render(Graphics g, final double viewX, final double viewY, final float viewDegreeAngle,
                        final int viewWidth, final int viewHeight) {
         Hero hero = (Hero)gameObject;
         if (hero.getCurrentState() != previousState) {
-            if (hero.getCurrentState() == GameObjectState.WALK) {
-                animation.start();
-                animation.setSpeed((float) hero.getCurrentSpeed() / 6F);
-            }
-            else if (hero.getCurrentState() == GameObjectState.STAND) {
-                animation.stop();
-                animation.setCurrentFrame(4);
-            } else if (hero.getCurrentState() == GameObjectState.RUN) {
-                animation.start();
-                animation.setSpeed((float)hero.getCurrentSpeed() / 6F);
+            switch (hero.getCurrentState()) {
+                case WALK:
+                    animation.start();
+                    animation.setSpeed((float) hero.getCurrentSpeed() / 6F);
+                    break;
+                case STAND:
+                    animation.stop();
+                    animation.setCurrentFrame(4);
+                    break;
+                case RUN:
+                    animation.start();
+                    animation.setSpeed((float)hero.getCurrentSpeed() / 6F);
+                    break;
             }
         }
+
         previousState = hero.getCurrentState();
 
         rotate(g, viewX, viewY, viewDegreeAngle, viewWidth, viewHeight, true);
