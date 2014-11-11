@@ -24,7 +24,6 @@ public abstract class Menu {
     }
 
     public int getMenuId(String string) {
-
         return menuMap.get(string);
     }
 

@@ -54,9 +54,9 @@ public class HeroRenderer extends GameObjectRenderer {
         previousState = hero.getCurrentState();
 
 
-        super.rotate(g, viewX, viewY, viewDegreeAngle, viewWidth, viewHeight,
-                animation, animation.getWidth(), animation.getHeight());
-        g.rotate(viewWidth / 2, viewHeight / 2, viewDegreeAngle);
+        rotate(g, viewX, viewY, viewDegreeAngle, viewWidth, viewHeight, true);
+        draw(animation, animation.getWidth(), animation.getHeight(), viewX, viewY);
+        rotate(g, viewX, viewY, viewDegreeAngle, viewWidth, viewHeight, false);
 
         // For debug
         g.drawString("(" + String.valueOf((int) gameObject.getX()) + ";" + String.valueOf((int) gameObject.getY())

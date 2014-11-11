@@ -14,7 +14,6 @@ public class StartMenu extends Menu {
 
     private StartMenu() {
         super(menuMap);
-
     }
 
     public static StartMenu getInstance() {

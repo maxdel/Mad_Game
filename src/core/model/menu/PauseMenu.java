@@ -11,7 +11,6 @@ public class PauseMenu extends Menu {
 
     private PauseMenu() {
         super(menuMap);
-
     }
 
     public static PauseMenu getInstance() {
