@@ -19,9 +19,8 @@ public class WallRenderer extends GameObjectRenderer {
                        final int viewWidth, final int viewHeight) {
 
 
-        super.rotate(g, viewX, viewY, viewDegreeAngle, viewWidth, viewHeight,
-                wallImage, wallImage.getWidth(), wallImage.getHeight());
-
+        rotate(g, viewX, viewY, viewDegreeAngle, viewWidth, viewHeight, true);
+        draw(wallImage, wallImage.getWidth(), wallImage.getHeight(), viewX, viewY);
         // ----- For debug and FUN -----
         g.rotate((float) (gameObject.getX() - viewX),
                 (float) (gameObject.getY() - viewY),
@@ -32,7 +31,8 @@ public class WallRenderer extends GameObjectRenderer {
                 (float) (gameObject.getY() - viewY),
                 - viewDegreeAngle);
         // ----- END -----
-        g.rotate(viewWidth / 2, viewHeight / 2, viewDegreeAngle);
+        rotate(g, viewX, viewY, viewDegreeAngle, viewWidth, viewHeight, false);
+
     }
 
 }

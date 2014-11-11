@@ -1,13 +1,14 @@
 package core.controller.menu;
 
-import core.GamePlayState;
-import core.model.gameplay.World;
-import core.model.menu.StartMenu;
-import core.model.menu.MenuManager;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
+
+import core.GamePlayState;
+import core.model.gameplay.World;
+import core.model.menu.StartMenu;
+import core.model.menu.MenuManager;
 
 /*
 * Provides functions to handle user menu navigate events

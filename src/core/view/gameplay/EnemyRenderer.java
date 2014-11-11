@@ -16,9 +16,9 @@ public class EnemyRenderer extends GameObjectRenderer {
 
     @Override
     public void render(Graphics g, double viewX, double viewY, float viewDegreeAngle, int viewWidth, int viewHeight) {
-        super.rotate(g, viewX, viewY, viewDegreeAngle, viewWidth, viewHeight,
-                enemyImage, enemyImage.getWidth(), enemyImage.getHeight());
-                // ----- For debug and FUN -----
+        rotate(g, viewX, viewY, viewDegreeAngle, viewWidth, viewHeight, true);
+        draw(enemyImage, enemyImage.getWidth(), enemyImage.getHeight(), viewX, viewY);
+        // ----- For debug and FUN -----
         g.rotate((float) (gameObject.getX() - viewX),
                 (float) (gameObject.getY() - viewY),
                 viewDegreeAngle);
@@ -28,7 +28,7 @@ public class EnemyRenderer extends GameObjectRenderer {
                 (float) (gameObject.getY() - viewY),
                 - viewDegreeAngle);
         // ----- END -----
-        g.rotate(viewWidth / 2, viewHeight / 2, viewDegreeAngle);
+        rotate(g, viewX, viewY, viewDegreeAngle, viewWidth, viewHeight, false);
     }
 
 }
