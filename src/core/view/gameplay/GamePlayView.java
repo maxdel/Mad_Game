@@ -20,10 +20,6 @@ public class GamePlayView {
     private HeroView heroView;
     private Camera camera;
 
-    public GamePlayView() {
-
-    }
-
     public GamePlayView(GameContainer gc, ArrayList<GameObject> gameObjects, Hero hero) throws SlickException {
         this.gameObjects = gameObjects;
         gameObjectViews = new ArrayList<GameObjectView>();
