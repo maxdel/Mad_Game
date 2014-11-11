@@ -16,12 +16,8 @@ public class HeroRenderer extends GameObjectRenderer {
     private Animation animation;
     private String previousState;
 
-    private Hero hero;
-
     public HeroRenderer(Hero hero) throws SlickException {
         super(hero);
-
-        this.hero = hero;
 
         final int imageWidth = 50;
         final int imageHeight = 50;
