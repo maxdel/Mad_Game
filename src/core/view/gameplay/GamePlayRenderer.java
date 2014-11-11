@@ -17,14 +17,12 @@ import core.model.gameplay.Wall;
 * */
 public class GamePlayRenderer {
 
-    private static GamePlayRenderer instance;
-
     private ArrayList<GameObject> gameObjects;
     private ArrayList<GameObjectRenderer> gameObjectRenderers;
     private HeroRenderer heroRenderer;
     private View view;
 
-    private GamePlayRenderer() {
+    public GamePlayRenderer() {
 
     }
 
@@ -46,13 +44,6 @@ public class GamePlayRenderer {
         view = new View(gc.getWidth(), gc.getHeight());
     }
 
-    // Singleton pattern method
-    public static GamePlayRenderer getInstance(GameContainer gc, ArrayList<GameObject> gameObjects, Hero hero) throws SlickException {
-        if (instance == null) {
-            instance = new GamePlayRenderer(gc, gameObjects, hero);
-        }
-        return instance;
-    }
 
     public void render(GameContainer gc, Graphics g) throws SlickException {
         view.update(heroRenderer.getHero().getX(), heroRenderer.getHero().getY(), heroRenderer.getHero().getDirection());

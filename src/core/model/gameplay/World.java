@@ -37,11 +37,12 @@ public class World {
     }
 
     // Singleton pattern method
-    public static World getInstance() {
-        if (instance == null) {
+    public static World getInstance(boolean reset) {
+        if (instance == null || reset) {
             instance = new World();
         }
         return instance;
+
     }
 
     public ArrayList<GameObject> getGameObjects() {

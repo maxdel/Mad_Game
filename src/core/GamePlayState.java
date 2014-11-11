@@ -17,7 +17,7 @@ public class GamePlayState extends BasicGameState {
 
     private static GamePlayState instance;
 
-    private final int STATE_ID = 1;
+    private final int STATE_ID = 0;
 
     private World world;
     private GamePlayRenderer gamePlayRenderer;
@@ -56,9 +56,9 @@ public class GamePlayState extends BasicGameState {
 
     @Override
     public void enter(GameContainer gc, StateBasedGame game) throws SlickException {
-        world = World.getInstance();
-        gamePlayRenderer = GamePlayRenderer.getInstance(gc, world.getGameObjects(), world.getHero());
-        gamePlayController = GamePlayController.getInstance(world, gamePlayRenderer);
+        world = World.getInstance(false);
+        gamePlayRenderer = new GamePlayRenderer(gc, world.getGameObjects(), world.getHero());
+        gamePlayController = new GamePlayController(world, gamePlayRenderer);
     }
 
     @Override
