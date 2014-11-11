@@ -10,6 +10,7 @@ public class EnemyManager extends GameObjectMovingManager {
     }
 
     public void followTarget(final double x, final double y) {
+        enemy.setCurrentState(GameObjectState.RUN);
         enemy.setDirection(Math.atan2(y - gameObjectMoving.getY(), x - gameObjectMoving.getX()));
         enemy.setCurrentSpeed(gameObjectMoving.getMaximumSpeed());
     }

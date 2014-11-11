@@ -1,5 +1,6 @@
 package core.view.gameplay;
 
+import core.view.ResourceManager;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
@@ -15,13 +16,9 @@ public class HeroView extends GameObjectView {
 
     private GameObjectState previousState;
 
-    public HeroView(GameObject hero) throws SlickException {
-        super(hero);
-
-        final int imageWidth = 50;
-        final int imageHeight = 50;
-
-        setAnimation("/res/Hero.png", imageWidth, imageHeight);
+    public HeroView(GameObject hero, ResourceManager resourceManager) throws SlickException {
+        super(hero, resourceManager);
+        animation = ResourceManager.getInstance().getAnimation("hero");
     }
 
     @Override
@@ -32,15 +29,15 @@ public class HeroView extends GameObjectView {
             switch (hero.getCurrentState()) {
                 case WALK:
                     animation.start();
-                    animation.setSpeed((float) hero.getCurrentSpeed() / 6F);
+                    animation.setSpeed((float) (hero.getCurrentSpeed() / resourceManager.getSpeedCoef("hero")));
+                    break;
+                case RUN:
+                    animation.start();
+                    animation.setSpeed((float) (hero.getCurrentSpeed() / resourceManager.getSpeedCoef("hero")));
                     break;
                 case STAND:
                     animation.stop();
                     animation.setCurrentFrame(4);
-                    break;
-                case RUN:
-                    animation.start();
-                    animation.setSpeed((float)hero.getCurrentSpeed() / 6F);
                     break;
             }
         }

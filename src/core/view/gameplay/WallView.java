@@ -1,17 +1,15 @@
 package core.view.gameplay;
 
-import core.model.gameplay.Enemy;
-import core.model.gameplay.Wall;
+import core.view.ResourceManager;
 import org.newdawn.slick.*;
 
 import core.model.gameplay.GameObject;
 
 public class WallView extends GameObjectView {
 
-    public WallView(GameObject wall) throws SlickException {
-        super(wall);
-
-        setAnimation("/res/Wall.png");
+    public WallView(GameObject wall, ResourceManager resourceManager) throws SlickException {
+        super(wall, resourceManager);
+        animation = resourceManager.getAnimation("wall");
     }
 
     @Override

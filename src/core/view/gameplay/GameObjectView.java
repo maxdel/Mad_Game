@@ -1,5 +1,6 @@
 package core.view.gameplay;
 
+import core.view.ResourceManager;
 import org.newdawn.slick.*;
 
 import core.model.gameplay.GameObject;
@@ -8,14 +9,12 @@ public abstract class GameObjectView {
 
     protected GameObject gameObject;
     protected Animation animation;
+    protected ResourceManager resourceManager;
 
-    public GameObjectView(GameObject gameObject) {
-        this(gameObject, null);
-    }
-
-    public GameObjectView(GameObject gameObject, Animation animation) {
+    public GameObjectView(GameObject gameObject, ResourceManager resourceManager) {
         this.gameObject = gameObject;
-        this.animation = animation;
+        this.resourceManager = resourceManager;
+        this.animation = null;
     }
 
     public abstract void render(Graphics g, final double viewX, final double viewY, final float viewDegreeAngle,
@@ -42,17 +41,6 @@ public abstract class GameObjectView {
     public void draw(final double viewX, final double viewY) {
         animation.draw((float) (gameObject.getX() - viewX - animation.getWidth() / 2),
                 (float) (gameObject.getY() - viewY - animation.getHeight() / 2));
-    }
-
-    protected void setAnimation(String pass) throws SlickException {
-        Image image = new Image(pass);
-        SpriteSheet spriteSheet = new SpriteSheet(image, image.getWidth(), image.getHeight());
-        animation = new Animation(spriteSheet, 1);
-    }
-
-    protected void setAnimation(final String pass, final int cropWidth, final int cropHeight) throws SlickException {
-        SpriteSheet spriteSheet = new SpriteSheet(pass, cropWidth, cropHeight);
-        animation = new Animation(spriteSheet, 1);
     }
 
 }

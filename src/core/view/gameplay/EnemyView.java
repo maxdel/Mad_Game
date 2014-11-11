@@ -1,16 +1,15 @@
 package core.view.gameplay;
 
-import core.model.gameplay.Enemy;
+import core.view.ResourceManager;
 import org.newdawn.slick.*;
 
 import core.model.gameplay.GameObject;
 
 public class EnemyView extends GameObjectView {
 
-    public EnemyView(GameObject enemy) throws SlickException {
-        super(enemy);
-
-        setAnimation("/res/Enemy.png");
+    public EnemyView(GameObject enemy, ResourceManager resourceManager) throws SlickException {
+        super(enemy, resourceManager);
+        animation = resourceManager.getAnimation("enemy");
     }
 
     @Override

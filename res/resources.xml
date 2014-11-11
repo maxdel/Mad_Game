@@ -1,0 +1,9 @@
+<resources>
+    <gameplay>
+        <animations>
+            <animation name="hero" path="/res/hero.png" isImage = "false" frameWidth="50" frameHeight="50" speedCoef="6"/>
+            <animation name="enemy" path="/res/enemy.png" isImage = "true" />
+            <animation name="wall" path="/res/wall.png" isImage = "true" />
+        </animations>
+    </gameplay>
+</resources>

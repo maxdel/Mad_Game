@@ -2,7 +2,8 @@ package core;
 
 import core.controller.menu.PauseMenuController;
 import core.model.menu.PauseMenu;
-import core.view.menu.MenuRenderer;
+import core.view.ResourceManager;
+import core.view.menu.MenuView;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -13,10 +14,10 @@ public class PauseMenuState extends BasicGameState {
 
     private static PauseMenuState instance;
 
-    private final int STATE_ID = 2;
+    private final GameState STATE_ID = GameState.PAUSEMENU;
 
     private PauseMenuController pauseMenuController;
-    private MenuRenderer menuRenderer;
+    private MenuView menuView;
 
     private PauseMenuState() {
     }
@@ -30,7 +31,7 @@ public class PauseMenuState extends BasicGameState {
 
     @Override
     public int getID() {
-        return STATE_ID;
+        return STATE_ID.getValue();
     }
 
     @Override
@@ -40,7 +41,7 @@ public class PauseMenuState extends BasicGameState {
 
     @Override
     public void render(GameContainer gc, StateBasedGame game, Graphics graphics) throws SlickException {
-        menuRenderer.render(gc);
+        menuView.render(gc);
     }
 
     @Override
@@ -50,15 +51,18 @@ public class PauseMenuState extends BasicGameState {
 
     @Override
     public void enter(GameContainer gc, StateBasedGame game) throws SlickException {
+        ResourceManager resourceManager = ResourceManager.getInstance();
+        resourceManager.load(STATE_ID);
         gc.getInput().clearKeyPressedRecord();
         pauseMenuController = PauseMenuController.getInstance();
-        menuRenderer = new MenuRenderer(PauseMenu.getInstance());
+        menuView = new MenuView(PauseMenu.getInstance());
     }
 
     @Override
     public void leave(GameContainer gc, StateBasedGame game) throws SlickException {
+        ResourceManager.getInstance().unload();
         pauseMenuController = null;
-        menuRenderer = null;
+        menuView = null;
         System.gc();
     }
 }
