@@ -22,10 +22,6 @@ public class GamePlayController {
     private HeroController heroController;
     private ArrayList<EnemyController> enemyControllers;
 
-    public GamePlayController() {
-
-    }
-
     public GamePlayController(final World world, final GamePlayView gamePlayView) throws SlickException {
         this.world = world;
         this.gamePlayView = gamePlayView;
