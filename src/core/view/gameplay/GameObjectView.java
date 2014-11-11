@@ -53,6 +53,6 @@ public abstract class GameObjectView {
     protected void setAnimation(final String pass, final int cropWidth, final int cropHeight) throws SlickException {
         SpriteSheet spriteSheet = new SpriteSheet(pass, cropWidth, cropHeight);
         animation = new Animation(spriteSheet, 1);
-
     }
+
 }
