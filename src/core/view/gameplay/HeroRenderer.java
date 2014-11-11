@@ -13,7 +13,6 @@ import core.model.gameplay.Hero;
  */
 public class HeroRenderer extends GameObjectRenderer {
 
-    private int imageWidth, imageHeight;
     private Animation animation;
     private String previousState;
 
@@ -24,8 +23,8 @@ public class HeroRenderer extends GameObjectRenderer {
 
         this.hero = hero;
 
-        imageWidth = 50;
-        imageHeight = 50;
+        final int imageWidth = 50;
+        final int imageHeight = 50;
 
         SpriteSheet spriteSheet = new SpriteSheet("/res/Hero.png", imageWidth, imageHeight);
         animation = new Animation(spriteSheet, 1);

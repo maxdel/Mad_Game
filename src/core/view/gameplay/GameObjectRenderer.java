@@ -16,13 +16,12 @@ public abstract class GameObjectRenderer {
     public abstract void render(Graphics g, final double viewX, final double viewY, final float viewDegreeAngle,
                                 final int viewWidth, final int viewHeight);
 
-
     /*
     * Do rotation of game object
     * Returns view angle in degrees
     * */
-    public void rotate(Graphics g, double viewX, double viewY, float viewDegreeAngle, int viewWidth, int viewHeight,
-                        final boolean isFront) {
+    public void rotate(Graphics g, final double viewX, final double viewY, final float viewDegreeAngle,
+                       final int viewWidth, final int viewHeight, final boolean isFront) {
         if (isFront) {
             //Rotate around view center to set position on the View
             g.rotate(viewWidth / 2, viewHeight / 2, - viewDegreeAngle);
