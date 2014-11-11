@@ -48,11 +48,12 @@ public class GamePlayRenderer {
     public void render(GameContainer gc, Graphics g) throws SlickException {
         view.update(heroRenderer.getHero().getX(), heroRenderer.getHero().getY(), heroRenderer.getHero().getDirection());
 
-        heroRenderer.render(g, view.getX(), view.getY(), view.getDirection(), view.getWidth(), view.getHeight());
+        heroRenderer.render(g, view.getX(), view.getY(), view.getDirectionAngle(), view.getWidth(), view.getHeight());
 
         for (GameObjectRenderer gameObjectRenderer : gameObjectRenderers) {
-            gameObjectRenderer.render(g, view.getX(), view.getY(), view.getDirection(), view.getWidth(), view.getHeight());
+            gameObjectRenderer.render(g, view.getX(), view.getY(), view.getDirectionAngle(), view.getWidth(), view.getHeight());
         }
     }
+
 
 }

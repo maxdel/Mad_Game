@@ -15,22 +15,10 @@ public class EnemyRenderer extends GameObjectRenderer {
     }
 
     @Override
-    public void render(Graphics g, double viewX, double viewY, double viewDirection, int viewWidth, int viewHeight) {
-        float viewDegreeAngle = (float) (viewDirection / Math.PI * 180);
-
-        //Rotate around view center to set position on the View
-        g.rotate(viewWidth / 2, viewHeight / 2, - viewDegreeAngle);
-        //Rotate around gameObject coordinates to set direction of gameObject
-        g.rotate((float) (gameObject.getX() - viewX),
-                (float) (gameObject.getY() - viewY),
-                (float)(gameObject.getDirection() / Math.PI * 180));
-        // Coordinates to draw image according to position on the View
-        enemyImage.draw((float) (gameObject.getX() - viewX - enemyImage.getWidth() / 2),
-                (float) (gameObject.getY() - viewY - enemyImage.getHeight() / 2));
-        g.rotate((float) (gameObject.getX() - viewX),
-                (float) (gameObject.getY() - viewY),
-                -(float) (gameObject.getDirection() / Math.PI * 180));
-        // ----- For debug and FUN -----
+    public void render(Graphics g, double viewX, double viewY, float viewDegreeAngle, int viewWidth, int viewHeight) {
+        super.rotate(g, viewX, viewY, viewDegreeAngle, viewWidth, viewHeight,
+                enemyImage, enemyImage.getWidth(), enemyImage.getHeight());
+                // ----- For debug and FUN -----
         g.rotate((float) (gameObject.getX() - viewX),
                 (float) (gameObject.getY() - viewY),
                 viewDegreeAngle);

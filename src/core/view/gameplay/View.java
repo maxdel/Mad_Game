@@ -41,6 +41,12 @@ public class View {
         return direction;
     }
 
+    /*
+    *  Returns view direction angle in degrees.
+    * */
+    public float getDirectionAngle() {
+        return (float) (direction / Math.PI * 180);
+    }
     public void setDirection(double direction) {
         this.direction = direction;
     }
