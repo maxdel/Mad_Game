@@ -9,6 +9,8 @@ import core.model.gameplay.GameObject;
 import core.model.gameplay.Hero;
 import core.model.gameplay.GameObjectState;
 
+import java.awt.*;
+
 /**
  * Provides functions for the definition of actors, as well as actor
  * operations, such as `receive`, `react`, `reply`, etc.
@@ -23,8 +25,7 @@ public class HeroView extends GameObjectView {
         final int imageWidth = 50;
         final int imageHeight = 50;
 
-        SpriteSheet spriteSheet = new SpriteSheet("/res/Hero.png", imageWidth, imageHeight);
-        animation = new Animation(spriteSheet, 1);
+        setAnimation("/res/Hero.png", imageWidth, imageHeight);
     }
 
     @Override

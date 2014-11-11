@@ -10,9 +10,8 @@ public class EnemyView extends GameObjectView {
     public EnemyView(GameObject enemy) throws SlickException {
         super(enemy);
 
-        Image image = new Image("/res/Enemy.png");
-        SpriteSheet spriteSheet = new SpriteSheet(image, image.getWidth(), image.getHeight());
-        animation = new Animation(spriteSheet, 1);
+        setAnimation("/res/Enemy.png");
+
     }
 
     @Override

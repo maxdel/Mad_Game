@@ -11,9 +11,7 @@ public class WallView extends GameObjectView {
     public WallView(GameObject wall) throws SlickException {
         super(wall);
 
-        Image image = new Image("/res/Wall.png");
-        SpriteSheet spriteSheet = new SpriteSheet(image, image.getWidth(), image.getHeight());
-        animation = new Animation(spriteSheet, 1);
+        setAnimation("/res/Wall.png");
     }
 
     @Override

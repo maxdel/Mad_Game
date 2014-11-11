@@ -1,7 +1,6 @@
 package core.view.gameplay;
 
-import org.newdawn.slick.Animation;
-import org.newdawn.slick.Graphics;
+import org.newdawn.slick.*;
 
 import core.model.gameplay.GameObject;
 
@@ -45,4 +44,15 @@ public abstract class GameObjectView {
                 (float) (gameObject.getY() - viewY - animation.getHeight() / 2));
     }
 
+    protected void setAnimation(String pass) throws SlickException {
+        Image image = new Image(pass);
+        SpriteSheet spriteSheet = new SpriteSheet(image, image.getWidth(), image.getHeight());
+        animation = new Animation(spriteSheet, 1);
+    }
+
+    protected void setAnimation(final String pass, final int cropWidth, final int cropHeight) throws SlickException {
+        SpriteSheet spriteSheet = new SpriteSheet(pass, cropWidth, cropHeight);
+        animation = new Animation(spriteSheet, 1);
+
+    }
 }
