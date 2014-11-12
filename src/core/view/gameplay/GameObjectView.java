@@ -52,23 +52,23 @@ public abstract class GameObjectView {
         Image image = new Image(pass);
         SpriteSheet spriteSheet = new SpriteSheet(image, image.getWidth(), image.getHeight());
         animation = new Animation(spriteSheet, 1);
-        gameObject.setSize(image.getWidth(), image.getHeight());
+        gameObject.setMaskSize(image.getWidth(), image.getHeight());
     }
 
     protected void setAnimation(final String pass, final int cropWidth, final int cropHeight) throws SlickException {
         SpriteSheet spriteSheet = new SpriteSheet(pass, cropWidth, cropHeight);
         animation = new Animation(spriteSheet, 1);
-        gameObject.setSize(animation.getImage(1).getWidth(), animation.getImage(1).getHeight());
+        gameObject.setMaskSize(animation.getImage(1).getWidth(), animation.getImage(1).getHeight());
     }
 
+    /*
+    * Draws mask around a game object
+    * */
     protected void drawMask(Graphics g, final double viewX, final double viewY) {
-        // draw mask
         Shape temp = gameObject.getMovedMask(gameObject.getMask(),
                 (float) gameObject.getX() - (float) viewX,
                 (float) gameObject.getY() - (float) viewY);
         g.draw(temp);
-        //--
-
     }
 
 }

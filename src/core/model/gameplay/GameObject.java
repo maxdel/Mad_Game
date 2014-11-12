@@ -104,15 +104,7 @@ public abstract class GameObject {
      */
     public abstract void collidedWith(GameObject other);
 
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setSize(int width, int height) {
+    public void setMaskSize(int width, int height) {
         this.width = width;
         this.height = height;
 
