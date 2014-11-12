@@ -22,7 +22,7 @@ public class HeroView extends GameObjectView {
     public HeroView(GameObject hero, ResourceManager resourceManager) throws SlickException {
         super(hero, resourceManager);
         animation = ResourceManager.getInstance().getAnimation("hero");
-        gameObject.setMaskSize(animation.getImage(1).getWidth(), animation.getImage(1).getHeight());
+        gameObject.setMaskSize(animation.getImage(0).getWidth(), animation.getImage(0).getHeight());
     }
 
     @Override
@@ -41,7 +41,7 @@ public class HeroView extends GameObjectView {
                     break;
                 case RUN:
                     animation.start();
-                    animation.setSpeed((float)hero.getCurrentSpeed() / 6F);
+                    animation.setSpeed((float) hero.getCurrentSpeed() / 6F);
                     break;
             }
         }
@@ -49,11 +49,15 @@ public class HeroView extends GameObjectView {
 
         rotate(g, viewX, viewY, viewDegreeAngle, viewWidth, viewHeight, true);
         draw(viewX, viewY);
+
+        // draw mask
+        drawMask(g, viewX, viewY);
+
         rotate(g, viewX, viewY, viewDegreeAngle, viewWidth, viewHeight, false);
 
         // For debug
         g.drawString("(" + String.valueOf((int) gameObject.getX()) + ";" + String.valueOf((int) gameObject.getY())
-                + ") dir=" + String.valueOf((int) (gameObject.getDirection() / Math.PI * 180) % 360),
+                        + ") dir=" + String.valueOf((int) (gameObject.getDirection() / Math.PI * 180) % 360),
                 (float) (gameObject.getX() - viewX),
                 (float) (gameObject.getY() - viewY));
     }

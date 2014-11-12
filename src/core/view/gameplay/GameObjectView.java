@@ -43,5 +43,14 @@ public abstract class GameObjectView {
         animation.draw((float) (gameObject.getX() - viewX - animation.getWidth() / 2),
                 (float) (gameObject.getY() - viewY - animation.getHeight() / 2));
     }
-    
+
+    /*
+       * Draws mask around a game object
+       * */
+    protected void drawMask(Graphics g, final double viewX, final double viewY) {
+        Shape temp = gameObject.getMovedMask(gameObject.getMask(),
+                (float) gameObject.getX() - (float) viewX,
+                (float) gameObject.getY() - (float) viewY);
+        g.draw(temp);
+    }
 }

@@ -13,6 +13,8 @@ public class WallView extends GameObjectView {
     public WallView(GameObject wall, ResourceManager resourceManager) throws SlickException {
         super(wall, resourceManager);
         animation = resourceManager.getAnimation("wall");
+        gameObject.setMaskSize(animation.getImage(0).getWidth(), animation.getImage(0).getHeight());
+
     }
 
     @Override
