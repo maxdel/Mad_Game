@@ -3,6 +3,7 @@ package core.view.gameplay;
 import org.newdawn.slick.*;
 
 import core.model.gameplay.GameObject;
+import org.newdawn.slick.geom.Shape;
 
 public abstract class GameObjectView {
 
@@ -58,6 +59,16 @@ public abstract class GameObjectView {
         SpriteSheet spriteSheet = new SpriteSheet(pass, cropWidth, cropHeight);
         animation = new Animation(spriteSheet, 1);
         gameObject.setSize(animation.getImage(1).getWidth(), animation.getImage(1).getHeight());
+    }
+
+    protected void drawMask(Graphics g, final double viewX, final double viewY) {
+        // draw mask
+        Shape temp = gameObject.getMovedMask(gameObject.getMask(),
+                (float) gameObject.getX() - (float) viewX,
+                (float) gameObject.getY() - (float) viewY);
+        g.draw(temp);
+        //--
+
     }
 
 }

@@ -88,19 +88,8 @@ public abstract class GameObject {
      */
     public boolean collidesWith(GameObject other) {
         Shape me = getMovedMask(this.getMask(), this.x, this.y);
-
         Shape him = getMovedMask(other.getMask(), other.x, other.y);
-  /*      if (him instanceof Circle) {
-            Shape temp = new Circle(him.getX() + (float) other.getX(),
-                    him.getY() + (float) other.getY(),
-                    him.getBoundingCircleRadius());
-            him = temp;
-        } else if (him instanceof Rectangle) {
-            Shape temp = new Rectangle(him.getX() + (float) other.getX(),
-                    him.getY() + (float) other.getY(),
-                    him.getWidth(), him.getHeight());
-            him = temp;
-        }*/
+
         return me.intersects(him);
     }
 

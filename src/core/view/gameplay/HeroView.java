@@ -52,15 +52,8 @@ public class HeroView extends GameObjectView {
         rotate(g, viewX, viewY, viewDegreeAngle, viewWidth, viewHeight, true);
         draw(viewX, viewY);
 
-
-
         // draw mask
-        Shape temp = new Circle(gameObject.getMask().getX() + (float) gameObject.getX() - (float) viewX,
-                gameObject.getMask().getY() + (float) gameObject.getY() - (float) viewY,
-                gameObject.getMask().getBoundingCircleRadius());
-
-        g.draw(temp);
-        //--
+        drawMask(g, viewX, viewY);
 
         rotate(g, viewX, viewY, viewDegreeAngle, viewWidth, viewHeight, false);
 

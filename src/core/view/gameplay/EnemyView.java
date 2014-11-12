@@ -21,12 +21,7 @@ public class EnemyView extends GameObjectView {
         draw(viewX, viewY);
 
         // draw mask
-        Shape temp = new Circle(gameObject.getMask().getX() + (float) gameObject.getX() - (float) viewX,
-                gameObject.getMask().getY() + (float) gameObject.getY() - (float) viewY,
-                gameObject.getMask().getBoundingCircleRadius());
-
-        g.draw(temp);
-        // --
+        drawMask(g, viewX, viewY);
 
         // ----- For debug and FUN -----
         g.rotate((float) (gameObject.getX() - viewX),
