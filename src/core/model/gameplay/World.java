@@ -14,6 +14,7 @@ public class World {
     private Hero hero;
     private HeroManager heroManager;
     private ArrayList<EnemyManager> enemyManagers;
+    private CollisionDetector collisionDetector;
 
 
     private World() {
@@ -35,6 +36,7 @@ public class World {
         enemyManagers.add(new EnemyManager(enemy2));
 
         heroManager = new HeroManager(hero);
+        collisionDetector = new CollisionDetector();
     }
 
     // Singleton pattern method
@@ -45,9 +47,12 @@ public class World {
         return instance;
     }
 
-
     public static void deleteInstance() {
         instance = null;
+    }
+
+    public void update() {
+        collisionDetector.update();
     }
 
     public ArrayList<GameObject> getGameObjects() {

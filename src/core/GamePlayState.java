@@ -23,10 +23,8 @@ public class GamePlayState extends BasicGameState {
     private World world;
     private GamePlayView gamePlayView;
     private GamePlayController gamePlayController;
-    private CollisionDetector collisionDetector = new CollisionDetector();
 
     private GamePlayState() {
-
     }
 
     public static GamePlayState getInstance() {
@@ -55,7 +53,9 @@ public class GamePlayState extends BasicGameState {
     @Override
     public void update(GameContainer gc, StateBasedGame game, int delta) throws SlickException {
         gamePlayController.update(gc, game, delta);
-        collisionDetector.update();
+
+        /* Flow of inner game world process*/
+        World.getInstance(false).update();
 
     }
 

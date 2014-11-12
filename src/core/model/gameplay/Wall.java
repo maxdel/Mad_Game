@@ -20,12 +20,14 @@ public class Wall extends GameObject {
 
          if (other instanceof Hero) {
             System.out.println("Collision WALL - HERO");
+             x -= 70;
+             y -= 70;
 
-        } else if (other instanceof Enemy) {
+         } else if (other instanceof Enemy) {
             System.out.println("Collision WALL - ENEMY");
         }
 
-        ((GameObjectMoving) other).maximumSpeed -= ((GameObjectMoving) other).getMaximumSpeed();
+//        ((GameObjectMoving) other).maximumSpeed -= ((GameObjectMoving) other).getMaximumSpeed();
 
     }
 

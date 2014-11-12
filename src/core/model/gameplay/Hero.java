@@ -25,7 +25,6 @@ public class Hero extends GameObjectMoving {
         } else if (other instanceof Enemy) {
             System.out.println("Collision HERO - ENEMY");
 
-        other.x -= ((Enemy) other).getMaximumSpeed() * 100;
         }
 
     }
