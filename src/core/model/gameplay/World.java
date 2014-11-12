@@ -15,6 +15,7 @@ public class World {
     private HeroManager heroManager;
     private ArrayList<EnemyManager> enemyManagers;
 
+
     private World() {
         gameObjects = new ArrayList<GameObject>();
 
@@ -43,6 +44,7 @@ public class World {
         }
         return instance;
     }
+
 
     public static void deleteInstance() {
         instance = null;

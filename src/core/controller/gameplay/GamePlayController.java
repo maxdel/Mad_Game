@@ -31,6 +31,7 @@ public class GamePlayController {
         for (EnemyManager enemyManager : world.getEnemyManagers()) {
             enemyControllers.add(new EnemyController(enemyManager));
         }
+
     }
 
     public void update(GameContainer gc, StateBasedGame game, final int delta) {

@@ -2,12 +2,8 @@ package core.view.gameplay;
 
 import java.util.ArrayList;
 
+import core.model.gameplay.*;
 import org.newdawn.slick.*;
-
-import core.model.gameplay.Enemy;
-import core.model.gameplay.GameObject;
-import core.model.gameplay.Hero;
-import core.model.gameplay.Wall;
 
 /*
 * Renders game play game state
@@ -31,6 +27,7 @@ public class GamePlayView {
                 gameObjectViews.add(new EnemyView(gameObject));
             }
         }
+
 
         this.hero = hero;
         heroView = new HeroView(hero);

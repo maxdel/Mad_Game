@@ -1,11 +1,14 @@
 package core.view.gameplay;
 
+import core.model.gameplay.World;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 import core.model.gameplay.GameObject;
 import core.model.gameplay.Hero;
 import core.model.gameplay.GameObjectState;
+import org.newdawn.slick.geom.Circle;
+import org.newdawn.slick.geom.Shape;
 
 /**
  * Provides functions for the definition of actors, as well as actor
@@ -48,6 +51,17 @@ public class HeroView extends GameObjectView {
 
         rotate(g, viewX, viewY, viewDegreeAngle, viewWidth, viewHeight, true);
         draw(viewX, viewY);
+
+
+
+        // draw mask
+        Shape temp = new Circle(gameObject.getMask().getX() + (float) gameObject.getX() - (float) viewX,
+                gameObject.getMask().getY() + (float) gameObject.getY() - (float) viewY,
+                gameObject.getMask().getBoundingCircleRadius());
+
+        g.draw(temp);
+        //--
+
         rotate(g, viewX, viewY, viewDegreeAngle, viewWidth, viewHeight, false);
 
         // For debug
@@ -55,6 +69,7 @@ public class HeroView extends GameObjectView {
                 + ") dir=" + String.valueOf((int) (gameObject.getDirection() / Math.PI * 180) % 360),
                 (float) (gameObject.getX() - viewX),
                 (float) (gameObject.getY() - viewY));
+
     }
 
     private Hero getHero() {

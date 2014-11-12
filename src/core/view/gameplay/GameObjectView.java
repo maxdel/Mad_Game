@@ -16,7 +16,10 @@ public abstract class GameObjectView {
     public GameObjectView(GameObject gameObject, Animation animation) {
         this.gameObject = gameObject;
         this.animation = animation;
+        /* Sets size of the game object in model (needed for forming mask)*/
+
     }
+
 
     public abstract void render(Graphics g, final double viewX, final double viewY, final float viewDegreeAngle,
                                 final int viewWidth, final int viewHeight);
@@ -48,11 +51,13 @@ public abstract class GameObjectView {
         Image image = new Image(pass);
         SpriteSheet spriteSheet = new SpriteSheet(image, image.getWidth(), image.getHeight());
         animation = new Animation(spriteSheet, 1);
+        gameObject.setSize(image.getWidth(), image.getHeight());
     }
 
     protected void setAnimation(final String pass, final int cropWidth, final int cropHeight) throws SlickException {
         SpriteSheet spriteSheet = new SpriteSheet(pass, cropWidth, cropHeight);
         animation = new Animation(spriteSheet, 1);
+        gameObject.setSize(animation.getImage(1).getWidth(), animation.getImage(1).getHeight());
     }
 
 }

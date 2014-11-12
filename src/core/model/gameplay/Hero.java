@@ -14,4 +14,20 @@ public class Hero extends GameObjectMoving {
         super(x, y, direction, maximumSpeed);
     }
 
+    @Override
+    public void collidedWith(GameObject other) {
+        /*
+        * TODO: it's debug code
+        * */
+        if (other instanceof Wall) {
+            System.out.println("Collision HERO - WALL!");
+
+        } else if (other instanceof Enemy) {
+            System.out.println("Collision HERO - ENEMY");
+
+        other.x -= ((Enemy) other).getMaximumSpeed() * 100;
+        }
+
+    }
+
 }

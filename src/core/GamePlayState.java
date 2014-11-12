@@ -1,5 +1,6 @@
 package core;
 
+import core.model.gameplay.CollisionDetector;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -22,6 +23,7 @@ public class GamePlayState extends BasicGameState {
     private World world;
     private GamePlayView gamePlayView;
     private GamePlayController gamePlayController;
+    private CollisionDetector collisionDetector = new CollisionDetector();
 
     private GamePlayState() {
 
@@ -47,11 +49,14 @@ public class GamePlayState extends BasicGameState {
     @Override
     public void render(GameContainer gc, StateBasedGame game, Graphics g) throws SlickException {
         gamePlayView.render(gc, g);
+
     }
 
     @Override
     public void update(GameContainer gc, StateBasedGame game, int delta) throws SlickException {
         gamePlayController.update(gc, game, delta);
+        collisionDetector.update();
+
     }
 
     @Override
@@ -59,6 +64,7 @@ public class GamePlayState extends BasicGameState {
         world = World.getInstance(false);
         gamePlayView = new GamePlayView(gc, world.getGameObjects(), world.getHero());
         gamePlayController = new GamePlayController(world, gamePlayView);
+
     }
 
     @Override
