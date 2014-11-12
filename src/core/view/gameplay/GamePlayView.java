@@ -2,6 +2,7 @@ package core.view.gameplay;
 
 import java.util.ArrayList;
 
+import core.view.ResourceManager;
 import org.newdawn.slick.*;
 
 import core.model.gameplay.Enemy;
@@ -19,21 +20,25 @@ public class GamePlayView {
     private Hero hero;
     private HeroView heroView;
     private Camera camera;
+    private ResourceManager resourceManager;
 
-    public GamePlayView(GameContainer gc, ArrayList<GameObject> gameObjects, Hero hero) throws SlickException {
+    public GamePlayView(GameContainer gc, ArrayList<GameObject> gameObjects, Hero hero, ResourceManager resourceManager)
+            throws SlickException {
+        this.resourceManager = resourceManager;
+
         this.gameObjects = gameObjects;
         gameObjectViews = new ArrayList<GameObjectView>();
         for (GameObject gameObject : gameObjects) {
             if (gameObject.getClass() == Wall.class) {
-                gameObjectViews.add(new WallView(gameObject));
+                gameObjectViews.add(new WallView(gameObject, resourceManager));
             }
             else if (gameObject.getClass() == Enemy.class) {
-                gameObjectViews.add(new EnemyView(gameObject));
+                gameObjectViews.add(new EnemyView(gameObject, resourceManager));
             }
         }
 
         this.hero = hero;
-        heroView = new HeroView(hero);
+        heroView = new HeroView(hero, resourceManager);
 
         camera = new Camera(gc.getWidth(), gc.getHeight());
     }

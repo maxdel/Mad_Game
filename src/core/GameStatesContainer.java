@@ -21,9 +21,9 @@ public class GameStatesContainer extends StateBasedGame {
 
     @Override
     public void initStatesList(GameContainer gc) throws SlickException {
+        addState(GamePlayState.getInstance());
         addState(StartMenuState.getInstance());
         addState(PauseMenuState.getInstance());
-        addState(GamePlayState.getInstance());
     }
 
 }

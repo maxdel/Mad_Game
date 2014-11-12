@@ -8,7 +8,7 @@ import org.newdawn.slick.*;
 /**
  * Renders start menu
  */
-public class MenuRenderer {
+public class MenuView {
 
     private Menu menu;
 
@@ -16,7 +16,7 @@ public class MenuRenderer {
     private Font menuItemFont;
     private TrueTypeFont menuItemTTF;
 
-    public MenuRenderer(Menu menu) {
+    public MenuView(Menu menu) {
         this.menu = menu;
 
         playerChoices = new String[menu.getMenuTitles().size()];

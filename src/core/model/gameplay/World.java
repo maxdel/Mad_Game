@@ -18,7 +18,7 @@ public class World {
     private World() {
         gameObjects = new ArrayList<GameObject>();
 
-        hero = (new Hero(200, 100, 0, 0.18f));
+        hero = new Hero(200, 100, 0, 0.18f);
 
         gameObjects.add(new Wall(100, 100, Math.PI / 4));
         gameObjects.add(new Wall(300, 300, 0));

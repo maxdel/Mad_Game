@@ -1,6 +1,6 @@
 package core.model.gameplay;
 
-public class GameObjectMoving extends GameObject {
+public abstract class GameObjectMoving extends GameObject {
 
     protected double currentSpeed;
     protected double maximumSpeed;
