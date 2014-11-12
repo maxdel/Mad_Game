@@ -1,5 +1,6 @@
 package core.model.gameplay;
 
+import org.newdawn.slick.geom.MorphShape;
 import org.newdawn.slick.geom.Rectangle;
 
 /**
@@ -34,5 +35,6 @@ public class Wall extends GameObject {
     @Override
     protected void formMask() {
         mask = new Rectangle(-width / 2 , -height / 2, width, height);
+
     }
 }

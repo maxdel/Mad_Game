@@ -1,6 +1,7 @@
 package core.model.gameplay;
 
 import org.newdawn.slick.geom.Circle;
+import org.newdawn.slick.geom.MorphShape;
 
 public class GameObjectMoving extends GameObject {
 
@@ -38,6 +39,7 @@ public class GameObjectMoving extends GameObject {
 
           int radius = (int) ((width + height) / 3.0);
           mask = new Circle(radius, radius, radius);
+
 
     }
 

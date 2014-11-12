@@ -1,6 +1,7 @@
 package core.model.gameplay;
 
 import org.newdawn.slick.geom.Circle;
+import org.newdawn.slick.geom.MorphShape;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
@@ -54,10 +55,27 @@ public abstract class GameObject {
         return mask;
     }
 
-    //public void setMask(Shape mask) {
-      //  this.mask = mask;
-    //}
+    /*
+    * Method clones existing shape (@param shape), and returns new moved (@param x and @param y) shape.
+    * The sizes of shape is not changing, only location
+    * */
+    public Shape getMovedMask(Shape shape, double xx, double yy) {
+        Shape temp;
 
+        if (shape instanceof Circle) {
+            temp = new Circle(shape.getX() + (float) xx,
+                    shape.getY() + (float) yy,
+                    shape.getBoundingCircleRadius());
+        } else if (shape instanceof Rectangle) {
+            temp = new Rectangle(shape.getX() + (float) xx,
+                    shape.getY() + (float) yy,
+                    shape.getWidth(), shape.getHeight());
+        } else {
+            temp = null;
+        }
+
+        return temp;
+    }
 
     /**
      * Check if this entity collides with another.
@@ -69,21 +87,10 @@ public abstract class GameObject {
      * so it's GameObject entity method
      */
     public boolean collidesWith(GameObject other) {
-        Shape me = getMask();
-        if (me instanceof Circle) {
-            Shape temp = new Circle(me.getX() + (float) this.getX(),
-                    me.getY() + (float) this.getY(),
-                    me.getBoundingCircleRadius());
-                    me = temp;
-        } else if (me instanceof Rectangle) {
-            Shape temp = new Rectangle(me.getX() + (float) this.getX(),
-                    me.getY() + (float) this.getY(),
-                    me.getWidth(), me.getHeight());
-            me = temp;
-        }
+        Shape me = getMovedMask(this.getMask(), this.x, this.y);
 
-        Shape him = other.getMask();
-        if (him instanceof Circle) {
+        Shape him = getMovedMask(other.getMask(), other.x, other.y);
+  /*      if (him instanceof Circle) {
             Shape temp = new Circle(him.getX() + (float) other.getX(),
                     him.getY() + (float) other.getY(),
                     him.getBoundingCircleRadius());
@@ -93,8 +100,7 @@ public abstract class GameObject {
                     him.getY() + (float) other.getY(),
                     him.getWidth(), him.getHeight());
             him = temp;
-        }
-
+        }*/
         return me.intersects(him);
     }
 
