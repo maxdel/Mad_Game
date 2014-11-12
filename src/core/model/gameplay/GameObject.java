@@ -1,10 +1,6 @@
 package core.model.gameplay;
 
-import org.newdawn.slick.geom.Circle;
-import org.newdawn.slick.geom.MorphShape;
-import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.geom.Shape;
-
+import org.newdawn.slick.geom.*;
 
 /**
  * Contains common fields to define a game object
@@ -17,8 +13,6 @@ public abstract class GameObject {
     protected Shape mask;
     protected int width;
     protected int height;
-
-
 
     public GameObject(final double x, final double y, final double direction) {
         this.x = x;
@@ -38,8 +32,7 @@ public abstract class GameObject {
         return y;
     }
 
-    public void setY(double y)
-    {
+    public void setY(double y) {
         this.y = y;
     }
 
@@ -59,17 +52,18 @@ public abstract class GameObject {
     * Method clones existing shape (@param shape), and returns new moved (@param x and @param y) shape.
     * The sizes of shape is not changing, only location
     * */
-    public Shape getMovedMask(Shape shape, double xx, double yy) {
+    public Shape getMovedMask(Shape shape, double dx, double dy, double direction) {
         Shape temp;
 
         if (shape instanceof Circle) {
-            temp = new Circle(shape.getX() + (float) xx,
-                    shape.getY() + (float) yy,
+            temp = new Circle(shape.getCenterX() + (float) dx,
+                    shape.getCenterY() + (float) dy,
                     shape.getBoundingCircleRadius());
         } else if (shape instanceof Rectangle) {
-            temp = new Rectangle(shape.getX() + (float) xx,
-                    shape.getY() + (float) yy,
+            temp = new Rectangle(shape.getX() + (float) dx,
+                    shape.getY() + (float) dy,
                     shape.getWidth(), shape.getHeight());
+            temp = temp.transform(Transform.createRotateTransform((float)(direction), temp.getCenterX(), temp.getCenterY()));
         } else {
             temp = null;
         }
@@ -87,8 +81,8 @@ public abstract class GameObject {
      * so it's GameObject entity method
      */
     public boolean collidesWith(GameObject other) {
-        Shape me = getMovedMask(this.getMask(), this.x, this.y);
-        Shape him = getMovedMask(other.getMask(), other.x, other.y);
+        Shape me = getMovedMask(this.getMask(), this.x, this.y, this.direction);
+        Shape him = getMovedMask(other.getMask(), other.x, other.y, other.direction);
 
         return me.intersects(him);
     }
@@ -97,7 +91,7 @@ public abstract class GameObject {
      * Notification that this entity collided (already) (!) with another.
      * Determinate actions, that will be happened, when entities have collided
      *
-     * It's inner game world flow method, which have no connect with controller,
+     * It's inner game world flow method, which have no connection with controller,
      * so it's GameObject entity method
      *
      * @param other The entity with which this entity collided.
@@ -127,4 +121,5 @@ public abstract class GameObject {
                 ", height=" + height +
                 '}';
     }
+
 }

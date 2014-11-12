@@ -14,7 +14,7 @@ public class EnemyController {
     }
 
     public void update(GameContainer gc, World world, final int delta) {
-        enemyManager.followTarget(world.getHero().getX(), world.getHero().getY());
+        enemyManager.followTarget(world.getHero().getX(), world.getHero().getY(), delta);
 
         enemyManager.update(delta);
     }

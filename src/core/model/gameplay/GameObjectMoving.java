@@ -1,7 +1,6 @@
 package core.model.gameplay;
 
 import org.newdawn.slick.geom.Circle;
-import org.newdawn.slick.geom.MorphShape;
 
 public class GameObjectMoving extends GameObject {
 
@@ -37,10 +36,8 @@ public class GameObjectMoving extends GameObject {
         * e. g.: radius width > height ? width : height;
         * */
 
-          int radius = (int) ((width + height) / 3.0);
-          mask = new Circle(radius, radius, radius);
-
-
+          int radius = (int) ((width + height) / 3F);
+          mask = new Circle(0, 0, radius);
     }
 
     public double getMaximumSpeed() {

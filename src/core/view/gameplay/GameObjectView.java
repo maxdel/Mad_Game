@@ -50,7 +50,7 @@ public abstract class GameObjectView {
     protected void drawMask(Graphics g, final double viewX, final double viewY) {
         Shape temp = gameObject.getMovedMask(gameObject.getMask(),
                 (float) gameObject.getX() - (float) viewX,
-                (float) gameObject.getY() - (float) viewY);
+                (float) gameObject.getY() - (float) viewY, gameObject.getDirection());
         g.draw(temp);
     }
 }

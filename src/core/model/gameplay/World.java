@@ -16,7 +16,6 @@ public class World {
     private ArrayList<EnemyManager> enemyManagers;
     private CollisionDetector collisionDetector;
 
-
     private World() {
         gameObjects = new ArrayList<GameObject>();
 
@@ -25,7 +24,7 @@ public class World {
         gameObjects.add(new Wall(100, 100, Math.PI / 4));
         gameObjects.add(new Wall(300, 300, 0));
 
-        Enemy enemy1 = new Enemy(300, 100, 0, 0.06f);
+        Enemy enemy1 = new Enemy(300, 200, 0, 0.06f);
         Enemy enemy2 = new Enemy(300, 100, 0, 0.03f);
 
         gameObjects.add(enemy1);
@@ -36,7 +35,7 @@ public class World {
         enemyManagers.add(new EnemyManager(enemy2));
 
         heroManager = new HeroManager(hero);
-        collisionDetector = new CollisionDetector();
+        collisionDetector = CollisionDetector.getInstance();
     }
 
     // Singleton pattern method

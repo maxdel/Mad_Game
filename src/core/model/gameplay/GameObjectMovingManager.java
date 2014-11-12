@@ -12,13 +12,19 @@ public class GameObjectMovingManager {
         double length, lengthDirX, lengthDirY;
         length = gameObjectMoving.getCurrentSpeed() * delta;
 
-        lengthDirX = Math.cos(gameObjectMoving.getDirection() + gameObjectMoving.getRelativeDirection()) * length;
-        lengthDirY = Math.sin(gameObjectMoving.getDirection() + gameObjectMoving.getRelativeDirection()) * length;
+        lengthDirX = lengthDirX(gameObjectMoving.getDirection() + gameObjectMoving.getRelativeDirection(), length);
+        lengthDirY = lengthDirY(gameObjectMoving.getDirection() + gameObjectMoving.getRelativeDirection(), length);
 
         gameObjectMoving.setX(gameObjectMoving.getX() + lengthDirX);
         gameObjectMoving.setY(gameObjectMoving.getY() + lengthDirY);
+    }
 
-        gameObjectMoving.formMask();
+    protected double lengthDirX(double direction, double length) {
+        return Math.cos(direction) * length;
+    }
+
+    protected double lengthDirY(double direction, double length) {
+        return Math.sin(direction) * length;
     }
 
 }

@@ -20,10 +20,10 @@ public class Hero extends GameObjectMoving {
         * TODO: it's debug code
         * */
         if (other instanceof Wall) {
-            System.out.println("Collision HERO - WALL!");
+            //System.out.println("Collision HERO - WALL!");
 
         } else if (other instanceof Enemy) {
-            System.out.println("Collision HERO - ENEMY");
+            //System.out.println("Collision HERO - ENEMY");
 
         }
 

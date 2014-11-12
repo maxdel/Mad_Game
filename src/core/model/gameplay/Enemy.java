@@ -26,7 +26,7 @@ public class Enemy extends GameObjectMoving {
 
         }
 
-        maximumSpeed = -maximumSpeed;
+        //maximumSpeed = -maximumSpeed;
     }
 
 }

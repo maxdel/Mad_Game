@@ -3,7 +3,17 @@ package core.model.gameplay;
 
 public class CollisionDetector {
 
-    public CollisionDetector() {
+    private static CollisionDetector instance;
+
+    private CollisionDetector() {
+
+    }
+
+    public static CollisionDetector getInstance() {
+        if (instance == null) {
+            instance = new CollisionDetector();
+        }
+        return instance;
     }
 
 /*
@@ -30,7 +40,23 @@ public class CollisionDetector {
                 }
             }
         }
+    }
 
+    public boolean isPlaceFree(GameObject gameObject, double x, double y) {
+        double originalX = gameObject.getX();
+        double originalY = gameObject.getY();
+        gameObject.setX(x);
+        gameObject.setY(y);
+        boolean isCollided = false;
+        for (GameObject currentGameObject: World.getInstance(false).getGameObjects()) {
+            if (gameObject != currentGameObject && gameObject.collidesWith(currentGameObject)) {
+                isCollided = true;
+                break;
+            }
+        }
+        gameObject.setX(originalX);
+        gameObject.setY(originalY);
+        return !isCollided;
     }
 
 }
