@@ -1,6 +1,9 @@
 package core.model.gameplay;
 
-public abstract class GameObjectMoving extends GameObject {
+import org.newdawn.slick.geom.Circle;
+import org.newdawn.slick.geom.MorphShape;
+
+public class GameObjectMoving extends GameObject {
 
     protected double currentSpeed;
     protected double maximumSpeed;
@@ -20,6 +23,24 @@ public abstract class GameObjectMoving extends GameObject {
     public GameObjectMoving(final double x, final double y, final double direction,
                             final double maximumSpeed) {
         this(x, y, direction, 0, maximumSpeed, 0, GameObjectState.STAND);
+    }
+
+    @Override
+    public void collidedWith(GameObject other) {
+
+    }
+
+    @Override
+    protected void formMask() {
+        /*
+        * TODO: decide how to form radius
+        * e. g.: radius width > height ? width : height;
+        * */
+
+          int radius = (int) ((width + height) / 3.0);
+          mask = new Circle(radius, radius, radius);
+
+
     }
 
     public double getMaximumSpeed() {

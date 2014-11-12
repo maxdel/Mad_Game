@@ -3,6 +3,7 @@ package core.view.gameplay;
 import java.util.ArrayList;
 
 import core.view.ResourceManager;
+import core.model.gameplay.*;
 import org.newdawn.slick.*;
 
 import core.model.gameplay.Enemy;

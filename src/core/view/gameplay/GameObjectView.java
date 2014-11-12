@@ -4,6 +4,7 @@ import core.view.ResourceManager;
 import org.newdawn.slick.*;
 
 import core.model.gameplay.GameObject;
+import org.newdawn.slick.geom.Shape;
 
 public abstract class GameObjectView {
 
@@ -43,4 +44,13 @@ public abstract class GameObjectView {
                 (float) (gameObject.getY() - viewY - animation.getHeight() / 2));
     }
 
+    /*
+       * Draws mask around a game object
+       * */
+    protected void drawMask(Graphics g, final double viewX, final double viewY) {
+        Shape temp = gameObject.getMovedMask(gameObject.getMask(),
+                (float) gameObject.getX() - (float) viewX,
+                (float) gameObject.getY() - (float) viewY);
+        g.draw(temp);
+    }
 }

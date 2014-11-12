@@ -4,12 +4,17 @@ import core.view.ResourceManager;
 import org.newdawn.slick.*;
 
 import core.model.gameplay.GameObject;
+import org.newdawn.slick.geom.Circle;
+import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 
 public class WallView extends GameObjectView {
 
     public WallView(GameObject wall, ResourceManager resourceManager) throws SlickException {
         super(wall, resourceManager);
         animation = resourceManager.getAnimation("wall");
+        gameObject.setMaskSize(animation.getImage(0).getWidth(), animation.getImage(0).getHeight());
+
     }
 
     @Override
@@ -17,6 +22,10 @@ public class WallView extends GameObjectView {
                        final int viewWidth, final int viewHeight) {
         rotate(g, viewX, viewY, viewDegreeAngle, viewWidth, viewHeight, true);
         draw(viewX, viewY);
+
+        // draw mask
+        drawMask(g, viewX, viewY);
+
         // ----- For debug and FUN -----
         g.rotate((float) (gameObject.getX() - viewX),
                 (float) (gameObject.getY() - viewY),
@@ -26,6 +35,7 @@ public class WallView extends GameObjectView {
         g.rotate((float) (gameObject.getX() - viewX),
                 (float) (gameObject.getY() - viewY),
                 - viewDegreeAngle);
+
         // ----- END -----
         rotate(g, viewX, viewY, viewDegreeAngle, viewWidth, viewHeight, false);
     }

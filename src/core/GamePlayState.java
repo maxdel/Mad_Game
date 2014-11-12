@@ -1,5 +1,6 @@
 package core;
 
+import core.model.gameplay.CollisionDetector;
 import core.view.ResourceManager;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -53,6 +54,10 @@ public class GamePlayState extends BasicGameState {
     @Override
     public void update(GameContainer gc, StateBasedGame game, int delta) throws SlickException {
         gamePlayController.update(gc, game, delta);
+
+        /* Flow of inner game world process*/
+        World.getInstance(false).update();
+
     }
 
     @Override
