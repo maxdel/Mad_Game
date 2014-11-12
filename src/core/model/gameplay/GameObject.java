@@ -60,10 +60,13 @@ public abstract class GameObject {
 
 
     /**
-     * Check if this entity collised with another.
+     * Check if this entity collides with another.
      *
      * @param other The other entity to check collision against
      * @return True if the entities collide with each other
+     *
+     * It's inner game world flow method, which have no connect with controller,
+     * so it's GameObject entity method
      */
     public boolean collidesWith(GameObject other) {
         Shape me = getMask();
@@ -98,6 +101,9 @@ public abstract class GameObject {
     /**
      * Notification that this entity collided (already) (!) with another.
      * Determinate actions, that will be happened, when entities have collided
+     *
+     * It's inner game world flow method, which have no connect with controller,
+     * so it's GameObject entity method
      *
      * @param other The entity with which this entity collided.
      */
