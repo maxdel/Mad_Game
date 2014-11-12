@@ -1,6 +1,7 @@
 package core;
 
 import core.model.menu.StartMenu;
+import core.view.ResourceManager;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Graphics;
@@ -8,7 +9,7 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import core.controller.menu.StartMenuController;
-import core.view.menu.MenuRenderer;
+import core.view.menu.MenuView;
 
 /*
 * Execute start menu
@@ -17,10 +18,10 @@ public class StartMenuState extends BasicGameState {
 
     private static StartMenuState instance;
 
-    private final int STATE_ID = 1;
+    private final GameState STATE_ID = GameState.STARTMENU;
 
     private StartMenuController startMenuController;
-    private MenuRenderer menuRenderer;
+    private MenuView menuView;
 
     private StartMenuState() {
     }
@@ -34,7 +35,7 @@ public class StartMenuState extends BasicGameState {
 
     @Override
     public int getID() {
-        return STATE_ID;
+        return STATE_ID.getValue();
     }
 
     @Override
@@ -44,7 +45,7 @@ public class StartMenuState extends BasicGameState {
 
     @Override
     public void render(GameContainer gc, StateBasedGame game, Graphics graphics) throws SlickException {
-        menuRenderer.render(gc);
+        menuView.render(gc);
     }
 
     @Override
@@ -54,16 +55,18 @@ public class StartMenuState extends BasicGameState {
 
     @Override
     public void enter(GameContainer gc, StateBasedGame game) throws SlickException {
+        ResourceManager resourceManager = ResourceManager.getInstance();
+        resourceManager.load(STATE_ID);
         gc.getInput().clearKeyPressedRecord();
         startMenuController = StartMenuController.getInstance();
-        menuRenderer = new MenuRenderer(StartMenu.getInstance());
+        menuView = new MenuView(StartMenu.getInstance());
     }
 
     @Override
     public void leave(GameContainer gc, StateBasedGame game) throws SlickException {
+        ResourceManager.getInstance().unload();
         startMenuController = null;
-        menuRenderer = null;
+        menuView = null;
         System.gc();
     }
 }
-

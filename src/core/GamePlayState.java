@@ -1,6 +1,7 @@
 package core;
 
 import core.model.gameplay.CollisionDetector;
+import core.view.ResourceManager;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -18,13 +19,14 @@ public class GamePlayState extends BasicGameState {
 
     private static GamePlayState instance;
 
-    private final int STATE_ID = 0;
+    private final GameState STATE_ID = GameState.GAMEPLAY;
 
     private World world;
     private GamePlayView gamePlayView;
     private GamePlayController gamePlayController;
 
     private GamePlayState() {
+
     }
 
     public static GamePlayState getInstance() {
@@ -36,7 +38,7 @@ public class GamePlayState extends BasicGameState {
 
     @Override
     public int getID() {
-        return STATE_ID;
+        return STATE_ID.getValue();
     }
 
     @Override
@@ -47,7 +49,6 @@ public class GamePlayState extends BasicGameState {
     @Override
     public void render(GameContainer gc, StateBasedGame game, Graphics g) throws SlickException {
         gamePlayView.render(gc, g);
-
     }
 
     @Override
@@ -61,14 +62,16 @@ public class GamePlayState extends BasicGameState {
 
     @Override
     public void enter(GameContainer gc, StateBasedGame game) throws SlickException {
+        ResourceManager resourceManager = ResourceManager.getInstance();
+        resourceManager.load(STATE_ID);
         world = World.getInstance(false);
-        gamePlayView = new GamePlayView(gc, world.getGameObjects(), world.getHero());
+        gamePlayView = new GamePlayView(gc, world.getGameObjects(), world.getHero(), resourceManager);
         gamePlayController = new GamePlayController(world, gamePlayView);
-
     }
 
     @Override
     public void leave(GameContainer gc, StateBasedGame game) throws SlickException {
+        ResourceManager.getInstance().unload();
         world = null;
         gamePlayView = null;
         gamePlayController = null;

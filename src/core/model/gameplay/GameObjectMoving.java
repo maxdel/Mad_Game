@@ -4,6 +4,7 @@ import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.MorphShape;
 
 public class GameObjectMoving extends GameObject {
+public abstract class GameObjectMoving extends GameObject {
 
     protected double currentSpeed;
     protected double maximumSpeed;
@@ -74,6 +75,5 @@ public class GameObjectMoving extends GameObject {
     public void setCurrentState(GameObjectState currentState) {
         this.currentState = currentState;
     }
-
 
 }

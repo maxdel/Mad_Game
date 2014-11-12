@@ -1,6 +1,7 @@
 package core.view.gameplay;
 
 import core.model.gameplay.World;
+import core.view.ResourceManager;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
@@ -18,13 +19,10 @@ public class HeroView extends GameObjectView {
 
     private GameObjectState previousState;
 
-    public HeroView(GameObject hero) throws SlickException {
-        super(hero);
-
-        final int imageWidth = 50;
-        final int imageHeight = 50;
-
-        setAnimation("/res/Hero.png", imageWidth, imageHeight);
+    public HeroView(GameObject hero, ResourceManager resourceManager) throws SlickException {
+        super(hero, resourceManager);
+        animation = ResourceManager.getInstance().getAnimation("hero");
+        gameObject.setMaskSize(animation.getImage(1).getWidth(), animation.getImage(1).getHeight());
     }
 
     @Override
@@ -51,10 +49,6 @@ public class HeroView extends GameObjectView {
 
         rotate(g, viewX, viewY, viewDegreeAngle, viewWidth, viewHeight, true);
         draw(viewX, viewY);
-
-        // draw mask
-        drawMask(g, viewX, viewY);
-
         rotate(g, viewX, viewY, viewDegreeAngle, viewWidth, viewHeight, false);
 
         // For debug
@@ -62,7 +56,6 @@ public class HeroView extends GameObjectView {
                 + ") dir=" + String.valueOf((int) (gameObject.getDirection() / Math.PI * 180) % 360),
                 (float) (gameObject.getX() - viewX),
                 (float) (gameObject.getY() - viewY));
-
     }
 
     private Hero getHero() {
