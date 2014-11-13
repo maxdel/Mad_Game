@@ -2,8 +2,9 @@ package core.view.menu;
 
 import java.awt.Font;
 
-import core.model.menu.Menu;
 import org.newdawn.slick.*;
+
+import core.model.menu.Menu;
 
 /**
  * Renders start menu

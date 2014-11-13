@@ -1,9 +1,9 @@
 package core.view.gameplay;
 
-import core.view.ResourceManager;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
+import core.view.ResourceManager;
 import core.model.gameplay.GameObject;
 import core.model.gameplay.Hero;
 import core.model.gameplay.GameObjectState;

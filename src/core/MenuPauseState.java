@@ -1,14 +1,15 @@
 package core;
 
-import core.controller.menu.MenuPauseController;
-import core.model.menu.MenuPause;
-import core.view.ResourceManager;
-import core.view.menu.MenuView;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+
+import core.controller.menu.MenuPauseController;
+import core.model.menu.MenuPause;
+import core.view.ResourceManager;
+import core.view.menu.MenuView;
 
 public class MenuPauseState extends BasicGameState {
 

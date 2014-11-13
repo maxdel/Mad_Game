@@ -1,14 +1,15 @@
 package core.controller.gameplay;
 
-import core.GameState;
-import core.model.gameplay.Hero;
-import core.model.gameplay.World;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.state.StateBasedGame;
+
+import core.GameState;
+import core.model.gameplay.Hero;
+import core.model.gameplay.World;
 
 import core.view.gameplay.GamePlayView;
-import org.newdawn.slick.state.StateBasedGame;
 
 /**
  * Game play controller class, that uses game object's controllers to process external events (like user input).

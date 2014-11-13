@@ -1,8 +1,8 @@
 package core.view.gameplay;
 
-import core.view.ResourceManager;
 import org.newdawn.slick.*;
 
+import core.view.ResourceManager;
 import core.model.gameplay.GameObject;
 
 public class WallView extends GameObjectView {

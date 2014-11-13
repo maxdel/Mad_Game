@@ -1,11 +1,11 @@
 package core.view.gameplay;
 
+import org.newdawn.slick.*;
+import org.newdawn.slick.geom.Shape;
+
 import core.model.gameplay.CollisionManager;
 import core.view.ResourceManager;
-import org.newdawn.slick.*;
-
 import core.model.gameplay.GameObject;
-import org.newdawn.slick.geom.Shape;
 
 public abstract class GameObjectView {
 

@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import core.view.ResourceManager;
 import org.newdawn.slick.*;
 
+import core.view.ResourceManager;
 import core.model.gameplay.Enemy;
 import core.model.gameplay.GameObject;
 import core.model.gameplay.Hero;
