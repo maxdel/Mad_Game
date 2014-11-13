@@ -28,6 +28,8 @@ public class GamePlayView {
 
         this.gameObjects = gameObjects;
 
+
+
         this.hero = hero;
         heroView = new HeroView(hero, resourceManager);
 
