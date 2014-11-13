@@ -18,6 +18,10 @@ public abstract class GameObject {
         this.direction = direction;
     }
 
+    public abstract void collidedWith(Hero hero);
+    public abstract void collidedWith(Enemy enemy);
+    public abstract void collidedWith(Wall wall);
+
     public abstract void update(final int delta);
 
     public double getX() {
@@ -61,5 +65,6 @@ public abstract class GameObject {
                 ", mask=" + mask +
                 '}';
     }
+
 
 }

@@ -70,7 +70,7 @@ public class CollisionManager {
             //WallManager wallManager = (WallManager) World.getInstance(false).getGameObjManagers().get(Wall.class);
 
             if (current instanceof Hero) {
-              //  wallManager.collidedWith((Wall) pivot, (Hero) current);
+                pivot.collidedWith((Hero) current);
             } else if (current instanceof Enemy) {
                 // pass
             } else {

@@ -22,6 +22,20 @@ public class GameObjectMoving extends GameObject {
         this(x, y, direction, 0, maximumSpeed, 0, GameObjectState.STAND);
     }
 
+    @Override
+    public void collidedWith(Hero hero) {
+
+    }
+
+    @Override
+    public void collidedWith(Enemy enemy) {
+
+    }
+
+    @Override
+    public void collidedWith(Wall wall) {
+
+    }
 
     @Override
     public void update(final int delta) {

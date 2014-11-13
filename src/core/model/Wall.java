@@ -17,14 +17,21 @@ public class Wall extends GameObject {
         /* some code like:  wall.method(...); */
     }
 
-    /* test*/
+    @Override
     public void collidedWith(Hero other) {
         setX(getX() + 30);
         setY(getY() + 30);
     }
 
+    @Override
     public void collidedWith(Enemy other) {
         //
     }
+
+    @Override
+    public void collidedWith(Wall wall) {
+
+    }
+
 
 }
