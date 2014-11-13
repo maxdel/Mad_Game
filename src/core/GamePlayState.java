@@ -55,7 +55,7 @@ public class GamePlayState extends BasicGameState {
         gamePlayController.update(gc, game, delta);
 
         /* Flow of inner game world process*/
-        World.getInstance(false).update();
+        World.getInstance(false).update(delta);
 
     }
 

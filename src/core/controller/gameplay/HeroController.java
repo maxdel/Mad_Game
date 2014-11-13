@@ -1,15 +1,14 @@
 package core.controller.gameplay;
 
-import core.model.gameplay.World;
+import core.model.gameplay.*;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
-
-import core.model.gameplay.HeroManager;
 
 /**
  * Handles user input events using "HeroManager" methods.
  */
 public class HeroController extends GameObjectMovingController {
+    private Hero hero;
 
     private int mouseX, mouseY;
     private int oldMouseX, oldMouseY;
@@ -24,7 +23,8 @@ public class HeroController extends GameObjectMovingController {
         mouseY = -1;
     }
 
-    public void update(GameContainer gc, World world, final int delta) {
+    public void update(GameContainer gc, final int delta, GameObject gameObj) {
+        hero = (Hero) gameObj;
         HeroManager heroManager = (HeroManager)gameObjectMovingManager;
 
         // Controls the direction of the hero
@@ -33,7 +33,7 @@ public class HeroController extends GameObjectMovingController {
         mouseX = gc.getInput().getMouseX();
         mouseY = gc.getInput().getMouseY();
 
-        if (oldMouseX >= 0) heroManager.rotate((mouseX - oldMouseX) * (2 * Math.PI) * rotateSpeed);
+        if (oldMouseX >= 0) heroManager.rotate(hero, (mouseX - oldMouseX) * (2 * Math.PI) * rotateSpeed);
 
         if (gc.getInput().getMouseX() > gc.getWidth() / 2 + 1 / rotateSpeed) {
             org.lwjgl.input.Mouse.setCursorPosition((int) (gc.getInput().getMouseX() - (1.0 / rotateSpeed)),
@@ -66,15 +66,15 @@ public class HeroController extends GameObjectMovingController {
         direction *= Math.PI / 180;
         if (direction >= 0) {
             if (gc.getInput().isKeyDown(Input.KEY_LSHIFT)) {
-                heroManager.run(direction);
+                heroManager.run(hero, direction);
             } else {
-                heroManager.walk(direction);
+                heroManager.walk(hero, direction);
             }
         } else {
-            heroManager.stand();
+            heroManager.stand(hero);
         }
 
-        heroManager.update(delta);
+        heroManager.update(hero, delta);
     }
     
 }

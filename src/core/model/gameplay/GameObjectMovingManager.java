@@ -1,14 +1,12 @@
 package core.model.gameplay;
 
-public abstract class GameObjectMovingManager {
+public abstract class GameObjectMovingManager extends GameObjectManager {
 
-    protected GameObjectMoving gameObjectMoving;
+    GameObjectMoving gameObjectMoving;
 
-    public GameObjectMovingManager(GameObjectMoving gameObjectMoving) {
-        this.gameObjectMoving = gameObjectMoving;
-    }
-
-    public void update(final int delta) {
+    @Override
+    public void update(GameObject gameObject, final int delta) {
+        gameObjectMoving = (GameObjectMoving) gameObject;
         double length, lengthDirX, lengthDirY;
         length = gameObjectMoving.getCurrentSpeed() * delta;
 

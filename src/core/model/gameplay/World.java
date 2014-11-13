@@ -1,6 +1,8 @@
 package core.model.gameplay;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Main model class, that imitates game world.
@@ -12,11 +14,13 @@ public class World {
 
     private ArrayList<GameObject> gameObjects;
     private Hero hero;
-    private HeroManager heroManager;
-    private ArrayList<GameObjectMovingManager> gameObjectMovingManagers;
     private CollisionDetector collisionDetector;
+    private Map<String, GameObjectManager> stationaryObjManagers;
+
 
     private World() {
+
+        // creating gameObjects
         gameObjects = new ArrayList<GameObject>();
 
         gameObjects.add(new Wall(100, 100, Math.PI / 4));
@@ -31,14 +35,13 @@ public class World {
         hero = new Hero(200, 100, 0, 0.18F);
 
         gameObjects.add(hero);
+        //--
 
-        gameObjectMovingManagers = new ArrayList<GameObjectMovingManager>();
-        gameObjectMovingManagers.add(new EnemyManager(enemy1));
-        gameObjectMovingManagers.add(new EnemyManager(enemy2));
-        heroManager = new HeroManager(hero);
-        gameObjectMovingManagers.add(heroManager);
+        // creating managers for stationary objects
+        stationaryObjManagers = new HashMap<String, GameObjectManager>();
+        stationaryObjManagers.put(Wall.class.getSimpleName(), new WallManager());
 
-
+        // creating collision detector
         collisionDetector = CollisionDetector.getInstance();
     }
 
@@ -54,7 +57,16 @@ public class World {
         instance = null;
     }
 
-    public void update() {
+    public void update(int delta) {
+        for (GameObject gameObj: gameObjects) {
+            try {
+                stationaryObjManagers.get(gameObj.getClass().getSimpleName()).update(gameObj, delta);
+            }
+            catch (NullPointerException npe) {
+                continue; // passing, if object type useless
+            }
+        }
+
         collisionDetector.update();
     }
 
@@ -62,16 +74,8 @@ public class World {
         return gameObjects;
     }
 
-    public HeroManager getHeroManager() {
-        return heroManager;
-    }
-
     public Hero getHero() {
         return hero;
-    }
-
-    public ArrayList<GameObjectMovingManager> getGameObjectMovingManagers() {
-        return gameObjectMovingManagers;
     }
 
 }
