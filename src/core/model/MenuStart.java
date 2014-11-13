@@ -1,26 +1,29 @@
-package core.model.menu;
+package core.model;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class PauseMenu extends Menu {
+/**
+ * Contains state of the start menu
+ */
+public class MenuStart extends Menu {
 
-    private static PauseMenu instance;
+    private static MenuStart instance;
 
     private static Map<String, Integer> menuMap;
 
-    private PauseMenu() {
+    private MenuStart() {
         super(menuMap);
     }
 
-    public static PauseMenu getInstance() {
+    public static MenuStart getInstance() {
         if (instance == null) {
             menuMap = new LinkedHashMap<String, Integer>();
-            menuMap.put("Resume", 0);
+            menuMap.put("Start", 0);
             menuMap.put("Load", 1);
             menuMap.put("Help", 2);
-            menuMap.put("Main menu", 3);
-            instance = new PauseMenu();
+            menuMap.put("Exit", 3);
+            instance = new MenuStart();
         }
         return instance;
     }

@@ -1,4 +1,4 @@
-package core.model.gameplay;
+package core.model;
 
 public class GameObjectMoving extends GameObject {
 
@@ -20,6 +20,41 @@ public class GameObjectMoving extends GameObject {
     public GameObjectMoving(final double x, final double y, final double direction,
                             final double maximumSpeed) {
         this(x, y, direction, 0, maximumSpeed, 0, GameObjectState.STAND);
+    }
+
+    @Override
+    public void collidedWith(Hero hero) {
+
+    }
+
+    @Override
+    public void collidedWith(Enemy enemy) {
+
+    }
+
+    @Override
+    public void collidedWith(Wall wall) {
+
+    }
+
+    @Override
+    public void update(final int delta) {
+        double length, lengthDirX, lengthDirY;
+        length = getCurrentSpeed() * delta;
+
+        lengthDirX = lengthDirX(getDirection() + getRelativeDirection(), length);
+        lengthDirY = lengthDirY(getDirection() + getRelativeDirection(), length);
+
+        setX(getX() + lengthDirX);
+        setY(getY() + lengthDirY);
+    }
+
+    protected double lengthDirX(double direction, double length) {
+        return Math.cos(direction) * length;
+    }
+
+    protected double lengthDirY(double direction, double length) {
+        return Math.sin(direction) * length;
     }
 
     public double getMaximumSpeed() {

@@ -1,4 +1,4 @@
-package core.model.gameplay;
+package core.model;
 
 import org.newdawn.slick.geom.*;
 
@@ -17,6 +17,12 @@ public abstract class GameObject {
         this.y = y;
         this.direction = direction;
     }
+
+    public abstract void collidedWith(Hero hero);
+    public abstract void collidedWith(Enemy enemy);
+    public abstract void collidedWith(Wall wall);
+
+    public abstract void update(final int delta);
 
     public double getX() {
         return x;
@@ -59,5 +65,6 @@ public abstract class GameObject {
                 ", mask=" + mask +
                 '}';
     }
+
 
 }

@@ -7,9 +7,9 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import core.controller.gameplay.GamePlayController;
-import core.model.gameplay.World;
-import core.view.gameplay.GamePlayView;
+import core.controller.GamePlayController;
+import core.model.World;
+import core.view.GamePlayView;
 
 /*
 * Execute game play

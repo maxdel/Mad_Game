@@ -1,12 +1,11 @@
-package core.view.gameplay;
+package core.view;
 
-import core.view.ResourceManager;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-import core.model.gameplay.GameObject;
-import core.model.gameplay.Hero;
-import core.model.gameplay.GameObjectState;
+import core.model.GameObject;
+import core.model.Hero;
+import core.model.GameObjectState;
 
 /**
  * Provides functions for the definition of actors, as well as actor

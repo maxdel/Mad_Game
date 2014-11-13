@@ -1,4 +1,4 @@
-package core.view.gameplay;
+package core.view;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -7,10 +7,10 @@ import java.util.List;
 import core.view.ResourceManager;
 import org.newdawn.slick.*;
 
-import core.model.gameplay.Enemy;
-import core.model.gameplay.GameObject;
-import core.model.gameplay.Hero;
-import core.model.gameplay.Wall;
+import core.model.Enemy;
+import core.model.GameObject;
+import core.model.Hero;
+import core.model.Wall;
 
 /*
 * Renders game play game state

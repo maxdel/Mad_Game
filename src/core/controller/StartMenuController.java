@@ -1,4 +1,4 @@
-package core.controller.menu;
+package core.controller;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
@@ -6,9 +6,9 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 import core.GamePlayState;
-import core.model.gameplay.World;
-import core.model.menu.StartMenu;
-import core.model.menu.MenuManager;
+import core.model.World;
+import core.model.MenuStart;
+import core.model.MenuManager;
 
 /*
 * Provides functions to handle user menu navigate events
@@ -17,13 +17,13 @@ public class StartMenuController {
 
     private static StartMenuController instance;
 
-    private StartMenu startMenu;
+    private MenuStart menuStart;
 
     MenuManager menuManager;
 
     private StartMenuController() {
-        startMenu = StartMenu.getInstance();
-        menuManager = new MenuManager(startMenu);
+        menuStart = MenuStart.getInstance();
+        menuManager = new MenuManager(menuStart);
     }
 
     public static StartMenuController getInstance() {
@@ -45,17 +45,17 @@ public class StartMenuController {
         }
 
         if (input.isKeyPressed(Input.KEY_ENTER)) {
-            if (startMenu.getCurrentChoice() == startMenu.getMenuId("Start")) {
+            if (menuStart.getCurrentChoice() == menuStart.getMenuId("Start")) {
                 World.getInstance(true); // creating new world
                 game.enterState(GamePlayState.getInstance().getID());
             }
-            else if (startMenu.getCurrentChoice() == startMenu.getMenuId("Load")) {
+            else if (menuStart.getCurrentChoice() == menuStart.getMenuId("Load")) {
 
             }
-            else if (startMenu.getCurrentChoice() == startMenu.getMenuId("Help")) {
+            else if (menuStart.getCurrentChoice() == menuStart.getMenuId("Help")) {
 
             }
-            else if (startMenu.getCurrentChoice() == startMenu.getMenuId("Exit")) {
+            else if (menuStart.getCurrentChoice() == menuStart.getMenuId("Exit")) {
                 gc.exit();
             }
         }

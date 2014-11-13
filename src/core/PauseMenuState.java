@@ -1,9 +1,9 @@
 package core;
 
-import core.controller.menu.PauseMenuController;
-import core.model.menu.PauseMenu;
+import core.controller.PauseMenuController;
+import core.model.MenuPause;
 import core.view.ResourceManager;
-import core.view.menu.MenuView;
+import core.view.MenuView;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -55,7 +55,7 @@ public class PauseMenuState extends BasicGameState {
         resourceManager.load(STATE_ID);
         gc.getInput().clearKeyPressedRecord();
         pauseMenuController = PauseMenuController.getInstance();
-        menuView = new MenuView(PauseMenu.getInstance());
+        menuView = new MenuView(MenuPause.getInstance());
     }
 
     @Override

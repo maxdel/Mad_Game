@@ -1,9 +1,8 @@
-package core.view.gameplay;
+package core.view;
 
-import core.view.ResourceManager;
 import org.newdawn.slick.*;
 
-import core.model.gameplay.GameObject;
+import core.model.GameObject;
 
 public class EnemyView extends GameObjectView {
 

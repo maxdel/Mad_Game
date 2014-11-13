@@ -1,9 +1,6 @@
-package core.model.gameplay;
+package core.model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Main model class, that imitates game world.
@@ -13,13 +10,13 @@ public class World {
 
     private static World instance;
 
-    private List<GameObject> gameObjects;
+    private ArrayList<GameObject> gameObjects;
     private Hero hero;
-    private CollisionDetector collisionDetector;
-    private Map<String, GameObjectManager> stationaryObjManagers;
+    private CollisionManager collisionManager;
+
+
 
     private World() {
-
         // creating gameObjects
         gameObjects = new ArrayList<GameObject>();
 
@@ -37,12 +34,8 @@ public class World {
         gameObjects.add(hero);
         //--
 
-        // creating managers for stationary objects
-        stationaryObjManagers = new HashMap<String, GameObjectManager>();
-        stationaryObjManagers.put(Wall.class.getSimpleName(), new WallManager());
-
         // creating collision detector
-        collisionDetector = CollisionDetector.getInstance();
+        collisionManager = CollisionManager.getInstance();
     }
 
     // Singleton pattern method
@@ -58,19 +51,19 @@ public class World {
     }
 
     public void update(int delta) {
-        for (GameObject gameObject: gameObjects) {
+        for (GameObject gameObj: gameObjects) {
             try {
-                stationaryObjManagers.get(gameObject.getClass().getSimpleName()).update(gameObject, delta);
+              gameObj.update(delta);
             }
             catch (NullPointerException npe) {
                 continue; // passing, if object type useless
             }
         }
 
-        collisionDetector.update();
+        collisionManager.update();
     }
 
-    public List<GameObject> getGameObjects() {
+    public ArrayList<GameObject> getGameObjects() {
         return gameObjects;
     }
 
