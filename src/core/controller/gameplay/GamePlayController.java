@@ -2,6 +2,8 @@ package core.controller.gameplay;
 
 import core.PauseMenuState;
 import core.model.gameplay.EnemyManager;
+import core.model.gameplay.GameObjectMovingManager;
+import core.model.gameplay.HeroManager;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
@@ -19,19 +21,20 @@ public class GamePlayController {
 
     private World world;
     private GamePlayView gamePlayView;
-    private HeroController heroController;
-    private ArrayList<EnemyController> enemyControllers;
+    private ArrayList<GameObjectMovingController> gameObjectMovingControllers;
 
     public GamePlayController(final World world, final GamePlayView gamePlayView) throws SlickException {
         this.world = world;
         this.gamePlayView = gamePlayView;
 
-        heroController = new HeroController(world.getHeroManager());
-        enemyControllers = new ArrayList<EnemyController>();
-        for (EnemyManager enemyManager : world.getEnemyManagers()) {
-            enemyControllers.add(new EnemyController(enemyManager));
+        gameObjectMovingControllers = new ArrayList<GameObjectMovingController>();
+        for (GameObjectMovingManager gameObjectMovingManager : world.getGameObjectMovingManagersManagers()) {
+            if (gameObjectMovingManager.getClass() == HeroManager.class) {
+                gameObjectMovingControllers.add(new HeroController((HeroManager)gameObjectMovingManager));
+            } else if (gameObjectMovingManager.getClass() == EnemyManager.class) {
+                gameObjectMovingControllers.add(new EnemyController((EnemyManager)gameObjectMovingManager));
+            }
         }
-
     }
 
     public void update(GameContainer gc, StateBasedGame game, final int delta) {
@@ -41,9 +44,8 @@ public class GamePlayController {
             game.enterState(PauseMenuState.getInstance().getID());
         }
 
-        heroController.update(gc, delta);
-        for (EnemyController enemyController : enemyControllers) {
-            enemyController.update(gc, world, delta);
+        for (GameObjectMovingController gameObjectMovingController : gameObjectMovingControllers) {
+            gameObjectMovingController.update(gc, world, delta);
         }
     }
 

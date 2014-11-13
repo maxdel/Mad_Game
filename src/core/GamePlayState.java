@@ -1,6 +1,5 @@
 package core;
 
-import core.model.gameplay.CollisionDetector;
 import core.view.ResourceManager;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -72,7 +71,7 @@ public class GamePlayState extends BasicGameState {
     @Override
     public void leave(GameContainer gc, StateBasedGame game) throws SlickException {
         ResourceManager.getInstance().unload();
-        world = null;
+        World.deleteInstance();
         gamePlayView = null;
         gamePlayController = null;
         System.gc();

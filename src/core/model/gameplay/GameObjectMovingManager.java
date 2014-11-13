@@ -1,6 +1,6 @@
 package core.model.gameplay;
 
-public class GameObjectMovingManager {
+public abstract class GameObjectMovingManager {
 
     protected GameObjectMoving gameObjectMoving;
 

@@ -1,5 +1,6 @@
 package core.controller.gameplay;
 
+import core.model.gameplay.World;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 
@@ -8,23 +9,24 @@ import core.model.gameplay.HeroManager;
 /**
  * Handles user input events using "HeroManager" methods.
  */
-public class HeroController {
+public class HeroController extends GameObjectMovingController {
 
-    private HeroManager heroManager;
     private int mouseX, mouseY;
     private int oldMouseX, oldMouseY;
 
     final double rotateSpeed = 1.0/288;
 
     public HeroController(final HeroManager heroManager) {
-        this.heroManager = heroManager;
+        this.gameObjectMovingManager = heroManager;
         oldMouseX = -1;
         oldMouseY = -1;
         mouseX = -1;
         mouseY = -1;
     }
 
-    public void update(GameContainer gc, final int delta) {
+    public void update(GameContainer gc, World world, final int delta) {
+        HeroManager heroManager = (HeroManager)gameObjectMovingManager;
+
         // Controls the direction of the hero
         oldMouseX = mouseX;
         oldMouseY = mouseY;

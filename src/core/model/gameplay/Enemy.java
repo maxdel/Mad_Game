@@ -1,5 +1,7 @@
 package core.model.gameplay;
 
+import org.newdawn.slick.geom.Circle;
+
 public class Enemy extends GameObjectMoving {
 
     public Enemy(final double x, final double y, final double direction, final double relativeDirection,
@@ -9,24 +11,7 @@ public class Enemy extends GameObjectMoving {
 
     public Enemy(final double x, final double y, final double direction, final double maximumSpeed) {
         super(x, y, direction, maximumSpeed);
-    }
-
-    @Override
-    public void collidedWith(GameObject other) {
-        /*
-        * TODO: it's debug code
-        * */
-        if (other instanceof Hero) {
-
-            System.out.println("Collision ENEMY - HERO");
-        } else if (other instanceof Wall) {
-            System.out.println("Collision ENEMY - WALL");
-        } else if (other instanceof Enemy) {
-            System.out.println("Collision ENEMY - ENEMY");
-
-        }
-
-        //maximumSpeed = -maximumSpeed;
+        setMask(new Circle(0, 0, 42));
     }
 
 }

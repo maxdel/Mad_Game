@@ -10,7 +10,6 @@ public class EnemyView extends GameObjectView {
     public EnemyView(GameObject enemy, ResourceManager resourceManager) throws SlickException {
         super(enemy, resourceManager);
         animation = resourceManager.getAnimation("enemy");
-        gameObject.setMaskSize(animation.getImage(0).getWidth(), animation.getImage(0).getHeight());
     }
 
     @Override

@@ -13,28 +13,32 @@ public class World {
     private ArrayList<GameObject> gameObjects;
     private Hero hero;
     private HeroManager heroManager;
-    private ArrayList<EnemyManager> enemyManagers;
+    private ArrayList<GameObjectMovingManager> gameObjectMovingManagersManagers;
     private CollisionDetector collisionDetector;
 
     private World() {
         gameObjects = new ArrayList<GameObject>();
 
-        hero = new Hero(200, 100, 0, 0.18f);
-
         gameObjects.add(new Wall(100, 100, Math.PI / 4));
         gameObjects.add(new Wall(300, 300, 0));
 
-        Enemy enemy1 = new Enemy(300, 200, 0, 0.06f);
-        Enemy enemy2 = new Enemy(300, 100, 0, 0.03f);
+        Enemy enemy1 = new Enemy(300, 200, 0, 0.06F);
+        Enemy enemy2 = new Enemy(300, 100, 0, 0.03F);
 
         gameObjects.add(enemy1);
         gameObjects.add(enemy2);
 
-        enemyManagers = new ArrayList<EnemyManager>();
-        enemyManagers.add(new EnemyManager(enemy1));
-        enemyManagers.add(new EnemyManager(enemy2));
+        hero = new Hero(200, 100, 0, 0.18F);
 
+        gameObjects.add(hero);
+
+        gameObjectMovingManagersManagers = new ArrayList<GameObjectMovingManager>();
+        gameObjectMovingManagersManagers.add(new EnemyManager(enemy1));
+        gameObjectMovingManagersManagers.add(new EnemyManager(enemy2));
         heroManager = new HeroManager(hero);
+        gameObjectMovingManagersManagers.add(heroManager);
+
+
         collisionDetector = CollisionDetector.getInstance();
     }
 
@@ -66,8 +70,8 @@ public class World {
         return hero;
     }
 
-    public ArrayList<EnemyManager> getEnemyManagers() {
-        return enemyManagers;
+    public ArrayList<GameObjectMovingManager> getGameObjectMovingManagersManagers() {
+        return gameObjectMovingManagersManagers;
     }
 
 }

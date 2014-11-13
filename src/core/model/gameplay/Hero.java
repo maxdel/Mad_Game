@@ -1,5 +1,7 @@
 package core.model.gameplay;
 
+import org.newdawn.slick.geom.Circle;
+
 /**
  * Contains fields to define the hero state
  * */
@@ -12,21 +14,7 @@ public class Hero extends GameObjectMoving {
 
     public Hero(final double x, final double y, final double direction, final double maximumSpeed) {
         super(x, y, direction, maximumSpeed);
-    }
-
-    @Override
-    public void collidedWith(GameObject other) {
-        /*
-        * TODO: it's debug code
-        * */
-        if (other instanceof Wall) {
-            //System.out.println("Collision HERO - WALL!");
-
-        } else if (other instanceof Enemy) {
-            //System.out.println("Collision HERO - ENEMY");
-
-        }
-
+        setMask(new Circle(0, 0, 20));
     }
 
 }
