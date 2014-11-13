@@ -1,5 +1,6 @@
 package core.model.gameplay;
 
+import com.sun.org.glassfish.gmbal.GmbalException;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
@@ -51,11 +52,40 @@ public class CollisionDetector {
         return !isCollided;
     }
 
-/*
-    public GameObject collidedWith(GameObject pivot, GameObject current) {
+
+    public void collidedAction(GameObject pivot, GameObject current) {
+        if (pivot instanceof Hero) {
+
+            if (current instanceof Hero) {
+                // pass
+            } else if (current instanceof Enemy) {
+                // pass
+            } else if (current instanceof Wall) {
+                // pass
+            } else {
+                // pass
+            }
+        } else if (pivot instanceof Wall) {
+            if (current instanceof Hero) {
+                // pass
+            } else if (current instanceof Enemy) {
+                // pass
+            } else {
+                // pass
+            }
+        } else if (pivot instanceof Enemy) {
+            if (current instanceof Hero) {
+                // pass
+            } else if (current instanceof Wall) {
+                // pass
+            } else {
+                // pass
+            }
+        }
+
 
     }
-*/
+
 
 
     /*

@@ -19,15 +19,15 @@ public class GamePlayController {
 
     private World world;
 
-    private Map<String, GameObjectMovingController> controllersMap;
+    private Map<Class<?>, GameObjectMovingController> controllersMap;
 
     public GamePlayController(final World world, final GamePlayView gamePlayView) throws SlickException {
         this.world = world;
 
         // forming controller map
-        controllersMap = new HashMap<String, GameObjectMovingController>();
-        controllersMap.put(Hero.class.getSimpleName(), new HeroController(new HeroManager()));
-        controllersMap.put(Enemy.class.getSimpleName(), new EnemyController(new EnemyManager()));
+        controllersMap = new HashMap<Class<?>, GameObjectMovingController>();
+        controllersMap.put(Hero.class, new HeroController(new HeroManager()));
+        controllersMap.put(Enemy.class, new EnemyController(new EnemyManager()));
         // --
 
     }
@@ -42,7 +42,7 @@ public class GamePlayController {
 
         for (GameObject gameObj : world.getGameObjects()) {
             try {
-                controllersMap.get(gameObj.getClass().getSimpleName()).update(gc, delta, gameObj);
+                controllersMap.get(gameObj.getClass()).update(gc, delta, gameObj);
             }
             catch (NullPointerException npe) {
                 continue; // passing, if object type useless
