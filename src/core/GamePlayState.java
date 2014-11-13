@@ -55,7 +55,7 @@ public class GamePlayState extends BasicGameState {
         gamePlayController.update(gc, game);
 
         /* Flow of inner game world process*/
-        World.getInstance(false).update(delta);
+        World.getInstance().update(delta);
     }
 
     @Override
@@ -70,7 +70,7 @@ public class GamePlayState extends BasicGameState {
     @Override
     public void leave(GameContainer gc, StateBasedGame game) throws SlickException {
         ResourceManager.getInstance().unload();
-        World.deleteInstance();
+        World.deleteInstance(); // no sense - in field world we still have object reference
         gamePlayView = null;
         gamePlayController = null;
         System.gc();
