@@ -1,7 +1,10 @@
 package core.model.gameplay;
 
+import core.controller.gameplay.GameObjectMovingController;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -15,11 +18,12 @@ public class World {
     private ArrayList<GameObject> gameObjects;
     private Hero hero;
     private CollisionDetector collisionDetector;
-    private Map<String, GameObjectManager> stationaryObjManagers;
+    private Map<Class<?>, GameObjectManager> gameObjManagers;
+    private ArrayList<Class<?>> selfUpdatedTypes;
+
 
 
     private World() {
-
         // creating gameObjects
         gameObjects = new ArrayList<GameObject>();
 
@@ -37,9 +41,16 @@ public class World {
         gameObjects.add(hero);
         //--
 
-        // creating managers for stationary objects
-        stationaryObjManagers = new HashMap<String, GameObjectManager>();
-        stationaryObjManagers.put(Wall.class.getSimpleName(), new WallManager());
+        // creating managers for all objects
+        gameObjManagers = new HashMap<Class<?>, GameObjectManager>();
+        gameObjManagers.put(Wall.class, new WallManager());
+        gameObjManagers.put(Hero.class, new HeroManager());
+        gameObjManagers.put(Enemy.class, new EnemyManager());
+
+        //crating self updated types array-list
+        selfUpdatedTypes = new ArrayList<Class<?>>();
+        selfUpdatedTypes.add(Wall.class);
+
 
         // creating collision detector
         collisionDetector = CollisionDetector.getInstance();
@@ -60,7 +71,10 @@ public class World {
     public void update(int delta) {
         for (GameObject gameObj: gameObjects) {
             try {
-                stationaryObjManagers.get(gameObj.getClass().getSimpleName()).update(gameObj, delta);
+                for (Class<?> classType : selfUpdatedTypes)
+                if (gameObj.getClass().equals(classType)){
+                    gameObjManagers.get(gameObj.getClass().getSimpleName()).update(gameObj, delta);
+                }
             }
             catch (NullPointerException npe) {
                 continue; // passing, if object type useless
@@ -78,4 +92,7 @@ public class World {
         return hero;
     }
 
+    public Map<Class<?>, GameObjectManager> getGameObjManagers() {
+        return gameObjManagers;
+    }
 }

@@ -25,9 +25,12 @@ public class GamePlayController {
         this.world = world;
 
         // forming controller map
+        /*
+        * TODO: Think about polymorphism  here
+        * */
         controllersMap = new HashMap<Class<?>, GameObjectMovingController>();
-        controllersMap.put(Hero.class, new HeroController(new HeroManager()));
-        controllersMap.put(Enemy.class, new EnemyController(new EnemyManager()));
+        controllersMap.put(Hero.class, new HeroController((HeroManager) world.getGameObjManagers().get(Hero.class)));
+        controllersMap.put(Enemy.class, new EnemyController((EnemyManager) world.getGameObjManagers().get(Enemy.class)));
         // --
 
     }
