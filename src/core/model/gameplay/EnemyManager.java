@@ -7,14 +7,15 @@ public class EnemyManager extends GameObjectMovingManager {
         double speed = enemy.getMaximumSpeed();
         enemy.setDirection(direction);
         if (CollisionDetector.getInstance().isPlaceFree(enemy, enemy.getX() + lengthDirX(direction, speed * delta), enemy.getY() + lengthDirY(direction, speed * delta))) {
-            run(enemy, speed);
+            run(enemy, direction, speed);
         } else {
             stand(enemy);
         }
     }
 
-    public void run(Enemy enemy, double speed) {
+    public void run(Enemy enemy, double direction, double speed) {
         enemy.setCurrentState(GameObjectState.RUN);
+        enemy.setDirection(direction);
         enemy.setCurrentSpeed(speed);
     }
 

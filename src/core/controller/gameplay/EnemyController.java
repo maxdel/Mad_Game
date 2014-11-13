@@ -11,8 +11,8 @@ public class EnemyController extends GameObjectMovingController {
         this.gameObjectMovingManager = enemyManager;
     }
 
-    public void update(GameContainer gc, final int delta, GameObject gameObj) {
-        enemy = (Enemy) gameObj;
+    public void update(GameContainer gc, final int delta, GameObject gameObject) {
+        enemy = (Enemy) gameObject;
         EnemyManager enemyManager = (EnemyManager)gameObjectMovingManager;
 
         enemyManager.followTarget(enemy, World.getInstance(false).getHero().getX(),

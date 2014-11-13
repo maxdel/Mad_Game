@@ -3,10 +3,10 @@ package main;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import core.GameStatesContainer;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
 
+import core.GameStatesContainer;
 import core.GamePlayState;
 
 public class Main {

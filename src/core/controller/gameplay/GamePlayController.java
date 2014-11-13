@@ -1,16 +1,16 @@
 package core.controller.gameplay;
 
-import core.PauseMenuState;
-import core.model.gameplay.*;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-
-import core.view.gameplay.GamePlayView;
 import org.newdawn.slick.state.StateBasedGame;
 
-import java.util.HashMap;
-import java.util.Map;
+import core.view.gameplay.GamePlayView;
+import core.PauseMenuState;
+import core.model.gameplay.*;
 
 /**
  * Game play controller class, that uses game object's controllers to process external events (like user input).
@@ -18,7 +18,6 @@ import java.util.Map;
 public class GamePlayController {
 
     private World world;
-
     private Map<String, GameObjectMovingController> controllersMap;
 
     public GamePlayController(final World world, final GamePlayView gamePlayView) throws SlickException {
@@ -33,16 +32,16 @@ public class GamePlayController {
     }
 
     public void update(GameContainer gc, StateBasedGame game, final int delta) {
-        /* Enter pause menu */
+        // Enter pause menu
         Input input = gc.getInput();
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
             game.enterState(PauseMenuState.getInstance().getID());
         }
         // --
 
-        for (GameObject gameObj : world.getGameObjects()) {
+        for (GameObject gameObject : world.getGameObjects()) {
             try {
-                controllersMap.get(gameObj.getClass().getSimpleName()).update(gc, delta, gameObj);
+                controllersMap.get(gameObject.getClass().getSimpleName()).update(gc, delta, gameObject);
             }
             catch (NullPointerException npe) {
                 continue; // passing, if object type useless

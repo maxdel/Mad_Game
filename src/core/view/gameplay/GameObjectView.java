@@ -19,23 +19,24 @@ public abstract class GameObjectView {
         this.animation = null;
     }
 
-    public abstract void render(Graphics g, final double viewX, final double viewY, final float viewDegreeAngle,
-                                final int viewWidth, final int viewHeight);
+    public void render(Graphics g, final double viewX, final double viewY, final float viewDegreeAngle,
+                                final int viewWidth, final int viewHeight) {
+        rotate(g, viewX, viewY, viewDegreeAngle, viewWidth, viewHeight, true);
+        draw(viewX, viewY);
+        rotate(g, viewX, viewY, viewDegreeAngle, viewWidth, viewHeight, false);
+    }
 
     public void rotate(Graphics g, final double viewX, final double viewY, final float viewDegreeAngle,
                        final int viewWidth, final int viewHeight, final boolean isFront) {
         if (isFront) {
-            //Rotate around view center to set position on the View
             g.rotate(viewWidth / 2, viewHeight / 2, - viewDegreeAngle);
-            //Rotate around gameObject coordinates to set direction of gameObject
             g.rotate((float) (gameObject.getX() - viewX),
                     (float) (gameObject.getY() - viewY),
                     (float)(gameObject.getDirection() / Math.PI * 180));
-            // Coordinates to draw image according to position on the View
         } else {
             g.rotate((float) (gameObject.getX() - viewX),
                     (float) (gameObject.getY() - viewY),
-                    -(float) (gameObject.getDirection() / Math.PI * 180));
+                    (float) - (gameObject.getDirection() / Math.PI * 180));
             g.rotate(viewWidth / 2, viewHeight / 2, viewDegreeAngle);
         }
     }
@@ -46,11 +47,12 @@ public abstract class GameObjectView {
     }
 
     /*
-       * Draws mask around a game object
-       * */
+     * Draws mask around a game object
+     * */
     protected void drawMask(Graphics g, final double viewX, final double viewY) {
         Shape mask = CollisionDetector.getInstance().getUpdatedMask(gameObject, (float) gameObject.getX() - (float) viewX,
                 (float) gameObject.getY() - (float) viewY, gameObject.getDirection());
         g.draw(mask);
     }
+
 }

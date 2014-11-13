@@ -2,6 +2,7 @@ package core.model.gameplay;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -12,11 +13,10 @@ public class World {
 
     private static World instance;
 
-    private ArrayList<GameObject> gameObjects;
+    private List<GameObject> gameObjects;
     private Hero hero;
     private CollisionDetector collisionDetector;
     private Map<String, GameObjectManager> stationaryObjManagers;
-
 
     private World() {
 
@@ -58,9 +58,9 @@ public class World {
     }
 
     public void update(int delta) {
-        for (GameObject gameObj: gameObjects) {
+        for (GameObject gameObject: gameObjects) {
             try {
-                stationaryObjManagers.get(gameObj.getClass().getSimpleName()).update(gameObj, delta);
+                stationaryObjManagers.get(gameObject.getClass().getSimpleName()).update(gameObject, delta);
             }
             catch (NullPointerException npe) {
                 continue; // passing, if object type useless
@@ -70,7 +70,7 @@ public class World {
         collisionDetector.update();
     }
 
-    public ArrayList<GameObject> getGameObjects() {
+    public List<GameObject> getGameObjects() {
         return gameObjects;
     }
 

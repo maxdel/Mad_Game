@@ -56,7 +56,6 @@ public class GamePlayState extends BasicGameState {
 
         /* Flow of inner game world process*/
         World.getInstance(false).update(delta);
-
     }
 
     @Override
