@@ -28,7 +28,7 @@ public class GamePlayController {
         this.gamePlayView = gamePlayView;
 
         gameObjectMovingControllers = new ArrayList<GameObjectMovingController>();
-        for (GameObjectMovingManager gameObjectMovingManager : world.getGameObjectMovingManagersManagers()) {
+        for (GameObjectMovingManager gameObjectMovingManager : world.getGameObjectMovingManagers()) {
             if (gameObjectMovingManager.getClass() == HeroManager.class) {
                 gameObjectMovingControllers.add(new HeroController((HeroManager)gameObjectMovingManager));
             } else if (gameObjectMovingManager.getClass() == EnemyManager.class) {

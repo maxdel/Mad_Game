@@ -51,6 +51,13 @@ public class CollisionDetector {
         return !isCollided;
     }
 
+/*
+    public GameObject collidedWith(GameObject pivot, GameObject current) {
+
+    }
+*/
+
+
     /*
     * Returns clone of gameObject.getMask() with changed x, y and transformed (rotated on @param direction)
     *

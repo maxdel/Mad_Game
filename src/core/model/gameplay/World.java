@@ -13,7 +13,7 @@ public class World {
     private ArrayList<GameObject> gameObjects;
     private Hero hero;
     private HeroManager heroManager;
-    private ArrayList<GameObjectMovingManager> gameObjectMovingManagersManagers;
+    private ArrayList<GameObjectMovingManager> gameObjectMovingManagers;
     private CollisionDetector collisionDetector;
 
     private World() {
@@ -32,11 +32,11 @@ public class World {
 
         gameObjects.add(hero);
 
-        gameObjectMovingManagersManagers = new ArrayList<GameObjectMovingManager>();
-        gameObjectMovingManagersManagers.add(new EnemyManager(enemy1));
-        gameObjectMovingManagersManagers.add(new EnemyManager(enemy2));
+        gameObjectMovingManagers = new ArrayList<GameObjectMovingManager>();
+        gameObjectMovingManagers.add(new EnemyManager(enemy1));
+        gameObjectMovingManagers.add(new EnemyManager(enemy2));
         heroManager = new HeroManager(hero);
-        gameObjectMovingManagersManagers.add(heroManager);
+        gameObjectMovingManagers.add(heroManager);
 
 
         collisionDetector = CollisionDetector.getInstance();
@@ -70,8 +70,8 @@ public class World {
         return hero;
     }
 
-    public ArrayList<GameObjectMovingManager> getGameObjectMovingManagersManagers() {
-        return gameObjectMovingManagersManagers;
+    public ArrayList<GameObjectMovingManager> getGameObjectMovingManagers() {
+        return gameObjectMovingManagers;
     }
 
 }
