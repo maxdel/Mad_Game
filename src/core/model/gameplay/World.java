@@ -43,6 +43,9 @@ public class World {
         }
         return instance;
     }
+    public static World getInstance() {
+        return getInstance(false);
+    }
 
     public static void deleteInstance() {
         instance = null;

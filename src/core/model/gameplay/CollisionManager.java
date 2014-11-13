@@ -35,21 +35,65 @@ public class CollisionManager {
         }
     }
 
-    public boolean isPlaceFree(GameObject gameObject, double x, double y) {
+    /*
+     * Returns true if @param gameObject has no collisions with objects of @param otherClass Class
+     */
+    public boolean isCollidesWith(GameObject gameObject, Class otherClass, double x, double y) {
         double originalX = gameObject.getX();
         double originalY = gameObject.getY();
         gameObject.setX(x);
         gameObject.setY(y);
-        boolean isCollided = false;
+        boolean isCollidesWith = false;
         for (GameObject currentGameObject: World.getInstance(false).getGameObjects()) {
-            if (gameObject != currentGameObject && isCollides(gameObject, currentGameObject)) {
-                isCollided = true;
+            if (gameObject != currentGameObject && otherClass == currentGameObject.getClass()
+                    && isCollides(gameObject, currentGameObject)) {
+                isCollidesWith = true;
                 break;
             }
         }
         gameObject.setX(originalX);
         gameObject.setY(originalY);
-        return !isCollided;
+        return isCollidesWith;
+    }
+
+    /*
+     * Returns true if @param gameObject has no collisions
+     */
+    public boolean isPlaceFree(GameObject gameObject, double x, double y) {
+        double originalX = gameObject.getX();
+        double originalY = gameObject.getY();
+        gameObject.setX(x);
+        gameObject.setY(y);
+        boolean isCollides = false;
+        for (GameObject currentGameObject: World.getInstance(false).getGameObjects()) {
+            if (gameObject != currentGameObject && isCollides(gameObject, currentGameObject)) {
+                isCollides = true;
+                break;
+            }
+        }
+        gameObject.setX(originalX);
+        gameObject.setY(originalY);
+        return !isCollides;
+    }
+
+    /*
+     * Returns the first GameObject object which collides with @param gameObject
+     */
+    public GameObject collidesWith(GameObject gameObject, double x, double y) {
+        double originalX = gameObject.getX();
+        double originalY = gameObject.getY();
+        gameObject.setX(x);
+        gameObject.setY(y);
+        GameObject other = null;
+        for (GameObject currentGameObject: World.getInstance(false).getGameObjects()) {
+            if (gameObject != currentGameObject && isCollides(gameObject, currentGameObject)) {
+                other = currentGameObject;
+                break;
+            }
+        }
+        gameObject.setX(originalX);
+        gameObject.setY(originalY);
+        return other;
     }
 
     public void collidedAction(GameObject pivot, GameObject current) {

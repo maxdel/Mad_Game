@@ -12,8 +12,8 @@ public class Enemy extends GameObjectMoving {
 
     @Override
     public void update(int delta) {
-        super.update(delta);
         followTarget(World.getInstance(false).getHero().getX(), World.getInstance(false).getHero().getY(), delta);
+        super.update(delta);
     }
 
     public void followTarget(final double x, final double y, final int delta) {

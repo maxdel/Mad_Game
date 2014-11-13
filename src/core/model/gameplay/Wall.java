@@ -14,13 +14,16 @@ public class Wall extends GameObject {
 
     @Override
     public void update(int delta) {
-        /* some code like:  wall.method(...); */
+        if (CollisionManager.getInstance().isCollidesWith(this, Hero.class, this.getX(), this.getY())) {
+            setX(getX() + 30);
+            setY(getY() + 30);
+        }
     }
 
     @Override
     public void collidedWith(Hero other) {
-        setX(getX() + 30);
-        setY(getY() + 30);
+        /*setX(getX() + 30);
+        setY(getY() + 30);*/
     }
 
     @Override
@@ -32,6 +35,5 @@ public class Wall extends GameObject {
     public void collidedWith(Wall wall) {
 
     }
-
 
 }
