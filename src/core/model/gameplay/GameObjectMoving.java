@@ -1,4 +1,4 @@
-package core.model;
+package core.model.gameplay;
 
 public class GameObjectMoving extends GameObject {
 

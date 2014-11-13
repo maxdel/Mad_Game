@@ -1,9 +1,10 @@
-package core.view;
+package core.view.gameplay;
 
-import core.model.CollisionManager;
+import core.model.gameplay.CollisionManager;
+import core.view.ResourceManager;
 import org.newdawn.slick.*;
 
-import core.model.GameObject;
+import core.model.gameplay.GameObject;
 import org.newdawn.slick.geom.Shape;
 
 public abstract class GameObjectView {
@@ -19,7 +20,7 @@ public abstract class GameObjectView {
     }
 
     public void render(Graphics g, final double viewX, final double viewY, final float viewDegreeAngle,
-                                final int viewWidth, final int viewHeight) {
+                                final int viewWidth, final int viewHeight) throws SlickException {
         rotate(g, viewX, viewY, viewDegreeAngle, viewWidth, viewHeight, true);
         draw(viewX, viewY);
         rotate(g, viewX, viewY, viewDegreeAngle, viewWidth, viewHeight, false);

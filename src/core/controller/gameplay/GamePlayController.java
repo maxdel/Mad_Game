@@ -1,13 +1,13 @@
-package core.controller;
+package core.controller.gameplay;
 
-import core.PauseMenuState;
-import core.model.Hero;
-import core.model.World;
+import core.GameState;
+import core.model.gameplay.Hero;
+import core.model.gameplay.World;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
-import core.view.GamePlayView;
+import core.view.gameplay.GamePlayView;
 import org.newdawn.slick.state.StateBasedGame;
 
 /**
@@ -18,23 +18,21 @@ public class GamePlayController {
     private Hero hero;
     private int mouseX, mouseY;
     private int oldMouseX, oldMouseY;
-    final double rotateSpeed = 1.0/288;
-
+    private final double rotateSpeed = 1.0/288;
 
     public GamePlayController(final World world, final GamePlayView gamePlayView) throws SlickException {
-        hero = World.getInstance(false).getHero();
+        hero = world.getHero();
         oldMouseX = -1;
         oldMouseY = -1;
         mouseX = -1;
         mouseY = -1;
-
     }
 
-    public void update(GameContainer gc, StateBasedGame game, final int delta) {
+    public void update(GameContainer gc, StateBasedGame game) {
         /* Enter pause menu */
         Input input = gc.getInput();
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
-            game.enterState(PauseMenuState.getInstance().getID());
+            game.enterState(GameState.MENUPAUSE.getValue());
         }
 
         // Controls the direction of the hero

@@ -1,4 +1,4 @@
-package core.model;
+package core.model.gameplay;
 
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Rectangle;
@@ -33,7 +33,6 @@ public class CollisionManager {
                 }
             }
         }
-
     }
 
     public boolean isPlaceFree(GameObject gameObject, double x, double y) {
@@ -52,7 +51,6 @@ public class CollisionManager {
         gameObject.setY(originalY);
         return !isCollided;
     }
-
 
     public void collidedAction(GameObject pivot, GameObject current) {
         if (pivot instanceof Hero) {
@@ -85,11 +83,7 @@ public class CollisionManager {
                 // pass
             }
         }
-
-
     }
-
-
 
     /*
     * Returns clone of gameObject.getMask() with changed x, y and transformed (rotated on @param direction)

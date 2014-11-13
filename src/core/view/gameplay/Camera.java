@@ -1,4 +1,4 @@
-package core.view;
+package core.view.gameplay;
 
 public class Camera {
 
@@ -8,18 +8,16 @@ public class Camera {
     private int width;
     private int height;
 
-    public Camera() {
-        x = 0;
-        y = 0;
-        direction = 0;
-        width = 0;
-        height = 0;
+    public Camera(double x, double y, double direction, int width, int height) {
+        this.x = x;
+        this.y = y;
+        this.direction = direction;
+        this.width = width;
+        this.height = height;
     }
 
     public Camera(int width, int height) {
-        this();
-        this.width = width;
-        this.height = height;
+        this(0, 0, 0, width, height);
     }
 
     public double getX() {

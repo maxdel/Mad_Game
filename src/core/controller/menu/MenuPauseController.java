@@ -1,31 +1,31 @@
-package core.controller;
+package core.controller.menu;
 
 import core.GamePlayState;
-import core.StartMenuState;
-import core.model.World;
-import core.model.MenuManager;
-import core.model.MenuPause;
+import core.MenuStartState;
+import core.model.gameplay.World;
+import core.model.menu.MenuManager;
+import core.model.menu.MenuPause;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 
-public class PauseMenuController {
+public class MenuPauseController {
 
-    private static PauseMenuController instance;
+    private static MenuPauseController instance;
 
     private MenuPause menuPause;
     MenuManager menuManager;
 
-    private PauseMenuController() {
+    private MenuPauseController() {
         menuPause = MenuPause.getInstance();
         menuManager = new MenuManager(menuPause);
     }
 
-    public static PauseMenuController getInstance() {
+    public static MenuPauseController getInstance() {
         if (instance == null) {
-            instance = new PauseMenuController();
+            instance = new MenuPauseController();
         }
         return instance;
     }
@@ -52,7 +52,7 @@ public class PauseMenuController {
 
             }
             else if (menuPause.getCurrentChoice() == menuPause.getMenuId("Main menu")) {
-                game.enterState(StartMenuState.getInstance().getID());
+                game.enterState(MenuStartState.getInstance().getID());
                 World.deleteInstance();
             }
         }

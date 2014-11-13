@@ -1,34 +1,34 @@
-package core.controller;
+package core.controller.menu;
 
+import core.model.menu.MenuManager;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 import core.GamePlayState;
-import core.model.World;
-import core.model.MenuStart;
-import core.model.MenuManager;
+import core.model.gameplay.World;
+import core.model.menu.MenuStart;
 
 /*
 * Provides functions to handle user menu navigate events
 * */
-public class StartMenuController {
+public class MenuStartController {
 
-    private static StartMenuController instance;
+    private static MenuStartController instance;
 
     private MenuStart menuStart;
 
     MenuManager menuManager;
 
-    private StartMenuController() {
+    private MenuStartController() {
         menuStart = MenuStart.getInstance();
         menuManager = new MenuManager(menuStart);
     }
 
-    public static StartMenuController getInstance() {
+    public static MenuStartController getInstance() {
         if (instance == null) {
-            instance = new StartMenuController();
+            instance = new MenuStartController();
         }
         return instance;
     }

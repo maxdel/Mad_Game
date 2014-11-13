@@ -1,4 +1,4 @@
-package core.model;
+package core.model.gameplay;
 
 import org.newdawn.slick.geom.*;
 

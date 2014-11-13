@@ -39,13 +39,13 @@ public class ResourceManager {
     public void load(GameState gameState) throws SlickException {
         try {
             switch (gameState) {
-                case STARTMENU:
+                case MENUSTART:
 
                     break;
                 case GAMEPLAY:
                     loadGamePlay();
                     break;
-                case PAUSEMENU:
+                case MENUPAUSE:
 
                     break;
             }

@@ -1,4 +1,4 @@
-package core.model;
+package core.model.menu;
 
 import java.util.Map;
 import java.util.Set;
@@ -12,8 +12,6 @@ public abstract class Menu {
     public Menu(Map<String, Integer> menuMap) {
         this.menuMap = menuMap;
     }
-
-
 
     public int getCurrentChoice() {
         return currentChoice;
@@ -34,7 +32,5 @@ public abstract class Menu {
     public Set<String> getMenuTitles() {
         return menuMap.keySet();
     }
-
-
 
 }

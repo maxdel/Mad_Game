@@ -1,4 +1,4 @@
-package core.model;
+package core.model.menu;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

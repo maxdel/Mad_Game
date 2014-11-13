@@ -7,9 +7,9 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import core.controller.GamePlayController;
-import core.model.World;
-import core.view.GamePlayView;
+import core.controller.gameplay.GamePlayController;
+import core.model.gameplay.World;
+import core.view.gameplay.GamePlayView;
 
 /*
 * Execute game play
@@ -52,7 +52,7 @@ public class GamePlayState extends BasicGameState {
 
     @Override
     public void update(GameContainer gc, StateBasedGame game, int delta) throws SlickException {
-        gamePlayController.update(gc, game, delta);
+        gamePlayController.update(gc, game);
 
         /* Flow of inner game world process*/
         World.getInstance(false).update(delta);

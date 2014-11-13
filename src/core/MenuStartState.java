@@ -1,6 +1,6 @@
 package core;
 
-import core.model.MenuStart;
+import core.model.menu.MenuStart;
 import core.view.ResourceManager;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
@@ -8,27 +8,27 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import core.controller.StartMenuController;
-import core.view.MenuView;
+import core.controller.menu.MenuStartController;
+import core.view.menu.MenuView;
 
 /*
 * Execute start menu
 * */
-public class StartMenuState extends BasicGameState {
+public class MenuStartState extends BasicGameState {
 
-    private static StartMenuState instance;
+    private static MenuStartState instance;
 
-    private final GameState STATE_ID = GameState.STARTMENU;
+    private final GameState STATE_ID = GameState.MENUSTART;
 
-    private StartMenuController startMenuController;
+    private MenuStartController menuStartController;
     private MenuView menuView;
 
-    private StartMenuState() {
+    private MenuStartState() {
     }
 
-    public static StartMenuState getInstance() {
+    public static MenuStartState getInstance() {
         if (instance == null) {
-            instance = new StartMenuState();
+            instance = new MenuStartState();
         }
         return instance;
     }
@@ -50,7 +50,7 @@ public class StartMenuState extends BasicGameState {
 
     @Override
     public void update(GameContainer gc, StateBasedGame game, int delta) throws SlickException {
-        startMenuController.update(gc, game);
+        menuStartController.update(gc, game);
     }
 
     @Override
@@ -58,14 +58,14 @@ public class StartMenuState extends BasicGameState {
         ResourceManager resourceManager = ResourceManager.getInstance();
         resourceManager.load(STATE_ID);
         gc.getInput().clearKeyPressedRecord();
-        startMenuController = StartMenuController.getInstance();
+        menuStartController = MenuStartController.getInstance();
         menuView = new MenuView(MenuStart.getInstance());
     }
 
     @Override
     public void leave(GameContainer gc, StateBasedGame game) throws SlickException {
         ResourceManager.getInstance().unload();
-        startMenuController = null;
+        menuStartController = null;
         menuView = null;
         System.gc();
     }

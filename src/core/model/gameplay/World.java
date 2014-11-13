@@ -1,4 +1,4 @@
-package core.model;
+package core.model.gameplay;
 
 import java.util.ArrayList;
 
@@ -13,8 +13,6 @@ public class World {
     private ArrayList<GameObject> gameObjects;
     private Hero hero;
     private CollisionManager collisionManager;
-
-
 
     private World() {
         // creating gameObjects
@@ -51,9 +49,9 @@ public class World {
     }
 
     public void update(int delta) {
-        for (GameObject gameObj: gameObjects) {
+        for (GameObject gameObject: gameObjects) {
             try {
-              gameObj.update(delta);
+                gameObject.update(delta);
             }
             catch (NullPointerException npe) {
                 continue; // passing, if object type useless
