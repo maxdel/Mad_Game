@@ -1,5 +1,7 @@
 package core.model.gameplay;
 
+import org.newdawn.slick.geom.Rectangle;
+
 /**
  * Contains methods to define hero behavior
  * */

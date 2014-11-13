@@ -23,4 +23,5 @@ public class EnemyManager extends GameObjectMovingManager {
         enemy.setCurrentSpeed(0);
     }
 
+
 }

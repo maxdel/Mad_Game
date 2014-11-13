@@ -12,4 +12,5 @@ public class Wall extends GameObject {
         setMask(new Rectangle(-32, -32, 64, 64));
     }
 
+
 }
