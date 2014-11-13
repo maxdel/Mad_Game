@@ -13,7 +13,6 @@ public class EnemyManager extends GameObjectMovingManager {
         }
     }
 
-
     public void run(Enemy enemy, double speed) {
         enemy.setCurrentState(GameObjectState.RUN);
         enemy.setCurrentSpeed(speed);
