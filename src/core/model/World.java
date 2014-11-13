@@ -1,11 +1,6 @@
-package core.model.gameplay;
-
-import core.controller.gameplay.GameObjectMovingController;
+package core.model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 /**
  * Main model class, that imitates game world.
@@ -17,9 +12,7 @@ public class World {
 
     private ArrayList<GameObject> gameObjects;
     private Hero hero;
-    private CollisionDetector collisionDetector;
-    private Map<Class<?>, GameObjectManager> gameObjManagers;
-    private ArrayList<Class<?>> selfUpdatedTypes;
+    private CollisionManager collisionManager;
 
 
 
@@ -41,19 +34,8 @@ public class World {
         gameObjects.add(hero);
         //--
 
-        // creating managers for all objects
-        gameObjManagers = new HashMap<Class<?>, GameObjectManager>();
-        gameObjManagers.put(Wall.class, new WallManager());
-        gameObjManagers.put(Hero.class, new HeroManager());
-        gameObjManagers.put(Enemy.class, new EnemyManager());
-
-        //crating self updated types array-list
-        selfUpdatedTypes = new ArrayList<Class<?>>();
-        selfUpdatedTypes.add(Wall.class);
-
-
         // creating collision detector
-        collisionDetector = CollisionDetector.getInstance();
+        collisionManager = CollisionManager.getInstance();
     }
 
     // Singleton pattern method
@@ -71,17 +53,14 @@ public class World {
     public void update(int delta) {
         for (GameObject gameObj: gameObjects) {
             try {
-                for (Class<?> classType : selfUpdatedTypes)
-                if (gameObj.getClass().equals(classType)){
-                    gameObjManagers.get(gameObj.getClass().getSimpleName()).update(gameObj, delta);
-                }
+              gameObj.update(delta);
             }
             catch (NullPointerException npe) {
                 continue; // passing, if object type useless
             }
         }
 
-        collisionDetector.update();
+        collisionManager.update();
     }
 
     public ArrayList<GameObject> getGameObjects() {
@@ -92,7 +71,4 @@ public class World {
         return hero;
     }
 
-    public Map<Class<?>, GameObjectManager> getGameObjManagers() {
-        return gameObjManagers;
-    }
 }

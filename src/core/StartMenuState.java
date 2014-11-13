@@ -1,6 +1,6 @@
 package core;
 
-import core.model.menu.StartMenu;
+import core.model.MenuStart;
 import core.view.ResourceManager;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
@@ -8,8 +8,8 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import core.controller.menu.StartMenuController;
-import core.view.menu.MenuView;
+import core.controller.StartMenuController;
+import core.view.MenuView;
 
 /*
 * Execute start menu
@@ -59,7 +59,7 @@ public class StartMenuState extends BasicGameState {
         resourceManager.load(STATE_ID);
         gc.getInput().clearKeyPressedRecord();
         startMenuController = StartMenuController.getInstance();
-        menuView = new MenuView(StartMenu.getInstance());
+        menuView = new MenuView(MenuStart.getInstance());
     }
 
     @Override

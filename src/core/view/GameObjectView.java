@@ -1,10 +1,9 @@
-package core.view.gameplay;
+package core.view;
 
-import core.model.gameplay.CollisionDetector;
-import core.view.ResourceManager;
+import core.model.CollisionManager;
 import org.newdawn.slick.*;
 
-import core.model.gameplay.GameObject;
+import core.model.GameObject;
 import org.newdawn.slick.geom.Shape;
 
 public abstract class GameObjectView {
@@ -49,7 +48,7 @@ public abstract class GameObjectView {
        * Draws mask around a game object
        * */
     protected void drawMask(Graphics g, final double viewX, final double viewY) {
-        Shape mask = CollisionDetector.getInstance().getUpdatedMask(gameObject, (float) gameObject.getX() - (float) viewX,
+        Shape mask = CollisionManager.getInstance().getUpdatedMask(gameObject, (float) gameObject.getX() - (float) viewX,
                 (float) gameObject.getY() - (float) viewY, gameObject.getDirection());
         g.draw(mask);
     }

@@ -1,8 +1,8 @@
-package core.view.menu;
+package core.view;
 
 import java.awt.Font;
 
-import core.model.menu.Menu;
+import core.model.Menu;
 import org.newdawn.slick.*;
 
 /**

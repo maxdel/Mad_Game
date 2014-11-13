@@ -1,22 +1,21 @@
-package core.model.gameplay;
+package core.model;
 
-import com.sun.org.glassfish.gmbal.GmbalException;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Transform;
 
-public class CollisionDetector {
+public class CollisionManager {
 
-    private static CollisionDetector instance;
+    private static CollisionManager instance;
 
-    private CollisionDetector() {
+    private CollisionManager() {
 
     }
 
-    public static CollisionDetector getInstance() {
+    public static CollisionManager getInstance() {
         if (instance == null) {
-            instance = new CollisionDetector();
+            instance = new CollisionManager();
         }
         return instance;
     }
@@ -68,10 +67,10 @@ public class CollisionDetector {
                 // pass
             }
         } else if (pivot instanceof Wall) {
-            WallManager wallManager = (WallManager) World.getInstance(false).getGameObjManagers().get(Wall.class);
+            //WallManager wallManager = (WallManager) World.getInstance(false).getGameObjManagers().get(Wall.class);
 
             if (current instanceof Hero) {
-                wallManager.collidedWith((Wall) pivot, (Hero) current);
+              //  wallManager.collidedWith((Wall) pivot, (Hero) current);
             } else if (current instanceof Enemy) {
                 // pass
             } else {

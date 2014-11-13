@@ -1,32 +1,26 @@
-package core.view.gameplay;
+package core.view;
 
 import java.util.ArrayList;
 
-import core.view.ResourceManager;
 import org.newdawn.slick.*;
 
-import core.model.gameplay.Enemy;
-import core.model.gameplay.GameObject;
-import core.model.gameplay.Hero;
-import core.model.gameplay.Wall;
+import core.model.Enemy;
+import core.model.GameObject;
+import core.model.Hero;
+import core.model.Wall;
 
 /*
 * Renders game play game state
 * */
 public class GamePlayView {
 
-    private ArrayList<GameObject> gameObjects;
     private ArrayList<GameObjectView> gameObjectViews;
     private Hero hero;
     private HeroView heroView;
     private Camera camera;
-    private ResourceManager resourceManager;
 
     public GamePlayView(GameContainer gc, ArrayList<GameObject> gameObjects, Hero hero, ResourceManager resourceManager)
             throws SlickException {
-        this.resourceManager = resourceManager;
-
-        this.gameObjects = gameObjects;
 
         this.hero = hero;
         heroView = new HeroView(hero, resourceManager);

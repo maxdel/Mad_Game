@@ -1,4 +1,4 @@
-package core.model.gameplay;
+package core.model;
 
 import org.newdawn.slick.geom.*;
 
@@ -17,6 +17,8 @@ public abstract class GameObject {
         this.y = y;
         this.direction = direction;
     }
+
+    public abstract void update(final int delta);
 
     public double getX() {
         return x;

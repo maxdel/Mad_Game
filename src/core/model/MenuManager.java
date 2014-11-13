@@ -1,4 +1,4 @@
-package core.model.menu;
+package core.model;
 
 public class MenuManager {
 

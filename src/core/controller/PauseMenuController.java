@@ -1,10 +1,10 @@
-package core.controller.menu;
+package core.controller;
 
 import core.GamePlayState;
 import core.StartMenuState;
-import core.model.gameplay.World;
-import core.model.menu.MenuManager;
-import core.model.menu.PauseMenu;
+import core.model.World;
+import core.model.MenuManager;
+import core.model.MenuPause;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
@@ -15,12 +15,12 @@ public class PauseMenuController {
 
     private static PauseMenuController instance;
 
-    private PauseMenu pauseMenu;
+    private MenuPause menuPause;
     MenuManager menuManager;
 
     private PauseMenuController() {
-        pauseMenu = PauseMenu.getInstance();
-        menuManager = new MenuManager(pauseMenu);
+        menuPause = MenuPause.getInstance();
+        menuManager = new MenuManager(menuPause);
     }
 
     public static PauseMenuController getInstance() {
@@ -41,17 +41,17 @@ public class PauseMenuController {
         }
 
         if (input.isKeyPressed(Input.KEY_ENTER)) {
-            if (pauseMenu.getCurrentChoice() == pauseMenu.getMenuId("Resume")) {
+            if (menuPause.getCurrentChoice() == menuPause.getMenuId("Resume")) {
                 World.getInstance(false); // resuming existing world
                 game.enterState(GamePlayState.getInstance().getID());
             }
-            else if (pauseMenu.getCurrentChoice() == pauseMenu.getMenuId("Load")) {
+            else if (menuPause.getCurrentChoice() == menuPause.getMenuId("Load")) {
 
             }
-            else if (pauseMenu.getCurrentChoice() == pauseMenu.getMenuId("Help")) {
+            else if (menuPause.getCurrentChoice() == menuPause.getMenuId("Help")) {
 
             }
-            else if (pauseMenu.getCurrentChoice() == pauseMenu.getMenuId("Main menu")) {
+            else if (menuPause.getCurrentChoice() == menuPause.getMenuId("Main menu")) {
                 game.enterState(StartMenuState.getInstance().getID());
                 World.deleteInstance();
             }

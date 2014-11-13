@@ -1,31 +1,41 @@
-package core.controller.gameplay;
+package core.controller;
 
-import core.model.gameplay.*;
+import core.PauseMenuState;
+import core.model.Hero;
+import core.model.World;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
+
+import core.view.GamePlayView;
+import org.newdawn.slick.state.StateBasedGame;
 
 /**
- * Handles user input events using "HeroManager" methods.
+ * Game play controller class, that uses game object's controllers to process external events (like user input).
  */
-public class HeroController extends GameObjectMovingController {
-    private Hero hero;
+public class GamePlayController {
 
+    private Hero hero;
     private int mouseX, mouseY;
     private int oldMouseX, oldMouseY;
-
     final double rotateSpeed = 1.0/288;
 
-    public HeroController(final HeroManager heroManager) {
-        this.gameObjectMovingManager = heroManager;
+
+    public GamePlayController(final World world, final GamePlayView gamePlayView) throws SlickException {
+        hero = World.getInstance(false).getHero();
         oldMouseX = -1;
         oldMouseY = -1;
         mouseX = -1;
         mouseY = -1;
+
     }
 
-    public void update(GameContainer gc, final int delta, GameObject gameObj) {
-        hero = (Hero) gameObj;
-        HeroManager heroManager = (HeroManager)gameObjectMovingManager;
+    public void update(GameContainer gc, StateBasedGame game, final int delta) {
+        /* Enter pause menu */
+        Input input = gc.getInput();
+        if (input.isKeyPressed(Input.KEY_ESCAPE)) {
+            game.enterState(PauseMenuState.getInstance().getID());
+        }
 
         // Controls the direction of the hero
         oldMouseX = mouseX;
@@ -33,7 +43,7 @@ public class HeroController extends GameObjectMovingController {
         mouseX = gc.getInput().getMouseX();
         mouseY = gc.getInput().getMouseY();
 
-        if (oldMouseX >= 0) heroManager.rotate(hero, (mouseX - oldMouseX) * (2 * Math.PI) * rotateSpeed);
+        if (oldMouseX >= 0) hero.rotate((mouseX - oldMouseX) * (2 * Math.PI) * rotateSpeed);
 
         if (gc.getInput().getMouseX() > gc.getWidth() / 2 + 1 / rotateSpeed) {
             org.lwjgl.input.Mouse.setCursorPosition((int) (gc.getInput().getMouseX() - (1.0 / rotateSpeed)),
@@ -66,15 +76,15 @@ public class HeroController extends GameObjectMovingController {
         direction *= Math.PI / 180;
         if (direction >= 0) {
             if (gc.getInput().isKeyDown(Input.KEY_LSHIFT)) {
-                heroManager.run(hero, direction);
+                hero.run(direction);
             } else {
-                heroManager.walk(hero, direction);
+                hero.walk(direction);
             }
         } else {
-            heroManager.stand(hero);
+            hero.stand();
         }
 
-        heroManager.update(hero, delta);
+        // hero.update(delta); // ???????????????????/
     }
-    
+
 }
