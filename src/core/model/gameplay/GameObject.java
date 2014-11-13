@@ -1,6 +1,6 @@
 package core.model.gameplay;
 
-import org.newdawn.slick.geom.*;
+import org.newdawn.slick.geom.Shape;
 
 /**
  * Contains common fields to define a game object
@@ -65,6 +65,5 @@ public abstract class GameObject {
                 ", mask=" + mask +
                 '}';
     }
-
 
 }

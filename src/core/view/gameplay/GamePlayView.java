@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.newdawn.slick.*;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.SlickException;
 
 import core.view.ResourceManager;
 import core.model.gameplay.Enemy;

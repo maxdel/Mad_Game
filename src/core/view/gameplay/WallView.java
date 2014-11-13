@@ -1,6 +1,7 @@
 package core.view.gameplay;
 
-import org.newdawn.slick.*;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.SlickException;
 
 import core.view.ResourceManager;
 import core.model.gameplay.GameObject;

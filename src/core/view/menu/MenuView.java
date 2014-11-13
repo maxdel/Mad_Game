@@ -2,7 +2,8 @@ package core.view.menu;
 
 import java.awt.Font;
 
-import org.newdawn.slick.*;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.TrueTypeFont;
 
 import core.model.menu.Menu;
 
