@@ -25,10 +25,12 @@ public class ResourceManager {
 
     private Map<String, AnimationInfo> animationInfos;
     private Map<String, MaskInfo> maskInfos;
+    private Map<String, FontInfo> fontInfos;
 
     private ResourceManager() {
         animationInfos = new HashMap<String, AnimationInfo>();
         maskInfos = new HashMap<String, MaskInfo>();
+        fontInfos = new HashMap<String, FontInfo>();
     }
 
     public static ResourceManager getInstance() {
@@ -42,13 +44,13 @@ public class ResourceManager {
         try {
             switch (gameState) {
                 case MENUSTART:
-
+                    loadMenuStart();
                     break;
                 case GAMEPLAY:
                     loadGamePlay();
                     break;
                 case MENUPAUSE:
-
+                    loadMenuPause();
                     break;
             }
         } catch (FileNotFoundException e) {
@@ -106,6 +108,52 @@ public class ResourceManager {
             int radius = maskElement.getIntAttribute("radius");
 
             maskInfos.put(name, new MaskInfo(width, height, radius));
+        }
+
+        in.close();
+    }
+
+    private void loadMenuStart() throws SlickException, IOException {
+        XMLParser xmlParser = new XMLParser();
+        InputStream in = new FileInputStream(xmlFilePath);
+        XMLElement root = xmlParser.parse("", in);
+        XMLElement manustartElement = root.getChildrenByName("menustart").get(0);
+
+        // menustart/fonts
+        XMLElement fontsElement = manustartElement.getChildrenByName("fonts").get(0);
+        XMLElementList fontList = fontsElement.getChildrenByName("font");
+        for (int i = 0; i < fontList.size(); ++i) {
+            XMLElement fontElement = fontList.get(i);
+
+            String name = fontElement.getAttribute("name");
+            String fontName = fontElement.getAttribute("fontName");
+            int size = fontElement.getIntAttribute("size");
+            boolean isBold = fontElement.getBooleanAttribute("isBold");
+
+            fontInfos.put(name, new FontInfo(fontName, size, isBold));
+        }
+
+        in.close();
+    }
+
+    private void loadMenuPause() throws SlickException, IOException {
+        XMLParser xmlParser = new XMLParser();
+        InputStream in = new FileInputStream(xmlFilePath);
+        XMLElement root = xmlParser.parse("", in);
+        XMLElement menupauseElement = root.getChildrenByName("menupause").get(0);
+
+        // menustart/fonts
+        XMLElement fontsElement = menupauseElement.getChildrenByName("fonts").get(0);
+        XMLElementList fontList = fontsElement.getChildrenByName("font");
+        for (int i = 0; i < fontList.size(); ++i) {
+            XMLElement fontElement = fontList.get(i);
+
+            String name = fontElement.getAttribute("name");
+            String fontName = fontElement.getAttribute("fontName");
+            int size = fontElement.getIntAttribute("size");
+            boolean isBold = fontElement.getBooleanAttribute("isBold");
+
+            fontInfos.put(name, new FontInfo(fontName, size, isBold));
         }
 
         in.close();
@@ -181,6 +229,44 @@ public class ResourceManager {
 
         public int getRadius() {
             return radius;
+        }
+
+    }
+
+    public String getFontName(String name) {
+        return fontInfos.get(name).getFontName();
+    }
+
+    public int getFontSize(String name) {
+        return fontInfos.get(name).getSize();
+    }
+
+    public boolean isFontBold(String name) {
+        return fontInfos.get(name).isBold();
+    }
+
+    private static class FontInfo {
+
+        private String fontName;
+        private int size;
+        private boolean isBold;
+
+        public FontInfo(String fontName, int size, boolean isBold) {
+            this.fontName = fontName;
+            this.size = size;
+            this.isBold = isBold;
+        }
+
+        public String getFontName() {
+            return fontName;
+        }
+
+        public int getSize() {
+            return size;
+        }
+
+        public boolean isBold() {
+            return isBold;
         }
 
     }

@@ -2,6 +2,7 @@ package core.view.menu;
 
 import java.awt.Font;
 
+import core.view.ResourceManager;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.TrueTypeFont;
 
@@ -24,7 +25,9 @@ public class MenuView {
         playerChoices = new String[menu.getMenuTitles().size()];
         menu.getMenuTitles().toArray(playerChoices);
 
-        menuItemFont = new Font("Verdana", Font.BOLD, 40);
+        menuItemFont = new Font(ResourceManager.getInstance().getFontName("menufont"),
+                ResourceManager.getInstance().isFontBold("menufont") ? Font.BOLD : 0,
+                ResourceManager.getInstance().getFontSize("menufont"));
         menuItemTTF = new TrueTypeFont(menuItemFont, true);
     }
 

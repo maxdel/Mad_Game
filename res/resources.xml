@@ -10,8 +10,15 @@
             <mask name="enemy" width="0" height="0" radius="42" />
             <mask name="wall" width="64" height="64" radius="0" />
         </masks>
-        <fonts>
-            <font name="menufont" fontname="verdana" size="40" isBold="true" />
-        </fonts>
     </gameplay>
+    <menustart>
+        <fonts>
+            <font name="menufont" fontName="verdana" size="40" isBold="true" />
+        </fonts>
+    </menustart>
+    <menupause>
+        <fonts>
+            <font name="menufont" fontName="verdana" size="40" isBold="true" />
+        </fonts>
+    </menupause>
 </resources>
