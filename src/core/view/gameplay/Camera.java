@@ -67,7 +67,10 @@ public class Camera {
         this.height = height;
     }
 
-    public void update(final double x, final double y, final double direction) {
+    public void update(final int width, final int height, final double x, final double y, final double direction) {
+        setWidth(width);
+        setHeight(height);
+
         // smooth change of direction
         double resultDirection = direction + Math.PI / 2;
         if (resultDirection > getDirection() && resultDirection - 0.005 > getDirection()) {

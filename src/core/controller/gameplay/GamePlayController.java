@@ -1,5 +1,7 @@
 package core.controller.gameplay;
 
+import org.lwjgl.input.Mouse;
+import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
@@ -29,7 +31,7 @@ public class GamePlayController {
         mouseY = -1;
     }
 
-    public void update(GameContainer gc, StateBasedGame game) {
+    public void update(GameContainer gc, StateBasedGame game) throws SlickException {
         /* Enter pause menu */
         Input input = gc.getInput();
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
@@ -45,12 +47,12 @@ public class GamePlayController {
         if (oldMouseX >= 0) hero.rotate((mouseX - oldMouseX) * (2 * Math.PI) * rotateSpeed);
 
         if (gc.getInput().getMouseX() > gc.getWidth() / 2 + 1 / rotateSpeed) {
-            org.lwjgl.input.Mouse.setCursorPosition((int) (gc.getInput().getMouseX() - (1.0 / rotateSpeed)),
+            Mouse.setCursorPosition((int) (gc.getInput().getMouseX() - (1.0 / rotateSpeed)),
                     gc.getHeight() - gc.getInput().getMouseY());
             mouseX = gc.getInput().getMouseX();
         }
         if (gc.getInput().getMouseX() < gc.getWidth() / 2 - 1 / rotateSpeed) {
-            org.lwjgl.input.Mouse.setCursorPosition((int) (gc.getInput().getMouseX() + (1.0 / rotateSpeed)),
+            Mouse.setCursorPosition((int) (gc.getInput().getMouseX() + (1.0 / rotateSpeed)),
                     gc.getHeight() - gc.getInput().getMouseY());
             mouseX = gc.getInput().getMouseX();
         }
@@ -83,7 +85,13 @@ public class GamePlayController {
             hero.stand();
         }
 
-        // hero.update(delta); // ???????????????????/
+        if (gc.getInput().isKeyDown(Input.KEY_LALT) && gc.getInput().isKeyDown(Input.KEY_ENTER)) {
+            if (gc.isFullscreen()) {
+                ((AppGameContainer) gc).setDisplayMode(640, 480, false);
+            } else {
+                ((AppGameContainer) gc).setDisplayMode(gc.getScreenWidth(), gc.getScreenHeight(), true);
+            }
+        }
     }
 
 }

@@ -48,7 +48,7 @@ public class GamePlayView {
     }
 
     public void render(GameContainer gc, Graphics g) throws SlickException {
-        camera.update(hero.getX(), hero.getY(), hero.getDirection());
+        camera.update(gc.getWidth(), gc.getHeight(), hero.getX(), hero.getY(), hero.getDirection());
 
         updateViews();
 
