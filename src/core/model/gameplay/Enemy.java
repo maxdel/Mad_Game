@@ -1,12 +1,13 @@
 package core.model.gameplay;
 
+import core.view.ResourceManager;
 import org.newdawn.slick.geom.Circle;
 
 public class Enemy extends GameObjectMoving {
 
     public Enemy(final double x, final double y, final double direction, final double maximumSpeed) {
         super(x, y, direction, maximumSpeed);
-        setMask(new Circle(0, 0, 42));
+        setMask(new Circle(0, 0, ResourceManager.getInstance().getMaskRadius("enemy")));
     }
 
 

@@ -2,6 +2,8 @@ package core.model.gameplay;
 
 import org.newdawn.slick.geom.Circle;
 
+import core.view.ResourceManager;
+
 /**
  * Contains fields to define the hero state
  * */
@@ -15,9 +17,8 @@ public class Hero extends GameObjectMoving {
 */
     public Hero(final double x, final double y, final double direction, final double maximumSpeed) {
         super(x, y, direction, maximumSpeed);
-        setMask(new Circle(0, 0, 20));
+        setMask(new Circle(0, 0, ResourceManager.getInstance().getMaskRadius("hero")));
     }
-
 
     public void walk(final double direction) {
         setCurrentState(GameObjectState.WALK);
