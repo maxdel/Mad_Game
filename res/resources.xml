@@ -10,6 +10,12 @@
             <mask name="enemy" width="0" height="0" radius="42" />
             <mask name="wall" width="64" height="64" radius="0" />
         </masks>
+        <items>
+            <item name="Selected item" path = "/res/items/selected item.png" />
+            <item name="Sword" path = "/res/items/sword.png" />
+            <item name="Apple" path = "/res/items/apple.png" />
+            <item name="Silver arrow" path = "/res/items/silver arrow.png" />
+        </items>
     </gameplay>
     <menustart>
         <fonts>

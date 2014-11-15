@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import core.model.gameplay.inventory.Inventory;
+import core.view.gameplay.inventory.InventoryView;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -24,14 +26,14 @@ public class GamePlayView {
     private Hero hero;
     private Camera camera;
     private ResourceManager resourceManager;
+    private InventoryView inventoryView;
 
     public GamePlayView(GameContainer gc, List<GameObject> gameObjects, Hero hero, ResourceManager resourceManager)
             throws SlickException {
         this.resourceManager = resourceManager;
-
         this.gameObjects = gameObjects;
-
         this.hero = hero;
+        inventoryView = new InventoryView(hero.getInventory());
 
         gameObjectViews = new ArrayList<GameObjectView>();
         for (GameObject gameObject : gameObjects) {
@@ -55,6 +57,8 @@ public class GamePlayView {
         for (GameObjectView gameObjectView : gameObjectViews) {
             gameObjectView.render(g, camera.getX(), camera.getY(), camera.getDirectionAngle(), camera.getWidth(), camera.getHeight());
         }
+
+        inventoryView.render(g, camera.getWidth(), camera.getHeight());
     }
 
     private void updateViews() throws SlickException {
@@ -91,6 +95,10 @@ public class GamePlayView {
                 }
             }
         }
+    }
+
+    public InventoryView getInventoryView() {
+        return inventoryView;
     }
 
 }

@@ -1,5 +1,6 @@
 package core.model.gameplay;
 
+import core.model.gameplay.inventory.Inventory;
 import org.newdawn.slick.geom.Circle;
 
 import core.ResourceManager;
@@ -8,6 +9,8 @@ import core.ResourceManager;
  * Contains fields to define the hero state
  * */
 public class Hero extends GameObjectMoving {
+
+    private Inventory inventory;
 
 /*
     public Hero(final double x, final double y, final double direction, final double relativeDirection, final double maximumSpeed,
@@ -18,6 +21,7 @@ public class Hero extends GameObjectMoving {
     public Hero(final double x, final double y, final double direction, final double maximumSpeed) {
         super(x, y, direction, maximumSpeed);
         setMask(new Circle(0, 0, ResourceManager.getInstance().getMaskRadius("hero")));
+        inventory = new Inventory();
     }
 
     public void walk(final double direction) {
@@ -39,6 +43,10 @@ public class Hero extends GameObjectMoving {
 
     public void rotate(final double angleOffset) {
         setDirection(getDirection() + angleOffset);
+    }
+
+    public Inventory getInventory() {
+        return inventory;
     }
 
 }

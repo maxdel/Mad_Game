@@ -24,11 +24,13 @@ public class ResourceManager {
     private Map<String, AnimationInfo> animationInfos;
     private Map<String, MaskInfo> maskInfos;
     private Map<String, FontInfo> fontInfos;
+    private Map<String, Image> itemInfos;
 
     private ResourceManager() {
         animationInfos = new HashMap<String, AnimationInfo>();
         maskInfos = new HashMap<String, MaskInfo>();
         fontInfos = new HashMap<String, FontInfo>();
+        itemInfos = new HashMap<String, Image>();
     }
 
     public static ResourceManager getInstance() {
@@ -108,6 +110,18 @@ public class ResourceManager {
             maskInfos.put(name, new MaskInfo(width, height, radius));
         }
 
+        // gameplay/items
+        XMLElement itemsElement = gameplayElement.getChildrenByName("items").get(0);
+        XMLElementList itemList = itemsElement.getChildrenByName("item");
+        for (int i = 0; i < itemList.size(); ++i) {
+            XMLElement itemElement = itemList.get(i);
+
+            String name = itemElement.getAttribute("name");
+            String path = itemElement.getAttribute("path");
+
+            itemInfos.put(name, new Image(path));
+        }
+
         in.close();
     }
 
@@ -159,6 +173,10 @@ public class ResourceManager {
 
     public void unload() {
         animationInfos = new HashMap<String, AnimationInfo>();
+    }
+
+    public Image getItemImage(String name) {
+        return itemInfos.get(name);
     }
 
     public Animation getAnimation(String name) {
