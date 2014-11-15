@@ -6,7 +6,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import core.view.ResourceManager;
 import core.controller.gameplay.GamePlayController;
 import core.model.gameplay.World;
 import core.view.gameplay.GamePlayView;
@@ -19,7 +18,6 @@ public class GamePlayState extends BasicGameState {
     private static GamePlayState instance;
 
     private final GameState STATE_ID = GameState.GAMEPLAY;
-
     private World world;
     private GamePlayView gamePlayView;
     private GamePlayController gamePlayController;
@@ -53,24 +51,24 @@ public class GamePlayState extends BasicGameState {
     @Override
     public void update(GameContainer gc, StateBasedGame game, int delta) throws SlickException {
         gamePlayController.update(gc, game);
-
-        /* Flow of inner game world process*/
-        World.getInstance().update(delta);
+        world.update(delta);
     }
 
     @Override
     public void enter(GameContainer gc, StateBasedGame game) throws SlickException {
-        ResourceManager resourceManager = ResourceManager.getInstance();
-        resourceManager.load(STATE_ID);
+        ResourceManager.getInstance().load(STATE_ID);
+
         world = World.getInstance(false);
-        gamePlayView = new GamePlayView(gc, world.getGameObjects(), world.getHero(), resourceManager);
+        gamePlayView = new GamePlayView(gc, world.getGameObjects(), world.getHero(), ResourceManager.getInstance());
         gamePlayController = new GamePlayController(world, gamePlayView);
     }
 
     @Override
     public void leave(GameContainer gc, StateBasedGame game) throws SlickException {
         ResourceManager.getInstance().unload();
-        World.deleteInstance(); // no sense - in field world we still have object reference
+
+        World.deleteInstance();
+        world = null;
         gamePlayView = null;
         gamePlayController = null;
         System.gc();

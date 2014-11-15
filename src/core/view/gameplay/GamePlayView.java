@@ -8,7 +8,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-import core.view.ResourceManager;
+import core.ResourceManager;
 import core.model.gameplay.Enemy;
 import core.model.gameplay.GameObject;
 import core.model.gameplay.Hero;

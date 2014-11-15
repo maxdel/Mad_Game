@@ -2,7 +2,7 @@ package core.model.gameplay;
 
 import org.newdawn.slick.geom.Circle;
 
-import core.view.ResourceManager;
+import core.ResourceManager;
 
 /**
  * Contains fields to define the hero state

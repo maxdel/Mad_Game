@@ -1,6 +1,6 @@
 package core.model.gameplay;
 
-import core.view.ResourceManager;
+import core.ResourceManager;
 import org.newdawn.slick.geom.Circle;
 
 public class Enemy extends GameObjectMoving {

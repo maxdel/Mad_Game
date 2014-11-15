@@ -1,4 +1,4 @@
-package core.view;
+package core;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -14,8 +14,6 @@ import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.util.xml.XMLElement;
 import org.newdawn.slick.util.xml.XMLElementList;
 import org.newdawn.slick.util.xml.XMLParser;
-
-import core.GameState;
 
 public class ResourceManager {
 

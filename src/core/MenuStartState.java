@@ -7,7 +7,6 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import core.model.menu.MenuStart;
-import core.view.ResourceManager;
 import core.controller.menu.MenuStartController;
 import core.view.menu.MenuView;
 
@@ -55,8 +54,8 @@ public class MenuStartState extends BasicGameState {
 
     @Override
     public void enter(GameContainer gc, StateBasedGame game) throws SlickException {
-        ResourceManager resourceManager = ResourceManager.getInstance();
-        resourceManager.load(STATE_ID);
+        ResourceManager.getInstance().load(STATE_ID);
+
         gc.getInput().clearKeyPressedRecord();
         menuStartController = MenuStartController.getInstance();
         menuView = new MenuView(MenuStart.getInstance());
@@ -65,8 +64,10 @@ public class MenuStartState extends BasicGameState {
     @Override
     public void leave(GameContainer gc, StateBasedGame game) throws SlickException {
         ResourceManager.getInstance().unload();
+
         menuStartController = null;
         menuView = null;
         System.gc();
     }
+
 }
