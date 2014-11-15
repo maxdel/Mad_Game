@@ -17,6 +17,7 @@ public class InventoryView {
     private int activeItemY;
     private int x;
     private int y;
+    private int scroll;
     private final int width = 240;
     private final int height = 180;
     private final int margin = 10;
@@ -32,6 +33,7 @@ public class InventoryView {
         activeItemY = 0;
         x = 0;
         y = 0;
+        scroll = 0;
     }
 
     public void render(Graphics g, int viewWidth, int viewHeight) {
@@ -42,6 +44,13 @@ public class InventoryView {
             y = viewHeight - height - margin;
             g.drawRoundRect(x, y, width, height, 5);
             Iterator<Item> it = inventory.getItems().iterator();
+            for (int i = 0; i < scroll; ++i) {
+                for (int j = 0; j < (width - 2 * padding - spacing) / (itemWidth + spacing); ++j) {
+                    if (it.hasNext()) {
+                        it.next();
+                    }
+                }
+            }
             for (int j = 0; j < (height - 2 * padding - spacing) / (itemHeight + spacing); ++j) {
                 for (int i = 0; i < (width - 2 * padding - spacing) / (itemWidth + spacing); ++i) {
                     if (it.hasNext()) {
@@ -73,12 +82,18 @@ public class InventoryView {
         int maximumWidthIndex = (width - 2 * padding - spacing) / (itemWidth + spacing) - 1;
         int maximumHeightIndex = (height - 2 * padding - spacing) / (itemHeight + spacing) - 1;
         if (activeItemX < maximumWidthIndex &&
-                activeItemY * (maximumWidthIndex + 1) + (activeItemX + 1) < inventory.getItems().size()) {
+                activeItemY * (maximumWidthIndex + 1) + (activeItemX + 1) < inventory.getItems().size() -
+                        scroll * (maximumWidthIndex + 1)) {
             activeItemX++;
         } else if (activeItemY < maximumHeightIndex &&
-                (activeItemY + 1) * (maximumWidthIndex + 1)  < inventory.getItems().size()) {
+                (activeItemY + 1) * (maximumWidthIndex + 1)  < inventory.getItems().size() -
+                        scroll * (maximumWidthIndex + 1)) {
             activeItemX = 0;
             activeItemY++;
+        } else if ((activeItemY + 1) * (maximumWidthIndex + 1)  < inventory.getItems().size() -
+                scroll * (maximumWidthIndex + 1)) {
+            scroll++;
+            activeItemX = 0;
         }
     }
 
@@ -86,12 +101,23 @@ public class InventoryView {
         int maximumWidthIndex = (width - 2 * padding - spacing) / (itemWidth + spacing) - 1;
         int maximumHeightIndex = (height - 2 * padding - spacing) / (itemHeight + spacing) - 1;
         if (activeItemY < maximumHeightIndex &&
-                (activeItemY + 1) * (maximumWidthIndex + 1) + activeItemX < inventory.getItems().size()) {
+                (activeItemY + 1) * (maximumWidthIndex + 1) + activeItemX < inventory.getItems().size() -
+                        scroll * (maximumWidthIndex + 1)) {
             activeItemY++;
         } else if (activeItemY < maximumHeightIndex &&
-                (activeItemY + 1) * (maximumWidthIndex + 1) < inventory.getItems().size()) {
-            activeItemX = inventory.getItems().size() - 1 - (activeItemY + 1) * (maximumWidthIndex + 1);
+                (activeItemY + 1) * (maximumWidthIndex + 1) < inventory.getItems().size() -
+                        scroll * (maximumWidthIndex + 1)) {
+            activeItemX = inventory.getItems().size() -
+                    scroll * (maximumWidthIndex + 1) - 1 - (activeItemY + 1) * (maximumWidthIndex + 1);
             activeItemY++;
+        } else if ((activeItemY + 1) * (maximumWidthIndex + 1) + activeItemX < inventory.getItems().size() -
+                scroll * (maximumWidthIndex + 1)) {
+            scroll++;
+        } else if ((activeItemY + 1) * (maximumWidthIndex + 1) < inventory.getItems().size() -
+                scroll * (maximumWidthIndex + 1)) {
+            activeItemX = inventory.getItems().size() -
+                    scroll * (maximumWidthIndex + 1) - 1 - (activeItemY + 1) * (maximumWidthIndex + 1);
+            scroll++;
         }
     }
 
@@ -102,12 +128,17 @@ public class InventoryView {
         } else if (activeItemY > 0) {
             activeItemX = maximumWidthIndex;
             activeItemY--;
+        } else if (scroll > 0) {
+            activeItemX = maximumWidthIndex;
+            scroll--;
         }
     }
 
     public void selectTop() {
         if (activeItemY > 0) {
             activeItemY--;
+        } else if (scroll > 0) {
+            scroll--;
         }
     }
 
