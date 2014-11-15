@@ -12,13 +12,13 @@ public class Inventory {
 
         items.add(new Item("Sword", "Simple sword"));
         items.add(new Item("Apple", "Green apple"));
-        items.add(new Item("Silver arrow", "Arrow vs undead"));
+        items.add(new Item("Apple", "Green apple"));
+        items.add(new Item("Silver arrow", "Rare arrow"));
+        items.add(new Item("Silver arrow", "Rare arrow"));
+        items.add(new Item("Sword", "Simple sword"));
         items.add(new Item("Sword", "Simple sword"));
         items.add(new Item("Apple", "Green apple"));
-        items.add(new Item("Silver arrow", "Arrow vs undead"));
-        items.add(new Item("Sword", "Simple sword"));
-        items.add(new Item("Apple", "Green apple"));
-        items.add(new Item("Silver arrow", "Arrow vs undead"));
+        items.add(new Item("Silver arrow", "Rare arrow"));
     }
 
     public List<Item> getItems() {

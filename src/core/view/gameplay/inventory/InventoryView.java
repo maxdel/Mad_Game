@@ -51,6 +51,8 @@ public class InventoryView {
                         if (i == activeItemX && j == activeItemY) {
                             g.drawImage(ResourceManager.getInstance().getItemImage("Selected item"),
                                     x + padding + i * (itemWidth + spacing), y + padding + j * (itemHeight + spacing));
+                            g.drawString("Name: " + item.getName() + "\nDescription: " + item.getDescription(),
+                                    x, y - 48);
                         } else {
                             g.drawRect(x + padding + i * (itemWidth + spacing), y + padding + j * (itemHeight + spacing),
                                     itemWidth, itemHeight);
