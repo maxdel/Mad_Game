@@ -39,6 +39,9 @@ public class HeroView extends GameObjectView {
                     animation.start();
                     animation.setSpeed((float) (hero.getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("hero")));
                     break;
+                case PICK:
+                    animation.start();
+                    break;
             }
         }
         previousState = hero.getCurrentState();

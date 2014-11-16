@@ -39,7 +39,7 @@ public class GamePlayController {
         Input input = gc.getInput();
 
         if (controlMode == "Hero") {
-            /* Enter pause menu */
+            // Enter pause menu
             if (input.isKeyPressed(Input.KEY_ESCAPE)) {
                 game.enterState(GameState.MENUPAUSE.getValue());
             }
@@ -91,6 +91,12 @@ public class GamePlayController {
                 hero.stand();
             }
 
+            // Pick loot
+            if (input.isMousePressed(input.MOUSE_LEFT_BUTTON)) {
+                hero.startPick();
+            }
+
+            // Change full-screen mode
             if (input.isKeyDown(Input.KEY_LALT) && input.isKeyDown(Input.KEY_ENTER)) {
                 if (gc.isFullscreen()) {
                     ((AppGameContainer) gc).setDisplayMode(640, 480, false);
@@ -99,6 +105,7 @@ public class GamePlayController {
                 }
             }
 
+            // Switch controller mode
             if (input.isKeyPressed(Input.KEY_TAB)) {
                 controlMode = "Inventory";
                 gamePlayView.getInventoryView().setActive(true);

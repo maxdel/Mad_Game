@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import core.model.gameplay.*;
 import core.model.gameplay.inventory.Inventory;
 import core.view.gameplay.inventory.InventoryView;
 import org.newdawn.slick.GameContainer;
@@ -11,10 +12,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 import core.ResourceManager;
-import core.model.gameplay.Enemy;
-import core.model.gameplay.GameObject;
-import core.model.gameplay.Hero;
-import core.model.gameplay.Wall;
 
 /*
 * Renders game play game state
@@ -23,16 +20,19 @@ public class GamePlayView {
 
     private List<GameObject> gameObjects;
     private List<GameObjectView> gameObjectViews;
+    private List<Loot> lootList;
+    private List<LootView> lootViewList;
     private Hero hero;
     private Camera camera;
     private ResourceManager resourceManager;
     private InventoryView inventoryView;
 
-    public GamePlayView(GameContainer gc, List<GameObject> gameObjects, Hero hero, ResourceManager resourceManager)
-            throws SlickException {
+    public GamePlayView(GameContainer gc, List<GameObject> gameObjects, Hero hero, List<Loot> lootList,
+                        ResourceManager resourceManager) throws SlickException {
         this.resourceManager = resourceManager;
         this.gameObjects = gameObjects;
         this.hero = hero;
+        this.lootList = lootList;
         inventoryView = new InventoryView(hero.getInventory());
 
         gameObjectViews = new ArrayList<GameObjectView>();
@@ -46,6 +46,11 @@ public class GamePlayView {
             }
         }
 
+        lootViewList = new ArrayList<LootView>();
+        for (Loot loot : lootList) {
+            lootViewList.add(new LootView(loot));
+        }
+
         camera = new Camera(gc.getWidth(), gc.getHeight());
     }
 
@@ -53,9 +58,16 @@ public class GamePlayView {
         camera.update(gc.getWidth(), gc.getHeight(), hero.getX(), hero.getY(), hero.getDirection());
 
         updateViews();
+        updateLootViewList();
+
+        for (LootView lootView : lootViewList) {
+            lootView.render(g, camera.getX(), camera.getY(), camera.getDirectionAngle(), camera.getWidth(),
+                    camera.getHeight());
+        }
 
         for (GameObjectView gameObjectView : gameObjectViews) {
-            gameObjectView.render(g, camera.getX(), camera.getY(), camera.getDirectionAngle(), camera.getWidth(), camera.getHeight());
+            gameObjectView.render(g, camera.getX(), camera.getY(), camera.getDirectionAngle(), camera.getWidth(),
+                    camera.getHeight());
         }
 
         inventoryView.render(g, camera.getWidth(), camera.getHeight());
@@ -93,6 +105,36 @@ public class GamePlayView {
                 } else if (gameObject.getClass() == Hero.class) {
                     gameObjectViews.add(new HeroView(gameObject, resourceManager));
                 }
+            }
+        }
+    }
+
+    private void updateLootViewList() throws SlickException {
+        for (Iterator<LootView> it = lootViewList.iterator(); it.hasNext();) {
+            LootView lootView = it.next();
+            boolean found = false;
+            for (Loot loot : lootList) {
+                if (lootView.getLoot() == loot) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                it.remove();
+            }
+        }
+
+        // looking for new loot
+        for (Loot loot : lootList) {
+            boolean found = false;
+            for (LootView lootView : lootViewList) {
+                if (loot == lootView.getLoot()) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                lootViewList.add(new LootView(loot));
             }
         }
     }

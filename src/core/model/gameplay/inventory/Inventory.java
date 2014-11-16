@@ -29,7 +29,7 @@ public class Inventory {
         addItem(name, 1);
     }
 
-    protected void addItem(String name, int number) {
+    public void addItem(String name, int number) {
         Item item = ItemDB.getInstance().getItem(name);
         if (item != null && number > 0) {
             for (ItemRecord itemRecord : itemRecords) {

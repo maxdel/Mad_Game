@@ -14,14 +14,14 @@ public class ItemDB {
         items = ResourceManager.getInstance().getItems();
     }
 
-    protected static ItemDB getInstance() {
+    public static ItemDB getInstance() {
         if (instance == null) {
             instance = new ItemDB();
         }
         return instance;
     }
 
-    protected Item getItem(String name) {
+    public Item getItem(String name) {
         for (Item item : items) {
             if (item.getName().equals(name)) {
                 return item;
