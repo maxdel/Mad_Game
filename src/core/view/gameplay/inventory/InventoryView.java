@@ -7,7 +7,7 @@ import org.newdawn.slick.Graphics;
 
 import core.ResourceManager;
 import core.model.gameplay.inventory.Inventory;
-import core.model.gameplay.inventory.Item;
+import core.model.gameplay.inventory.ItemRecord;
 
 public class InventoryView {
 
@@ -43,7 +43,7 @@ public class InventoryView {
             x = viewWidth - width - margin;
             y = viewHeight - height - margin;
             g.drawRoundRect(x, y, width, height, 5);
-            Iterator<Item> it = inventory.getItems().iterator();
+            Iterator<ItemRecord> it = inventory.getItemRecords().iterator();
             for (int i = 0; i < scroll; ++i) {
                 for (int j = 0; j < (width - 2 * padding - spacing) / (itemWidth + spacing); ++j) {
                     if (it.hasNext()) {
@@ -54,18 +54,20 @@ public class InventoryView {
             for (int j = 0; j < (height - 2 * padding - spacing) / (itemHeight + spacing); ++j) {
                 for (int i = 0; i < (width - 2 * padding - spacing) / (itemWidth + spacing); ++i) {
                     if (it.hasNext()) {
-                        Item item = it.next();
-                        g.drawImage(ResourceManager.getInstance().getItemImage(item.getName()),
+                        ItemRecord itemRecord = it.next();
+                        g.drawImage(ResourceManager.getInstance().getItemImage(itemRecord.getName()),
                                 x + padding + i * (itemWidth + spacing), y + padding + j * (itemHeight + spacing));
                         if (i == activeItemX && j == activeItemY) {
-                            g.drawImage(ResourceManager.getInstance().getItemImage("Selected item"),
+                            g.drawImage(ResourceManager.getInstance().getImage("Selected item frame"),
                                     x + padding + i * (itemWidth + spacing), y + padding + j * (itemHeight + spacing));
-                            g.drawString("Name: " + item.getName() + "\nDescription: " + item.getDescription(),
+                            g.drawString("Name: " + itemRecord.getName() + "\nDescription: " + itemRecord.getDescription(),
                                     x, y - 48);
                         } else {
                             g.drawRect(x + padding + i * (itemWidth + spacing), y + padding + j * (itemHeight + spacing),
                                     itemWidth, itemHeight);
                         }
+                        g.drawString(String.valueOf(itemRecord.getNumber()), x + padding + i * (itemWidth + spacing) + 22,
+                                y + padding + j * (itemHeight + spacing) + 16);
                     }
                 }
             }
@@ -82,15 +84,15 @@ public class InventoryView {
         int maximumWidthIndex = (width - 2 * padding - spacing) / (itemWidth + spacing) - 1;
         int maximumHeightIndex = (height - 2 * padding - spacing) / (itemHeight + spacing) - 1;
         if (activeItemX < maximumWidthIndex &&
-                activeItemY * (maximumWidthIndex + 1) + (activeItemX + 1) < inventory.getItems().size() -
+                activeItemY * (maximumWidthIndex + 1) + (activeItemX + 1) < inventory.getItemRecords().size() -
                         scroll * (maximumWidthIndex + 1)) {
             activeItemX++;
         } else if (activeItemY < maximumHeightIndex &&
-                (activeItemY + 1) * (maximumWidthIndex + 1)  < inventory.getItems().size() -
+                (activeItemY + 1) * (maximumWidthIndex + 1)  < inventory.getItemRecords().size() -
                         scroll * (maximumWidthIndex + 1)) {
             activeItemX = 0;
             activeItemY++;
-        } else if ((activeItemY + 1) * (maximumWidthIndex + 1)  < inventory.getItems().size() -
+        } else if ((activeItemY + 1) * (maximumWidthIndex + 1)  < inventory.getItemRecords().size() -
                 scroll * (maximumWidthIndex + 1)) {
             scroll++;
             activeItemX = 0;
@@ -101,21 +103,21 @@ public class InventoryView {
         int maximumWidthIndex = (width - 2 * padding - spacing) / (itemWidth + spacing) - 1;
         int maximumHeightIndex = (height - 2 * padding - spacing) / (itemHeight + spacing) - 1;
         if (activeItemY < maximumHeightIndex &&
-                (activeItemY + 1) * (maximumWidthIndex + 1) + activeItemX < inventory.getItems().size() -
+                (activeItemY + 1) * (maximumWidthIndex + 1) + activeItemX < inventory.getItemRecords().size() -
                         scroll * (maximumWidthIndex + 1)) {
             activeItemY++;
         } else if (activeItemY < maximumHeightIndex &&
-                (activeItemY + 1) * (maximumWidthIndex + 1) < inventory.getItems().size() -
+                (activeItemY + 1) * (maximumWidthIndex + 1) < inventory.getItemRecords().size() -
                         scroll * (maximumWidthIndex + 1)) {
-            activeItemX = inventory.getItems().size() -
+            activeItemX = inventory.getItemRecords().size() -
                     scroll * (maximumWidthIndex + 1) - 1 - (activeItemY + 1) * (maximumWidthIndex + 1);
             activeItemY++;
-        } else if ((activeItemY + 1) * (maximumWidthIndex + 1) + activeItemX < inventory.getItems().size() -
+        } else if ((activeItemY + 1) * (maximumWidthIndex + 1) + activeItemX < inventory.getItemRecords().size() -
                 scroll * (maximumWidthIndex + 1)) {
             scroll++;
-        } else if ((activeItemY + 1) * (maximumWidthIndex + 1) < inventory.getItems().size() -
+        } else if ((activeItemY + 1) * (maximumWidthIndex + 1) < inventory.getItemRecords().size() -
                 scroll * (maximumWidthIndex + 1)) {
-            activeItemX = inventory.getItems().size() -
+            activeItemX = inventory.getItemRecords().size() -
                     scroll * (maximumWidthIndex + 1) - 1 - (activeItemY + 1) * (maximumWidthIndex + 1);
             scroll++;
         }

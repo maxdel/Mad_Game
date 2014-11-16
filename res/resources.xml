@@ -1,4 +1,5 @@
 <resources>
+
     <gameplay>
         <animations>
             <animation name="hero" path="/res/hero.png" isImage = "false" frameWidth="50" frameHeight="50" speedCoef="6" />
@@ -10,21 +11,26 @@
             <mask name="enemy" width="0" height="0" radius="42" />
             <mask name="wall" width="64" height="64" radius="0" />
         </masks>
+        <images>
+            <image name="Selected item frame" path = "/res/items/selected item.png" />
+        </images>
         <items>
-            <item name="Selected item" path = "/res/items/selected item.png" />
-            <item name="Sword" path = "/res/items/sword.png" />
-            <item name="Apple" path = "/res/items/apple.png" />
-            <item name="Silver arrow" path = "/res/items/silver arrow.png" />
+            <item name="Sword" description="Simple sword" path = "/res/items/sword.png" />
+            <item name="Apple" description="Green apple" path = "/res/items/apple.png" />
+            <item name="Silver arrow" description="Vs undead" path = "/res/items/silver arrow.png" />
         </items>
     </gameplay>
+
     <menustart>
         <fonts>
             <font name="menufont" fontName="verdana" size="40" isBold="true" />
         </fonts>
     </menustart>
+
     <menupause>
         <fonts>
             <font name="menufont" fontName="verdana" size="40" isBold="true" />
         </fonts>
     </menupause>
+
 </resources>

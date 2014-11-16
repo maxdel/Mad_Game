@@ -4,9 +4,12 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import core.model.gameplay.inventory.Item;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -24,13 +27,15 @@ public class ResourceManager {
     private Map<String, AnimationInfo> animationInfos;
     private Map<String, MaskInfo> maskInfos;
     private Map<String, FontInfo> fontInfos;
-    private Map<String, Image> itemInfos;
+    private Map<String, ItemInfo> itemInfos;
+    private Map<String, Image> imageInfos;
 
     private ResourceManager() {
         animationInfos = new HashMap<String, AnimationInfo>();
         maskInfos = new HashMap<String, MaskInfo>();
         fontInfos = new HashMap<String, FontInfo>();
-        itemInfos = new HashMap<String, Image>();
+        itemInfos = new HashMap<String, ItemInfo>();
+        imageInfos = new HashMap<String, Image>();
     }
 
     public static ResourceManager getInstance() {
@@ -117,9 +122,22 @@ public class ResourceManager {
             XMLElement itemElement = itemList.get(i);
 
             String name = itemElement.getAttribute("name");
+            String description = itemElement.getAttribute("description");
             String path = itemElement.getAttribute("path");
 
-            itemInfos.put(name, new Image(path));
+            itemInfos.put(name, new ItemInfo(name, description, new Image(path)));
+        }
+
+        // gameplay/images
+        XMLElement imagesElement = gameplayElement.getChildrenByName("images").get(0);
+        XMLElementList imageList = imagesElement.getChildrenByName("image");
+        for (int i = 0; i < imageList.size(); ++i) {
+            XMLElement imageElement = imageList.get(i);
+
+            String name = imageElement.getAttribute("name");
+            String path = imageElement.getAttribute("path");
+
+            imageInfos.put(name, new Image(path));
         }
 
         in.close();
@@ -175,8 +193,8 @@ public class ResourceManager {
         animationInfos = new HashMap<String, AnimationInfo>();
     }
 
-    public Image getItemImage(String name) {
-        return itemInfos.get(name);
+    public Image getImage(String name) {
+        return imageInfos.get(name);
     }
 
     public Animation getAnimation(String name) {
@@ -285,6 +303,55 @@ public class ResourceManager {
             return isBold;
         }
 
+    }
+
+    public Image getItemImage(String name) {
+        return itemInfos.get(name).getImage();
+    }
+
+    public String getItemName(String name) {
+        return itemInfos.get(name).getName();
+    }
+
+    public String getItemDescription(String name) {
+        return itemInfos.get(name).getDescription();
+    }
+
+    private static class ItemInfo {
+
+        private Item item;
+        private Image image;
+
+        public ItemInfo(String name, String description, Image image) {
+            item = new Item(name, description);
+            this.image = image;
+        }
+
+        public String getName() {
+            return item.getName();
+        }
+
+        public String getDescription() {
+            return item.getDescription();
+        }
+
+        public Image getImage() {
+            return image;
+        }
+
+        public Item getItem() {
+            return item;
+        }
+
+    }
+
+    public List<Item> getItems() {
+        List<ItemInfo> itemInfoList = new ArrayList<ItemInfo>(itemInfos.values());
+        List<Item> itemList = new ArrayList<Item>();
+        for (ItemInfo itemInfo : itemInfoList) {
+            itemList.add(itemInfo.getItem());
+        }
+        return itemList;
     }
 
 }
