@@ -1,13 +1,13 @@
 package core.view.gameplay.inventory;
 
+import java.util.Iterator;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
 import core.ResourceManager;
 import core.model.gameplay.inventory.Inventory;
 import core.model.gameplay.inventory.Item;
-
-import java.util.Iterator;
 
 public class InventoryView {
 

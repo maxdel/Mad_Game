@@ -23,7 +23,7 @@ public class GamePlayController {
     private int mouseX, mouseY;
     private int oldMouseX, oldMouseY;
     private String controlMode;
-    private final double rotateSpeed = 1.0/288;
+    private final double ROTATE_SPEED = 1.0/288;
 
     public GamePlayController(World world, GamePlayView gamePlayView) throws SlickException {
         hero = world.getHero();
@@ -47,28 +47,28 @@ public class GamePlayController {
             // Controls the direction of the hero
             oldMouseX = mouseX;
             oldMouseY = mouseY;
-            mouseX = gc.getInput().getMouseX();
-            mouseY = gc.getInput().getMouseY();
+            mouseX = input.getMouseX();
+            mouseY = input.getMouseY();
 
-            if (oldMouseX >= 0) hero.rotate((mouseX - oldMouseX) * (2 * Math.PI) * rotateSpeed);
+            if (oldMouseX >= 0) hero.rotate((mouseX - oldMouseX) * (2 * Math.PI) * ROTATE_SPEED);
 
-            if (gc.getInput().getMouseX() > gc.getWidth() / 2 + 1 / rotateSpeed) {
-                Mouse.setCursorPosition((int) (gc.getInput().getMouseX() - (1.0 / rotateSpeed)),
-                        gc.getHeight() - gc.getInput().getMouseY());
-                mouseX = gc.getInput().getMouseX();
+            if (input.getMouseX() > gc.getWidth() / 2 + 1 / ROTATE_SPEED) {
+                Mouse.setCursorPosition((int) (input.getMouseX() - (1.0 / ROTATE_SPEED)),
+                        gc.getHeight() - input.getMouseY());
+                mouseX = input.getMouseX();
             }
-            if (gc.getInput().getMouseX() < gc.getWidth() / 2 - 1 / rotateSpeed) {
-                Mouse.setCursorPosition((int) (gc.getInput().getMouseX() + (1.0 / rotateSpeed)),
-                        gc.getHeight() - gc.getInput().getMouseY());
-                mouseX = gc.getInput().getMouseX();
+            if (input.getMouseX() < gc.getWidth() / 2 - 1 / ROTATE_SPEED) {
+                Mouse.setCursorPosition((int) (input.getMouseX() + (1.0 / ROTATE_SPEED)),
+                        gc.getHeight() - input.getMouseY());
+                mouseX = input.getMouseX();
             }
 
             // Controls the movement of the hero
             boolean[] downKeys = {false, false, false, false};
-            if (gc.getInput().isKeyDown(Input.KEY_D)) downKeys[0] = true;
-            if (gc.getInput().isKeyDown(Input.KEY_S)) downKeys[1] = true;
-            if (gc.getInput().isKeyDown(Input.KEY_A)) downKeys[2] = true;
-            if (gc.getInput().isKeyDown(Input.KEY_W)) downKeys[3] = true;
+            if (input.isKeyDown(Input.KEY_D)) downKeys[0] = true;
+            if (input.isKeyDown(Input.KEY_S)) downKeys[1] = true;
+            if (input.isKeyDown(Input.KEY_A)) downKeys[2] = true;
+            if (input.isKeyDown(Input.KEY_W)) downKeys[3] = true;
 
             double direction = -1;
             if (downKeys[0] && !downKeys[1] && !downKeys[2] && !downKeys[3]) direction = 90;
@@ -82,7 +82,7 @@ public class GamePlayController {
 
             direction *= Math.PI / 180;
             if (direction >= 0) {
-                if (gc.getInput().isKeyDown(Input.KEY_LSHIFT)) {
+                if (input.isKeyDown(Input.KEY_LSHIFT)) {
                     hero.run(direction);
                 } else {
                     hero.walk(direction);
@@ -91,7 +91,7 @@ public class GamePlayController {
                 hero.stand();
             }
 
-            if (gc.getInput().isKeyDown(Input.KEY_LALT) && gc.getInput().isKeyDown(Input.KEY_ENTER)) {
+            if (input.isKeyDown(Input.KEY_LALT) && input.isKeyDown(Input.KEY_ENTER)) {
                 if (gc.isFullscreen()) {
                     ((AppGameContainer) gc).setDisplayMode(640, 480, false);
                 } else {
@@ -102,19 +102,29 @@ public class GamePlayController {
             if (input.isKeyPressed(Input.KEY_TAB)) {
                 controlMode = "Inventory";
                 gamePlayView.getInventoryView().setActive(true);
-
+                input.enableKeyRepeat();
+                hero.stand();
             }
         } else if (controlMode == "Inventory") {
             if (input.isKeyPressed(Input.KEY_ESCAPE) || input.isKeyPressed(Input.KEY_TAB)) {
                 controlMode = "Hero";
                 gamePlayView.getInventoryView().setActive(false);
-                mouseX = gc.getInput().getMouseX();
+                mouseX = input.getMouseX();
+                input.disableKeyRepeat();
             }
 
-            if (gc.getInput().isKeyPressed(Input.KEY_D)) gamePlayView.getInventoryView().selectRight();
-            if (gc.getInput().isKeyPressed(Input.KEY_S)) gamePlayView.getInventoryView().selectBottom();
-            if (gc.getInput().isKeyPressed(Input.KEY_A)) gamePlayView.getInventoryView().selectLeft();
-            if (gc.getInput().isKeyPressed(Input.KEY_W)) gamePlayView.getInventoryView().selectTop();
+            if (input.isKeyPressed(Input.KEY_D)) {
+                gamePlayView.getInventoryView().selectRight();
+            }
+            if (input.isKeyPressed(Input.KEY_S)) {
+                gamePlayView.getInventoryView().selectBottom();
+            }
+            if (input.isKeyPressed(Input.KEY_A)) {
+                gamePlayView.getInventoryView().selectLeft();
+            }
+            if (input.isKeyPressed(Input.KEY_W)) {
+                gamePlayView.getInventoryView().selectTop();
+            }
         }
     }
 
