@@ -93,7 +93,7 @@ public class GamePlayController {
 
             // Pick loot
             if (input.isMousePressed(input.MOUSE_LEFT_BUTTON)) {
-                hero.startPick();
+                hero.startPickItem();
             }
 
             // Change full-screen mode
@@ -121,16 +121,33 @@ public class GamePlayController {
             }
 
             if (input.isKeyPressed(Input.KEY_D)) {
-                gamePlayView.getInventoryView().selectRight();
+                int selectedItemRecordIndex = gamePlayView.getInventoryView().selectRight();
+                if (selectedItemRecordIndex != -1) {
+                    hero.getInventory().setSelectedRecord(selectedItemRecordIndex);
+                }
             }
             if (input.isKeyPressed(Input.KEY_S)) {
-                gamePlayView.getInventoryView().selectBottom();
+                int selectedItemRecordIndex = gamePlayView.getInventoryView().selectBottom();
+                if (selectedItemRecordIndex != -1) {
+                    hero.getInventory().setSelectedRecord(selectedItemRecordIndex);
+                }
             }
             if (input.isKeyPressed(Input.KEY_A)) {
-                gamePlayView.getInventoryView().selectLeft();
+                int selectedItemRecordIndex = gamePlayView.getInventoryView().selectLeft();
+                if (selectedItemRecordIndex != -1) {
+                    hero.getInventory().setSelectedRecord(selectedItemRecordIndex);
+                }
             }
             if (input.isKeyPressed(Input.KEY_W)) {
-                gamePlayView.getInventoryView().selectTop();
+                int selectedItemRecordIndex = gamePlayView.getInventoryView().selectTop();
+                if (selectedItemRecordIndex != -1) {
+                    hero.getInventory().setSelectedRecord(selectedItemRecordIndex);
+                }
+            }
+
+            // Drop item
+            if (input.isMousePressed(input.MOUSE_RIGHT_BUTTON)) {
+                hero.startDropItem();
             }
         }
     }

@@ -22,6 +22,10 @@ public class ItemRecord {
         return number;
     }
 
+    public Item getItem() {
+        return item;
+    }
+
     protected void setNumber(int number) {
         this.number = number;
     }

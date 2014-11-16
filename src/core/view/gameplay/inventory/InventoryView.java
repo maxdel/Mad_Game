@@ -18,8 +18,8 @@ public class InventoryView {
     private int x;
     private int y;
     private int scroll;
-    private final int width = 240;
-    private final int height = 180;
+    private final int width = 110;
+    private final int height = 60;
     private final int margin = 10;
     private final int padding = 10;
     private final int itemWidth = 32;
@@ -37,6 +37,11 @@ public class InventoryView {
     }
 
     public void render(Graphics g, int viewWidth, int viewHeight) {
+        int maximumWidthIndex = (width - 2 * padding - spacing) / (itemWidth + spacing) - 1;
+        if (inventory.getItemRecords().size() - 1 < (activeItemY + scroll) * (maximumWidthIndex + 1) + activeItemX) {
+            selectLeft();
+        }
+
         if (isActive) {
             g.setColor(Color.gray);
 
@@ -80,68 +85,85 @@ public class InventoryView {
         this.isActive = isActive;
     }
 
-    public void selectRight() {
+    public int selectRight() {
         int maximumWidthIndex = (width - 2 * padding - spacing) / (itemWidth + spacing) - 1;
         int maximumHeightIndex = (height - 2 * padding - spacing) / (itemHeight + spacing) - 1;
         if (activeItemX < maximumWidthIndex &&
                 activeItemY * (maximumWidthIndex + 1) + (activeItemX + 1) < inventory.getItemRecords().size() -
                         scroll * (maximumWidthIndex + 1)) {
             activeItemX++;
+            return (activeItemY + scroll) * (maximumWidthIndex + 1) + activeItemX;
         } else if (activeItemY < maximumHeightIndex &&
                 (activeItemY + 1) * (maximumWidthIndex + 1)  < inventory.getItemRecords().size() -
                         scroll * (maximumWidthIndex + 1)) {
             activeItemX = 0;
             activeItemY++;
+            return (activeItemY + scroll) * (maximumWidthIndex + 1) + activeItemX;
         } else if ((activeItemY + 1) * (maximumWidthIndex + 1)  < inventory.getItemRecords().size() -
                 scroll * (maximumWidthIndex + 1)) {
             scroll++;
             activeItemX = 0;
+            return (activeItemY + scroll) * (maximumWidthIndex + 1) + activeItemX;
         }
+        return -1;
     }
 
-    public void selectBottom() {
+    public int selectBottom() {
         int maximumWidthIndex = (width - 2 * padding - spacing) / (itemWidth + spacing) - 1;
         int maximumHeightIndex = (height - 2 * padding - spacing) / (itemHeight + spacing) - 1;
         if (activeItemY < maximumHeightIndex &&
                 (activeItemY + 1) * (maximumWidthIndex + 1) + activeItemX < inventory.getItemRecords().size() -
                         scroll * (maximumWidthIndex + 1)) {
             activeItemY++;
+            return (activeItemY + scroll) * (maximumWidthIndex + 1) + activeItemX;
         } else if (activeItemY < maximumHeightIndex &&
                 (activeItemY + 1) * (maximumWidthIndex + 1) < inventory.getItemRecords().size() -
                         scroll * (maximumWidthIndex + 1)) {
             activeItemX = inventory.getItemRecords().size() -
                     scroll * (maximumWidthIndex + 1) - 1 - (activeItemY + 1) * (maximumWidthIndex + 1);
             activeItemY++;
+            return (activeItemY + scroll) * (maximumWidthIndex + 1) + activeItemX;
         } else if ((activeItemY + 1) * (maximumWidthIndex + 1) + activeItemX < inventory.getItemRecords().size() -
                 scroll * (maximumWidthIndex + 1)) {
             scroll++;
+            return (activeItemY + scroll) * (maximumWidthIndex + 1) + activeItemX;
         } else if ((activeItemY + 1) * (maximumWidthIndex + 1) < inventory.getItemRecords().size() -
                 scroll * (maximumWidthIndex + 1)) {
             activeItemX = inventory.getItemRecords().size() -
                     scroll * (maximumWidthIndex + 1) - 1 - (activeItemY + 1) * (maximumWidthIndex + 1);
             scroll++;
+            return (activeItemY + scroll) * (maximumWidthIndex + 1) + activeItemX;
         }
+        return -1;
     }
 
-    public void selectLeft() {
+    public int selectLeft() {
         int maximumWidthIndex = (width - 2 * padding - spacing) / (itemWidth + spacing) - 1;
         if (activeItemX > 0) {
             activeItemX--;
+            return (activeItemY + scroll) * (maximumWidthIndex + 1) + activeItemX;
         } else if (activeItemY > 0) {
             activeItemX = maximumWidthIndex;
             activeItemY--;
+            return (activeItemY + scroll) * (maximumWidthIndex + 1) + activeItemX;
         } else if (scroll > 0) {
             activeItemX = maximumWidthIndex;
             scroll--;
+            return (activeItemY + scroll) * (maximumWidthIndex + 1) + activeItemX;
         }
+        return -1;
     }
 
-    public void selectTop() {
+    public int selectTop() {
+        int maximumWidthIndex = (width - 2 * padding - spacing) / (itemWidth + spacing) - 1;
         if (activeItemY > 0) {
             activeItemY--;
+            return (activeItemY + scroll) * (maximumWidthIndex + 1) + activeItemX;
         } else if (scroll > 0) {
             scroll--;
+            return (activeItemY + scroll) * (maximumWidthIndex + 1) + activeItemX;
         }
+        return -1;
     }
 
 }

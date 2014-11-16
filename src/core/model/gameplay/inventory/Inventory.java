@@ -7,9 +7,11 @@ import java.util.List;
 public class Inventory {
 
     private List<ItemRecord> itemRecords;
+    private ItemRecord selectedRecord;
 
     public Inventory() {
         itemRecords = new ArrayList<ItemRecord>();
+        selectedRecord = null;
 
         addItem("Sword");
         addItem("Apple");
@@ -23,6 +25,10 @@ public class Inventory {
 
     public List<ItemRecord> getItemRecords() {
         return itemRecords;
+    }
+
+    public ItemRecord getSelectedRecord() {
+        return selectedRecord;
     }
 
     protected void addItem(String name) {
@@ -39,6 +45,9 @@ public class Inventory {
                 }
             }
             itemRecords.add(new ItemRecord(name, number));
+            if (itemRecords.size() == 1) {
+                selectedRecord = itemRecords.get(0);
+            }
         }
     }
 
@@ -46,14 +55,27 @@ public class Inventory {
         deleteItem(name, 1);
     }
 
-    protected void deleteItem(String name, int number) {
+    public void deleteItem(String name, int number) {
         Item item = ItemDB.getInstance().getItem(name);
         if (item != null && number > 0) {
+            int i = -1;
             for (Iterator<ItemRecord> it = itemRecords.iterator(); it.hasNext();) {
+                i++;
                 ItemRecord itemRecord = it.next();
                 if (itemRecord.getName().equals(name)) {
                     if (itemRecord.getNumber() - number <= 0) {
                         it.remove();
+                        if (selectedRecord == itemRecord) {
+                            if (itemRecords.size() == 0) {
+                                selectedRecord = null;
+                            } else {
+                                if (i <= itemRecords.size() - 1) {
+                                    selectedRecord = itemRecords.get(i);
+                                } else {
+                                    selectedRecord = itemRecords.get(i - 1);
+                                }
+                            }
+                        }
                     } else {
                         itemRecord.setNumber(itemRecord.getNumber() - number);
                     }
@@ -61,6 +83,10 @@ public class Inventory {
                 }
             }
         }
+    }
+
+    public void setSelectedRecord(int index) {
+        selectedRecord = itemRecords.get(index);
     }
 
 }
