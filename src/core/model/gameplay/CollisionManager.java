@@ -27,7 +27,6 @@ public class CollisionManager {
         for (GameObject pivotObject: World.getInstance(false).getGameObjects()) {
             for (GameObject currentGameObject : World.getInstance(false).getGameObjects()) {
                 if (pivotObject != currentGameObject && isCollides(pivotObject, currentGameObject)) {
-                    collidedAction(pivotObject, currentGameObject);
                     System.out.println("Collision: " + String.valueOf(pivotObject.getClass()) +
                     " vs " + String.valueOf(currentGameObject.getClass()));
                 }
@@ -94,39 +93,6 @@ public class CollisionManager {
         gameObject.setX(originalX);
         gameObject.setY(originalY);
         return other;
-    }
-
-    public void collidedAction(GameObject pivot, GameObject current) {
-        if (pivot instanceof Hero) {
-
-            if (current instanceof Hero) {
-                // pass
-            } else if (current instanceof Enemy) {
-                // pass
-            } else if (current instanceof Wall) {
-                // pass
-            } else {
-                // pass
-            }
-        } else if (pivot instanceof Wall) {
-            //WallManager wallManager = (WallManager) World.getInstance(false).getGameObjManagers().get(Wall.class);
-
-            if (current instanceof Hero) {
-                pivot.collidedWith((Hero) current);
-            } else if (current instanceof Enemy) {
-                // pass
-            } else {
-                // pass
-            }
-        } else if (pivot instanceof Enemy) {
-            if (current instanceof Hero) {
-                // pass
-            } else if (current instanceof Wall) {
-                // pass
-            } else {
-                // pass
-            }
-        }
     }
 
     /*

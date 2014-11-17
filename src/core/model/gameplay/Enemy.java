@@ -39,7 +39,4 @@ public class Enemy extends GameObjectMoving {
         setCurrentSpeed(0);
     }
 
-
-
-
 }
