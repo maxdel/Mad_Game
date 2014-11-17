@@ -28,7 +28,7 @@ public class LootView {
         rotate(g, viewX, viewY, viewDegreeAngle, viewWidth, viewHeight, true);
         draw(viewX, viewY, g);
 
-        // ----- For debug and FUN -----
+/*        // ----- For debug and FUN -----
         if (World.getInstance().getHero().getSelectedLoot() == loot) {
             g.rotate((float) (loot.getX() - viewX),
                     (float) (loot.getY() - viewY),
@@ -43,8 +43,34 @@ public class LootView {
                     (float) (loot.getY() - viewY),
                     (float) (- viewDegreeAngle + loot.getDirection() / Math.PI * 180));
         }
-        // ----- END -----
+        // ----- END -----*/
         rotate(g, viewX, viewY, viewDegreeAngle, viewWidth, viewHeight, false);
+
+        if (World.getInstance().getHero().getSelectedLoot() == loot) {
+            // On the screen without rotation
+            double x;
+            double y;
+            x = loot.getX() - viewX;
+            y = loot.getY() - viewY;
+            // On the screen where (0;0) in center of this screen
+            double centredX;
+            double centredY;
+            centredX = x - viewWidth / 2;
+            centredY = y - viewHeight / 2;
+            // With rotation around the center (0;0) on viewAngle
+            double inViewX;
+            double inViewY;
+            double viewRagianAngle = viewDegreeAngle / 180 * Math.PI;
+            inViewX = centredX * Math.cos(-viewRagianAngle) - centredY * Math.sin(-viewRagianAngle) + viewWidth / 2;
+            inViewY = centredX * Math.sin(-viewRagianAngle) + centredY * Math.cos(-viewRagianAngle) + viewHeight / 2;
+
+            String text = String.valueOf(loot.getItem().getName());
+            if (loot.getNumber() > 1) {
+                text = text + "(" + String.valueOf(loot.getNumber()) + ")";
+            }
+            ttf.drawString((int) (inViewX - ttf.getWidth(text) / 2F),
+                    (int) (inViewY - ttf.getHeight(text) / 2F - 18), text);
+        }
     }
 
     private void rotate(Graphics g, final double viewX, final double viewY, final float viewDegreeAngle,
