@@ -1,6 +1,7 @@
 package core.model.gameplay;
 
 import core.model.gameplay.inventory.Inventory;
+import core.model.gameplay.inventory.ItemRecord;
 import org.newdawn.slick.geom.Circle;
 
 import core.ResourceManager;
@@ -13,10 +14,13 @@ public class Hero extends GameObjectMoving {
 
     private Inventory inventory;
     private Loot selectedLoot;
+    private ItemRecord usingItem;
     private int pickLootCounter;
     private final int pickLootTime = 300;
     private int dropLootCounter;
     private final int dropLootTime = 500;
+    private int useItemCounter;
+    private final int useItemTime = 400;
 
 /*
     public Hero(final double x, final double y, final double direction, final double relativeDirection, final double maximumSpeed,
@@ -29,6 +33,7 @@ public class Hero extends GameObjectMoving {
         setMask(new Circle(0, 0, ResourceManager.getInstance().getMaskRadius("hero")));
         inventory = new Inventory();
         selectedLoot = null;
+        usingItem = null;
         pickLootCounter = 0;
         dropLootCounter = 0;
     }
@@ -63,7 +68,7 @@ public class Hero extends GameObjectMoving {
     }
 
     public void startDropItem() {
-        if (inventory.getItemRecords().size() > 0 && getCurrentState() != GameObjectState.PICK_ITEM &&
+        if (inventory.getSelectedRecord() != null && getCurrentState() != GameObjectState.PICK_ITEM &&
                 getCurrentState() != GameObjectState.DROP_ITEM) {
             setCurrentState(GameObjectState.DROP_ITEM);
             setCurrentSpeed(0);
@@ -115,6 +120,23 @@ public class Hero extends GameObjectMoving {
         }
     }
 
+    public void startUseItem() {
+        if (inventory.getSelectedRecord() != null && getCurrentState() != GameObjectState.PICK_ITEM &&
+                getCurrentState() != GameObjectState.DROP_ITEM &&
+                getCurrentState() != GameObjectState.USE_ITEM) {
+            setCurrentState(GameObjectState.USE_ITEM);
+            setCurrentSpeed(0);
+            usingItem = inventory.getSelectedRecord();
+            useItemCounter = useItemTime;
+        }
+    }
+
+    private void useItem(){
+        setCurrentState(GameObjectState.STAND);
+        // useSkill(selectedItem.getSkill());
+        usingItem = null;
+    }
+
     @Override
     public void update(final int delta) {
         if (dropLootCounter > 0) {
@@ -130,6 +152,14 @@ public class Hero extends GameObjectMoving {
             if (pickLootCounter <= 0) {
                 pickLootCounter = 0;
                 pickItem();
+            }
+        }
+
+        if (useItemCounter > 0) {
+            useItemCounter -= delta;
+            if (useItemCounter <= 0) {
+                useItemCounter = 0;
+                useItem();
             }
         }
 

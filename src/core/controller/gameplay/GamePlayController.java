@@ -149,6 +149,11 @@ public class GamePlayController {
             if (input.isMousePressed(input.MOUSE_RIGHT_BUTTON)) {
                 hero.startDropItem();
             }
+
+            // Use item
+            if (input.isMousePressed(input.MOUSE_LEFT_BUTTON)) {
+                hero.startUseItem();
+            }
         }
     }
 
