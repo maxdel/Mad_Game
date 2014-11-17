@@ -1,5 +1,7 @@
 package core.model.gameplay;
 
+import org.newdawn.slick.geom.Vector2f;
+
 public class GameObjectMoving extends GameObject {
 
     private double currentSpeed;
@@ -24,14 +26,35 @@ public class GameObjectMoving extends GameObject {
 
     @Override
     public void update(final int delta) {
-        double length, lengthDirX, lengthDirY;
+        double length, direction, lengthDirX, lengthDirY;
         length = getCurrentSpeed() * delta;
+        direction = getDirection() + getRelativeDirection();
 
-        lengthDirX = lengthDirX(getDirection() + getRelativeDirection(), length);
-        lengthDirY = lengthDirY(getDirection() + getRelativeDirection(), length);
+        lengthDirX = lengthDirX(direction, length);
+        lengthDirY = lengthDirY(direction, length);
 
-        setX(getX() + lengthDirX);
-        setY(getY() + lengthDirY);
+        double targetX = getX() + lengthDirX;
+        double targetY = getY() + lengthDirY;
+
+        if (CollisionManager.getInstance().isPlaceFree(this, targetX, targetY)) {
+            setX(getX() + lengthDirX);
+            setY(getY() + lengthDirY);
+        } else {
+            double stepAngle = 10 * Math.PI / 180;
+            double altDirection = direction;
+            int i = -1;
+            do {
+                i++;
+                altDirection += i * stepAngle * (i % 2 == 0 ? 1 : -1);
+                lengthDirX = lengthDirX(altDirection, length * Math.cos(altDirection - direction));
+                lengthDirY = lengthDirY(altDirection, length * Math.cos(altDirection - direction));
+                if (CollisionManager.getInstance().isPlaceFree(this, getX() + lengthDirX, getY() + lengthDirY)) {
+                    setX(getX() + lengthDirX);
+                    setY(getY() + lengthDirY);
+                    break;
+                }
+            } while (Math.abs(altDirection - direction) < Math.PI / 2);
+        }
     }
 
     protected double lengthDirX(double direction, double length) {

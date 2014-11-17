@@ -10,33 +10,27 @@ public class Enemy extends GameObjectMoving {
         setMask(new Circle(0, 0, ResourceManager.getInstance().getMaskRadius("enemy")));
     }
 
-
-    @Override
-    public void update(int delta) {
-        followTarget(World.getInstance(false).getHero().getX(), World.getInstance(false).getHero().getY(), delta);
-        super.update(delta);
-    }
-
-    public void followTarget(final double x, final double y, final int delta) {
+    public void followTarget(final double x, final double y) {
         double direction = Math.atan2(y - getY(), x - getX());
-        double speed = getMaximumSpeed();
         setDirection(direction);
-        if (CollisionManager.getInstance().isPlaceFree(this, getX() +
-                lengthDirX(direction, speed * delta),getY() + lengthDirY(direction, speed * delta))) {
-            run(speed);
-        } else {
-            stand();
-        }
+        run(0);
     }
 
-    public void run(double speed) {
+    public void run(double direction) {
         setCurrentState(GameObjectState.RUN);
-        setCurrentSpeed(speed);
+        setCurrentSpeed(getMaximumSpeed());
+        setRelativeDirection(direction);
     }
 
     public void stand() {
         setCurrentState(GameObjectState.STAND);
         setCurrentSpeed(0);
+    }
+    
+    @Override
+    public void update(int delta) {
+        followTarget(World.getInstance(false).getHero().getX(), World.getInstance(false).getHero().getY());
+        super.update(delta);
     }
 
 }
