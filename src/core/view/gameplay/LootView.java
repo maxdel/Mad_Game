@@ -28,15 +28,12 @@ public class LootView {
         rotate(g, viewX, viewY, viewDegreeAngle, viewWidth, viewHeight, true);
         draw(viewX, viewY, g);
 
-/*        // ----- For debug and FUN -----
+        /*// ----- For debug and FUN -----
         if (World.getInstance().getHero().getSelectedLoot() == loot) {
             g.rotate((float) (loot.getX() - viewX),
                     (float) (loot.getY() - viewY),
                     (float) (viewDegreeAngle - loot.getDirection() / Math.PI * 180));
             String text = String.valueOf(loot.getItem().getName());
-            if (loot.getNumber() > 1) {
-                text = text + "(" + String.valueOf(loot.getNumber()) + ")";
-            }
             ttf.drawString((float) (loot.getX() - viewX - ttf.getWidth(text) / 2F),
                     (float) (loot.getY() - viewY - ttf.getHeight(text) / 2F - 18), text);
             g.rotate((float) (loot.getX() - viewX),
