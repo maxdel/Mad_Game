@@ -26,6 +26,12 @@ public class Enemy extends GameObjectMoving {
         setCurrentState(GameObjectState.STAND);
         setCurrentSpeed(0);
     }
+    
+    @Override
+    public void update(int delta) {
+        followTarget(World.getInstance(false).getHero().getX(), World.getInstance(false).getHero().getY());
+        super.update(delta);
+    }
 
     @Override
     public void update(int delta) {
