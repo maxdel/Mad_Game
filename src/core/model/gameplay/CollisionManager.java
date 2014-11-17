@@ -56,7 +56,12 @@ public class CollisionManager {
     }
 
     /*
-     * Returns true if @param gameObject has no collisions
+     */
+
+    /**
+     * Returns true if @param gameObject has no collisions in point x, y with gameObjects array
+     *
+     * @param  gameObject object to check collisions for
      */
     public boolean isPlaceFree(GameObject gameObject, double x, double y) {
         double originalX = gameObject.getX();

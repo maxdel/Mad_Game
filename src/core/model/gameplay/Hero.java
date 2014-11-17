@@ -8,7 +8,7 @@ import core.ResourceManager;
 import org.newdawn.slick.geom.Vector2f;
 
 /**
- * Contains fields to define the hero state
+ * Represents hero
  * */
 public class Hero extends GameObjectMoving {
 
@@ -133,7 +133,7 @@ public class Hero extends GameObjectMoving {
 
     private void useItem(){
         setCurrentState(GameObjectState.STAND);
-        // useSkill(selectedItem.getSkill());
+        // useSkill(selectedItem.getSkill()); TODO
         usingItem = null;
     }
 
