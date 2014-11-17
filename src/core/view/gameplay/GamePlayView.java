@@ -5,8 +5,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import core.model.gameplay.*;
-import core.model.gameplay.inventory.Inventory;
-import core.view.gameplay.inventory.InventoryView;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;

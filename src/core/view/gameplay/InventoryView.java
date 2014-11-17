@@ -1,4 +1,4 @@
-package core.view.gameplay.inventory;
+package core.view.gameplay;
 
 import java.util.Iterator;
 
@@ -18,8 +18,8 @@ public class InventoryView {
     private int x;
     private int y;
     private int scroll;
-    private final int width = 110;
-    private final int height = 60;
+    private final int width = 240;
+    private final int height = 180;
     private final int margin = 10;
     private final int padding = 10;
     private final int itemWidth = 32;
