@@ -18,6 +18,7 @@ public class WallView extends GameObjectView {
     @Override
     public void render(Graphics g, final double viewX, final double viewY, final float viewDegreeAngle,
                        final int viewWidth, final int viewHeight, Hero hero) {
+        // TODO fix magic number
         Vector2f v = new Vector2f((float)(hero.getX() - gameObject.getX()), (float)(hero.getY() - gameObject.getY()));
         if (v.length() >= 1000) {
             return;

@@ -1,9 +1,6 @@
 package core.model.gameplay;
 
-import org.newdawn.slick.geom.Circle;
-import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.geom.Shape;
-import org.newdawn.slick.geom.Transform;
+import org.newdawn.slick.geom.*;
 
 public class CollisionManager {
 
@@ -71,6 +68,26 @@ public class CollisionManager {
         boolean isCollides = false;
         for (GameObject currentGameObject: World.getInstance(false).getGameObjects()) {
             if (gameObject != currentGameObject && isCollides(gameObject, currentGameObject)) {
+                isCollides = true;
+                break;
+            }
+        }
+        gameObject.setX(originalX);
+        gameObject.setY(originalY);
+        return !isCollides;
+    }
+
+    public boolean isPlaceFreeAdv(GameObject gameObject, double x, double y) {
+        double originalX = gameObject.getX();
+        double originalY = gameObject.getY();
+        gameObject.setX(x);
+        gameObject.setY(y);
+        boolean isCollides = false;
+        Vector2f v = new Vector2f();
+        for (GameObject currentGameObject: World.getInstance(false).getGameObjects()) {
+            v.set((float)(currentGameObject.getX() - x), (float)(currentGameObject.getY() - y));
+            // TODO fix magic number
+            if (gameObject != currentGameObject && v.length() < 100 && isCollides(gameObject, currentGameObject)) {
                 isCollides = true;
                 break;
             }
