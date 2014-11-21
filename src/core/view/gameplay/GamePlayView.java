@@ -46,6 +46,8 @@ public class GamePlayView {
                 gameObjectViews.add(new EnemyView(gameObject, resourceManager));
             } else if (gameObject.getClass() == Hero.class) {
                 gameObjectViews.add(new HeroView(gameObject, resourceManager));
+            } else if (gameObject.getClass() == Tree.class) {
+                gameObjectViews.add(new TreeView(gameObject, resourceManager));
             }
         }
 
@@ -71,8 +73,8 @@ public class GamePlayView {
         }
 
         for (GameObjectView gameObjectView : gameObjectViews) {
-            gameObjectView.render(g, camera.getX(), camera.getY(), camera.getDirectionAngle(), camera.getWidth(),
-                    camera.getHeight(), hero);
+            gameObjectView.render(g, camera.getX(), camera.getY(), camera.getDirectionAngle(), camera.getCenterX(),
+                    camera.getCenterY(), hero);
         }
 
         inventoryView.render(g, camera.getWidth(), camera.getHeight());

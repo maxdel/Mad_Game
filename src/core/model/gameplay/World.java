@@ -54,14 +54,14 @@ public class World {
                     gameObjects.add(new Wall(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
                             tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0));
                 } else if (tileObstacleName.equals("tree")) {
-                    /*gameObjects.add(new Tree(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
-                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0));*/
+                    gameObjects.add(new Tree(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
+                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0));
                 }
                 // Objects
                 String tileObjectName = tiledMap.getTileProperty(tiledMap.getTileId(i, j, 2), "name", "error");
                 if (tileObjectName.equals("hero")) {
                     hero = new Hero(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
-                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, 0.12F);
+                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, 0.2F);
                     gameObjects.add(hero);
                 } else if (tileObstacleName.equals("banditsword")) {
 

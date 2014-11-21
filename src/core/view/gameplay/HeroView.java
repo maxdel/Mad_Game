@@ -22,8 +22,8 @@ public class HeroView extends GameObjectView {
     }
 
     @Override
-    public void render(Graphics g, final double viewX, final double viewY, final float viewDegreeAngle,
-                       final int viewWidth, final int viewHeight, Hero hero1) throws SlickException {
+    public void render(Graphics g, double viewX, double viewY, float viewDegreeAngle,
+                       double viewCenterX, double viewCenterY, Hero hero1) throws SlickException {
         Hero hero = getHero();
         if (hero.getCurrentState() != previousState) {
             switch (hero.getCurrentState()) {
@@ -46,13 +46,13 @@ public class HeroView extends GameObjectView {
         }
         previousState = hero.getCurrentState();
 
-        rotate(g, viewX, viewY, viewDegreeAngle, viewWidth, viewHeight, true);
+        rotate(g, viewX, viewY, viewDegreeAngle, viewCenterX, viewCenterY, true);
         draw(viewX, viewY);
 
         // draw mask
         drawMask(g, viewX, viewY);
 
-        rotate(g, viewX, viewY, viewDegreeAngle, viewWidth, viewHeight, false);
+        rotate(g, viewX, viewY, viewDegreeAngle, viewCenterX, viewCenterY, false);
 
         // For debug
         g.drawString("(" + String.valueOf((int) gameObject.getX()) + ";" + String.valueOf((int) gameObject.getY())

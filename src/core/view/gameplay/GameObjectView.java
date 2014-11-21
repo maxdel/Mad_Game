@@ -23,21 +23,21 @@ public abstract class GameObjectView {
         this.animation = null;
     }
 
-    public void render(Graphics g, final double viewX, final double viewY, final float viewDegreeAngle,
-                                final int viewWidth, final int viewHeight, Hero hero) throws SlickException {
+    public void render(Graphics g, double viewX, double viewY, float viewDegreeAngle,
+                       double viewCenterX, double viewCenterY, Hero hero) throws SlickException {
         Vector2f v = new Vector2f((float)(hero.getX() - gameObject.getX()), (float)(hero.getY() - gameObject.getY()));
 
         if (v.length() < 1500) {
-            rotate(g, viewX, viewY, viewDegreeAngle, viewWidth, viewHeight, true);
+            rotate(g, viewX, viewY, viewDegreeAngle, viewCenterX, viewCenterY, true);
             draw(viewX, viewY);
-            rotate(g, viewX, viewY, viewDegreeAngle, viewWidth, viewHeight, false);
+            rotate(g, viewX, viewY, viewDegreeAngle, viewCenterX, viewCenterY, false);
         }
     }
 
-    public void rotate(Graphics g, final double viewX, final double viewY, final float viewDegreeAngle,
-                       final int viewWidth, final int viewHeight, final boolean isFront) {
+    public void rotate(Graphics g, double viewX, double viewY, float viewDegreeAngle,
+                       double viewCenterX, double viewCenterY, boolean isFront) {
         if (isFront) {
-            g.rotate(viewWidth / 2, viewHeight / 2, - viewDegreeAngle);
+            g.rotate((float)viewCenterX, (float)viewCenterY, - viewDegreeAngle);
             g.rotate((float) (gameObject.getX() - viewX),
                     (float) (gameObject.getY() - viewY),
                     (float)(gameObject.getDirection() / Math.PI * 180));
@@ -45,11 +45,11 @@ public abstract class GameObjectView {
             g.rotate((float) (gameObject.getX() - viewX),
                     (float) (gameObject.getY() - viewY),
                     (float) - (gameObject.getDirection() / Math.PI * 180));
-            g.rotate(viewWidth / 2, viewHeight / 2, viewDegreeAngle);
+            g.rotate((float)viewCenterX, (float)viewCenterY, viewDegreeAngle);
         }
     }
 
-    public void draw(final double viewX, final double viewY) {
+    public void draw(double viewX, double viewY) {
         animation.draw((float) (gameObject.getX() - viewX - animation.getWidth() / 2),
                 (float) (gameObject.getY() - viewY - animation.getHeight() / 2));
     }
@@ -57,7 +57,7 @@ public abstract class GameObjectView {
     /*
      * Draws mask around a game object
      * */
-    protected void drawMask(Graphics g, final double viewX, final double viewY) {
+    protected void drawMask(Graphics g, double viewX, double viewY) {
         Shape mask = CollisionManager.getInstance().getUpdatedMask(gameObject, (float) gameObject.getX() - (float) viewX,
                 (float) gameObject.getY() - (float) viewY, gameObject.getDirection());
         g.draw(mask);

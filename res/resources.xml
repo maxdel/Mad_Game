@@ -5,11 +5,13 @@
             <animation name="hero" path="/res/hero.png" isImage = "false" frameWidth="50" frameHeight="50" speedCoef="6" />
             <animation name="enemy" path="/res/enemy.png" isImage = "true" />
             <animation name="wall" path="/res/wall.png" isImage = "true" />
+            <animation name="tree" path="/res/tree.png" isImage = "true" />
         </animations>
         <masks>
             <mask name="hero" width="0" height="0" radius="20" />
             <mask name="enemy" width="0" height="0" radius="42" />
             <mask name="wall" width="32" height="32" radius="0" />
+            <mask name="tree" width="0" height="0" radius="32" />
         </masks>
         <images>
             <image name="Selected item frame" path = "/res/items/selected item.png" />
