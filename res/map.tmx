@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="64" height="64" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="tiles" tilewidth="32" tileheight="32">
+  <image source="items/tiles.png" width="128" height="128"/>
+  <tile id="4">
+   <properties>
+    <property name="name" value="tree"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="name" value="stonewall"/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="name" value="banditsword"/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="name" value="banditarcher"/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="name" value="skeletsword"/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="name" value="skeletmage"/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="name" value="vampire"/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="name" value="hero"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="Tiles" width="64" height="64">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3TMQ6AMAzF0ELvf2cmBiQEZWicFA+e+1+k9tZaNzMzMzMzMzMzW7A9wQbKfUZvodx/8t+5K/tHtz+5K/pHLSPuav4vppX8s9wV/LPtWf0R7gz+SCfpp42kn/aRftpG+WkT6ac9pJ+2kH7aQfnp/ZSf3k366c2Un95K+umdlJ/eR/mj3t8S+iPtZxn8xPv0DTL8cfoGGfIG1xvMjrbSN6Cdb356h379+vXr169fv379+vXbWh1BzSzGAEAAAA==
+  </data>
+ </layer>
+ <layer name="Obstacles" width="64" height="64">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2ZQQ4DIQhFZ9O5/5G7mmTSFBX4IAg/cVUVHiij9r6u6y7eNBqN185treb3448Yi+a350fVmRV9mP2t+SX9PNX8eH5qvuaPJ8nZaOV3ylY0SfI/64/k59Zz7nzR+a3lyR9RJ/Br9siIn3tf9DznoYTMfybuR82P8zsi/6w2oPm5NQP9fefq9PzPhHwrzMwvGfM7tgo/NUdVfqS866GW39tftL1o+ffWafw73n8ziIpLFX5KaH6LemhZYy3zH2FdIe4/kvh77Svt2rDwkzvnzjsgmt8q71Yxsrj/R9c7ln3/yen3o9G+WNkzkfk96mJkfg9l5Uetjaz8KGX7XqNtRs6/5G1a2qqq+Zu/+etK+/6B+M7tjH+E/De/j/6tVW9+ygfNeI0q5Z+yvfv9H2Ufff63rvtvH3ap138N/sj/f1bI/6hecO2ja8+J+V+N0an8HNvNX7t9ATJRlpEAQAAA
+  </data>
+ </layer>
+ <layer name="Objects" width="64" height="64">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3YQQqDQAwFULfV6v2P66IIYkHRjiYl721cCR8zyQS7DuDbGB0gmXd0AB6hzvC7yn00RAfgEepcU+XZxv0yz5XM2VrS49BWldkBwP9a9j93FpBRHx0gyCs6QCKtvoX/HR/u+3voWfY4H/lV3Te2nFXgLHMj1nTxPXWraV13u09N67qbAxxxRurqN08AyGgGpIR2xwBAAAA=
+  </data>
+ </layer>
+</map>

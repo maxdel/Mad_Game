@@ -23,7 +23,7 @@ public class HeroView extends GameObjectView {
 
     @Override
     public void render(Graphics g, final double viewX, final double viewY, final float viewDegreeAngle,
-                       final int viewWidth, final int viewHeight) throws SlickException {
+                       final int viewWidth, final int viewHeight, Hero hero1) throws SlickException {
         Hero hero = getHero();
         if (hero.getCurrentState() != previousState) {
             switch (hero.getCurrentState()) {

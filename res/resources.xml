@@ -9,7 +9,7 @@
         <masks>
             <mask name="hero" width="0" height="0" radius="20" />
             <mask name="enemy" width="0" height="0" radius="42" />
-            <mask name="wall" width="64" height="64" radius="0" />
+            <mask name="wall" width="32" height="32" radius="0" />
         </masks>
         <images>
             <image name="Selected item frame" path = "/res/items/selected item.png" />

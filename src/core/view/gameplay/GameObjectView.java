@@ -1,5 +1,6 @@
 package core.view.gameplay;
 
+import core.model.gameplay.Hero;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -8,6 +9,7 @@ import org.newdawn.slick.geom.Shape;
 import core.ResourceManager;
 import core.model.gameplay.CollisionManager;
 import core.model.gameplay.GameObject;
+import org.newdawn.slick.geom.Vector2f;
 
 public abstract class GameObjectView {
 
@@ -22,10 +24,14 @@ public abstract class GameObjectView {
     }
 
     public void render(Graphics g, final double viewX, final double viewY, final float viewDegreeAngle,
-                                final int viewWidth, final int viewHeight) throws SlickException {
-        rotate(g, viewX, viewY, viewDegreeAngle, viewWidth, viewHeight, true);
-        draw(viewX, viewY);
-        rotate(g, viewX, viewY, viewDegreeAngle, viewWidth, viewHeight, false);
+                                final int viewWidth, final int viewHeight, Hero hero) throws SlickException {
+        Vector2f v = new Vector2f((float)(hero.getX() - gameObject.getX()), (float)(hero.getY() - gameObject.getY()));
+
+        if (v.length() < 1500) {
+            rotate(g, viewX, viewY, viewDegreeAngle, viewWidth, viewHeight, true);
+            draw(viewX, viewY);
+            rotate(g, viewX, viewY, viewDegreeAngle, viewWidth, viewHeight, false);
+        }
     }
 
     public void rotate(Graphics g, final double viewX, final double viewY, final float viewDegreeAngle,
