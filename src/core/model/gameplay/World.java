@@ -36,7 +36,7 @@ public class World {
         gameObjects.add(new Enemy(300, 100, 0, 0.03F));*/
 
         lootList.add(new Loot(50, 50, 0, ItemDB.getInstance().getItem("Sword"), 1));
-        lootList.add(new Loot(50, 150, 0, ItemDB.getInstance().getItem("Silver arrow"), 1));
+        lootList.add(new Loot(50, 150, 0, ItemDB.getInstance().getItem("Arrow"), 1));
         lootList.add(new Loot(450, 50, 0, ItemDB.getInstance().getItem("Apple"), 2));
         lootList.add(new Loot(50, -50, 0, ItemDB.getInstance().getItem("Apple"), 5));
 

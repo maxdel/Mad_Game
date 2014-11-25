@@ -22,20 +22,15 @@ public class Hero extends GameObjectMoving {
     private int useItemCounter;
     private final int useItemTime = 400;
 
-/*
-    public Hero(final double x, final double y, final double direction, final double relativeDirection, final double maximumSpeed,
-                final double currentSpeed, final GameObjectState currentState) {
-        super(x, y, direction, relativeDirection, maximumSpeed, currentSpeed, currentState);
-    }
-*/
     public Hero(final double x, final double y, final double direction, final double maximumSpeed) {
         super(x, y, direction, maximumSpeed);
         setMask(new Circle(0, 0, ResourceManager.getInstance().getMaskRadius("hero")));
-        inventory = new Inventory();
+        inventory = new Inventory(this);
         selectedLoot = null;
         usingItem = null;
         pickLootCounter = 0;
         dropLootCounter = 0;
+        useItemCounter = 0;
     }
 
     public void walk(final double direction) {
@@ -132,8 +127,9 @@ public class Hero extends GameObjectMoving {
     }
 
     private void useItem(){
-        setCurrentState(GameObjectState.STAND);
-        // useSkill(selectedItem.getSkill()); TODO
+        if (inventory.useItem(usingItem)) {
+            setCurrentState(GameObjectState.STAND);
+        }
         usingItem = null;
     }
 

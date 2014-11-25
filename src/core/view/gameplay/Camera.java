@@ -39,7 +39,7 @@ public class Camera {
 
         setDirection(resultDirection);
         centerX = getWidth() / 2;
-        centerY = 3 * getHeight() / 4;
+        centerY = 2 * getHeight() / 3;
         setX(x - centerX);
         setY(y - centerY);
     }
