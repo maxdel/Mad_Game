@@ -68,8 +68,8 @@ public class GamePlayView {
         updateLootViewList();
 
         for (LootView lootView : lootViewList) {
-            lootView.render(g, camera.getX(), camera.getY(), camera.getDirectionAngle(), camera.getWidth(),
-                    camera.getHeight());
+            lootView.render(g, camera.getX(), camera.getY(), camera.getDirectionAngle(), camera.getCenterX(),
+                    camera.getCenterY());
         }
 
         for (GameObjectView gameObjectView : gameObjectViews) {
