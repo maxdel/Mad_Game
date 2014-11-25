@@ -43,11 +43,12 @@ public class InventoryView {
         }
 
         if (isActive) {
-            g.setColor(Color.gray);
+            g.setColor(Color.lightGray);
 
             x = viewWidth - width - margin;
             y = viewHeight - height - margin;
-            g.drawRoundRect(x, y, width, height, 5);
+            g.fillRoundRect(x, y, width, height, 5);
+            g.setColor(Color.gray);
             Iterator<ItemRecord> it = inventory.getItemRecords().iterator();
             for (int i = 0; i < scroll; ++i) {
                 for (int j = 0; j < (width - 2 * padding - spacing) / (itemWidth + spacing); ++j) {
@@ -62,11 +63,17 @@ public class InventoryView {
                         ItemRecord itemRecord = it.next();
                         g.drawImage(ResourceManager.getInstance().getItemImage(itemRecord.getName()),
                                 x + padding + i * (itemWidth + spacing), y + padding + j * (itemHeight + spacing));
+                        if (itemRecord.isMarked()) {
+                            g.drawImage(ResourceManager.getInstance().getImage("Dressed item frame"),
+                                    x + padding + i * (itemWidth + spacing), y + padding + j * (itemHeight + spacing));
+                        }
                         if (i == activeItemX && j == activeItemY) {
                             g.drawImage(ResourceManager.getInstance().getImage("Selected item frame"),
                                     x + padding + i * (itemWidth + spacing), y + padding + j * (itemHeight + spacing));
+                            g.setColor(Color.black);
                             g.drawString("Name: " + itemRecord.getName() + "\nDescription: " + itemRecord.getDescription(),
                                     x, y - 48);
+                            g.setColor(Color.gray);
                         } else {
                             g.drawRect(x + padding + i * (itemWidth + spacing), y + padding + j * (itemHeight + spacing),
                                     itemWidth, itemHeight);

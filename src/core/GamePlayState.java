@@ -58,8 +58,8 @@ public class GamePlayState extends BasicGameState {
     public void enter(GameContainer gc, StateBasedGame game) throws SlickException {
         ResourceManager.getInstance().load(STATE_ID);
 
-        world = World.getInstance(false);
-        gamePlayView = new GamePlayView(gc, world.getGameObjects(), world.getHero(), world.getLootList(), ResourceManager.getInstance());
+        world = World.getInstance();
+        gamePlayView = new GamePlayView(gc, world.getGameObjects(), world.getHero(), world.getLootList(), ResourceManager.getInstance(), world.getTiledMap());
         gamePlayController = new GamePlayController(world, gamePlayView);
     }
 

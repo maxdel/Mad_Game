@@ -1,5 +1,6 @@
 package core.view.gameplay;
 
+import core.model.gameplay.Hero;
 import org.newdawn.slick.*;
 
 import core.ResourceManager;
@@ -13,8 +14,8 @@ public class EnemyView extends GameObjectView {
     }
 
     @Override
-    public void render(Graphics g, double viewX, double viewY, float viewDegreeAngle, int viewWidth, int viewHeight) {
-        rotate(g, viewX, viewY, viewDegreeAngle, viewWidth, viewHeight, true);
+    public void render(Graphics g, double viewX, double viewY, float viewDegreeAngle, double viewCenterX, double viewCenterY, Hero hero) {
+        rotate(g, viewX, viewY, viewDegreeAngle, viewCenterX, viewCenterY, true);
         draw(viewX, viewY);
 
         // draw mask
@@ -31,7 +32,7 @@ public class EnemyView extends GameObjectView {
                 - viewDegreeAngle);
         // ----- END -----
 
-        rotate(g, viewX, viewY, viewDegreeAngle, viewWidth, viewHeight, false);
+        rotate(g, viewX, viewY, viewDegreeAngle, viewCenterX, viewCenterY, false);
     }
 
 }

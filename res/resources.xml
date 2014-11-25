@@ -5,21 +5,37 @@
             <animation name="hero" path="/res/hero.png" isImage = "false" frameWidth="50" frameHeight="50" speedCoef="6" />
             <animation name="enemy" path="/res/enemy.png" isImage = "true" />
             <animation name="wall" path="/res/wall.png" isImage = "true" />
+            <animation name="tree" path="/res/tree.png" isImage = "true" />
         </animations>
         <masks>
             <mask name="hero" width="0" height="0" radius="20" />
             <mask name="enemy" width="0" height="0" radius="42" />
-            <mask name="wall" width="64" height="64" radius="0" />
+            <mask name="wall" width="32" height="32" radius="0" />
+            <mask name="tree" width="0" height="0" radius="32" />
         </masks>
         <images>
             <image name="Selected item frame" path = "/res/items/selected item.png" />
+            <image name="Dressed item frame" path = "/res/items/dressed item.png" />
             <image name="Selected loot" path = "/res/items/selected loot.png" />
         </images>
         <items>
-            <item name="Sword" description="Simple sword" path = "/res/items/sword.png" />
-            <item name="Apple" description="Green apple" path = "/res/items/apple.png" />
-            <item name="Silver arrow" description="Vs undead" path = "/res/items/silver arrow.png" />
+            <item name="Healing flask" description="+20 HP" path = "/res/items/healing flask.png" type="healing" heal="20"/>
+            <item name="Mana flask" description="+20 MP" path = "/res/items/mana flask.png" type="mana" mana="20"/>
+            <item name="Apple" description="Green apple" path = "/res/items/apple.png" type="healing" heal="5"/>
+            <item name="Sword" description="Simple sword" path = "/res/items/sword.png" type="sword" pAttack="5" mAttack="1"/>
+            <item name="Strong sword" description="Strong sword" path = "/res/items/strong sword.png" type="sword" pAttack="10" mAttack="1"/>
+            <item name="Staff" description="Simple staff" path = "/res/items/staff.png" type="staff" pAttack="1" mAttack="5" />
+            <item name="Strong staff" description="Strong staff" path = "/res/items/strong staff.png" type="staff" pAttack="1" mAttack="10" />
+            <item name="Bow" description="Simple bow" path = "/res/items/bow.png" type="bow" pAttack="5" mAttack="1"/>
+            <item name="Strong bow" description="Strong bow" path = "/res/items/strong bow.png" type="bow" pAttack="10" mAttack="1" />
+            <item name="Arrow" description="Simple arrow" path = "/res/items/arrow.png" type="arrow" pAttack="1" />
+            <item name="Light armor" description="Light armor" path = "/res/items/light armor.png" type="armor" pArmor="3" mArmor="3" />
+            <item name="Heavy armor" description="Light armor" path = "/res/items/heavy armor.png" type="armor" pArmor="5" mArmor="1" />
+            <item name="Robe of magic" description="Light armor" path = "/res/items/robe of magic.png" type="armor" pArmor="1" mArmor="5" />
         </items>
+        <fonts>
+            <font name="lootfont" fontName="verdana" size="10" isBold="false" />
+        </fonts>
     </gameplay>
 
     <menustart>

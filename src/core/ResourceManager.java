@@ -4,10 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import core.model.gameplay.inventory.Item;
 import org.newdawn.slick.Animation;
@@ -124,8 +121,19 @@ public class ResourceManager {
             String name = itemElement.getAttribute("name");
             String description = itemElement.getAttribute("description");
             String path = itemElement.getAttribute("path");
+            String type = itemElement.getAttribute("type");
+            ArrayList<String> nameList = new ArrayList<String>(Arrays.asList(itemElement.getAttributeNames()));
+            Map<String, Integer> map = new HashMap<String, Integer>();
+            for (int j = 0; j < nameList.size(); ++j) {
+                if (!nameList.get(j).equals("name") &&
+                        !nameList.get(j).equals("description") &&
+                        !nameList.get(j).equals("path") &&
+                        !nameList.get(j).equals("type")) {
+                    map.put(nameList.get(j), Integer.valueOf(itemElement.getAttribute(nameList.get(j))));
+                }
+            }
 
-            itemInfos.put(name, new ItemInfo(name, description, new Image(path)));
+            itemInfos.put(name, new ItemInfo(name, description, new Image(path), type, map));
         }
 
         // gameplay/images
@@ -136,8 +144,21 @@ public class ResourceManager {
 
             String name = imageElement.getAttribute("name");
             String path = imageElement.getAttribute("path");
-
             imageInfos.put(name, new Image(path));
+        }
+
+        // gameplay/fonts
+        XMLElement fontsElement = gameplayElement.getChildrenByName("fonts").get(0);
+        XMLElementList fontList = fontsElement.getChildrenByName("font");
+        for (int i = 0; i < fontList.size(); ++i) {
+            XMLElement fontElement = fontList.get(i);
+
+            String name = fontElement.getAttribute("name");
+            String fontName = fontElement.getAttribute("fontName");
+            int size = fontElement.getIntAttribute("size");
+            boolean isBold = fontElement.getBooleanAttribute("isBold");
+
+            fontInfos.put(name, new FontInfo(fontName, size, isBold));
         }
 
         in.close();
@@ -322,8 +343,8 @@ public class ResourceManager {
         private Item item;
         private Image image;
 
-        public ItemInfo(String name, String description, Image image) {
-            item = new Item(name, description);
+        public ItemInfo(String name, String description, Image image, String type, Map map) {
+            item = new Item(name, description, type, map);
             this.image = image;
         }
 
@@ -342,8 +363,8 @@ public class ResourceManager {
         public Item getItem() {
             return item;
         }
-
     }
+
 
     public List<Item> getItems() {
         List<ItemInfo> itemInfoList = new ArrayList<ItemInfo>(itemInfos.values());

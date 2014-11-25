@@ -1,25 +1,30 @@
 package core.model.gameplay.inventory;
 
+import core.model.gameplay.GameObjectMoving;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 public class Inventory {
 
+    private GameObjectMoving owner;
     private List<ItemRecord> itemRecords;
+    private List<ItemRecord> dressedItems;
     private ItemRecord selectedRecord;
 
-    public Inventory() {
+    public Inventory(GameObjectMoving owner) {
+        this.owner = owner;
         itemRecords = new ArrayList<ItemRecord>();
+        dressedItems = new ArrayList<ItemRecord>();
         selectedRecord = null;
 
         addItem("Sword");
         addItem("Apple");
-        addItem("Silver arrow");
-        addItem("Silver arrow");
-        addItem("Silver arrow");
-        addItem("Silver arrow");
-        deleteItem("Silver arrow");
+        addItem("Apple");
+        addItem("Arrow");
+        addItem("Arrow");
+        addItem("Arrow");
         deleteItem("Apple");
     }
 
@@ -64,6 +69,7 @@ public class Inventory {
                 ItemRecord itemRecord = it.next();
                 if (itemRecord.getName().equals(name)) {
                     if (itemRecord.getNumber() - number <= 0) {
+                        undressItem(itemRecord);
                         it.remove();
                         if (selectedRecord == itemRecord) {
                             if (itemRecords.size() == 0) {
@@ -87,6 +93,53 @@ public class Inventory {
 
     public void setSelectedRecord(int index) {
         selectedRecord = itemRecords.get(index);
+    }
+
+    public void markItem(ItemRecord itemRecord) {
+        itemRecords.get(itemRecords.indexOf(itemRecord)).setMarked(true);
+    }
+
+    public boolean useItem(ItemRecord itemRecord) {
+        if (itemRecord.getType().equals("healing")) {
+            //owner.setHP(owner.getHP() + usingItem.getParameter("heal"));
+            deleteItem(itemRecord.getName(), 1);
+            return true;
+        } else if (itemRecord.getType().equals("sword")) {
+            dressItem(itemRecord);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private void dressItem(ItemRecord itemToDress) {
+        ItemRecord itemToUndress = null;
+        for (Iterator<ItemRecord> it = dressedItems.iterator(); it.hasNext();) {
+            ItemRecord itemRecord = it.next();
+            if (itemRecord.getType().equals(itemToDress.getType())) {
+                itemToUndress = itemRecord;
+                break;
+            }
+        }
+        if (itemToDress.getType().equals("sword")) {
+            undressItem(itemToUndress);
+
+            if (itemToDress != itemToUndress) {
+                //owner.setPAttack(owner.getPAttack() + itemToDress.getParameter("pAttack"));
+                //owner.setMAttack(owner.getMAttack() + itemToDress.getParameter("mAttack"));
+                dressedItems.add(itemToDress);
+                itemToDress.setMarked(true);
+            }
+        }
+    }
+
+    private void undressItem(ItemRecord itemToUndress) {
+        if (itemToUndress != null) {
+            //owner.setPAttack(owner.getPAttack() - itemToUndress.getParameter("pAttack"));
+            //owner.setMAttack(owner.getMAttack() - itemToUndress.getParameter("mAttack"));
+            dressedItems.remove(itemToUndress);
+            itemToUndress.setMarked(false);
+        }
     }
 
 }

@@ -42,7 +42,7 @@ public class MenuPauseController {
 
         if (input.isKeyPressed(Input.KEY_ENTER)) {
             if (menuPause.getCurrentChoice() == menuPause.getMenuId("Resume")) {
-                World.getInstance(false); // resuming existing world
+                World.getInstance(); // resuming existing world
                 game.enterState(GamePlayState.getInstance().getID());
             }
             else if (menuPause.getCurrentChoice() == menuPause.getMenuId("Load")) {

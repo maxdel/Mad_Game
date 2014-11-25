@@ -33,7 +33,7 @@ public class GameObjectMoving extends GameObject {
         lengthDirX = lengthDirX(direction, length);
         lengthDirY = lengthDirY(direction, length);
 
-        if (CollisionManager.getInstance().isPlaceFree(this, getX() + lengthDirX, getY() + lengthDirY)) {
+        if (CollisionManager.getInstance().isPlaceFreeAdv(this, getX() + lengthDirX, getY() + lengthDirY)) {
             setX(getX() + lengthDirX);
             setY(getY() + lengthDirY);
         } else {
@@ -43,7 +43,7 @@ public class GameObjectMoving extends GameObject {
                 altDirection += i * stepAngle * (i % 2 == 0 ? 1 : -1);
                 lengthDirX = lengthDirX(altDirection, length * Math.cos(altDirection - direction));
                 lengthDirY = lengthDirY(altDirection, length * Math.cos(altDirection - direction));
-                if (CollisionManager.getInstance().isPlaceFree(this, getX() + lengthDirX, getY() + lengthDirY)) {
+                if (CollisionManager.getInstance().isPlaceFreeAdv(this, getX() + lengthDirX, getY() + lengthDirY)) {
                     setX(getX() + lengthDirX);
                     setY(getY() + lengthDirY);
                     break;

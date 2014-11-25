@@ -8,11 +8,11 @@ import core.ResourceManager;
 import core.model.gameplay.GameObject;
 import org.newdawn.slick.geom.Vector2f;
 
-public class WallView extends GameObjectView {
+public class TreeView extends GameObjectView {
 
-    public WallView(GameObject wall, ResourceManager resourceManager) throws SlickException {
+    public TreeView(GameObject wall, ResourceManager resourceManager) throws SlickException {
         super(wall, resourceManager);
-        animation = resourceManager.getAnimation("wall");
+        animation = resourceManager.getAnimation("tree");
     }
 
     @Override
