@@ -63,6 +63,10 @@ public class InventoryView {
                         ItemRecord itemRecord = it.next();
                         g.drawImage(ResourceManager.getInstance().getItemImage(itemRecord.getName()),
                                 x + padding + i * (itemWidth + spacing), y + padding + j * (itemHeight + spacing));
+                        if (itemRecord.isMarked()) {
+                            g.drawImage(ResourceManager.getInstance().getImage("Dressed item frame"),
+                                    x + padding + i * (itemWidth + spacing), y + padding + j * (itemHeight + spacing));
+                        }
                         if (i == activeItemX && j == activeItemY) {
                             g.drawImage(ResourceManager.getInstance().getImage("Selected item frame"),
                                     x + padding + i * (itemWidth + spacing), y + padding + j * (itemHeight + spacing));

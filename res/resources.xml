@@ -15,6 +15,7 @@
         </masks>
         <images>
             <image name="Selected item frame" path = "/res/items/selected item.png" />
+            <image name="Dressed item frame" path = "/res/items/dressed item.png" />
             <image name="Selected loot" path = "/res/items/selected loot.png" />
         </images>
         <items>

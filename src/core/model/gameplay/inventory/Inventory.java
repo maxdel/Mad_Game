@@ -69,6 +69,7 @@ public class Inventory {
                 ItemRecord itemRecord = it.next();
                 if (itemRecord.getName().equals(name)) {
                     if (itemRecord.getNumber() - number <= 0) {
+                        undressItem(itemRecord);
                         it.remove();
                         if (selectedRecord == itemRecord) {
                             if (itemRecords.size() == 0) {
@@ -121,12 +122,23 @@ public class Inventory {
             }
         }
         if (itemToDress.getType().equals("sword")) {
+            undressItem(itemToUndress);
+
+            if (itemToDress != itemToUndress) {
+                //owner.setPAttack(owner.getPAttack() + itemToDress.getParameter("pAttack"));
+                //owner.setMAttack(owner.getMAttack() + itemToDress.getParameter("mAttack"));
+                dressedItems.add(itemToDress);
+                itemToDress.setMarked(true);
+            }
+        }
+    }
+
+    private void undressItem(ItemRecord itemToUndress) {
+        if (itemToUndress != null) {
             //owner.setPAttack(owner.getPAttack() - itemToUndress.getParameter("pAttack"));
             //owner.setMAttack(owner.getMAttack() - itemToUndress.getParameter("mAttack"));
             dressedItems.remove(itemToUndress);
-            //owner.setPAttack(owner.getPAttack() + itemToDress.getParameter("pAttack"));
-            //owner.setMAttack(owner.getMAttack() + itemToDress.getParameter("mAttack"));
-            dressedItems.add(itemToDress);
+            itemToUndress.setMarked(false);
         }
     }
 
