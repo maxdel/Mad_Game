@@ -6,7 +6,7 @@ import org.newdawn.slick.geom.Circle;
 public class Enemy extends GameObjectMoving {
 
     public Enemy(final double x, final double y, final double direction, final double maximumSpeed) {
-        super(x, y, direction, maximumSpeed);
+        super(x, y, maximumSpeed);
         setMask(new Circle(0, 0, ResourceManager.getInstance().getMaskRadius("enemy")));
     }
 
@@ -18,13 +18,13 @@ public class Enemy extends GameObjectMoving {
 
     public void run(double direction) {
         setCurrentState(GameObjectState.RUN);
-        setCurrentSpeed(getMaximumSpeed());
+        getAttribute().setCurrentSpeed(getAttribute().getMaximumSpeed());
         setRelativeDirection(direction);
     }
 
     public void stand() {
         setCurrentState(GameObjectState.STAND);
-        setCurrentSpeed(0);
+        getAttribute().setCurrentSpeed(0);
     }
     
     @Override

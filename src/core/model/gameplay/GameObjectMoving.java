@@ -1,33 +1,24 @@
 package core.model.gameplay;
 
-import org.newdawn.slick.geom.Vector2f;
-
 public class GameObjectMoving extends GameObject {
 
-    private double currentSpeed;
-    private double maximumSpeed;
     private double relativeDirection;
     private GameObjectState currentState;
+    private Attribute attribute;
 
-    public GameObjectMoving(final double x, final double y, final double direction, final double relativeDirection,
-                            final double maximumSpeed, final double currentSpeed, final GameObjectState currentState) {
-        super(x, y, direction);
+    public GameObjectMoving(double x, double y, double maximumSpeed) {
+        super(x, y, 0);
 
-        this.relativeDirection = relativeDirection;
-        this.maximumSpeed = maximumSpeed;
-        this.currentSpeed = currentSpeed;
-        this.currentState = currentState;
-    }
+        this.relativeDirection = 0;
+        this.currentState = GameObjectState.STAND;
 
-    public GameObjectMoving(final double x, final double y, final double direction,
-                            final double maximumSpeed) {
-        this(x, y, direction, 0, maximumSpeed, 0, GameObjectState.STAND);
+        attribute = new Attribute(100, 50, maximumSpeed);
     }
 
     @Override
-    public void update(final int delta) {
+    public void update(int delta) {
         double length, direction, lengthDirX, lengthDirY;
-        length = getCurrentSpeed() * delta;
+        length = attribute.getCurrentSpeed() * delta;
         direction = getDirection() + getRelativeDirection();
 
         lengthDirX = lengthDirX(direction, length);
@@ -60,20 +51,8 @@ public class GameObjectMoving extends GameObject {
         return Math.sin(direction) * length;
     }
 
-    public double getMaximumSpeed() {
-        return maximumSpeed;
-    }
-
-    public void setMaximumSpeed(double maximumSpeed) {
-        this.maximumSpeed = maximumSpeed;
-    }
-
-    public double getCurrentSpeed() {
-        return currentSpeed;
-    }
-
-    public void setCurrentSpeed(double currentSpeed) {
-        this.currentSpeed = currentSpeed;
+    public Attribute getAttribute() {
+        return attribute;
     }
 
     public double getRelativeDirection() {

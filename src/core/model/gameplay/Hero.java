@@ -15,6 +15,7 @@ public class Hero extends GameObjectMoving {
     private Inventory inventory;
     private Loot selectedLoot;
     private ItemRecord usingItem;
+    
     private int pickLootCounter;
     private final int pickLootTime = 300;
     private int dropLootCounter;
@@ -22,8 +23,8 @@ public class Hero extends GameObjectMoving {
     private int useItemCounter;
     private final int useItemTime = 400;
 
-    public Hero(final double x, final double y, final double direction, final double maximumSpeed) {
-        super(x, y, direction, maximumSpeed);
+    public Hero(double x, double y, double maximumSpeed) {
+        super(x, y,  maximumSpeed);
         setMask(new Circle(0, 0, ResourceManager.getInstance().getMaskRadius("hero")));
         inventory = new Inventory(this);
         selectedLoot = null;
@@ -33,18 +34,18 @@ public class Hero extends GameObjectMoving {
         useItemCounter = 0;
     }
 
-    public void walk(final double direction) {
+    public void walk(double direction) {
         if (getCurrentState() != GameObjectState.PICK_ITEM && getCurrentState() != GameObjectState.DROP_ITEM) {
             setCurrentState(GameObjectState.WALK);
-            setCurrentSpeed(getMaximumSpeed() / 2);
+            getAttribute().setCurrentSpeed(getAttribute().getMaximumSpeed() / 2);
             setRelativeDirection(direction);
         }
     }
 
-    public void run(final double direction) {
+    public void run(double direction) {
         if (getCurrentState() != GameObjectState.PICK_ITEM && getCurrentState() != GameObjectState.DROP_ITEM) {
             setCurrentState(GameObjectState.RUN);
-            setCurrentSpeed(getMaximumSpeed());
+            getAttribute().setCurrentSpeed(getAttribute().getMaximumSpeed());
             setRelativeDirection(direction);
         }
     }
@@ -52,11 +53,11 @@ public class Hero extends GameObjectMoving {
     public void stand() {
         if (getCurrentState() != GameObjectState.PICK_ITEM && getCurrentState() != GameObjectState.DROP_ITEM) {
             setCurrentState(GameObjectState.STAND);
-            setCurrentSpeed(0);
+            getAttribute().setCurrentSpeed(0);
         }
     }
 
-    public void rotate(final double angleOffset) {
+    public void rotate(double angleOffset) {
         if (getCurrentState() != GameObjectState.PICK_ITEM && getCurrentState() != GameObjectState.DROP_ITEM) {
             setDirection(getDirection() + angleOffset);
         }
@@ -66,7 +67,7 @@ public class Hero extends GameObjectMoving {
         if (inventory.getSelectedRecord() != null && getCurrentState() != GameObjectState.PICK_ITEM &&
                 getCurrentState() != GameObjectState.DROP_ITEM) {
             setCurrentState(GameObjectState.DROP_ITEM);
-            setCurrentSpeed(0);
+            getAttribute().setCurrentSpeed(0);
             dropLootCounter = dropLootTime;
         }
     }
@@ -83,7 +84,7 @@ public class Hero extends GameObjectMoving {
         if (selectedLoot != null && getCurrentState() != GameObjectState.DROP_ITEM &&
                 getCurrentState() != GameObjectState.PICK_ITEM) {
             setCurrentState(GameObjectState.PICK_ITEM);
-            setCurrentSpeed(0);
+            getAttribute().setCurrentSpeed(0);
             pickLootCounter = pickLootTime;
         }
     }
@@ -120,7 +121,7 @@ public class Hero extends GameObjectMoving {
                 getCurrentState() != GameObjectState.DROP_ITEM &&
                 getCurrentState() != GameObjectState.USE_ITEM) {
             setCurrentState(GameObjectState.USE_ITEM);
-            setCurrentSpeed(0);
+            getAttribute().setCurrentSpeed(0);
             usingItem = inventory.getSelectedRecord();
             useItemCounter = useItemTime;
         }
@@ -134,7 +135,7 @@ public class Hero extends GameObjectMoving {
     }
 
     @Override
-    public void update(final int delta) {
+    public void update(int delta) {
         if (dropLootCounter > 0) {
             dropLootCounter -= delta;
             if (dropLootCounter <= 0) {

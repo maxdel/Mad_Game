@@ -23,17 +23,9 @@ public class World {
     private TiledMap tiledMap;
 
     private World() {
-        // creating gameObjects
         gameObjects = new ArrayList<GameObject>();
-        //hero = new Hero(200, 100, 0, 0.18F);
         lootList = new ArrayList<Loot>();
         collisionManager = CollisionManager.getInstance();
-
-        /*gameObjects.add(hero);
-        gameObjects.add(new Wall(100, 100, Math.PI / 4));
-        gameObjects.add(new Wall(300, 300, 0));
-        gameObjects.add(new Enemy(300, 200, 0, 0.06F));
-        gameObjects.add(new Enemy(300, 100, 0, 0.03F));*/
 
         lootList.add(new Loot(50, 50, 0, ItemDB.getInstance().getItem("Sword"), 1));
         lootList.add(new Loot(50, 150, 0, ItemDB.getInstance().getItem("Arrow"), 1));
@@ -61,8 +53,10 @@ public class World {
                 String tileObjectName = tiledMap.getTileProperty(tiledMap.getTileId(i, j, 2), "name", "error");
                 if (tileObjectName.equals("hero")) {
                     hero = new Hero(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
-                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, 0.2F);
+                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0.2F);
                     gameObjects.add(hero);
+                    hero.getAttribute().setCurrentHP(5);
+                    hero.getAttribute().setCurrentMP(7);
                 } else if (tileObstacleName.equals("banditsword")) {
 
                 } else if (tileObstacleName.equals("banditarcher")) {
@@ -76,17 +70,6 @@ public class World {
                 }
             }
         }
-
-/*        for (int i = 0; i < 5; ++i) {
-            for (int j = 0; j < 5; ++j) {
-                if (tiledMap.getTileId(i, j, 0) != 0) {
-                    gameObjects.add(new Wall(i * 64 + 32, j * 64 + 32, 0));
-                }
-            }
-        }*/
-/*        for (int i = 0; i < tiledMap.getObjectCount(0); ++i) {
-            gameObjects.add(new Wall(tiledMap.getObjectX(0, i), tiledMap.getObjectY(0, i), 0));
-        }*/
     }
 
     // Singleton pattern method
@@ -113,8 +96,6 @@ public class World {
                 continue; // passing, if object type useless
             }
         }
-
-        //collisionManager.update();
     }
 
     public ArrayList<GameObject> getGameObjects() {

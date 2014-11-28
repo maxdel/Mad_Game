@@ -29,7 +29,7 @@ public class HeroView extends GameObjectView {
             switch (hero.getCurrentState()) {
                 case WALK:
                     animation.start();
-                    animation.setSpeed((float) (hero.getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("hero")));
+                    animation.setSpeed((float) (hero.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("hero")));
                     break;
                 case STAND:
                     animation.stop();
@@ -37,7 +37,7 @@ public class HeroView extends GameObjectView {
                     break;
                 case RUN:
                     animation.start();
-                    animation.setSpeed((float) (hero.getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("hero")));
+                    animation.setSpeed((float) (hero.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("hero")));
                     break;
                 case PICK_ITEM:
                     animation.start();
@@ -55,6 +55,18 @@ public class HeroView extends GameObjectView {
         rotate(g, viewX, viewY, viewDegreeAngle, viewCenterX, viewCenterY, false);
 
         // For debug
+        g.drawString(String.valueOf((int) hero.getAttribute().getPArmor()) + "/" +
+                        String.valueOf((int) hero.getAttribute().getMArmor()),
+                (float) (gameObject.getX() - viewX),
+                (float) (gameObject.getY() - viewY - 60));
+        g.drawString(String.valueOf((int) hero.getAttribute().getCurrentHP()) + "/" +
+                        String.valueOf((int) hero.getAttribute().getMaximumHP()),
+                (float) (gameObject.getX() - viewX),
+                (float) (gameObject.getY() - viewY - 40));
+        g.drawString(String.valueOf((int) hero.getAttribute().getCurrentMP()) + "/" +
+                        String.valueOf((int) hero.getAttribute().getMaximumMP()),
+                (float) (gameObject.getX() - viewX),
+                (float) (gameObject.getY() - viewY - 20));
         g.drawString("(" + String.valueOf((int) gameObject.getX()) + ";" + String.valueOf((int) gameObject.getY())
                         + ") dir=" + String.valueOf((int) (gameObject.getDirection() / Math.PI * 180) % 360),
                 (float) (gameObject.getX() - viewX),

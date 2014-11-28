@@ -26,6 +26,11 @@ public class Inventory {
         addItem("Arrow");
         addItem("Arrow");
         deleteItem("Apple");
+        addItem("Healing flask", 5);
+        addItem("Mana flask", 5);
+        addItem("Light armor");
+        addItem("Heavy armor");
+        addItem("Robe of magic");
     }
 
     public List<ItemRecord> getItemRecords() {
@@ -101,10 +106,17 @@ public class Inventory {
 
     public boolean useItem(ItemRecord itemRecord) {
         if (itemRecord.getType().equals("healing")) {
-            //owner.setHP(owner.getHP() + usingItem.getParameter("heal"));
+            owner.getAttribute().setCurrentHP((owner.getAttribute().getCurrentHP() + itemRecord.getParameter("heal")));
+            deleteItem(itemRecord.getName(), 1);
+            return true;
+        } else if (itemRecord.getType().equals("mana")) {
+            owner.getAttribute().setCurrentMP((owner.getAttribute().getCurrentMP() + itemRecord.getParameter("mana")));
             deleteItem(itemRecord.getName(), 1);
             return true;
         } else if (itemRecord.getType().equals("sword")) {
+            dressItem(itemRecord);
+            return true;
+        } else if (itemRecord.getType().equals("armor")) {
             dressItem(itemRecord);
             return true;
         } else {
@@ -130,13 +142,27 @@ public class Inventory {
                 dressedItems.add(itemToDress);
                 itemToDress.setMarked(true);
             }
+        } else if (itemToDress.getType().equals("armor")) {
+            undressItem(itemToUndress);
+
+            if (itemToDress != itemToUndress) {
+                owner.getAttribute().setPArmor(owner.getAttribute().getPArmor() + itemToDress.getParameter("pArmor"));
+                owner.getAttribute().setMArmor(owner.getAttribute().getMArmor() + itemToDress.getParameter("mArmor"));
+                dressedItems.add(itemToDress);
+                itemToDress.setMarked(true);
+            }
         }
     }
 
     private void undressItem(ItemRecord itemToUndress) {
         if (itemToUndress != null) {
-            //owner.setPAttack(owner.getPAttack() - itemToUndress.getParameter("pAttack"));
-            //owner.setMAttack(owner.getMAttack() - itemToUndress.getParameter("mAttack"));
+            if (itemToUndress.getType().equals("sword")) {
+                //owner.setPAttack(owner.getPAttack() - itemToUndress.getParameter("pAttack"));
+                //owner.setMAttack(owner.getMAttack() - itemToUndress.getParameter("mAttack"));
+            } else if (itemToUndress.getType().equals("armor")) {
+                owner.getAttribute().setPArmor(owner.getAttribute().getPArmor() - itemToUndress.getParameter("pArmor"));
+                owner.getAttribute().setMArmor(owner.getAttribute().getMArmor() - itemToUndress.getParameter("mArmor"));
+            }
             dressedItems.remove(itemToUndress);
             itemToUndress.setMarked(false);
         }
