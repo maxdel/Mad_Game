@@ -30,7 +30,8 @@ public class Hero extends GameObjectMoving {
         pickLootCounter = 0;
         dropLootCounter = 0;
         useItemCounter = 0;
-        skillList.add(new Skill(this, "Sword attack", 200, 1000, "attack", 15, "Sword", 3, 100, Math.PI / 2));
+        //skillList.add(new Skill(this, "Sword attack", 200, 1000, "attack", 15, "Sword", 3, 100, Math.PI / 2));
+        skillList.add(new Skill(this, "Bow shot", 200, 1000, "bullet", 15, "Bow", 3, 100, Math.PI / 2));
     }
 
     public void walk(double direction) {

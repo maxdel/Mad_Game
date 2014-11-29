@@ -203,4 +203,14 @@ public class Inventory {
         return false;
     }
 
+    public boolean isItemExists(String itemName) {
+        for (Iterator<ItemRecord> it = itemRecords.iterator(); it.hasNext();) {
+            ItemRecord itemRecord = it.next();
+            if (itemRecord.getName().equals(itemName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

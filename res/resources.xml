@@ -6,6 +6,7 @@
             <animation name="enemy" path="/res/enemy.png" isImage = "true" />
             <animation name="wall" path="/res/wall.png" isImage = "true" />
             <animation name="tree" path="/res/tree.png" isImage = "true" />
+            <animation name="bullet" path="/res/bullet.png" isImage = "true" />
         </animations>
         <masks>
             <mask name="hero" width="0" height="0" radius="20" />

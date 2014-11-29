@@ -17,6 +17,7 @@ public class World {
 
     private List<GameObject> gameObjects;
     private List<GameObject> toDeleteList;
+    private List<GameObject> toAddList;
     private Hero hero;
     private List<Loot> lootList;
     private CollisionManager collisionManager;
@@ -26,6 +27,7 @@ public class World {
     private World() {
         gameObjects = new ArrayList<GameObject>();
         toDeleteList = new ArrayList<GameObject>();
+        toAddList = new ArrayList<GameObject>();
         lootList = new ArrayList<Loot>();
         collisionManager = CollisionManager.getInstance();
 
@@ -91,6 +93,10 @@ public class World {
     }
 
     public void update(int delta) {
+        for (GameObject gameObject : toAddList) {
+            gameObjects.add(gameObject);
+        }
+        toAddList.clear();
         for (GameObject gameObject : gameObjects) {
             gameObject.update(delta);
         }
@@ -118,6 +124,10 @@ public class World {
 
     protected List<GameObject> getToDeleteList() {
         return toDeleteList;
+    }
+
+    protected List<GameObject> getToAddList() {
+        return toAddList;
     }
 
 }

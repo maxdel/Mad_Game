@@ -49,10 +49,19 @@ public class Skill {
         if (owner.getInventory().isItemDressed(requiredItem) &&
                 owner.getAttribute().getCurrentMP() >= requiredMP
                 && currentCooldownTime == 0) {
-            currentCastTime = castTime;
-            owner.getAttribute().setCurrentMP(owner.getAttribute().getCurrentMP() - requiredMP);
-            currentCooldownTime = cooldownTime;
-            return true;
+            if (requiredItem.equals("Bow")) {
+                if (owner.getInventory().isItemExists("Arrow")) {
+                    currentCastTime = castTime;
+                    owner.getAttribute().setCurrentMP(owner.getAttribute().getCurrentMP() - requiredMP);
+                    currentCooldownTime = cooldownTime;
+                    return true;
+                }
+            } else {
+                currentCastTime = castTime;
+                owner.getAttribute().setCurrentMP(owner.getAttribute().getCurrentMP() - requiredMP);
+                currentCooldownTime = cooldownTime;
+                return true;
+            }
         }
         return false;
     }
@@ -77,6 +86,19 @@ public class Skill {
                         target.getAttribute().setCurrentHP(target.getAttribute().getCurrentHP() - damage);
                     }
                 }
+            }
+        } else if (type.equals("bullet")) {
+            if (requiredItem.equals("Bow")) {
+                if (owner.getInventory().isItemExists("Arrow")) {
+                    double bulletSpeed = 0.3; // TODO separate skills
+                    World.getInstance().getToAddList().add(new Bullet(owner, owner.getX(), owner.getY(), owner.getDirection(),
+                            bulletSpeed, delta, 0));
+                    owner.getInventory().deleteItem("Arrow", 1);
+                }
+            } else {
+                double bulletSpeed = 0.3; // TODO separate skills
+                World.getInstance().getToAddList().add(new Bullet(owner, owner.getX(), owner.getY(), owner.getDirection(),
+                        bulletSpeed, delta, 0));
             }
         }
     }
