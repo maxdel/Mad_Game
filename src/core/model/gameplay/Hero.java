@@ -128,9 +128,8 @@ public class Hero extends GameObjectMoving {
     }
 
     private void useItem(){
-        if (inventory.useItem(usingItem)) {
-            setCurrentState(GameObjectState.STAND);
-        }
+        inventory.useItem(usingItem);
+        setCurrentState(GameObjectState.STAND);
         usingItem = null;
     }
 

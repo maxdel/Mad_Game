@@ -55,6 +55,10 @@ public class HeroView extends GameObjectView {
         rotate(g, viewX, viewY, viewDegreeAngle, viewCenterX, viewCenterY, false);
 
         // For debug
+        g.drawString(String.valueOf((int) hero.getAttribute().getPAttack()) + "/" +
+                        String.valueOf((int) hero.getAttribute().getMAttack()),
+                (float) (gameObject.getX() - viewX),
+                (float) (gameObject.getY() - viewY - 80));
         g.drawString(String.valueOf((int) hero.getAttribute().getPArmor()) + "/" +
                         String.valueOf((int) hero.getAttribute().getMArmor()),
                 (float) (gameObject.getX() - viewX),

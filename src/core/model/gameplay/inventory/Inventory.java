@@ -20,6 +20,11 @@ public class Inventory {
         selectedRecord = null;
 
         addItem("Sword");
+        addItem("Strong sword");
+        addItem("Bow");
+        addItem("Strong bow");
+        addItem("Staff");
+        addItem("Strong staff");
         addItem("Apple");
         addItem("Apple");
         addItem("Arrow");
@@ -113,7 +118,9 @@ public class Inventory {
             owner.getAttribute().setCurrentMP((owner.getAttribute().getCurrentMP() + itemRecord.getParameter("mana")));
             deleteItem(itemRecord.getName(), 1);
             return true;
-        } else if (itemRecord.getType().equals("sword")) {
+        } else if (itemRecord.getType().equals("sword") ||
+                itemRecord.getType().equals("bow") ||
+                itemRecord.getType().equals("staff")) {
             dressItem(itemRecord);
             return true;
         } else if (itemRecord.getType().equals("armor")) {
@@ -128,17 +135,30 @@ public class Inventory {
         ItemRecord itemToUndress = null;
         for (Iterator<ItemRecord> it = dressedItems.iterator(); it.hasNext();) {
             ItemRecord itemRecord = it.next();
-            if (itemRecord.getType().equals(itemToDress.getType())) {
-                itemToUndress = itemRecord;
-                break;
+            if (itemToDress.getType().equals("sword") ||
+                    itemToDress.getType().equals("bow") ||
+                    itemToDress.getType().equals("staff")) {
+                if (itemRecord.getType().equals("sword") ||
+                        itemRecord.getType().equals("bow") ||
+                        itemRecord.getType().equals("staff")) {
+                    itemToUndress = itemRecord;
+                    break;
+                }
+            } else {
+                if (itemRecord.getType().equals(itemToDress.getType())) {
+                    itemToUndress = itemRecord;
+                    break;
+                }
             }
         }
-        if (itemToDress.getType().equals("sword")) {
+        if (itemToDress.getType().equals("sword") ||
+                itemToDress.getType().equals("bow") ||
+                itemToDress.getType().equals("staff")) {
             undressItem(itemToUndress);
 
             if (itemToDress != itemToUndress) {
-                //owner.setPAttack(owner.getPAttack() + itemToDress.getParameter("pAttack"));
-                //owner.setMAttack(owner.getMAttack() + itemToDress.getParameter("mAttack"));
+                owner.getAttribute().setPAttack(owner.getAttribute().getPAttack() + itemToDress.getParameter("pAttack"));
+                owner.getAttribute().setMAttack(owner.getAttribute().getMAttack() + itemToDress.getParameter("mAttack"));
                 dressedItems.add(itemToDress);
                 itemToDress.setMarked(true);
             }
@@ -156,9 +176,11 @@ public class Inventory {
 
     private void undressItem(ItemRecord itemToUndress) {
         if (itemToUndress != null) {
-            if (itemToUndress.getType().equals("sword")) {
-                //owner.setPAttack(owner.getPAttack() - itemToUndress.getParameter("pAttack"));
-                //owner.setMAttack(owner.getMAttack() - itemToUndress.getParameter("mAttack"));
+            if (itemToUndress.getType().equals("sword") ||
+                    itemToUndress.getType().equals("bow") ||
+                    itemToUndress.getType().equals("staff")) {
+                owner.getAttribute().setPAttack(owner.getAttribute().getPAttack() - itemToUndress.getParameter("pAttack"));
+                owner.getAttribute().setMAttack(owner.getAttribute().getMAttack() - itemToUndress.getParameter("mAttack"));
             } else if (itemToUndress.getType().equals("armor")) {
                 owner.getAttribute().setPArmor(owner.getAttribute().getPArmor() - itemToUndress.getParameter("pArmor"));
                 owner.getAttribute().setMArmor(owner.getAttribute().getMArmor() - itemToUndress.getParameter("mArmor"));

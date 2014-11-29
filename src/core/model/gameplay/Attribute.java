@@ -8,8 +8,12 @@ public class Attribute {
     private double maximumMP;
     private double currentSpeed;
     private double maximumSpeed;
+
     private double pArmor;
     private double mArmor;
+
+    private double pAttack;
+    private double mAttack;
 
     public Attribute(double maximumHP, double maximumMP, double maximumSpeed) {
         this.maximumHP = maximumHP;
@@ -20,6 +24,8 @@ public class Attribute {
         this.currentSpeed = 0;
         this.pArmor = 5;
         this.mArmor = 5;
+        this.pAttack = 0;
+        this.mAttack = 0;
     }
 
     public double getCurrentHP() {
@@ -96,6 +102,22 @@ public class Attribute {
 
     public void setMArmor(double mArmor) {
         this.mArmor = mArmor;
+    }
+
+    public double getPAttack() {
+        return pAttack;
+    }
+
+    public void setPAttack(double pAttack) {
+        this.pAttack = pAttack;
+    }
+
+    public double getMAttack() {
+        return mAttack;
+    }
+
+    public void setMAttack(double mAttack) {
+        this.mAttack = mAttack;
     }
 
 }

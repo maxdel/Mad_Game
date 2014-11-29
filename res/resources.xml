@@ -30,8 +30,8 @@
             <item name="Strong bow" description="Strong bow" path = "/res/items/strong bow.png" type="bow" pAttack="10" mAttack="1" />
             <item name="Arrow" description="Simple arrow" path = "/res/items/arrow.png" type="arrow" pAttack="1" />
             <item name="Light armor" description="Light armor" path = "/res/items/light armor.png" type="armor" pArmor="3" mArmor="3" />
-            <item name="Heavy armor" description="Light armor" path = "/res/items/heavy armor.png" type="armor" pArmor="5" mArmor="1" />
-            <item name="Robe of magic" description="Light armor" path = "/res/items/robe of magic.png" type="armor" pArmor="1" mArmor="5" />
+            <item name="Heavy armor" description="Heavy armor" path = "/res/items/heavy armor.png" type="armor" pArmor="5" mArmor="1" />
+            <item name="Robe of magic" description="Robe of magic" path = "/res/items/robe of magic.png" type="armor" pArmor="1" mArmor="5" />
         </items>
         <fonts>
             <font name="lootfont" fontName="verdana" size="10" isBold="false" />
