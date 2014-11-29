@@ -51,4 +51,24 @@ public abstract class Skill {
         this.currentCastTime = currentCastTime;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public int getCastTime() {
+        return castTime;
+    }
+
+    public void setCastTime(int castTime) {
+        this.castTime = castTime;
+    }
+
+    public int getCooldownTime() {
+        return cooldownTime;
+    }
+
+    public void setCooldownTime(int cooldownTime) {
+        this.cooldownTime = cooldownTime;
+    }
+
 }

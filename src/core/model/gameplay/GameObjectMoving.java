@@ -146,4 +146,8 @@ public class GameObjectMoving extends GameObject {
         return inventory;
     }
 
+    public List<Skill> getSkillList() {
+        return skillList;
+    }
+
 }

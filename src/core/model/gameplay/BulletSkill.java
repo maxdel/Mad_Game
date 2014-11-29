@@ -16,6 +16,7 @@ public class BulletSkill extends Skill {
         this.mAttack = mAttack;
     }
 
+    @Override
     protected boolean startCast() {
         if (owner.getInventory().isItemDressed(requiredItem) &&
                 owner.getAttribute().getCurrentMP() >= requiredMP &&
@@ -40,6 +41,7 @@ public class BulletSkill extends Skill {
         return false;
     }
 
+    @Override
     protected void cast() {
         if (requiredItem.equals("Bow")) {
             if (owner.getInventory().isItemExists("Arrow")) {

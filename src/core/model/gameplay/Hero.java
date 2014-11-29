@@ -26,6 +26,7 @@ public class Hero extends GameObjectMoving {
         dropLootCounter = 0;
         useItemCounter = 0;
         skillList.add(new BulletSkill(this, "Bow shot", 200, 1000, "Bow", 0, 3, 0.3, 15, 0));
+        skillList.add(new BuffSkill(this, "Bow speed", 200, 10000, null, 0, 10, 5000, "Bow shot", 150, 950));
     }
 
     public void walk(double direction) {

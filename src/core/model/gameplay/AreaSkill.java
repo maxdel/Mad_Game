@@ -22,6 +22,7 @@ public class AreaSkill extends Skill {
         this.angle = angle;
     }
 
+    @Override
     protected boolean startCast() {
         if (owner.getInventory().isItemDressed(requiredItem) &&
                 owner.getAttribute().getCurrentMP() >= requiredMP &&
@@ -36,6 +37,7 @@ public class AreaSkill extends Skill {
         return false;
     }
 
+    @Override
     protected void cast() {
         for (GameObject gameObject : World.getInstance().getGameObjects()) {
             if (gameObject instanceof GameObjectMoving && gameObject != owner) {
