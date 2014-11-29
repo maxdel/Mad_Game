@@ -102,16 +102,16 @@ public class GamePlayController {
                 hero.startCastSkill(1);
                 hero.startCastSkill(2);
             }
-            if (input.isKeyDown(input.KEY_2)) {
+            if (input.isKeyDown(input.KEY_2) && hero.level >= 2) {
                 hero.startCastSkill(3);
             }
-            if (input.isKeyDown(input.KEY_3)) {
+            if (input.isKeyDown(input.KEY_3) && hero.level >= 3) {
                 hero.startCastSkill(4);
             }
-            if (input.isKeyDown(input.KEY_4)) {
+            if (input.isKeyDown(input.KEY_4) && hero.level >= 4) {
                 hero.startCastSkill(5);
             }
-            if (input.isKeyDown(input.KEY_5)) {
+            if (input.isKeyDown(input.KEY_5) && hero.level >= 5) {
                 hero.startCastSkill(6);
             }
 

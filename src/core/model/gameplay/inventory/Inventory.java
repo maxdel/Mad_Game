@@ -19,7 +19,7 @@ public class Inventory {
         dressedItems = new ArrayList<ItemRecord>();
         selectedRecord = null;
 
-        addItem("Sword");
+        /*addItem("Sword");
         addItem("Strong sword");
         addItem("Bow");
         addItem("Strong bow");
@@ -35,7 +35,7 @@ public class Inventory {
         addItem("Mana flask", 5);
         addItem("Light armor");
         addItem("Heavy armor");
-        addItem("Robe of magic");
+        addItem("Robe of magic");*/
     }
 
     public List<ItemRecord> getItemRecords() {

@@ -17,6 +17,10 @@ public class Hero extends GameObjectMoving {
     private int dropLootCounter;
     private final int dropLootTime = 500;
 
+    // TODO for fun
+    public int level = 1;
+    public int kills = 0;
+
     public Hero(double x, double y, double maximumSpeed) {
         super(x, y,  maximumSpeed);
         setDirection(Math.PI);
@@ -26,7 +30,7 @@ public class Hero extends GameObjectMoving {
         pickLootCounter = 0;
         dropLootCounter = 0;
         useItemCounter = 0;
-        skillList.add(new AreaSkill(this, "Sword attack", 200, 1000, "sword", 0, 0, 15, 0, 70, Math.PI / 3));
+        skillList.add(new AreaSkill(this, "Sword attack", 200, 1000, "sword", 0, 0, 30, 0, 70, Math.PI / 3));
         skillList.add(new BulletSkill(this, "Bow shot", 200, 1000, "bow", 0, 0, 0.5, 15, 0));
         skillList.add(new AreaSkill(this, "Staff attack", 200, 1000, "staff", 0, 0, 5, 1, 100, Math.PI / 3));
         skillList.add(new AreaSkill(this, "Strong attack", 400, 2000, "sword", 0, 10, 40, 5, 100, Math.PI / 2));

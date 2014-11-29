@@ -21,6 +21,11 @@ public class SkeletonMage extends GameObjectMoving {
         inventory.useItem(inventory.addItem("Strong staff"));
         inventory.useItem(inventory.addItem("Robe of magic"));
 
+        getAttribute().setMaximumHP(35);
+        getAttribute().setCurrentHP(35);
+        getAttribute().setCurrentMP(80);
+        getAttribute().setMaximumMP(80);
+
         isTargetHero = false;
     }
 
@@ -109,6 +114,12 @@ public class SkeletonMage extends GameObjectMoving {
             World.getInstance().getLootList().add(new Loot(getX() - 10 + Math.random() * 20,
                     getY() - 10 + Math.random() * 20, Math.random() * 2 * Math.PI, ItemDB.getInstance().getItem("Robe of magic"), 1));
         }
+        if (Math.random() < 0.05) {
+            World.getInstance().getLootList().add(new Loot(getX() - 10 + Math.random() * 20,
+                    getY() - 10 + Math.random() * 20, Math.random() * 2 * Math.PI, ItemDB.getInstance().getItem("Strong staff"), 1));
+        }
+        // TODO for fun
+        World.getInstance().getHero().kills++;
     }
 
 }

@@ -21,6 +21,11 @@ public class Bandit extends GameObjectMoving {
         inventory.useItem(inventory.addItem("Sword"));
         inventory.useItem(inventory.addItem("Light armor"));
 
+        getAttribute().setMaximumHP(40);
+        getAttribute().setCurrentHP(40);
+        getAttribute().setCurrentMP(20);
+        getAttribute().setMaximumMP(20);
+
         isTargetHero = false;
     }
 
@@ -98,22 +103,28 @@ public class Bandit extends GameObjectMoving {
 
     @Override
     protected void onDelete() {
-        if (Math.random() < 0.3) {
+        if (Math.random() < 0.5) {
             World.getInstance().getLootList().add(new Loot(getX() - 10 + Math.random() * 20,
                     getY() - 10 + Math.random() * 20, Math.random() * 2 * Math.PI, ItemDB.getInstance().getItem("Apple"), 1));
         }
-        if (Math.random() < 0.15) {
+        if (Math.random() < 0.3) {
             World.getInstance().getLootList().add(new Loot(getX() - 10 + Math.random() * 20,
                     getY() - 10 + Math.random() * 20, Math.random() * 2 * Math.PI, ItemDB.getInstance().getItem("Healing flask"), 1));
         }
-        if (Math.random() < 0.1) {
+        if (Math.random() < 0.2) {
             World.getInstance().getLootList().add(new Loot(getX() - 10 + Math.random() * 20,
                     getY() - 10 + Math.random() * 20, Math.random() * 2 * Math.PI, ItemDB.getInstance().getItem("Mana flask"), 1));
         }
-        if (Math.random() < 0.05) {
+        if (Math.random() < 0.1) {
             World.getInstance().getLootList().add(new Loot(getX() - 10 + Math.random() * 20,
                     getY() - 10 + Math.random() * 20, Math.random() * 2 * Math.PI, ItemDB.getInstance().getItem("Light armor"), 1));
         }
+        if (Math.random() < 0.1) {
+            World.getInstance().getLootList().add(new Loot(getX() - 10 + Math.random() * 20,
+                    getY() - 10 + Math.random() * 20, Math.random() * 2 * Math.PI, ItemDB.getInstance().getItem("Staff"), 1));
+        }
+        // TODO for fun
+        World.getInstance().getHero().kills++;
     }
 
 }

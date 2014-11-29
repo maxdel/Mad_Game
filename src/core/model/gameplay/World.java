@@ -32,11 +32,6 @@ public class World {
         lootList = new ArrayList<Loot>();
         collisionManager = CollisionManager.getInstance();
 
-        lootList.add(new Loot(50, 50, 0, ItemDB.getInstance().getItem("Sword"), 1));
-        lootList.add(new Loot(50, 150, 0, ItemDB.getInstance().getItem("Arrow"), 1));
-        lootList.add(new Loot(450, 50, 0, ItemDB.getInstance().getItem("Apple"), 2));
-        lootList.add(new Loot(50, -50, 0, ItemDB.getInstance().getItem("Apple"), 5));
-
         try {
             tiledMap = new TiledMap("/res/map.tmx");
         } catch (SlickException e) {
@@ -60,8 +55,6 @@ public class World {
                     hero = new Hero(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
                             tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0.2F);
                     gameObjects.add(hero);
-                    hero.getAttribute().setCurrentHP(5);
-                    hero.getAttribute().setCurrentMP(7);
                 } else if (tileObjectName.equals("banditsword")) {
                     gameObjects.add(new Bandit(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
                             tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0.1F));
@@ -79,6 +72,8 @@ public class World {
                 }
             }
         }
+
+        lootList.add(new Loot(hero.getX() + 40, hero.getY() - 70, Math.PI / 4, ItemDB.getInstance().getItem("Sword"), 1));
     }
 
     // Singleton pattern method

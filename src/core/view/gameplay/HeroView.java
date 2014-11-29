@@ -79,6 +79,10 @@ public class HeroView extends GameObjectView {
                         + ") dir=" + String.valueOf((int) (gameObject.getDirection() / Math.PI * 180) % 360),
                 (float) (gameObject.getX() - viewX),
                 (float) (gameObject.getY() - viewY));*/
+        // TODO for fun
+        g.drawString("Kills to next skill: " + (hero.level * 3 - hero.kills), 10, 30);
+        g.drawString("Current level: " + hero.level , 10, 50);
+        hero.level = hero.kills / 3 + 1;
     }
 
     private Hero getHero() {

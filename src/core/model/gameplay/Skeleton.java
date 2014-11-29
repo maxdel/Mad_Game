@@ -21,6 +21,11 @@ public class Skeleton extends GameObjectMoving {
         inventory.useItem(inventory.addItem("Strong sword"));
         inventory.useItem(inventory.addItem("Heavy armor"));
 
+        getAttribute().setMaximumHP(85);
+        getAttribute().setCurrentHP(85);
+        getAttribute().setCurrentMP(50);
+        getAttribute().setMaximumMP(50);
+
         isTargetHero = false;
     }
 
@@ -98,22 +103,24 @@ public class Skeleton extends GameObjectMoving {
 
     @Override
     protected void onDelete() {
-        if (Math.random() < 0.15) {
+        if (Math.random() < 0.3) {
             World.getInstance().getLootList().add(new Loot(getX() - 10 + Math.random() * 20,
                     getY() - 10 + Math.random() * 20, Math.random() * 2 * Math.PI, ItemDB.getInstance().getItem("Healing flask"), 1));
         }
-        if (Math.random() < 0.1) {
+        if (Math.random() < 0.2) {
             World.getInstance().getLootList().add(new Loot(getX() - 10 + Math.random() * 20,
                     getY() - 10 + Math.random() * 20, Math.random() * 2 * Math.PI, ItemDB.getInstance().getItem("Mana flask"), 1));
         }
-        if (Math.random() < 0.05) {
+        if (Math.random() < 0.1) {
             World.getInstance().getLootList().add(new Loot(getX() - 10 + Math.random() * 20,
                     getY() - 10 + Math.random() * 20, Math.random() * 2 * Math.PI, ItemDB.getInstance().getItem("Strong sword"), 1));
         }
-        if (Math.random() < 0.05) {
+        if (Math.random() < 0.1) {
             World.getInstance().getLootList().add(new Loot(getX() - 10 + Math.random() * 20,
                     getY() - 10 + Math.random() * 20, Math.random() * 2 * Math.PI, ItemDB.getInstance().getItem("Heavy armor"), 1));
         }
+        // TODO for fun
+        World.getInstance().getHero().kills++;
     }
 
 }
