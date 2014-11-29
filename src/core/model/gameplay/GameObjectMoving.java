@@ -111,6 +111,7 @@ public class GameObjectMoving extends GameObject {
 
         if (attribute.getCurrentHP() <= 0) {
             World.getInstance().getToDeleteList().add(this);
+            onDelete();
         }
     }
 
@@ -148,6 +149,10 @@ public class GameObjectMoving extends GameObject {
 
     public List<Skill> getSkillList() {
         return skillList;
+    }
+
+    protected void onDelete() {
+
     }
 
 }

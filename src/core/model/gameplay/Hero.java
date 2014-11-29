@@ -26,12 +26,13 @@ public class Hero extends GameObjectMoving {
         pickLootCounter = 0;
         dropLootCounter = 0;
         useItemCounter = 0;
+        skillList.add(new AreaSkill(this, "Sword attack", 200, 1000, "sword", 0, 0, 15, 0, 70, Math.PI / 3));
+        skillList.add(new BulletSkill(this, "Bow shot", 200, 1000, "bow", 0, 0, 0.5, 15, 0));
         skillList.add(new AreaSkill(this, "Staff attack", 200, 1000, "staff", 0, 0, 5, 1, 100, Math.PI / 3));
-        skillList.add(new RegenSkill(this, "Heal", 200, 1000, null, 0, 10, 20));
-        skillList.add(new BulletSkill(this, "Fireball", 200, 1000, "staff", 0, 5, 0.4, 0, 20));
-        skillList.add(new BulletSkill(this, "Bow shot", 200, 1000, "bow", 0, 3, 0.3, 15, 0));
         skillList.add(new AreaSkill(this, "Strong attack", 400, 2000, "sword", 0, 10, 40, 5, 100, Math.PI / 2));
         skillList.add(new BuffSkill(this, "Bow speed", 200, 10000, null, 0, 10, 5000, "Bow shot", 150, 950));
+        skillList.add(new RegenSkill(this, "Heal", 200, 1000, null, 0, 10, 20));
+        skillList.add(new BulletSkill(this, "Fireball", 200, 1000, "staff", 0, 5, 0.4, 0, 20));
     }
 
     public void walk(double direction) {

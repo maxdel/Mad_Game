@@ -1,6 +1,7 @@
 package core.model.gameplay;
 
 import core.ResourceManager;
+import core.model.gameplay.inventory.ItemDB;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Vector2f;
 
@@ -92,6 +93,22 @@ public class SkeletonMage extends GameObjectMoving {
         }
 
         super.update(delta);
+    }
+
+    @Override
+    protected void onDelete() {
+        if (Math.random() < 0.15) {
+            World.getInstance().getLootList().add(new Loot(getX() - 10 + Math.random() * 20,
+                    getY() - 10 + Math.random() * 20, Math.random() * 2 * Math.PI, ItemDB.getInstance().getItem("Healing flask"), 1));
+        }
+        if (Math.random() < 0.3) {
+            World.getInstance().getLootList().add(new Loot(getX() - 10 + Math.random() * 20,
+                    getY() - 10 + Math.random() * 20, Math.random() * 2 * Math.PI, ItemDB.getInstance().getItem("Mana flask"), 1));
+        }
+        if (Math.random() < 0.05) {
+            World.getInstance().getLootList().add(new Loot(getX() - 10 + Math.random() * 20,
+                    getY() - 10 + Math.random() * 20, Math.random() * 2 * Math.PI, ItemDB.getInstance().getItem("Robe of magic"), 1));
+        }
     }
 
 }

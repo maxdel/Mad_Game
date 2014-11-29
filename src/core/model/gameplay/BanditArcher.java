@@ -1,6 +1,7 @@
 package core.model.gameplay;
 
 import core.ResourceManager;
+import core.model.gameplay.inventory.ItemDB;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Vector2f;
 
@@ -16,7 +17,7 @@ public class BanditArcher extends GameObjectMoving {
         setMask(new Circle(0, 0, ResourceManager.getInstance().getMaskRadius("banditArcher")));
         timer = (int) (Math.random() * 1000);
 
-        skillList.add(new BulletSkill(this, "Bow shot", 200, 1000, "bow", 0, 0, 0.3, 15, 0));
+        skillList.add(new BulletSkill(this, "Bow shot", 200, 1000, "bow", 0, 0, 0.5, 15, 0));
         inventory.useItem(inventory.addItem("Bow"));
         inventory.addItem("Arrow", 1000);
         inventory.useItem(inventory.addItem("Light armor"));
@@ -93,6 +94,31 @@ public class BanditArcher extends GameObjectMoving {
         }
 
         super.update(delta);
+    }
+
+    @Override
+    protected void onDelete() {
+        if (Math.random() < 0.3) {
+            World.getInstance().getLootList().add(new Loot(getX() - 10 + Math.random() * 20,
+                    getY() - 10 + Math.random() * 20, Math.random() * 2 * Math.PI, ItemDB.getInstance().getItem("Apple"), 1));
+        }
+        if (Math.random() < 0.15) {
+            World.getInstance().getLootList().add(new Loot(getX() - 10 + Math.random() * 20,
+                    getY() - 10 + Math.random() * 20, Math.random() * 2 * Math.PI, ItemDB.getInstance().getItem("Healing flask"), 1));
+        }
+        if (Math.random() < 0.1) {
+            World.getInstance().getLootList().add(new Loot(getX() - 10 + Math.random() * 20,
+                    getY() - 10 + Math.random() * 20, Math.random() * 2 * Math.PI, ItemDB.getInstance().getItem("Mana flask"), 1));
+        }
+        if (Math.random() < 0.05) {
+            World.getInstance().getLootList().add(new Loot(getX() - 10 + Math.random() * 20,
+                    getY() - 10 + Math.random() * 20, Math.random() * 2 * Math.PI, ItemDB.getInstance().getItem("Bow"), 1));
+        }
+        if (Math.random() < 0.5) {
+            World.getInstance().getLootList().add(new Loot(getX() - 10 + Math.random() * 20,
+                    getY() - 10 + Math.random() * 20, Math.random() * 2 * Math.PI, ItemDB.getInstance().getItem("Arrow"),
+                    (int)(1 + Math.random() * 5)));
+        }
     }
 
 }
