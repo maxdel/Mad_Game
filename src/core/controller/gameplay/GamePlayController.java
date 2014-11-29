@@ -96,6 +96,11 @@ public class GamePlayController {
                 hero.startPickItem();
             }
 
+            // Use skill
+            if (input.isKeyPressed(input.KEY_1)) {
+                hero.startCastSkill(0);
+            }
+
             // Change full-screen mode
             if (input.isKeyDown(Input.KEY_LALT) && input.isKeyDown(Input.KEY_ENTER)) {
                 if (gc.isFullscreen()) {

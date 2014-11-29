@@ -7,6 +7,9 @@ import org.newdawn.slick.geom.Circle;
 import core.ResourceManager;
 import org.newdawn.slick.geom.Vector2f;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Represents hero
  * */
@@ -23,6 +26,9 @@ public class Hero extends GameObjectMoving {
     private int useItemCounter;
     private final int useItemTime = 400;
 
+    private List<Skill> skillList;
+    private Skill currentSkill;
+
     public Hero(double x, double y, double maximumSpeed) {
         super(x, y,  maximumSpeed);
         setMask(new Circle(0, 0, ResourceManager.getInstance().getMaskRadius("hero")));
@@ -32,10 +38,14 @@ public class Hero extends GameObjectMoving {
         pickLootCounter = 0;
         dropLootCounter = 0;
         useItemCounter = 0;
+
+        skillList = new ArrayList<Skill>();
+        skillList.add(new Skill(this, "Sword attack", 200, 1000, "attack", 15, "Sword", 3, 100, Math.PI / 2));
     }
 
     public void walk(double direction) {
-        if (getCurrentState() != GameObjectState.PICK_ITEM && getCurrentState() != GameObjectState.DROP_ITEM) {
+        if (getCurrentState() == GameObjectState.STAND || getCurrentState() == GameObjectState.RUN ||
+                getCurrentState() == GameObjectState.WALK) {
             setCurrentState(GameObjectState.WALK);
             getAttribute().setCurrentSpeed(getAttribute().getMaximumSpeed() / 2);
             setRelativeDirection(direction);
@@ -43,7 +53,8 @@ public class Hero extends GameObjectMoving {
     }
 
     public void run(double direction) {
-        if (getCurrentState() != GameObjectState.PICK_ITEM && getCurrentState() != GameObjectState.DROP_ITEM) {
+        if (getCurrentState() == GameObjectState.STAND || getCurrentState() == GameObjectState.WALK ||
+                getCurrentState() == GameObjectState.RUN) {
             setCurrentState(GameObjectState.RUN);
             getAttribute().setCurrentSpeed(getAttribute().getMaximumSpeed());
             setRelativeDirection(direction);
@@ -51,14 +62,15 @@ public class Hero extends GameObjectMoving {
     }
 
     public void stand() {
-        if (getCurrentState() != GameObjectState.PICK_ITEM && getCurrentState() != GameObjectState.DROP_ITEM) {
+        if (getCurrentState() == GameObjectState.RUN || getCurrentState() == GameObjectState.WALK) {
             setCurrentState(GameObjectState.STAND);
             getAttribute().setCurrentSpeed(0);
         }
     }
 
     public void rotate(double angleOffset) {
-        if (getCurrentState() != GameObjectState.PICK_ITEM && getCurrentState() != GameObjectState.DROP_ITEM) {
+        if (getCurrentState() == GameObjectState.STAND || getCurrentState() == GameObjectState.WALK ||
+                getCurrentState() == GameObjectState.RUN) {
             setDirection(getDirection() + angleOffset);
         }
     }
@@ -133,6 +145,20 @@ public class Hero extends GameObjectMoving {
         usingItem = null;
     }
 
+    public void startCastSkill(int skillIndex) {
+        if (skillList.get(skillIndex) != null && skillList.get(skillIndex).startCast()) {
+            currentSkill = skillList.get(skillIndex);
+            setCurrentState(GameObjectState.CAST);
+            getAttribute().setCurrentSpeed(0);
+        }
+    }
+
+    private void castSkill() {
+        currentSkill.cast();
+        setCurrentState(GameObjectState.STAND);
+        currentSkill = null;
+    }
+
     @Override
     public void update(int delta) {
         if (dropLootCounter > 0) {
@@ -157,6 +183,18 @@ public class Hero extends GameObjectMoving {
                 useItemCounter = 0;
                 useItem();
             }
+        }
+
+        if (currentSkill != null && currentSkill.getCurrentCastTime() > 0) {
+            currentSkill.setCurrentCastTime(currentSkill.getCurrentCastTime() - delta);
+            if (currentSkill.getCurrentCastTime() <= 0) {
+                currentSkill.setCurrentCastTime(0);
+                castSkill();
+            }
+        }
+
+        for (Skill skill : skillList) {
+            skill.update(delta);
         }
 
         updateCurrentLoot();

@@ -190,4 +190,14 @@ public class Inventory {
         }
     }
 
+    public boolean isItemDressed(String itemName) {
+        for (Iterator<ItemRecord> it = dressedItems.iterator(); it.hasNext();) {
+            ItemRecord itemRecord = it.next();
+            if (itemRecord.getName().equals(itemName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
