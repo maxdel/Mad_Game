@@ -4,22 +4,21 @@ import core.ResourceManager;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Vector2f;
 
-public class BanditArcher extends GameObjectMoving {
+public class SkeletonMage extends GameObjectMoving {
 
     private int timer;
     private double targetX;
     private double targetY;
     private boolean isTargetHero;
 
-    public BanditArcher(double x, double y, double maximumSpeed) {
+    public SkeletonMage(double x, double y, double maximumSpeed) {
         super(x, y, maximumSpeed);
-        setMask(new Circle(0, 0, ResourceManager.getInstance().getMaskRadius("banditArcher")));
+        setMask(new Circle(0, 0, ResourceManager.getInstance().getMaskRadius("skeletonMage")));
         timer = (int) (Math.random() * 1000);
 
-        skillList.add(new BulletSkill(this, "Bow shot", 200, 1000, "bow", 0, 0, 0.3, 15, 0));
-        inventory.useItem(inventory.addItem("Bow"));
-        inventory.addItem("Arrow", 1000);
-        inventory.useItem(inventory.addItem("Light armor"));
+        skillList.add(new BulletSkill(this, "Fireball", 200, 1000, "staff", 0, 5, 0.4, 0, 20));
+        inventory.useItem(inventory.addItem("Strong staff"));
+        inventory.useItem(inventory.addItem("Robe of magic"));
 
         isTargetHero = false;
     }
@@ -51,8 +50,8 @@ public class BanditArcher extends GameObjectMoving {
         Vector2f v = new Vector2f((float)World.getInstance().getHero().getX() - (float)getX(),
                 (float)World.getInstance().getHero().getY() - (float)getY());
         double distanceToHero = v.length();
-        double followHeroDistance = 300;
-        double attackHeroDistance = 200;
+        double followHeroDistance = 350;
+        double attackHeroDistance = 250;
 
         if (distanceToHero < attackHeroDistance) {
             stand();

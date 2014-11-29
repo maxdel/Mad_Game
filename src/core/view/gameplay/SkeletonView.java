@@ -32,7 +32,7 @@ public class SkeletonView extends GameObjectView {
                 skeleton.getAttribute().getMaximumHP(), Color.red);
         drawHealthbar(g, (int) (skeleton.getX() - viewX), (int) (skeleton.getY() - viewY) - 38, 60, 8, skeleton.getAttribute().getCurrentMP(),
                 skeleton.getAttribute().getMaximumMP(), Color.blue);
-        g.drawString(String.valueOf((int) skeleton.getAttribute().getPAttack()) + "/" +
+        /*g.drawString(String.valueOf((int) skeleton.getAttribute().getPAttack()) + "/" +
                         String.valueOf((int) skeleton.getAttribute().getMAttack()),
                 (float) (gameObject.getX() - viewX),
                 (float) (gameObject.getY() - viewY - 80));
@@ -49,7 +49,7 @@ public class SkeletonView extends GameObjectView {
                 (float) (gameObject.getX() - viewX),
                 (float) (gameObject.getY() - viewY - 20));
         g.drawString("(" + String.valueOf((int) gameObject.getX()) + ";" + String.valueOf((int) gameObject.getY()) + ")",
-                (float) (gameObject.getX() - viewX), (float) (gameObject.getY() - viewY));
+                (float) (gameObject.getX() - viewX), (float) (gameObject.getY() - viewY));*/
         g.rotate((float) (gameObject.getX() - viewX),
                 (float) (gameObject.getY() - viewY),
                 - (float) (viewDegreeAngle - skeleton.getDirection() / Math.PI * 180));

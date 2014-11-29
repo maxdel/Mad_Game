@@ -32,7 +32,7 @@ public class BanditArcherView extends GameObjectView {
                 banditArcher.getAttribute().getMaximumHP(), Color.red);
         drawHealthbar(g, (int) (banditArcher.getX() - viewX), (int) (banditArcher.getY() - viewY) - 38, 60, 8, banditArcher.getAttribute().getCurrentMP(),
                 banditArcher.getAttribute().getMaximumMP(), Color.blue);
-        g.drawString(String.valueOf((int) banditArcher.getAttribute().getPAttack()) + "/" +
+        /*g.drawString(String.valueOf((int) banditArcher.getAttribute().getPAttack()) + "/" +
                         String.valueOf((int) banditArcher.getAttribute().getMAttack()),
                 (float) (gameObject.getX() - viewX),
                 (float) (gameObject.getY() - viewY - 80));
@@ -49,7 +49,7 @@ public class BanditArcherView extends GameObjectView {
                 (float) (gameObject.getX() - viewX),
                 (float) (gameObject.getY() - viewY - 20));
         g.drawString("(" + String.valueOf((int) gameObject.getX()) + ";" + String.valueOf((int) gameObject.getY()) + ")",
-                (float) (gameObject.getX() - viewX), (float) (gameObject.getY() - viewY));
+                (float) (gameObject.getX() - viewX), (float) (gameObject.getY() - viewY));*/
         g.rotate((float) (gameObject.getX() - viewX),
                 (float) (gameObject.getY() - viewY),
                 - (float) (viewDegreeAngle - banditArcher.getDirection() / Math.PI * 180));

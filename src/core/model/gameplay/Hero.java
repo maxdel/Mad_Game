@@ -19,6 +19,7 @@ public class Hero extends GameObjectMoving {
 
     public Hero(double x, double y, double maximumSpeed) {
         super(x, y,  maximumSpeed);
+        setDirection(Math.PI);
         setMask(new Circle(0, 0, ResourceManager.getInstance().getMaskRadius("hero")));
         selectedLoot = null;
         usingItem = null;

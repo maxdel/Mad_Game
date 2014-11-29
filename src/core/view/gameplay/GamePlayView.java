@@ -119,6 +119,8 @@ public class GamePlayView {
                     gameObjectViews.add(new BanditArcherView(gameObject, resourceManager));
                 } else if (gameObject.getClass() == Skeleton.class) {
                     gameObjectViews.add(new SkeletonView(gameObject, resourceManager));
+                } else if (gameObject.getClass() == SkeletonMage.class) {
+                    gameObjectViews.add(new SkeletonMageView(gameObject, resourceManager));
                 }
             }
         }

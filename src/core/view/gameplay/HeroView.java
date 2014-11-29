@@ -59,7 +59,7 @@ public class HeroView extends GameObjectView {
                 hero.getAttribute().getMaximumHP(), Color.red);
         drawHealthbar(g, (int)(hero.getX() - viewX), (int)(hero.getY() - viewY) - 38, 60, 8, hero.getAttribute().getCurrentMP(),
                 hero.getAttribute().getMaximumMP(), Color.blue);
-        g.drawString(String.valueOf((int) hero.getAttribute().getPAttack()) + "/" +
+        /*g.drawString(String.valueOf((int) hero.getAttribute().getPAttack()) + "/" +
                         String.valueOf((int) hero.getAttribute().getMAttack()),
                 (float) (gameObject.getX() - viewX),
                 (float) (gameObject.getY() - viewY - 80));
@@ -78,7 +78,7 @@ public class HeroView extends GameObjectView {
         g.drawString("(" + String.valueOf((int) gameObject.getX()) + ";" + String.valueOf((int) gameObject.getY())
                         + ") dir=" + String.valueOf((int) (gameObject.getDirection() / Math.PI * 180) % 360),
                 (float) (gameObject.getX() - viewX),
-                (float) (gameObject.getY() - viewY));
+                (float) (gameObject.getY() - viewY));*/
     }
 
     private Hero getHero() {

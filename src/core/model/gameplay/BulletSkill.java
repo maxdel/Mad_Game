@@ -41,7 +41,7 @@ public class BulletSkill extends Skill {
 
     @Override
     protected void cast() {
-        if (requiredItem.equals("Bow")) {
+        if (requiredItem.equals("bow")) {
             if (owner.getInventory().isItemExists("Arrow")) {
                 World.getInstance().getToAddList().add(new Arrow(owner, owner.getX(), owner.getY(), owner.getDirection(),
                         bulletSpeed, pAttack, mAttack));

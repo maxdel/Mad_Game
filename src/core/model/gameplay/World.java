@@ -2,6 +2,7 @@ package core.model.gameplay;
 
 import core.model.gameplay.inventory.ItemDB;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.tiled.TiledMap;
 
 import java.util.ArrayList;
@@ -69,9 +70,10 @@ public class World {
                             tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0.1F));
                 } else if (tileObjectName.equals("skeletsword")) {
                     gameObjects.add(new Skeleton(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
-                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0.1F));
+                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0.15F));
                 } else if (tileObjectName.equals("skeletmage")) {
-
+                    gameObjects.add(new SkeletonMage(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
+                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0.15F));
                 } else if (tileObjectName.equals("vampire")) {
 
                 }
@@ -100,7 +102,10 @@ public class World {
         }
         toAddList.clear();
         for (GameObject gameObject : gameObjects) {
-            gameObject.update(delta);
+            Vector2f v = new Vector2f((float)(hero.getX() - gameObject.getX()), (float)(hero.getY() - gameObject.getY()));
+            if (v.length() < 1000) {
+                gameObject.update(delta);
+            }
         }
         for (GameObject gameObject : toDeleteList) {
             gameObjects.remove(gameObject);

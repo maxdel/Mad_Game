@@ -43,19 +43,19 @@
    </properties>
   </tile>
  </tileset>
- <layer name="Tiles" width="64" height="64">
+ <layer name="Tiles" width="64" height="64" visible="0">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAAC+3TMQ6AMAzF0ELvf2cmBiQEZWicFA+e+1+k9tZaNzMzMzMzMzMzW7A9wQbKfUZvodx/8t+5K/tHtz+5K/pHLSPuav4vppX8s9wV/LPtWf0R7gz+SCfpp42kn/aRftpG+WkT6ac9pJ+2kH7aQfnp/ZSf3k366c2Un95K+umdlJ/eR/mj3t8S+iPtZxn8xPv0DTL8cfoGGfIG1xvMjrbSN6Cdb356h379+vXr169fv379+vXbWh1BzSzGAEAAAA==
   </data>
  </layer>
- <layer name="Obstacles" width="64" height="64">
+ <layer name="Obstacles" width="64" height="64" visible="0">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAAC+2ZSw7DMAgFs2nuf+SuIkVVsQ08MBhGyqrxZ8AhsXtf13UXvzSM2mv7tqb9/fwjxqL97f1RdWaFD/N+a3/JfZ60P96f6q/94yH5Nlr5nRorGpL8z+5H+nPrObe/6P7WePpH5AR/zTMy8ufuFz2/81Ag85/J+6H9cfOO6D+rDWh/bs1Av9+5nJ7/Gcizwsz+kja/bav4U31U9UfiXQ+1/t7zRY8XLf/enOa/4/w3A1RcqvhToP0t6qFljbXMv/W6WokLYv8jiX+W58pintw+d+4B0f5WebeKkcX+PzrvWPb+J+e8H0bPxcozE9nfoy5G9vcgqz9qbWT1R5HtfY0mcv4lZ9PSqyrt3/7tXxft+QfiPbcz/hHy3/4+/Fur3v7UHDTtNVTKPzX27vN/1Pjoc2rruv+ewy56/dfwj/z/Z4X8j+oFd3x07Tkx/6sxOtWfM3b7176+ZtvHWwBAAAA=
   </data>
  </layer>
  <layer name="Objects" width="64" height="64">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3YQQqDQAwFULfV6v2P66IIYkHRjiYl721cCR8zyQS7DuDbGB0gmXd0AB6hzvC7yn00RAfgEepcU+XZxv0yz5XM2VrS49BWldkBwP9a9j93FpBRHx0gyCs6QCKtvoX/HR/u+3voWfY4H/lV3Te2nFXgLHMj1nTxPXWraV13u09N67qbAxxxRurqN08AyGgGpIR2xwBAAAA=
+   H4sIAAAAAAAAC+3ZSw6AIAwFQLd+739cD6ALJcaWMrMnvBDalDBNAFd7dIBktugAg4g+5+j9oQJ1RHVrdACgnMx9JXO2O0vjOvMLfKu33gHAeHqe/1pnXuqaowMAJOeNCv8zn9ALdxV4S9+IdUQHoCvqFYAn/LsBFehl9Z0sAIxuAEAAAA==
   </data>
  </layer>
 </map>
