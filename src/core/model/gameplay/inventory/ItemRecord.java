@@ -6,7 +6,7 @@ public class ItemRecord {
     private int number;
     private boolean isMarked;
 
-    protected ItemRecord(String name, int number) {
+    public ItemRecord(String name, int number) {
         item = ItemDB.getInstance().getItem(name);
         this.number = number;
         this.isMarked = false;

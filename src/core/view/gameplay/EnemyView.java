@@ -1,5 +1,6 @@
 package core.view.gameplay;
 
+import core.model.gameplay.Enemy;
 import core.model.gameplay.Hero;
 import org.newdawn.slick.*;
 
@@ -15,6 +16,8 @@ public class EnemyView extends GameObjectView {
 
     @Override
     public void render(Graphics g, double viewX, double viewY, float viewDegreeAngle, double viewCenterX, double viewCenterY, Hero hero) {
+        Enemy enemy = (Enemy) gameObject;
+
         rotate(g, viewX, viewY, viewDegreeAngle, viewCenterX, viewCenterY, true);
         draw(viewX, viewY);
 
@@ -25,7 +28,23 @@ public class EnemyView extends GameObjectView {
         g.rotate((float) (gameObject.getX() - viewX),
                 (float) (gameObject.getY() - viewY),
                 viewDegreeAngle);
-        g.drawString("(" + String.valueOf((int)gameObject.getX()) + ";" + String.valueOf((int)gameObject.getY()) + ")",
+        g.drawString(String.valueOf((int) enemy.getAttribute().getPAttack()) + "/" +
+                        String.valueOf((int) enemy.getAttribute().getMAttack()),
+                (float) (gameObject.getX() - viewX),
+                (float) (gameObject.getY() - viewY - 80));
+        g.drawString(String.valueOf((int) enemy.getAttribute().getPArmor()) + "/" +
+                        String.valueOf((int) enemy.getAttribute().getMArmor()),
+                (float) (gameObject.getX() - viewX),
+                (float) (gameObject.getY() - viewY - 60));
+        g.drawString(String.valueOf((int) enemy.getAttribute().getCurrentHP()) + "/" +
+                        String.valueOf((int) enemy.getAttribute().getMaximumHP()),
+                (float) (gameObject.getX() - viewX),
+                (float) (gameObject.getY() - viewY - 40));
+        g.drawString(String.valueOf((int) enemy.getAttribute().getCurrentMP()) + "/" +
+                        String.valueOf((int) enemy.getAttribute().getMaximumMP()),
+                (float) (gameObject.getX() - viewX),
+                (float) (gameObject.getY() - viewY - 20));
+        g.drawString("(" + String.valueOf((int) gameObject.getX()) + ";" + String.valueOf((int) gameObject.getY()) + ")",
                 (float) (gameObject.getX() - viewX), (float) (gameObject.getY() - viewY));
         g.rotate((float) (gameObject.getX() - viewX),
                 (float) (gameObject.getY() - viewY),

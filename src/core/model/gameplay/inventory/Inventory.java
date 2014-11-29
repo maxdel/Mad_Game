@@ -46,24 +46,27 @@ public class Inventory {
         return selectedRecord;
     }
 
-    protected void addItem(String name) {
-        addItem(name, 1);
+    public ItemRecord addItem(String name) {
+        return addItem(name, 1);
     }
 
-    public void addItem(String name, int number) {
+    public ItemRecord addItem(String name, int number) {
         Item item = ItemDB.getInstance().getItem(name);
         if (item != null && number > 0) {
             for (ItemRecord itemRecord : itemRecords) {
                 if (itemRecord.getName().equals(name)) {
                     itemRecord.setNumber(itemRecord.getNumber() + number);
-                    return;
+                    return itemRecord;
                 }
             }
-            itemRecords.add(new ItemRecord(name, number));
+            ItemRecord itemRecord = new ItemRecord(name, number);
+            itemRecords.add(itemRecord);
             if (itemRecords.size() == 1) {
                 selectedRecord = itemRecords.get(0);
             }
+            return itemRecord;
         }
+        return null;
     }
 
     protected void deleteItem(String name) {

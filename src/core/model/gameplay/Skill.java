@@ -4,7 +4,7 @@ import org.newdawn.slick.geom.Vector2f;
 
 public class Skill {
 
-    private Hero owner;
+    private GameObjectMoving owner;
 
     private String name;
     private int castTime;
@@ -20,7 +20,7 @@ public class Skill {
     private double radius;
     private double angle;
 
-    protected Skill(Hero owner, String name, int castTime, int cooldownTime, String type, double delta, String requiredItem,
+    protected Skill(GameObjectMoving owner, String name, int castTime, int cooldownTime, String type, double delta, String requiredItem,
                     double requiredMP, double radius, double angle) {
         this.owner = owner;
         this.name = name;
@@ -91,5 +91,9 @@ public class Skill {
 
     public void setCurrentCastTime(int currentCastTime) {
         this.currentCastTime = currentCastTime;
+    }
+
+    public double getRadius() {
+        return radius;
     }
 }

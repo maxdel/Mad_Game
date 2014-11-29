@@ -15,31 +15,21 @@ import java.util.List;
  * */
 public class Hero extends GameObjectMoving {
 
-    private Inventory inventory;
     private Loot selectedLoot;
-    private ItemRecord usingItem;
     
     private int pickLootCounter;
     private final int pickLootTime = 300;
     private int dropLootCounter;
     private final int dropLootTime = 500;
-    private int useItemCounter;
-    private final int useItemTime = 400;
-
-    private List<Skill> skillList;
-    private Skill currentSkill;
 
     public Hero(double x, double y, double maximumSpeed) {
         super(x, y,  maximumSpeed);
         setMask(new Circle(0, 0, ResourceManager.getInstance().getMaskRadius("hero")));
-        inventory = new Inventory(this);
         selectedLoot = null;
         usingItem = null;
         pickLootCounter = 0;
         dropLootCounter = 0;
         useItemCounter = 0;
-
-        skillList = new ArrayList<Skill>();
         skillList.add(new Skill(this, "Sword attack", 200, 1000, "attack", 15, "Sword", 3, 100, Math.PI / 2));
     }
 
@@ -128,37 +118,6 @@ public class Hero extends GameObjectMoving {
         }
     }
 
-    public void startUseItem() {
-        if (inventory.getSelectedRecord() != null && getCurrentState() != GameObjectState.PICK_ITEM &&
-                getCurrentState() != GameObjectState.DROP_ITEM &&
-                getCurrentState() != GameObjectState.USE_ITEM) {
-            setCurrentState(GameObjectState.USE_ITEM);
-            getAttribute().setCurrentSpeed(0);
-            usingItem = inventory.getSelectedRecord();
-            useItemCounter = useItemTime;
-        }
-    }
-
-    private void useItem(){
-        inventory.useItem(usingItem);
-        setCurrentState(GameObjectState.STAND);
-        usingItem = null;
-    }
-
-    public void startCastSkill(int skillIndex) {
-        if (skillList.get(skillIndex) != null && skillList.get(skillIndex).startCast()) {
-            currentSkill = skillList.get(skillIndex);
-            setCurrentState(GameObjectState.CAST);
-            getAttribute().setCurrentSpeed(0);
-        }
-    }
-
-    private void castSkill() {
-        currentSkill.cast();
-        setCurrentState(GameObjectState.STAND);
-        currentSkill = null;
-    }
-
     @Override
     public void update(int delta) {
         if (dropLootCounter > 0) {
@@ -177,33 +136,9 @@ public class Hero extends GameObjectMoving {
             }
         }
 
-        if (useItemCounter > 0) {
-            useItemCounter -= delta;
-            if (useItemCounter <= 0) {
-                useItemCounter = 0;
-                useItem();
-            }
-        }
-
-        if (currentSkill != null && currentSkill.getCurrentCastTime() > 0) {
-            currentSkill.setCurrentCastTime(currentSkill.getCurrentCastTime() - delta);
-            if (currentSkill.getCurrentCastTime() <= 0) {
-                currentSkill.setCurrentCastTime(0);
-                castSkill();
-            }
-        }
-
-        for (Skill skill : skillList) {
-            skill.update(delta);
-        }
-
         updateCurrentLoot();
 
         super.update(delta);
-    }
-
-    public Inventory getInventory() {
-        return inventory;
     }
 
     public Loot getSelectedLoot() {

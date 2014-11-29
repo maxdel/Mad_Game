@@ -9,14 +9,20 @@ public class Enemy extends GameObjectMoving {
     private int timer;
     private double targetX;
     private double targetY;
+    private boolean isTargetHero;
 
-    public Enemy(final double x, final double y, final double direction, final double maximumSpeed) {
+    public Enemy(double x, double y, double maximumSpeed) {
         super(x, y, maximumSpeed);
         setMask(new Circle(0, 0, ResourceManager.getInstance().getMaskRadius("enemy")));
         timer = (int) (Math.random() * 1000);
+
+        skillList.add(new Skill(this, "Sword attack", 200, 1000, "attack", 15, "Sword", 3, 100, Math.PI / 2));
+        inventory.useItem(inventory.addItem("Sword"));
+
+        isTargetHero = false;
     }
 
-    public void followTarget(final double x, final double y) {
+    public void followTarget(double x, double y) {
         double direction = Math.atan2(y - getY(), x - getX());
         setDirection(direction);
         run(0);
@@ -40,7 +46,9 @@ public class Enemy extends GameObjectMoving {
         if (v.length() < 300) {
             targetX = World.getInstance().getHero().getX();
             targetY = World.getInstance().getHero().getY();
+            isTargetHero = true;
         } else {
+            isTargetHero = false;
             if (timer <= 0) {
                 targetX = getX() - 100 + Math.random() * 200;
                 targetY = getY() - 100 + Math.random() * 200;
@@ -55,6 +63,9 @@ public class Enemy extends GameObjectMoving {
             setY(targetY);
         } else {
             followTarget(targetX, targetY);
+            if (isTargetHero && v2.length() < skillList.get(0).getRadius()) {
+                startCastSkill(0);
+            }
         }
         super.update(delta);
     }
