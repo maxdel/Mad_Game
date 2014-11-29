@@ -1,14 +1,9 @@
 package core.model.gameplay;
 
-import core.model.gameplay.inventory.Inventory;
-import core.model.gameplay.inventory.ItemRecord;
 import org.newdawn.slick.geom.Circle;
 
 import core.ResourceManager;
 import org.newdawn.slick.geom.Vector2f;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Represents hero
@@ -30,8 +25,7 @@ public class Hero extends GameObjectMoving {
         pickLootCounter = 0;
         dropLootCounter = 0;
         useItemCounter = 0;
-        //skillList.add(new Skill(this, "Sword attack", 200, 1000, "attack", 15, "Sword", 3, 100, Math.PI / 2));
-        skillList.add(new Skill(this, "Bow shot", 200, 1000, "bullet", 15, "Bow", 3, 100, Math.PI / 2));
+        skillList.add(new BulletSkill(this, "Bow shot", 200, 1000, "Bow", 0, 3, 0.3, 15, 0));
     }
 
     public void walk(double direction) {

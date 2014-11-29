@@ -16,7 +16,7 @@ public class Enemy extends GameObjectMoving {
         setMask(new Circle(0, 0, ResourceManager.getInstance().getMaskRadius("enemy")));
         timer = (int) (Math.random() * 1000);
 
-        skillList.add(new Skill(this, "Sword attack", 200, 1000, "attack", 15, "Sword", 3, 100, Math.PI / 2));
+        skillList.add(new AreaSkill(this, "Sword attack", 200, 1000, "Sword", 0, 3, 15, 0, 100, Math.PI / 2));
         inventory.useItem(inventory.addItem("Sword"));
 
         isTargetHero = false;
@@ -74,7 +74,8 @@ public class Enemy extends GameObjectMoving {
             setY(targetY);
         } else {
             followTarget(targetX, targetY);
-            if (isTargetHero && v2.length() < skillList.get(0).getRadius()) {
+            // TODO Fix magic numbers
+            if (isTargetHero && v2.length() < 100) {
                 startCastSkill(0);
             }
         }
