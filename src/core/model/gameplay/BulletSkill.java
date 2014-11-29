@@ -1,7 +1,5 @@
 package core.model.gameplay;
 
-import org.newdawn.slick.geom.Vector2f;
-
 public class BulletSkill extends Skill {
 
     private double bulletSpeed;
@@ -45,12 +43,12 @@ public class BulletSkill extends Skill {
     protected void cast() {
         if (requiredItem.equals("Bow")) {
             if (owner.getInventory().isItemExists("Arrow")) {
-                World.getInstance().getToAddList().add(new Bullet(owner, owner.getX(), owner.getY(), owner.getDirection(),
+                World.getInstance().getToAddList().add(new Arrow(owner, owner.getX(), owner.getY(), owner.getDirection(),
                         bulletSpeed, pAttack, mAttack));
                 owner.getInventory().deleteItem("Arrow", 1);
             }
         } else {
-            World.getInstance().getToAddList().add(new Bullet(owner, owner.getX(), owner.getY(), owner.getDirection(),
+            World.getInstance().getToAddList().add(new Fireball(owner, owner.getX(), owner.getY(), owner.getDirection(),
                     bulletSpeed, pAttack, mAttack));
         }
     }

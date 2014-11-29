@@ -6,13 +6,16 @@
             <animation name="enemy" path="/res/enemy.png" isImage = "true" />
             <animation name="wall" path="/res/wall.png" isImage = "true" />
             <animation name="tree" path="/res/tree.png" isImage = "true" />
-            <animation name="bullet" path="/res/bullet.png" isImage = "true" />
+            <animation name="arrow" path="/res/arrow.png" isImage = "true" />
+            <animation name="fireball" path="/res/fireball.png" isImage = "true" />
         </animations>
         <masks>
             <mask name="hero" width="0" height="0" radius="20" />
             <mask name="enemy" width="0" height="0" radius="42" />
             <mask name="wall" width="32" height="32" radius="0" />
             <mask name="tree" width="0" height="0" radius="32" />
+            <mask name="arrow" width="20" height="3" radius="0" />
+            <mask name="fireball" width="0" height="0" radius="5" />
         </masks>
         <images>
             <image name="Selected item frame" path = "/res/items/selected item.png" />

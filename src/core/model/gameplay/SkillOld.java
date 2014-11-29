@@ -91,13 +91,13 @@ public abstract class SkillOld {
             if (requiredItem.equals("Bow")) {
                 if (owner.getInventory().isItemExists("Arrow")) {
                     double bulletSpeed = 0.3; // TODO separate skills
-                    World.getInstance().getToAddList().add(new Bullet(owner, owner.getX(), owner.getY(), owner.getDirection(),
+                    World.getInstance().getToAddList().add(new Arrow(owner, owner.getX(), owner.getY(), owner.getDirection(),
                             bulletSpeed, delta, 0));
                     owner.getInventory().deleteItem("Arrow", 1);
                 }
             } else {
                 double bulletSpeed = 0.3; // TODO separate skills
-                World.getInstance().getToAddList().add(new Bullet(owner, owner.getX(), owner.getY(), owner.getDirection(),
+                World.getInstance().getToAddList().add(new Arrow(owner, owner.getX(), owner.getY(), owner.getDirection(),
                         bulletSpeed, delta, 0));
             }
         }

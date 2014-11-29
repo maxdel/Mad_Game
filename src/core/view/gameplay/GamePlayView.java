@@ -111,8 +111,10 @@ public class GamePlayView {
                     gameObjectViews.add(new EnemyView(gameObject, resourceManager));
                 } else if (gameObject.getClass() == Hero.class) {
                     gameObjectViews.add(new HeroView(gameObject, resourceManager));
-                } else if (gameObject.getClass() == Bullet.class) {
-                    gameObjectViews.add(new BulletView(gameObject, resourceManager));
+                } else if (gameObject.getClass() == Arrow.class) {
+                    gameObjectViews.add(new ArrowView(gameObject, resourceManager));
+                } else if (gameObject.getClass() == Fireball.class) {
+                    gameObjectViews.add(new FireballView(gameObject, resourceManager));
                 }
             }
         }

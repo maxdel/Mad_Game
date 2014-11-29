@@ -1,8 +1,9 @@
 package core.model.gameplay;
 
-import org.newdawn.slick.geom.Rectangle;
+import core.ResourceManager;
+import org.newdawn.slick.geom.Circle;
 
-public class Bullet extends GameObject {
+public class Fireball extends GameObject {
 
     private GameObjectMoving owner;
     private double speed;
@@ -11,21 +12,15 @@ public class Bullet extends GameObject {
     private final int maximumDistance = 1000;
     private double currentDistance;
 
-    public Bullet(GameObjectMoving owner, double x, double y, double direction, double speed, double pAttack,
+    public Fireball(GameObjectMoving owner, double x, double y, double direction, double speed, double pAttack,
                   double mAttack) {
-        this(x, y, direction);
+        super(x, y, direction);
         this.owner = owner;
         this.speed = speed;
-        int width = 20;
-        int height = 3;
         this.pAttack = pAttack;
         this.mAttack = mAttack;
         currentDistance = 0;
-        setMask(new Rectangle(- width / 2, - height / 2, width, height));
-    }
-
-    private Bullet(double x, double y, double direction) {
-        super(x, y, direction);
+        setMask(new Circle(0, 0, ResourceManager.getInstance().getMaskRadius("fireball")));
     }
 
     @Override
@@ -50,11 +45,20 @@ public class Bullet extends GameObject {
             } else {
                 if (other instanceof GameObjectMoving) {
                     GameObjectMoving otherMoving = (GameObjectMoving) other;
-                    double damage = pAttack + owner.getAttribute().getPAttack() - otherMoving.getAttribute().getPArmor();
-                    if (damage <= 1) {
-                        damage = 1;
+                    if (pAttack > 0) {
+                        double pDamage = pAttack + owner.getAttribute().getPAttack() - otherMoving.getAttribute().getPArmor();
+                        if (pDamage <= 1) {
+                            pDamage = 1;
+                        }
+                        otherMoving.getAttribute().setCurrentHP(otherMoving.getAttribute().getCurrentHP() - pDamage);
                     }
-                    otherMoving.getAttribute().setCurrentHP(otherMoving.getAttribute().getCurrentHP() - damage);
+                    if (mAttack > 0) {
+                        double mDamage = mAttack + owner.getAttribute().getMAttack() - otherMoving.getAttribute().getMArmor();
+                        if (mDamage <= 1) {
+                            mDamage = 1;
+                        }
+                        otherMoving.getAttribute().setCurrentHP(otherMoving.getAttribute().getCurrentHP() - mDamage);
+                    }
                 }
                 World.getInstance().getToDeleteList().add(this);
             }

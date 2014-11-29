@@ -25,7 +25,9 @@ public class Hero extends GameObjectMoving {
         pickLootCounter = 0;
         dropLootCounter = 0;
         useItemCounter = 0;
+        skillList.add(new BulletSkill(this, "Fireball", 200, 1000, "Staff", 0, 5, 0.4, 0, 20));
         skillList.add(new BulletSkill(this, "Bow shot", 200, 1000, "Bow", 0, 3, 0.3, 15, 0));
+        skillList.add(new AreaSkill(this, "Strong attack", 400, 2000, "Sword", 0, 10, 40, 5, 100, Math.PI / 2));
         skillList.add(new BuffSkill(this, "Bow speed", 200, 10000, null, 0, 10, 5000, "Bow shot", 150, 950));
     }
 

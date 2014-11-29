@@ -60,7 +60,7 @@ public class BuffSkill extends Skill {
         }
     }
 
-    protected void dispel() {
+    private void dispel() {
         for (Skill skill : owner.getSkillList()) {
             if (skill.getName().equals(skillToBuff)) {
                 skill.setCastTime(skill.getCastTime() + castTimeDelta);
