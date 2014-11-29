@@ -58,7 +58,7 @@ public class Enemy extends GameObjectMoving {
             }
         }
         Vector2f v2 = new Vector2f((float)(targetX - getX()), (float)(targetY - getY()));
-        if (v2.length() < 2) {
+        if (v2.length() < 3) {
             setX(targetX);
             setY(targetY);
         } else {

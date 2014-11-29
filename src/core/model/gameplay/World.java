@@ -15,7 +15,8 @@ public class World {
 
     private static World instance;
 
-    private ArrayList<GameObject> gameObjects;
+    private List<GameObject> gameObjects;
+    private List<GameObject> toDeleteList;
     private Hero hero;
     private List<Loot> lootList;
     private CollisionManager collisionManager;
@@ -24,6 +25,7 @@ public class World {
 
     private World() {
         gameObjects = new ArrayList<GameObject>();
+        toDeleteList = new ArrayList<GameObject>();
         lootList = new ArrayList<Loot>();
         collisionManager = CollisionManager.getInstance();
 
@@ -89,17 +91,16 @@ public class World {
     }
 
     public void update(int delta) {
-        for (GameObject gameObject: gameObjects) {
-            try {
-                gameObject.update(delta);
-            }
-            catch (NullPointerException npe) {
-                continue; // passing, if object type useless
-            }
+        for (GameObject gameObject : gameObjects) {
+            gameObject.update(delta);
         }
+        for (GameObject gameObject : toDeleteList) {
+            gameObjects.remove(gameObject);
+        }
+        toDeleteList.clear();
     }
 
-    public ArrayList<GameObject> getGameObjects() {
+    public List<GameObject> getGameObjects() {
         return gameObjects;
     }
 
@@ -113,6 +114,10 @@ public class World {
 
     public TiledMap getTiledMap() {
         return tiledMap;
+    }
+
+    protected List<GameObject> getToDeleteList() {
+        return toDeleteList;
     }
 
 }

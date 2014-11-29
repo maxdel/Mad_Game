@@ -108,6 +108,10 @@ public class GameObjectMoving extends GameObject {
                 }
             }
         }
+
+        if (attribute.getCurrentHP() <= 0) {
+            World.getInstance().getToDeleteList().add(this);
+        }
     }
 
     protected double lengthDirX(double direction, double length) {

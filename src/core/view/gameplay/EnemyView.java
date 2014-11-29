@@ -20,14 +20,17 @@ public class EnemyView extends GameObjectView {
 
         rotate(g, viewX, viewY, viewDegreeAngle, viewCenterX, viewCenterY, true);
         draw(viewX, viewY);
-
         // draw mask
         drawMask(g, viewX, viewY);
 
         // ----- For debug and FUN -----
         g.rotate((float) (gameObject.getX() - viewX),
                 (float) (gameObject.getY() - viewY),
-                viewDegreeAngle);
+                (float) (viewDegreeAngle - enemy.getDirection() / Math.PI * 180));
+        drawHealthbar(g, (int)(enemy.getX() - viewX), (int)(enemy.getY() - viewY) - 50, 60, 8, enemy.getAttribute().getCurrentHP(),
+                enemy.getAttribute().getMaximumHP(), Color.red);
+        drawHealthbar(g, (int) (enemy.getX() - viewX), (int) (enemy.getY() - viewY) - 38, 60, 8, enemy.getAttribute().getCurrentMP(),
+                enemy.getAttribute().getMaximumMP(), Color.blue);
         g.drawString(String.valueOf((int) enemy.getAttribute().getPAttack()) + "/" +
                         String.valueOf((int) enemy.getAttribute().getMAttack()),
                 (float) (gameObject.getX() - viewX),
@@ -48,7 +51,7 @@ public class EnemyView extends GameObjectView {
                 (float) (gameObject.getX() - viewX), (float) (gameObject.getY() - viewY));
         g.rotate((float) (gameObject.getX() - viewX),
                 (float) (gameObject.getY() - viewY),
-                - viewDegreeAngle);
+                - (float) (viewDegreeAngle - enemy.getDirection() / Math.PI * 180));
         // ----- END -----
 
         rotate(g, viewX, viewY, viewDegreeAngle, viewCenterX, viewCenterY, false);

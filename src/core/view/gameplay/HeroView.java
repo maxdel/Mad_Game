@@ -1,5 +1,6 @@
 package core.view.gameplay;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
@@ -48,13 +49,16 @@ public class HeroView extends GameObjectView {
 
         rotate(g, viewX, viewY, viewDegreeAngle, viewCenterX, viewCenterY, true);
         draw(viewX, viewY);
-
         // draw mask
         drawMask(g, viewX, viewY);
 
         rotate(g, viewX, viewY, viewDegreeAngle, viewCenterX, viewCenterY, false);
 
         // For debug
+        drawHealthbar(g, (int)(hero.getX() - viewX), (int)(hero.getY() - viewY) - 50, 60, 8, hero.getAttribute().getCurrentHP(),
+                hero.getAttribute().getMaximumHP(), Color.red);
+        drawHealthbar(g, (int)(hero.getX() - viewX), (int)(hero.getY() - viewY) - 38, 60, 8, hero.getAttribute().getCurrentMP(),
+                hero.getAttribute().getMaximumMP(), Color.blue);
         g.drawString(String.valueOf((int) hero.getAttribute().getPAttack()) + "/" +
                         String.valueOf((int) hero.getAttribute().getMAttack()),
                 (float) (gameObject.getX() - viewX),

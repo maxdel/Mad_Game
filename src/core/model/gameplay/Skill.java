@@ -70,7 +70,11 @@ public class Skill {
 
                     if (v2.length() - target.getMask().getBoundingCircleRadius() <= radius &&
                             Math.abs(angleBetweenObjects) < angle / 2) {
-                        target.getAttribute().setCurrentHP(target.getAttribute().getCurrentHP() - delta);
+                        double damage = delta + owner.getAttribute().getPAttack() - target.getAttribute().getPArmor();
+                        if (damage <= 1) {
+                            damage = 1;
+                        }
+                        target.getAttribute().setCurrentHP(target.getAttribute().getCurrentHP() - damage);
                     }
                 }
             }
