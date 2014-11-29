@@ -1,5 +1,6 @@
 package core.view.gameplay;
 
+import java.awt.*;
 import java.util.Iterator;
 
 import org.newdawn.slick.Color;
@@ -8,6 +9,7 @@ import org.newdawn.slick.Graphics;
 import core.ResourceManager;
 import core.model.gameplay.inventory.Inventory;
 import core.model.gameplay.inventory.ItemRecord;
+import org.newdawn.slick.TrueTypeFont;
 
 public class InventoryView {
 
@@ -25,6 +27,8 @@ public class InventoryView {
     private final int itemWidth = 32;
     private final int itemHeight = 32;
     private final int spacing = 4;
+    private TrueTypeFont fontItem;
+    private TrueTypeFont fontDescription;
 
     public InventoryView(Inventory inventory) {
         this.inventory = inventory;
@@ -34,6 +38,11 @@ public class InventoryView {
         x = 0;
         y = 0;
         scroll = 0;
+        fontItem = new TrueTypeFont(new Font(ResourceManager.getInstance().getFontName("itemfont"), Font.PLAIN,
+                ResourceManager.getInstance().getFontSize("itemfont")), false);
+        fontDescription = new TrueTypeFont(new Font(ResourceManager.getInstance().getFontName("descfont"), Font.PLAIN,
+                ResourceManager.getInstance().getFontSize("descfont")), false);
+        Font f;
     }
 
     public void render(Graphics g, int viewWidth, int viewHeight) {
@@ -71,15 +80,15 @@ public class InventoryView {
                             g.drawImage(ResourceManager.getInstance().getImage("Selected item frame"),
                                     x + padding + i * (itemWidth + spacing), y + padding + j * (itemHeight + spacing));
                             g.setColor(Color.black);
-                            g.drawString("Name: " + itemRecord.getName() + "\nDescription: " + itemRecord.getDescription(),
-                                    x, y - 48);
+                            fontDescription.drawString(x, y - 42, "Name: " + itemRecord.getName(), Color.black);
+                            fontDescription.drawString(x, y - 24, "Description: " + itemRecord.getDescription(), Color.black);
                             g.setColor(Color.gray);
                         } else {
                             g.drawRect(x + padding + i * (itemWidth + spacing), y + padding + j * (itemHeight + spacing),
                                     itemWidth, itemHeight);
                         }
-                        g.drawString(String.valueOf(itemRecord.getNumber()), x + padding + i * (itemWidth + spacing) + 22,
-                                y + padding + j * (itemHeight + spacing) + 16);
+                        fontItem.drawString(x + padding + i * (itemWidth + spacing) + 30 - fontItem.getWidth(String.valueOf(itemRecord.getNumber())),
+                                y + padding + j * (itemHeight + spacing) + 16, String.valueOf(itemRecord.getNumber()), Color.black);
                     }
                 }
             }

@@ -45,6 +45,8 @@
         </items>
         <fonts>
             <font name="lootfont" fontName="verdana" size="10" isBold="false" />
+            <font name="itemfont" fontName="verdana" size="12" isBold="false" />
+            <font name="descfont" fontName="verdana" size="14" isBold="false" />
         </fonts>
     </gameplay>
 
