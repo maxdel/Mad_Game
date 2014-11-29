@@ -17,8 +17,6 @@ public class Arrow extends GameObject {
         super(x, y, direction);
         this.owner = owner;
         this.speed = speed;
-        int width = 20;
-        int height = 3;
         this.pAttack = pAttack;
         this.mAttack = mAttack;
         currentDistance = 0;
