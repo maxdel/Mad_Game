@@ -1,7 +1,6 @@
 package core.model.gameplay;
 
 import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.geom.Shape;
 
 public class Bullet extends GameObject {
 
@@ -9,6 +8,8 @@ public class Bullet extends GameObject {
     private double speed;
     private double pAttack;
     private double mAttack;
+    private final int maximumDistance = 1000;
+    private double currentDistance;
 
     public Bullet(GameObjectMoving owner, double x, double y, double direction, double speed, double pAttack,
                   double mAttack) {
@@ -19,6 +20,7 @@ public class Bullet extends GameObject {
         int height = 3;
         this.pAttack = pAttack;
         this.mAttack = mAttack;
+        currentDistance = 0;
         setMask(new Rectangle(- width / 2, - height / 2, width, height));
     }
 
@@ -38,11 +40,13 @@ public class Bullet extends GameObject {
         if (CollisionManager.getInstance().isPlaceFreeAdv(this, getX() + lengthDirX, getY() + lengthDirY)) {
             setX(getX() + lengthDirX);
             setY(getY() + lengthDirY);
+            currentDistance += length;
         } else {
             GameObject other = CollisionManager.getInstance().collidesWith(this, getX() + lengthDirX, getY() + lengthDirY);
             if (other == owner) {
                 setX(getX() + lengthDirX);
                 setY(getY() + lengthDirY);
+                currentDistance += length;
             } else {
                 if (other instanceof GameObjectMoving) {
                     GameObjectMoving otherMoving = (GameObjectMoving) other;
@@ -54,6 +58,10 @@ public class Bullet extends GameObject {
                 }
                 World.getInstance().getToDeleteList().add(this);
             }
+        }
+
+        if (currentDistance >= maximumDistance) {
+            World.getInstance().getToDeleteList().add(this);
         }
     }
 
