@@ -55,9 +55,15 @@ public class Enemy extends GameObjectMoving {
         } else {
             isTargetHero = false;
             if (timer <= 0) {
-                targetX = getX() - 100 + Math.random() * 200;
-                targetY = getY() - 100 + Math.random() * 200;
-                timer = 1500 + (int) (Math.random() * 1000);
+                double distance = 100 + Math.random() * 50;
+                double angle = Math.random() * 2 * Math.PI;
+                double tmpX = getX() + lengthDirX(angle, distance);
+                double tmpY = getY() + lengthDirY(angle, distance);
+                if (CollisionManager.getInstance().isPlaceFreeAdv(this, tmpX, tmpY)) {
+                    targetX = tmpX;
+                    targetY = tmpY;
+                    timer = 1500 + (int) (Math.random() * 1000);
+                }
             } else {
                 timer -= delta;
             }
