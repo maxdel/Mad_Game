@@ -60,31 +60,43 @@ public class Bandit extends GameObjectMoving {
         double followHeroDistance = 300;
         double attackHeroDistance = 60;
 
-        if (distanceToHero < attackHeroDistance) {
-            stand();
-            setDirection(v.getTheta() / 180 * Math.PI);
-            startCastSkill(0);
-        } else if (distanceToHero < followHeroDistance) {
-            targetX = World.getInstance().getHero().getX();
-            targetY = World.getInstance().getHero().getY();
-            followTarget(targetX, targetY);
-        } else {
-            if (timer <= 0) {
-                double distance = 30 + Math.random() * 10;
-                double angle = Math.random() * 2 * Math.PI;
-                double tmpX = getX() + lengthDirX(angle, distance);
-                double tmpY = getY() + lengthDirY(angle, distance);
-                if (CollisionManager.getInstance().isPlaceFreeAdv(this, tmpX, tmpY)) {
-                    targetX = tmpX;
-                    targetY = tmpY;
-                    timer = 5000 + (int) (Math.random() * 10000);
-                }
+        if (!isTargetHero) {
+            if (distanceToHero < attackHeroDistance) {
+                stand();
+                setDirection(v.getTheta() / 180 * Math.PI);
+                startCastSkill(0);
+            } else if (distanceToHero < followHeroDistance) {
+                targetX = World.getInstance().getHero().getX();
+                targetY = World.getInstance().getHero().getY();
+                followTarget(targetX, targetY);
             } else {
-                timer -= delta;
+                if (timer <= 0) {
+                    double distance = 30 + Math.random() * 10;
+                    double angle = Math.random() * 2 * Math.PI;
+                    double tmpX = getX() + lengthDirX(angle, distance);
+                    double tmpY = getY() + lengthDirY(angle, distance);
+                    if (CollisionManager.getInstance().isPlaceFreeAdv(this, tmpX, tmpY)) {
+                        targetX = tmpX;
+                        targetY = tmpY;
+                        timer = 5000 + (int) (Math.random() * 10000);
+                    }
+                } else {
+                    timer -= delta;
+                }
+                Vector2f v2 = new Vector2f((float)targetX - (float)getX(),
+                        (float)targetY - (float)getY());
+                if (v2.length() > 0) {
+                    followTarget(targetX, targetY);
+                }
             }
-            Vector2f v2 = new Vector2f((float)targetX - (float)getX(),
-                    (float)targetY - (float)getY());
-            if (v2.length() > 0) {
+        } else {
+            if (distanceToHero < attackHeroDistance) {
+                stand();
+                setDirection(v.getTheta() / 180 * Math.PI);
+                startCastSkill(0);
+            } else {
+                targetX = World.getInstance().getHero().getX();
+                targetY = World.getInstance().getHero().getY();
                 followTarget(targetX, targetY);
             }
         }
@@ -103,28 +115,37 @@ public class Bandit extends GameObjectMoving {
 
     @Override
     protected void onDelete() {
-        if (Math.random() < 0.5) {
+        if (Math.random() < 0.8) {
             World.getInstance().getLootList().add(new Loot(getX() - 10 + Math.random() * 20,
                     getY() - 10 + Math.random() * 20, Math.random() * 2 * Math.PI, ItemDB.getInstance().getItem("Apple"), 1));
         }
-        if (Math.random() < 0.3) {
+        if (Math.random() < 0.6) {
             World.getInstance().getLootList().add(new Loot(getX() - 10 + Math.random() * 20,
                     getY() - 10 + Math.random() * 20, Math.random() * 2 * Math.PI, ItemDB.getInstance().getItem("Healing flask"), 1));
         }
-        if (Math.random() < 0.2) {
+        if (Math.random() < 0.4) {
             World.getInstance().getLootList().add(new Loot(getX() - 10 + Math.random() * 20,
                     getY() - 10 + Math.random() * 20, Math.random() * 2 * Math.PI, ItemDB.getInstance().getItem("Mana flask"), 1));
         }
-        if (Math.random() < 0.1) {
+        if (Math.random() < 0.2) {
             World.getInstance().getLootList().add(new Loot(getX() - 10 + Math.random() * 20,
                     getY() - 10 + Math.random() * 20, Math.random() * 2 * Math.PI, ItemDB.getInstance().getItem("Light armor"), 1));
         }
-        if (Math.random() < 0.1) {
+        if (Math.random() < 0.2) {
             World.getInstance().getLootList().add(new Loot(getX() - 10 + Math.random() * 20,
                     getY() - 10 + Math.random() * 20, Math.random() * 2 * Math.PI, ItemDB.getInstance().getItem("Staff"), 1));
         }
+        if (Math.random() < 0.7) {
+            World.getInstance().getLootList().add(new Loot(getX() - 10 + Math.random() * 20,
+                    getY() - 10 + Math.random() * 20, Math.random() * 2 * Math.PI, ItemDB.getInstance().getItem("Arrow"),
+                    (int)(6 + Math.random() * 10)));
+        }
         // TODO for fun
         World.getInstance().getHero().kills++;
+    }
+
+    public void setTargetHero(boolean isTargetHero) {
+        this.isTargetHero = isTargetHero;
     }
 
 }

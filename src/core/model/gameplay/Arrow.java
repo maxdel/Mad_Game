@@ -62,6 +62,21 @@ public class Arrow extends GameObject {
                         }
                         otherMoving.getAttribute().setCurrentHP(otherMoving.getAttribute().getCurrentHP() - mDamage);
                     }
+                    // TODO for fun
+                    if (owner instanceof Hero) {
+                        if (otherMoving instanceof Bandit) {
+                            ((Bandit)otherMoving).setTargetHero(true);
+                        }
+                        if (otherMoving instanceof BanditArcher) {
+                            ((BanditArcher)otherMoving).setTargetHero(true);
+                        }
+                        if (otherMoving instanceof Skeleton) {
+                            ((Skeleton)otherMoving).setTargetHero(true);
+                        }
+                        if (otherMoving instanceof SkeletonMage) {
+                            ((SkeletonMage)otherMoving).setTargetHero(true);
+                        }
+                    }
                 }
                 World.getInstance().getToDeleteList().add(this);
             }
