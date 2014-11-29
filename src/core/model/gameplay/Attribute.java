@@ -22,8 +22,8 @@ public class Attribute {
         this.currentMP = maximumMP;
         this.maximumSpeed = maximumSpeed;
         this.currentSpeed = 0;
-        this.pArmor = 5;
-        this.mArmor = 5;
+        this.pArmor = 0;
+        this.mArmor = 0;
         this.pAttack = 0;
         this.mAttack = 0;
     }

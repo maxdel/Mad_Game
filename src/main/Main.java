@@ -16,7 +16,7 @@ public class Main {
             AppGameContainer appgc;
             appgc = new AppGameContainer(GameStatesContainer.getInstance("Mad Game"));
             appgc.setVSync(true);
-            appgc.setDisplayMode(800, 600, false);
+            appgc.setDisplayMode(1366, 768, true);
             appgc.start();
         }
         catch (SlickException ex) {

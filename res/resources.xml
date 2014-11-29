@@ -3,7 +3,10 @@
     <gameplay>
         <animations>
             <animation name="hero" path="/res/hero.png" isImage = "false" frameWidth="50" frameHeight="50" speedCoef="6" />
-            <animation name="enemy" path="/res/enemy.png" isImage = "true" />
+            <animation name="bandit" path="/res/bandit.png" isImage = "true" />
+            <animation name="banditArcher" path="/res/banditArcher.png" isImage = "true" />
+            <animation name="skeleton" path="/res/skeleton.png" isImage = "true" />
+            <animation name="skeletonMage" path="/res/skeletonMage.png" isImage = "true" />
             <animation name="wall" path="/res/wall.png" isImage = "true" />
             <animation name="tree" path="/res/tree.png" isImage = "true" />
             <animation name="arrow" path="/res/arrow.png" isImage = "true" />
@@ -11,7 +14,10 @@
         </animations>
         <masks>
             <mask name="hero" width="0" height="0" radius="20" />
-            <mask name="enemy" width="0" height="0" radius="42" />
+            <mask name="bandit" width="0" height="0" radius="20" />
+            <mask name="banditArcher" width="0" height="0" radius="20" />
+            <mask name="skeleton" width="0" height="0" radius="30" />
+            <mask name="skeletonMage" width="0" height="0" radius="30" />
             <mask name="wall" width="32" height="32" radius="0" />
             <mask name="tree" width="0" height="0" radius="32" />
             <mask name="arrow" width="20" height="3" radius="0" />

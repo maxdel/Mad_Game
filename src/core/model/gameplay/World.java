@@ -62,12 +62,14 @@ public class World {
                     hero.getAttribute().setCurrentHP(5);
                     hero.getAttribute().setCurrentMP(7);
                 } else if (tileObjectName.equals("banditsword")) {
-                    gameObjects.add(new Enemy(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
+                    gameObjects.add(new Bandit(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
                             tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0.1F));
                 } else if (tileObjectName.equals("banditarcher")) {
-
+                    gameObjects.add(new BanditArcher(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
+                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0.1F));
                 } else if (tileObjectName.equals("skeletsword")) {
-
+                    gameObjects.add(new Skeleton(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
+                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0.1F));
                 } else if (tileObjectName.equals("skeletmage")) {
 
                 } else if (tileObjectName.equals("vampire")) {

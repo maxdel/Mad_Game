@@ -42,8 +42,8 @@ public class GamePlayView {
         for (GameObject gameObject : gameObjects) {
             if (gameObject.getClass() == Wall.class) {
                 gameObjectViews.add(new WallView(gameObject, resourceManager));
-            } else if (gameObject.getClass() == Enemy.class) {
-                gameObjectViews.add(new EnemyView(gameObject, resourceManager));
+            } else if (gameObject.getClass() == Bandit.class) {
+                gameObjectViews.add(new BanditView(gameObject, resourceManager));
             } else if (gameObject.getClass() == Hero.class) {
                 gameObjectViews.add(new HeroView(gameObject, resourceManager));
             } else if (gameObject.getClass() == Tree.class) {
@@ -107,14 +107,18 @@ public class GamePlayView {
             if (!found) {
                 if (gameObject.getClass() == Wall.class) {
                     gameObjectViews.add(new WallView(gameObject, resourceManager));
-                } else if (gameObject.getClass() == Enemy.class) {
-                    gameObjectViews.add(new EnemyView(gameObject, resourceManager));
+                } else if (gameObject.getClass() == Bandit.class) {
+                    gameObjectViews.add(new BanditView(gameObject, resourceManager));
                 } else if (gameObject.getClass() == Hero.class) {
                     gameObjectViews.add(new HeroView(gameObject, resourceManager));
                 } else if (gameObject.getClass() == Arrow.class) {
                     gameObjectViews.add(new ArrowView(gameObject, resourceManager));
                 } else if (gameObject.getClass() == Fireball.class) {
                     gameObjectViews.add(new FireballView(gameObject, resourceManager));
+                } else if (gameObject.getClass() == BanditArcher.class) {
+                    gameObjectViews.add(new BanditArcherView(gameObject, resourceManager));
+                } else if (gameObject.getClass() == Skeleton.class) {
+                    gameObjectViews.add(new SkeletonView(gameObject, resourceManager));
                 }
             }
         }
