@@ -29,14 +29,19 @@ public class Enemy extends GameObjectMoving {
     }
 
     public void run(double direction) {
-        setCurrentState(GameObjectState.RUN);
-        getAttribute().setCurrentSpeed(getAttribute().getMaximumSpeed());
-        setRelativeDirection(direction);
+        if (getCurrentState() == GameObjectState.STAND || getCurrentState() == GameObjectState.WALK ||
+                getCurrentState() == GameObjectState.RUN) {
+            setCurrentState(GameObjectState.RUN);
+            getAttribute().setCurrentSpeed(getAttribute().getMaximumSpeed());
+            setRelativeDirection(direction);
+        }
     }
 
     public void stand() {
-        setCurrentState(GameObjectState.STAND);
-        getAttribute().setCurrentSpeed(0);
+        if (getCurrentState() == GameObjectState.RUN || getCurrentState() == GameObjectState.WALK) {
+            setCurrentState(GameObjectState.STAND);
+            getAttribute().setCurrentSpeed(0);
+        }
     }
     
     @Override
