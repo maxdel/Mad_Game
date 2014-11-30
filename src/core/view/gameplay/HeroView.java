@@ -1,5 +1,6 @@
 package core.view.gameplay;
 
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -16,10 +17,14 @@ import core.model.gameplay.GameObjectState;
 public class HeroView extends GameObjectView {
 
     private GameObjectState previousState;
+    private Animation animationAttack;
+    private Animation animationWalk;
 
     public HeroView(GameObject hero, ResourceManager resourceManager) throws SlickException {
         super(hero, resourceManager);
         animation = ResourceManager.getInstance().getAnimation("hero");
+        animationAttack = ResourceManager.getInstance().getAnimation("heroattack");
+        animationWalk = animation;
     }
 
     @Override
@@ -29,19 +34,29 @@ public class HeroView extends GameObjectView {
         if (hero.getCurrentState() != previousState) {
             switch (hero.getCurrentState()) {
                 case WALK:
+                    animation = animationWalk;
                     animation.start();
                     animation.setSpeed((float) (hero.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("hero")));
                     break;
                 case STAND:
+                    animation = animationWalk;
                     animation.stop();
                     animation.setCurrentFrame(4);
                     break;
                 case RUN:
+                    animation = animationWalk;
                     animation.start();
                     animation.setSpeed((float) (hero.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("hero")));
                     break;
                 case PICK_ITEM:
+                    animation = animationWalk;
                     animation.start();
+                    animation.setSpeed((float) (hero.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("hero")));
+                    break;
+                case CAST:
+                    animation = animationAttack;
+                    animation.start();
+                    animation.setSpeed((float) (ResourceManager.getInstance().getSpeedCoef("heroattack")));
                     break;
             }
         }

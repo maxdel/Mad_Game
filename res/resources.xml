@@ -3,6 +3,7 @@
     <gameplay>
         <animations>
             <animation name="hero" path="/res/hero.png" isImage = "false" frameWidth="50" frameHeight="50" speedCoef="6" />
+            <animation name="heroattack" path="/res/hero attack.png" isImage = "false" frameWidth="50" frameHeight="50" speedCoef="0.3" />
             <animation name="bandit" path="/res/bandit.png" isImage = "true" />
             <animation name="banditArcher" path="/res/banditArcher.png" isImage = "true" />
             <animation name="skeleton" path="/res/skeleton.png" isImage = "true" />
