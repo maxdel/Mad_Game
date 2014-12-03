@@ -2,7 +2,9 @@
 
     <gameplay>
         <animations>
-            <animation name="hero" path="/res/hero.png" isImage = "false" frameWidth="50" frameHeight="50" speedCoef="6" />
+            <animation name="hero" path="/res/hero.png" isImage = "false" frameWidth="64" frameHeight="64" speedCoef="30" />
+            <animation name="heroswordwalk" path="/res/hero sword walk.png" isImage = "false" frameWidth="64" frameHeight="64" speedCoef="30" />
+            <animation name="heroswordattack" path="/res/hero sword attack2.png" isImage = "false" frameWidth="128" frameHeight="128" speedCoef="0.05" />
             <animation name="heroattack" path="/res/hero attack.png" isImage = "false" frameWidth="50" frameHeight="50" speedCoef="0.3" />
             <animation name="bandit" path="/res/bandit.png" isImage = "true" />
             <animation name="banditArcher" path="/res/banditArcher.png" isImage = "true" />

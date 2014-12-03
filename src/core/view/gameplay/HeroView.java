@@ -1,14 +1,16 @@
 package core.view.gameplay;
 
-import org.newdawn.slick.Animation;
-import org.newdawn.slick.Color;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.SlickException;
+import org.newdawn.slick.*;
 
 import core.ResourceManager;
 import core.model.gameplay.GameObject;
 import core.model.gameplay.Hero;
 import core.model.gameplay.GameObjectState;
+import org.newdawn.slick.openal.Audio;
+import org.newdawn.slick.openal.AudioLoader;
+import org.newdawn.slick.util.ResourceLoader;
+
+import java.io.IOException;
 
 /**
  * Provides functions for the definition of actors, as well as actor
@@ -19,11 +21,15 @@ public class HeroView extends GameObjectView {
     private GameObjectState previousState;
     private Animation animationAttack;
     private Animation animationWalk;
+    private Animation animationSwordWalk;
+    private Animation animationSwordAttack;
 
     public HeroView(GameObject hero, ResourceManager resourceManager) throws SlickException {
         super(hero, resourceManager);
         animation = ResourceManager.getInstance().getAnimation("hero");
         animationAttack = ResourceManager.getInstance().getAnimation("heroattack");
+        animationSwordWalk = ResourceManager.getInstance().getAnimation("heroswordwalk");
+        animationSwordAttack = ResourceManager.getInstance().getAnimation("heroswordattack");
         animationWalk = animation;
     }
 
@@ -34,29 +40,53 @@ public class HeroView extends GameObjectView {
         if (hero.getCurrentState() != previousState) {
             switch (hero.getCurrentState()) {
                 case WALK:
-                    animation = animationWalk;
+                    if (hero.getInventory().isItemDressed("sword")) {
+                        animation = animationSwordWalk;
+                    } else {
+                        animation = animationWalk;
+                    }
                     animation.start();
                     animation.setSpeed((float) (hero.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("hero")));
                     break;
                 case STAND:
-                    animation = animationWalk;
+                    if (hero.getInventory().isItemDressed("sword")) {
+                        animation = animationSwordWalk;
+                    } else {
+                        animation = animationWalk;
+                    }
                     animation.stop();
                     animation.setCurrentFrame(4);
                     break;
                 case RUN:
-                    animation = animationWalk;
+                    if (hero.getInventory().isItemDressed("sword")) {
+                        animation = animationSwordWalk;
+                    } else {
+                        animation = animationWalk;
+                    }
                     animation.start();
                     animation.setSpeed((float) (hero.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("hero")));
                     break;
                 case PICK_ITEM:
-                    animation = animationWalk;
+                    if (hero.getInventory().isItemDressed("sword")) {
+                        animation = animationSwordWalk;
+                    } else {
+                        animation = animationWalk;
+                    }
                     animation.start();
                     animation.setSpeed((float) (hero.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("hero")));
                     break;
                 case CAST:
-                    animation = animationAttack;
+                    if (hero.getInventory().isItemDressed("sword")) {
+                        Music music = new Music("res/Swoosh01.wav");
+                        music.play();
+                        animation = animationSwordAttack;
+                        animation.stop();
+                        animation.setSpeed((float) (ResourceManager.getInstance().getSpeedCoef("heroswordattack")));
+                    } else {
+                        animation = animationAttack;
+                        animation.setSpeed((float) (ResourceManager.getInstance().getSpeedCoef("heroattack")));
+                    }
                     animation.start();
-                    animation.setSpeed((float) (ResourceManager.getInstance().getSpeedCoef("heroattack")));
                     break;
             }
         }
