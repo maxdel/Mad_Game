@@ -63,7 +63,7 @@ public class Arrow extends GameObject {
                         otherMoving.getAttribute().setCurrentHP(otherMoving.getAttribute().getCurrentHP() - mDamage);
                     }
                     // TODO for fun
-                    if (owner instanceof Hero) {
+                    if (owner.getClass() == Hero.class) {
                         if (otherMoving instanceof Bandit) {
                             ((Bandit)otherMoving).setTargetHero(true);
                         }

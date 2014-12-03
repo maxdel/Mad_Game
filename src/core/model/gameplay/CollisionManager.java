@@ -106,8 +106,12 @@ public class CollisionManager {
         gameObject.setX(x);
         gameObject.setY(y);
         GameObject other = null;
+        Vector2f v = new Vector2f();
         for (GameObject currentGameObject: World.getInstance(false).getGameObjects()) {
-            if (gameObject != currentGameObject && isCollides(gameObject, currentGameObject)) {
+            v.set((float)(currentGameObject.getX() - x), (float)(currentGameObject.getY() - y));
+            // TODO fix magic number
+            if (v.length() < 70 &&
+                    gameObject != currentGameObject && isCollides(gameObject, currentGameObject)) {
                 other = currentGameObject;
                 break;
             }
