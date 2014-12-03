@@ -17,28 +17,10 @@ public class TileView {
     }
 
     public void render(GameContainer gc, Graphics g, Camera camera) {
-        int heroTileX = (int)(hero.getX() / tiledMap.getTileWidth());
-        int heroTileY = (int)(hero.getY() / tiledMap.getTileHeight());
-
-        int radius = (int)(Math.max(gc.getWidth(), gc.getHeight()) * Math.sqrt(2) / 1.5);
-
-        int fromTileX = heroTileX - radius / tiledMap.getTileWidth();
-        if (fromTileX < 0) fromTileX = 0;
-        int toTileX = heroTileX + radius / tiledMap.getTileWidth();
-        if (toTileX >= tiledMap.getWidth()) toTileX = tiledMap.getWidth();
-
-        int fromTileY = heroTileY - radius / tiledMap.getTileHeight();
-        if (fromTileY < 0) fromTileY = 0;
-        int toTileY = heroTileY + radius / tiledMap.getTileHeight();
-        if (toTileY >= tiledMap.getHeight()) toTileY = tiledMap.getHeight();
-
         g.rotate((float)camera.getCenterX(), (float)camera.getCenterY(), - (float)(camera.getDirection() / Math.PI * 180));
-        for (int i = fromTileX; i < toTileX; ++i) {
-            for (int j = fromTileY; j < toTileY; ++j) {
-                tiledMap.getTileImage(i, j, 0).draw(tiledMap.getTileWidth() * i - (float) camera.getX(),
-                        tiledMap.getTileHeight() * j - (float) camera.getY());
-            }
-        }
+
+        tiledMap.render((int)- camera.getX(), (int) -camera.getY(), 0);
+
         g.rotate((float)camera.getCenterX(), (float)camera.getCenterY(), (float)(camera.getDirection() / Math.PI * 180));
     }
 

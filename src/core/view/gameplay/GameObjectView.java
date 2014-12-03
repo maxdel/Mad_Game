@@ -28,7 +28,7 @@ public abstract class GameObjectView {
                        double viewCenterX, double viewCenterY, Hero hero) throws SlickException {
         Vector2f v = new Vector2f((float)(hero.getX() - gameObject.getX()), (float)(hero.getY() - gameObject.getY()));
 
-        if (v.length() < 1500) {
+        if (v.length() < 900) {
             rotate(g, viewX, viewY, viewDegreeAngle, viewCenterX, viewCenterY, true);
             draw(viewX, viewY);
             rotate(g, viewX, viewY, viewDegreeAngle, viewCenterX, viewCenterY, false);
