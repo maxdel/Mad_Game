@@ -1,16 +1,17 @@
 package core;
 
+import java.awt.*;
+import java.awt.Font;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
+import java.util.List;
 
 import core.model.gameplay.inventory.Item;
-import org.newdawn.slick.Animation;
+import org.newdawn.slick.*;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.util.xml.XMLElement;
 import org.newdawn.slick.util.xml.XMLElementList;
 import org.newdawn.slick.util.xml.XMLParser;
@@ -158,7 +159,11 @@ public class ResourceManager {
             int size = fontElement.getIntAttribute("size");
             boolean isBold = fontElement.getBooleanAttribute("isBold");
 
-            fontInfos.put(name, new FontInfo(fontName, size, isBold));
+            int fontStyle = isBold == true ? Font.BOLD : Font.PLAIN;
+            Font font = new Font(fontName, fontStyle, size);
+            TrueTypeFont ttf = new TrueTypeFont(font, true);
+
+            fontInfos.put(name, new FontInfo(font, ttf));
         }
 
         in.close();
@@ -181,7 +186,11 @@ public class ResourceManager {
             int size = fontElement.getIntAttribute("size");
             boolean isBold = fontElement.getBooleanAttribute("isBold");
 
-            fontInfos.put(name, new FontInfo(fontName, size, isBold));
+            int fontStyle = isBold == true ? Font.BOLD : Font.PLAIN;
+            Font font = new Font(fontName, fontStyle, size);
+            TrueTypeFont ttf = new TrueTypeFont(font, true);
+
+            fontInfos.put(name, new FontInfo(font, ttf));
         }
 
         in.close();
@@ -204,7 +213,11 @@ public class ResourceManager {
             int size = fontElement.getIntAttribute("size");
             boolean isBold = fontElement.getBooleanAttribute("isBold");
 
-            fontInfos.put(name, new FontInfo(fontName, size, isBold));
+            int fontStyle = isBold == true ? Font.BOLD : Font.PLAIN;
+            Font font = new Font(fontName, fontStyle, size);
+            TrueTypeFont ttf = new TrueTypeFont(font, true);
+
+            fontInfos.put(name, new FontInfo(font, ttf));
         }
 
         in.close();
@@ -288,40 +301,22 @@ public class ResourceManager {
 
     }
 
-    public String getFontName(String name) {
-        return fontInfos.get(name).getFontName();
-    }
-
-    public int getFontSize(String name) {
-        return fontInfos.get(name).getSize();
-    }
-
-    public boolean isFontBold(String name) {
-        return fontInfos.get(name).isBold();
+    public TrueTypeFont getFont(String name) {
+        return fontInfos.get(name).getFont();
     }
 
     private static class FontInfo {
 
-        private String fontName;
-        private int size;
-        private boolean isBold;
+        private Font font;
+        private TrueTypeFont ttf;
 
-        public FontInfo(String fontName, int size, boolean isBold) {
-            this.fontName = fontName;
-            this.size = size;
-            this.isBold = isBold;
+        public FontInfo(Font font, TrueTypeFont ttf) {
+            this.font = font;
+            this.ttf = ttf;
         }
 
-        public String getFontName() {
-            return fontName;
-        }
-
-        public int getSize() {
-            return size;
-        }
-
-        public boolean isBold() {
-            return isBold;
+        public TrueTypeFont getFont() {
+            return ttf;
         }
 
     }

@@ -19,11 +19,7 @@ public class LootView {
     protected LootView(Loot loot) {
         this.loot = loot;
         image = ResourceManager.getInstance().getItemImage(loot.getItem().getName());
-        String fontName = ResourceManager.getInstance().getFontName("lootfont");
-        int fontStyle = ResourceManager.getInstance().isFontBold("lootfont") == true ? Font.BOLD : Font.PLAIN;
-        int fontSize = ResourceManager.getInstance().getFontSize("lootfont");
-        Font font = new Font(fontName, fontStyle, fontSize);
-        ttf = new TrueTypeFont(font, true);
+        ttf = ResourceManager.getInstance().getFont("lootfont");
     }
 
     public void render(Graphics g, double viewX, double viewY, float viewDegreeAngle,

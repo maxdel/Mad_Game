@@ -38,11 +38,8 @@ public class InventoryView {
         x = 0;
         y = 0;
         scroll = 0;
-        fontItem = new TrueTypeFont(new Font(ResourceManager.getInstance().getFontName("itemfont"), Font.PLAIN,
-                ResourceManager.getInstance().getFontSize("itemfont")), false);
-        fontDescription = new TrueTypeFont(new Font(ResourceManager.getInstance().getFontName("descfont"), Font.PLAIN,
-                ResourceManager.getInstance().getFontSize("descfont")), false);
-        Font f;
+        fontItem = ResourceManager.getInstance().getFont("itemfont");
+        fontDescription = ResourceManager.getInstance().getFont("descfont");
     }
 
     public void render(Graphics g, int viewWidth, int viewHeight) {
