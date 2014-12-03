@@ -75,6 +75,12 @@ public class HeroView extends GameObjectView {
                     animation.start();
                     animation.setSpeed((float) (hero.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("hero")));
                     break;
+                case USE_ITEM:
+                    if (hero.getUsingItem().getItem().getName().equals("Apple")) {
+                        Music music = new Music("res/AppleBite.wav");
+                        music.play();
+                    }
+                     break;
                 case CAST:
                     if (hero.getInventory().isItemDressed("sword")) {
                         Music music = new Music("res/Swoosh01.wav");
