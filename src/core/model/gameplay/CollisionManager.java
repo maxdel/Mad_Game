@@ -87,7 +87,7 @@ public class CollisionManager {
         for (GameObject currentGameObject: World.getInstance(false).getGameObjects()) {
             v.set((float)(currentGameObject.getX() - x), (float)(currentGameObject.getY() - y));
             // TODO fix magic number
-            if (gameObject != currentGameObject && v.length() < 100 && isCollides(gameObject, currentGameObject)) {
+            if (gameObject != currentGameObject && v.length() < 70 && isCollides(gameObject, currentGameObject)) {
                 isCollides = true;
                 break;
             }
@@ -144,10 +144,13 @@ public class CollisionManager {
     }
 
     public boolean isCollides(GameObject gameObject1, GameObject gameObject2) {
-        Shape me = getUpdatedMask(gameObject1, gameObject1.getX(), gameObject1.getY(), gameObject1.getDirection());
+        /*Shape me = getUpdatedMask(gameObject1, gameObject1.getX(), gameObject1.getY(), gameObject1.getDirection());
         Shape him = getUpdatedMask(gameObject2, gameObject2.getX(), gameObject2.getY(), gameObject2.getDirection());
 
-        return me.intersects(him);
+        return me.intersects(him);*/
+        Vector2f v = new Vector2f((float)gameObject2.getX() - (float)gameObject1.getX(),
+                (float)gameObject2.getY() - (float)gameObject1.getY());
+        return v.length() < gameObject1.getMask().getBoundingCircleRadius() + gameObject2.getMask().getBoundingCircleRadius();
     }
 
 }
