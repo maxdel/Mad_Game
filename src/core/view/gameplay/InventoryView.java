@@ -1,14 +1,13 @@
 package core.view.gameplay;
 
-import java.awt.*;
 import java.util.Iterator;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
-import core.ResourceManager;
-import core.model.gameplay.inventory.Inventory;
-import core.model.gameplay.inventory.ItemRecord;
+import core.model.gameplay.resource_manager.ResourceManager;
+import core.model.gameplay.items.Inventory;
+import core.model.gameplay.items.ItemRecord;
 import org.newdawn.slick.TrueTypeFont;
 
 public class InventoryView {

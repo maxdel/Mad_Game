@@ -1,16 +1,16 @@
 package core.view.gameplay;
 
-import core.model.gameplay.Hero;
+import core.model.gameplay.units.Hero;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-import core.ResourceManager;
-import core.model.gameplay.GameObject;
+import core.model.gameplay.resource_manager.ResourceManager;
+import core.model.gameplay.units.GameObjectSolid;
 import org.newdawn.slick.geom.Vector2f;
 
 public class TreeView extends GameObjectView {
 
-    public TreeView(GameObject wall, ResourceManager resourceManager) throws SlickException {
+    public TreeView(GameObjectSolid wall, ResourceManager resourceManager) throws SlickException {
         super(wall, resourceManager);
         animation = resourceManager.getAnimation("tree");
     }
@@ -19,7 +19,7 @@ public class TreeView extends GameObjectView {
     public void render(Graphics g, double viewX, double viewY, float viewDegreeAngle,
                        double viewCenterX, double viewCenterY, Hero hero) {
         // TODO fix magic number
-        Vector2f v = new Vector2f((float)(hero.getX() - gameObject.getX()), (float)(hero.getY() - gameObject.getY()));
+        Vector2f v = new Vector2f((float)(hero.getX() - gameObjectSolid.getX()), (float)(hero.getY() - gameObjectSolid.getY()));
         if (v.length() >= 1000) {
             return;
         }
@@ -29,13 +29,13 @@ public class TreeView extends GameObjectView {
         draw(viewX, viewY);
 
         // draw mask
-        g.rotate((float) (gameObject.getX() - viewX),
-                (float) (gameObject.getY() - viewY),
-                -(float) (gameObject.getDirection() / Math.PI * 180));
+        g.rotate((float) (gameObjectSolid.getX() - viewX),
+                (float) (gameObjectSolid.getY() - viewY),
+                -(float) (gameObjectSolid.getDirection() / Math.PI * 180));
         drawMask(g, viewX, viewY);
-        g.rotate((float) (gameObject.getX() - viewX),
-                (float) (gameObject.getY() - viewY),
-                (float) (gameObject.getDirection() / Math.PI * 180));
+        g.rotate((float) (gameObjectSolid.getX() - viewX),
+                (float) (gameObjectSolid.getY() - viewY),
+                (float) (gameObjectSolid.getDirection() / Math.PI * 180));
 
         // ----- For debug and FUN -----
         /*g.rotate((float) (gameObject.getX() - viewX),

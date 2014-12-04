@@ -1,7 +1,10 @@
-package core.model.gameplay;
+package core.model.gameplay.units;
 
-import core.ResourceManager;
-import core.model.gameplay.inventory.ItemDB;
+import core.model.gameplay.resource_manager.ResourceManager;
+import core.model.gameplay.*;
+import core.model.gameplay.items.ItemDB;
+import core.model.gameplay.skills.AreaSkill;
+import core.model.gameplay.items.Loot;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Vector2f;
 
@@ -53,7 +56,7 @@ public class Bandit extends GameObjectMoving {
     
     @Override
     public void update(int delta) {
-        Vector2f v = new Vector2f((float)World.getInstance().getHero().getX() - (float)getX(),
+        Vector2f v = new Vector2f((float) World.getInstance().getHero().getX() - (float)getX(),
                 (float)World.getInstance().getHero().getY() - (float)getY());
 
         double distanceToHero = v.length();

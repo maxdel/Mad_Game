@@ -8,7 +8,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 import core.GameState;
-import core.model.gameplay.Hero;
+import core.model.gameplay.units.Hero;
 import core.model.gameplay.World;
 
 import core.view.gameplay.GamePlayView;
@@ -57,6 +57,7 @@ public class GamePlayController {
                         gc.getHeight() - input.getMouseY());
                 mouseX = input.getMouseX();
             }
+
             if (input.getMouseX() < gc.getWidth() / 2 - 1 / ROTATE_SPEED) {
                 Mouse.setCursorPosition((int) (input.getMouseX() + (1.0 / ROTATE_SPEED)),
                         gc.getHeight() - input.getMouseY());

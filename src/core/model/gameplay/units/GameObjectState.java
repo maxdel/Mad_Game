@@ -1,4 +1,4 @@
-package core.model.gameplay;
+package core.model.gameplay.units;
 
 public enum GameObjectState {
 

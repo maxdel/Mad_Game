@@ -2,15 +2,10 @@ package core.view.gameplay;
 
 import org.newdawn.slick.*;
 
-import core.ResourceManager;
-import core.model.gameplay.GameObject;
-import core.model.gameplay.Hero;
-import core.model.gameplay.GameObjectState;
-import org.newdawn.slick.openal.Audio;
-import org.newdawn.slick.openal.AudioLoader;
-import org.newdawn.slick.util.ResourceLoader;
-
-import java.io.IOException;
+import core.model.gameplay.resource_manager.ResourceManager;
+import core.model.gameplay.units.GameObjectSolid;
+import core.model.gameplay.units.Hero;
+import core.model.gameplay.units.GameObjectState;
 
 /**
  * Provides functions for the definition of actors, as well as actor
@@ -24,7 +19,7 @@ public class HeroView extends GameObjectView {
     private Animation animationSwordWalk;
     private Animation animationSwordAttack;
 
-    public HeroView(GameObject hero, ResourceManager resourceManager) throws SlickException {
+    public HeroView(GameObjectSolid hero, ResourceManager resourceManager) throws SlickException {
         super(hero, resourceManager);
         animation = ResourceManager.getInstance().getAnimation("hero");
         animationAttack = ResourceManager.getInstance().getAnimation("heroattack");
@@ -137,7 +132,7 @@ public class HeroView extends GameObjectView {
     }
 
     private Hero getHero() {
-        return (Hero) gameObject;
+        return (Hero) gameObjectSolid;
     }
 
 }

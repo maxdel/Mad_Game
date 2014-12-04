@@ -1,12 +1,12 @@
-package core.model.gameplay;
+package core.model.gameplay.units;
 
-import core.ResourceManager;
+import core.model.gameplay.resource_manager.ResourceManager;
 import org.newdawn.slick.geom.Rectangle;
 
 /**
  * Contains fields to define the wall state
  * */
-public class Wall extends GameObject {
+public class Wall extends GameObjectSolid {
 
     public Wall(double x, double y, double direction) {
         super(x, y, direction);
