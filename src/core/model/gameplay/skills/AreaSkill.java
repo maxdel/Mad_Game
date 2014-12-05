@@ -1,13 +1,10 @@
 package core.model.gameplay.skills;
 
 import core.model.gameplay.World;
+import core.model.gameplay.items.Item;
 import core.model.gameplay.units.GameObjectMoving;
 import core.model.gameplay.units.GameObjectSolid;
 import org.newdawn.slick.geom.Vector2f;
-
-/**
- * Created by Alex on 29.11.2014.
- */
 public class AreaSkill extends Skill {
 
     private double pAttack;
@@ -16,7 +13,7 @@ public class AreaSkill extends Skill {
     private double radius;
     private double angle;
 
-    public AreaSkill(GameObjectMoving owner, String name, int castTime, int cooldownTime, String requiredItem,
+    public AreaSkill(GameObjectMoving owner, String name, int castTime, int cooldownTime, Item requiredItem,
                      double requiredHP, double requiredMP, double pAttack, double mAttack, double radius, double angle) {
         super(owner, name, castTime, cooldownTime, requiredItem, requiredHP, requiredMP);
         this.pAttack = pAttack;
@@ -25,20 +22,8 @@ public class AreaSkill extends Skill {
         this.angle = angle;
     }
 
-    @Override
-    public boolean startCast() {
-        if (owner.getInventory().getDressedWeaponType().equals(requiredItem) &&
-                owner.getAttribute().getMP().getCurrent() >= requiredMP &&
-                owner.getAttribute().getHP().getCurrent() >= requiredHP &&
-                currentCooldownTime == 0) {
-            currentCastTime = castTime;
-            owner.getAttribute().getMP().damage(requiredMP);
-            owner.getAttribute().getHP().damage(requiredHP);
-            currentCooldownTime = cooldownTime;
-            return true;
-        }
-        return false;
-    }
+
+
 
     @Override
     public void cast() {

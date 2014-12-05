@@ -1,6 +1,6 @@
 package core.view.menu;
 
-import core.model.gameplay.resource_manager.ResourceManager;
+import core.resource_manager.ResourceManager;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.TrueTypeFont;
 

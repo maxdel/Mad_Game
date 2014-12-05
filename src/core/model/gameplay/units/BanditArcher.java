@@ -1,6 +1,6 @@
 package core.model.gameplay.units;
 
-import core.model.gameplay.resource_manager.ResourceManager;
+import core.resource_manager.ResourceManager;
 import core.model.gameplay.*;
 import core.model.gameplay.items.ItemDB;
 import core.model.gameplay.skills.BulletSkill;
@@ -20,7 +20,9 @@ public class BanditArcher extends GameObjectMoving {
         setMask(new Circle(0, 0, ResourceManager.getInstance().getMaskRadius("banditArcher")));
         timer = (int) (Math.random() * 1000);
 
-        skillList.add(new BulletSkill(this, "Bow shot", 200, 1000, "Bow", 0, 0, 0.5, 15, 0));
+        // must be array of req items (siml and strong bows) or must be type + name of item
+        skillList.add(new BulletSkill(this, "Bow shot", 200, 1000, ItemDB.getInstance().getItem("Bow"), 0, 0, 0.5, 15, 0));
+
         inventory.useItem(inventory.addItem("Bow"));
         inventory.addItem("Arrow", 1000);
         inventory.useItem(inventory.addItem("Light armor"));

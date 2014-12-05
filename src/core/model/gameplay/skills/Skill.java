@@ -1,5 +1,6 @@
 package core.model.gameplay.skills;
 
+import core.model.gameplay.items.Item;
 import core.model.gameplay.units.GameObjectMoving;
 
 public abstract class Skill {
@@ -12,12 +13,13 @@ public abstract class Skill {
     protected int cooldownTime;
     protected int currentCooldownTime;
 
-    protected String requiredItem;
+    protected Item requiredItem;
+    protected Class<?> requiredItemType;
 
     protected double requiredHP;
     protected double requiredMP;
 
-    public Skill(GameObjectMoving owner, String name, int castTime, int cooldownTime, String requiredItem,
+    public Skill(GameObjectMoving owner, String name, int castTime, int cooldownTime, Item requiredItem,
                  double requiredHP, double requiredMP) {
         this.owner = owner;
         this.name = name;
@@ -30,7 +32,20 @@ public abstract class Skill {
         this.requiredMP = requiredMP;
     }
 
-    public void update(int delta) {
+    public void runCast() {
+        currentCastTime = castTime;
+    }
+
+    public void runCD() {
+        currentCooldownTime = cooldownTime;
+    }
+
+    public void decreasePointsCost(double mp, double hp) {
+        owner.getAttribute().getMP().damage(requiredMP);
+        owner.getAttribute().getHP().damage(requiredHP);
+    }
+
+    public void updateCD(int delta) {
         if (currentCooldownTime > 0) {
             currentCooldownTime -= delta;
             if (currentCooldownTime < 0) {
@@ -38,8 +53,42 @@ public abstract class Skill {
             }
         }
     }
+    public void update(int delta) {
+        updateCD(delta);
+    }
 
-    public abstract boolean startCast();
+    public boolean canStartCast(boolean reqItemIsNecessary) {
+        if (reqItemIsNecessary) {
+            if (!owner.getInventory().isItemDressed(requiredItem.getClass())) {
+                return false;
+            }
+        }
+
+        if (!reqItemIsNecessary) {
+            if (!owner.getInventory().isItemDressed(requiredItem.getClass()) && requiredItem != null) {
+                return false;
+            }
+        }
+
+
+        if (owner.getAttribute().getMP().getCurrent() < requiredMP
+                || owner.getAttribute().getHP().getCurrent() < requiredHP
+                || currentCooldownTime > 0) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean startCast() {
+        if (canStartCast(true)) {
+            decreasePointsCost(requiredMP, requiredHP);
+            runCast();
+            runCD();
+            return true;
+        }
+        return false;
+    }
 
     public abstract void cast();
 

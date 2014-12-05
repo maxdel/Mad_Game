@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import core.model.gameplay.skills.Arrow;
-import core.model.gameplay.skills.Fireball;
+import core.model.gameplay.skills.bullets.Arrow;
+import core.model.gameplay.skills.bullets.Fireball;
 import core.model.gameplay.items.Loot;
 import core.model.gameplay.units.*;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-import core.model.gameplay.resource_manager.ResourceManager;
+import core.resource_manager.ResourceManager;
 import org.newdawn.slick.tiled.TiledMap;
 
 /*

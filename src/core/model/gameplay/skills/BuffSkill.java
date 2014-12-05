@@ -1,5 +1,6 @@
 package core.model.gameplay.skills;
 
+import core.model.gameplay.items.Item;
 import core.model.gameplay.units.GameObjectMoving;
 
 public class BuffSkill extends Skill {
@@ -10,7 +11,7 @@ public class BuffSkill extends Skill {
     private int castTimeDelta;
     private int cooldownTimeDelta;
 
-    public BuffSkill(GameObjectMoving owner, String name, int castTime, int cooldownTime, String requiredItem,
+    public BuffSkill(GameObjectMoving owner, String name, int castTime, int cooldownTime, Item requiredItem,
                      double requiredHP, double requiredMP, int workTime, String skillToBuff, int castTimeDelta,
                      int cooldownTimeDelta) {
         super(owner, name, castTime, cooldownTime, requiredItem, requiredHP, requiredMP);
@@ -21,10 +22,8 @@ public class BuffSkill extends Skill {
         this.cooldownTimeDelta = cooldownTimeDelta;
     }
 
-    @Override
-    public void update(int delta) {
-        super.update(delta);
 
+    private void updateWorkTime(int delta) {
         if (currentWorkTime > 0) {
             currentWorkTime -= delta;
             if (currentWorkTime <= 0) {
@@ -35,20 +34,11 @@ public class BuffSkill extends Skill {
     }
 
     @Override
-    public boolean startCast() {
-        if ((owner.getInventory().getDressedWeaponType().equals(requiredItem) ||
-                requiredItem == null) &&
-                owner.getAttribute().getMP().getCurrent() >= requiredMP &&
-                owner.getAttribute().getHP().getCurrent() >= requiredHP &&
-                currentCooldownTime == 0) {
-            currentCastTime = castTime;
-            owner.getAttribute().getMP().damage(requiredMP);
-            owner.getAttribute().getHP().damage(requiredHP);
-            currentCooldownTime = cooldownTime;
-            return true;
-        }
-        return false;
+    public void update(int delta) {
+        updateCD(delta);
+        updateWorkTime(delta);
     }
+
 
     @Override
     public void cast() {

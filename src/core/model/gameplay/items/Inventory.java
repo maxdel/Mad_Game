@@ -9,13 +9,13 @@ import java.util.List;
 public class Inventory {
 
     private GameObjectMoving owner;
-    private List<ItemRecord> itemRecords;
+    private List<ItemRecord> existedItems;
     private List<ItemRecord> dressedItems;
     private ItemRecord selectedRecord;
 
     public Inventory(GameObjectMoving owner) {
         this.owner = owner;
-        itemRecords = new ArrayList<ItemRecord>();
+        existedItems = new ArrayList<ItemRecord>();
         dressedItems = new ArrayList<ItemRecord>();
         selectedRecord = null;
 
@@ -38,8 +38,8 @@ public class Inventory {
         addItem("Robe of magic");
     }
 
-    public List<ItemRecord> getItemRecords() {
-        return itemRecords;
+    public List<ItemRecord> getExistedItems() {
+        return existedItems;
     }
 
     public ItemRecord getSelectedRecord() {
@@ -53,16 +53,16 @@ public class Inventory {
     public ItemRecord addItem(String name, int number) {
         Item item = ItemDB.getInstance().getItem(name);
         if (item != null && number > 0) {
-            for (ItemRecord itemRecord : itemRecords) {
+            for (ItemRecord itemRecord : existedItems) {
                 if (itemRecord.getName().equals(name)) {
                     itemRecord.setNumber(itemRecord.getNumber() + number);
                     return itemRecord;
                 }
             }
             ItemRecord itemRecord = new ItemRecord(name, number);
-            itemRecords.add(itemRecord);
-            if (itemRecords.size() == 1) {
-                selectedRecord = itemRecords.get(0);
+            existedItems.add(itemRecord);
+            if (existedItems.size() == 1) {
+                selectedRecord = existedItems.get(0);
             }
             return itemRecord;
         }
@@ -77,7 +77,7 @@ public class Inventory {
         Item item = ItemDB.getInstance().getItem(name);
         if (item != null && number > 0) {
             int i = -1;
-            for (Iterator<ItemRecord> it = itemRecords.iterator(); it.hasNext();) {
+            for (Iterator<ItemRecord> it = existedItems.iterator(); it.hasNext();) {
                 i++;
                 ItemRecord itemRecord = it.next();
                 if (itemRecord.getName().equals(name)) {
@@ -85,13 +85,13 @@ public class Inventory {
                         undressItem(itemRecord);
                         it.remove();
                         if (selectedRecord == itemRecord) {
-                            if (itemRecords.size() == 0) {
+                            if (existedItems.size() == 0) {
                                 selectedRecord = null;
                             } else {
-                                if (i < itemRecords.size()) {
-                                    selectedRecord = itemRecords.get(i);
+                                if (i < existedItems.size()) {
+                                    selectedRecord = existedItems.get(i);
                                 } else {
-                                    selectedRecord = itemRecords.get(i - 1);
+                                    selectedRecord = existedItems.get(i - 1);
                                 }
                             }
                         }
@@ -105,7 +105,7 @@ public class Inventory {
     }
 
     public void setSelectedRecord(int index) {
-        selectedRecord = itemRecords.get(index);
+        selectedRecord = existedItems.get(index);
     }
 
 
@@ -165,7 +165,7 @@ public class Inventory {
         }
     }
 
-    // is Dressed function
+    // TODO: for terrible views only
     public String getDressedWeaponType() {
         for (Iterator<ItemRecord> it = dressedItems.iterator(); it.hasNext();) {
             ItemRecord itemRecord = it.next();
@@ -179,21 +179,41 @@ public class Inventory {
         }
         return "";
     }
-    /*
-    public boolean isItemDressed(String itemType) {
+
+    public boolean isItemDressed(Item item) {
         for (Iterator<ItemRecord> it = dressedItems.iterator(); it.hasNext();) {
             ItemRecord itemRecord = it.next();
-            if (itemRecord.getType().equals(itemType)) {
+            if (itemRecord.getItem() == item) {
                 return true;
             }
         }
         return false;
     }
-*/
-    public boolean isItemExists(String itemName) {
-        for (Iterator<ItemRecord> it = itemRecords.iterator(); it.hasNext();) {
+
+    public boolean isItemDressed(Class<?> itemClass) {
+        for (Iterator<ItemRecord> it = dressedItems.iterator(); it.hasNext();) {
             ItemRecord itemRecord = it.next();
-            if (itemRecord.getName().equals(itemName)) {
+            if (itemRecord.getItem().getClass() == itemClass) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isItemExists(Item item) {
+        for (Iterator<ItemRecord> it = existedItems.iterator(); it.hasNext();) {
+            ItemRecord itemRecord = it.next();
+            if (itemRecord.getItem() == item) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isItemExists(Class<?> itemClass) {
+        for (Iterator<ItemRecord> it = existedItems.iterator(); it.hasNext();) {
+            ItemRecord itemRecord = it.next();
+            if (itemRecord.getItem().getClass() == itemClass) {
                 return true;
             }
         }

@@ -1,12 +1,10 @@
-package core.model.gameplay.skills;
+package core.model.gameplay.skills.bullets;
 
-import core.model.gameplay.resource_manager.ResourceManager;
 import core.model.gameplay.CollisionManager;
 import core.model.gameplay.World;
 import core.model.gameplay.units.*;
-import org.newdawn.slick.geom.Rectangle;
 
-public class Arrow extends GameObjectSolid {
+public abstract class Bullet extends GameObjectSolid{
 
     private GameObjectMoving owner;
     private double speed;
@@ -15,18 +13,14 @@ public class Arrow extends GameObjectSolid {
     private final int maximumDistance = 1000;
     private double currentDistance;
 
-    public Arrow(GameObjectMoving owner, double x, double y, double direction, double speed, double pAttack,
-                 double mAttack) {
+    public Bullet(GameObjectMoving owner, double x, double y, double direction, double speed, double pAttack,
+                    double mAttack) {
         super(x, y, direction);
         this.owner = owner;
         this.speed = speed;
         this.pAttack = pAttack;
         this.mAttack = mAttack;
         currentDistance = 0;
-        setMask(new Rectangle(- ResourceManager.getInstance().getMaskWidth("arrow") / 2,
-                - ResourceManager.getInstance().getMaskHeight("arrow") / 2,
-                ResourceManager.getInstance().getMaskWidth("arrow"),
-                ResourceManager.getInstance().getMaskHeight("arrow")));
     }
 
     @Override
@@ -53,7 +47,7 @@ public class Arrow extends GameObjectSolid {
                     GameObjectMoving otherMoving = (GameObjectMoving) other;
                     if (pAttack > 0) {
                         double pDamage = pAttack + owner.getAttribute().getPAttack() - otherMoving.getAttribute().getPArmor();
-                        if (pDamage <= 1) { // TODO: ref
+                        if (pDamage <= 1) {
                             pDamage = 1;
                         }
                         otherMoving.getAttribute().getHP().damage(pDamage);

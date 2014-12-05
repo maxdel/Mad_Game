@@ -4,7 +4,7 @@ import core.model.gameplay.units.Hero;
 import core.model.gameplay.units.Skeleton;
 import org.newdawn.slick.*;
 
-import core.model.gameplay.resource_manager.ResourceManager;
+import core.resource_manager.ResourceManager;
 import core.model.gameplay.units.GameObjectSolid;
 
 public class SkeletonView extends GameObjectView {

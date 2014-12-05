@@ -73,8 +73,7 @@ public class GameObjectMoving extends GameObjectSolid {
                 useItem();
             }
         }
-
-        if (currentSkill != null && currentSkill.getCurrentCastTime() > 0) {
+         if (currentSkill != null && currentSkill.getCurrentCastTime() > 0) {
             currentSkill.setCurrentCastTime(currentSkill.getCurrentCastTime() - delta);
             if (currentSkill.getCurrentCastTime() <= 0) {
                 currentSkill.setCurrentCastTime(0);

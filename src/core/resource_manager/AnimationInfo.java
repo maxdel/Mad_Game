@@ -1,4 +1,4 @@
-package core.model.gameplay.resource_manager;
+package core.resource_manager;
 
 import org.newdawn.slick.Animation;
 

@@ -1,6 +1,6 @@
 package core.model.gameplay.units;
 
-import core.model.gameplay.resource_manager.ResourceManager;
+import core.resource_manager.ResourceManager;
 import core.model.gameplay.skills.BulletSkill;
 import core.model.gameplay.CollisionManager;
 import core.model.gameplay.items.Loot;
@@ -21,7 +21,7 @@ public class SkeletonMage extends GameObjectMoving {
         setMask(new Circle(0, 0, ResourceManager.getInstance().getMaskRadius("skeletonMage")));
         timer = (int) (Math.random() * 1000);
 
-        skillList.add(new BulletSkill(this, "Fireball", 200, 1000, "Staff", 0, 5, 0.4, 0, 20));
+        skillList.add(new BulletSkill(this, "Fireball", 200, 1000, ItemDB.getInstance().getItem("Staff"), 0, 5, 0.4, 0, 20));
         inventory.useItem(inventory.addItem("Strong staff"));
         inventory.useItem(inventory.addItem("Robe of magic"));
 
