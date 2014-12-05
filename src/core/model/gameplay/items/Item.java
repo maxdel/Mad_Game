@@ -18,6 +18,7 @@ public class Item {
         this.description = description;
         this.type = type;
         this.values = values;
+        this.canDress = false;
     }
 
     public void setBonuses(GameObjectMoving target) {

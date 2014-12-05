@@ -38,11 +38,12 @@ public class HeroView extends GameObjectView {
                     //TODO: bad code
                     if (hero.getInventory().getDressedWeaponType().equals("Sword")) {
                         animation = animationSwordWalk;
+                        animation.setSpeed((float) (hero.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("heroswordwalk")));
                     } else {
                         animation = animationWalk;
+                        animation.setSpeed((float) (hero.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("hero")));
                     }
                     animation.start();
-                    animation.setSpeed((float) (hero.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("hero")));
                     break;
                 case STAND:
                     if (hero.getInventory().getDressedWeaponType().equals("Sword")) {

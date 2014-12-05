@@ -10,4 +10,5 @@ public class Fireball extends Bullet {
         super(owner, x, y, direction, speed, pAttack, mAttack);
         setMask(new Circle(0, 0, ResourceManager.getInstance().getMaskRadius("fireball")));
     }
+
 }

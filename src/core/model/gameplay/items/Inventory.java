@@ -190,7 +190,7 @@ public class Inventory {
         return false;
     }
 
-    public boolean isItemDressed(Class<?> itemClass) {
+    public boolean isItemDressed(Class itemClass) {
         for (Iterator<ItemRecord> it = dressedItems.iterator(); it.hasNext();) {
             ItemRecord itemRecord = it.next();
             if (itemRecord.getItem().getClass() == itemClass) {
@@ -210,7 +210,7 @@ public class Inventory {
         return false;
     }
 
-    public boolean isItemExists(Class<?> itemClass) {
+    public boolean isItemExists(Class itemClass) {
         for (Iterator<ItemRecord> it = existedItems.iterator(); it.hasNext();) {
             ItemRecord itemRecord = it.next();
             if (itemRecord.getItem().getClass() == itemClass) {

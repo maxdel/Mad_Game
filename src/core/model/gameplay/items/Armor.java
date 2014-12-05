@@ -2,13 +2,13 @@ package core.model.gameplay.items;
 
 import core.model.gameplay.units.GameObjectMoving;
 
-import java.util.List;
 import java.util.Map;
 
 public class Armor extends Item {
 
     public Armor(String name, String description, String type, Map<String, Integer> values) {
         super(name, description, type, values);
+        setCanDress(true);
     }
 
     @Override
@@ -23,4 +23,5 @@ public class Armor extends Item {
         target.getAttribute().decreaseMArmor(getParameter("mArmor"));
 
     }
+
 }

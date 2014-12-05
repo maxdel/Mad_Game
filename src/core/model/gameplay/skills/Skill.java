@@ -14,7 +14,7 @@ public abstract class Skill {
     protected int currentCooldownTime;
 
     protected Item requiredItem;
-    protected Class<?> requiredItemType;
+    protected Class requiredItemType;
 
     protected double requiredHP;
     protected double requiredMP;
