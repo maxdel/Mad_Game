@@ -2,7 +2,6 @@ package core.resource_manager;
 
 import java.awt.Font;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
@@ -61,11 +60,18 @@ public class ResourceManager {
                     loadMenuPause();
                     break;
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void unload() {
+        animationInfos = new HashMap<String, AnimationInfo>();
+        maskInfos = new HashMap<String, MaskInfo>();
+        fontInfos = new HashMap<String, FontInfo>();
+        itemInfos = new HashMap<String, ItemInfo>();
+        skillInfos = new HashMap<String, SkillInfo>();
+        imageInfos = new HashMap<String, Image>();
     }
 
     private void loadGamePlay() throws SlickException, IOException {
@@ -104,15 +110,6 @@ public class ResourceManager {
         loadFonts(menupauseElement);
 
         in.close();
-    }
-
-    public void unload() {
-        animationInfos = new HashMap<String, AnimationInfo>();
-        maskInfos = new HashMap<String, MaskInfo>();
-        fontInfos = new HashMap<String, FontInfo>();
-        itemInfos = new HashMap<String, ItemInfo>();
-        skillInfos = new HashMap<String, SkillInfo>();
-        imageInfos = new HashMap<String, Image>();
     }
 
     private void loadAnimations(XMLElement gameStateElement) throws SlickException {
