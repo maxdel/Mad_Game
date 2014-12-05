@@ -110,16 +110,17 @@ public class Inventory {
 
 
     public boolean useItem(ItemRecord itemRecord) {
-        if (itemRecord.getItem().canDress()) {
+        if (itemRecord.getItem().getItemOperation() == ItemOperation.DRESS) {
             dressItem(itemRecord);
             return true;
-        } else if (!itemRecord.getItem().canDress()) {
+        } else if (itemRecord.getItem().getItemOperation() == ItemOperation.SPEND) {
             itemRecord.getItem().setBonuses(owner);
             deleteItem(itemRecord.getName(), 1);
             return true;
-        } else {
-            return false;
+        } else if (itemRecord.getItem().getItemOperation() == ItemOperation.EMPTY) {
+            // pass
         }
+        return false;
     }
 
     private ItemRecord findItemToUndress(ItemRecord itemToDress) {

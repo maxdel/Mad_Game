@@ -8,17 +8,15 @@ public class Item {
 
     private String name;
     private String description;
-    private String type;
-    private boolean canDress;
+    private ItemOperation itemOperation;
 
     private Map<String, Integer> values;
 
-    public Item(String name, String description, String type, Map<String, Integer> values) {
+    public Item(String name, String description, Map<String, Integer> values) {
         this.name = name;
         this.description = description;
-        this.type = type;
         this.values = values;
-        this.canDress = false;
+        setItemOperation(ItemOperation.EMPTY);
     }
 
     public void setBonuses(GameObjectMoving target) {
@@ -37,9 +35,6 @@ public class Item {
         return description;
     }
 
-    public String getType() {
-        return type;
-    }
 
     public int getParameter(String parameter) {
         return values.get(parameter);
@@ -49,11 +44,11 @@ public class Item {
         return values;
     }
 
-    public boolean canDress() {
-        return canDress;
+    public ItemOperation getItemOperation() {
+        return itemOperation;
     }
 
-    public void setCanDress(boolean canDress) {
-        this.canDress = canDress;
+    public void setItemOperation(ItemOperation itemOperation) {
+        this.itemOperation = itemOperation;
     }
 }
