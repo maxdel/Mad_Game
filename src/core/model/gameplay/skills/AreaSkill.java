@@ -5,6 +5,7 @@ import core.model.gameplay.items.Item;
 import core.model.gameplay.units.GameObjectMoving;
 import core.model.gameplay.units.GameObjectSolid;
 import org.newdawn.slick.geom.Vector2f;
+
 public class AreaSkill extends Skill {
 
     private double pAttack;
@@ -21,9 +22,6 @@ public class AreaSkill extends Skill {
         this.radius = radius;
         this.angle = angle;
     }
-
-
-
 
     @Override
     public void cast() {
