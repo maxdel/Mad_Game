@@ -10,8 +10,11 @@ import java.util.List;
 
 import core.GameState;
 import core.model.gameplay.items.Item;
+import core.model.gameplay.skills.Skill;
+import core.model.gameplay.units.GameObjectMoving;
 import org.newdawn.slick.*;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.util.xml.SlickXMLException;
 import org.newdawn.slick.util.xml.XMLElement;
 import org.newdawn.slick.util.xml.XMLElementList;
 import org.newdawn.slick.util.xml.XMLParser;
@@ -26,6 +29,7 @@ public class ResourceManager {
     private Map<String, MaskInfo> maskInfos;
     private Map<String, FontInfo> fontInfos;
     private Map<String, ItemInfo> itemInfos;
+    private Map<String, SkillInfo> skillInfos;
     private Map<String, Image> imageInfos;
 
     private ResourceManager() {
@@ -33,6 +37,7 @@ public class ResourceManager {
         maskInfos = new HashMap<String, MaskInfo>();
         fontInfos = new HashMap<String, FontInfo>();
         itemInfos = new HashMap<String, ItemInfo>();
+        skillInfos = new HashMap<String, SkillInfo>();
         imageInfos = new HashMap<String, Image>();
     }
 
@@ -69,8 +74,49 @@ public class ResourceManager {
         XMLElement root = xmlParser.parse("", in);
         XMLElement gameplayElement = root.getChildrenByName("gameplay").get(0);
 
-        // gameplay/animations
-        XMLElement animationsElement = gameplayElement.getChildrenByName("animations").get(0);
+        loadAnimations(gameplayElement);
+        loadMasks(gameplayElement);
+        loadItems(gameplayElement);
+        loadSkills(gameplayElement);
+        loadImages(gameplayElement);
+        loadFonts(gameplayElement);
+
+        in.close();
+    }
+
+    private void loadMenuStart() throws SlickException, IOException {
+        XMLParser xmlParser = new XMLParser();
+        InputStream in = new FileInputStream(xmlFilePath);
+        XMLElement root = xmlParser.parse("", in);
+        XMLElement manustartElement = root.getChildrenByName("menustart").get(0);
+
+        loadFonts(manustartElement);
+
+        in.close();
+    }
+
+    private void loadMenuPause() throws SlickException, IOException {
+        XMLParser xmlParser = new XMLParser();
+        InputStream in = new FileInputStream(xmlFilePath);
+        XMLElement root = xmlParser.parse("", in);
+        XMLElement menupauseElement = root.getChildrenByName("menupause").get(0);
+
+        loadFonts(menupauseElement);
+
+        in.close();
+    }
+
+    public void unload() {
+        animationInfos = new HashMap<String, AnimationInfo>();
+        maskInfos = new HashMap<String, MaskInfo>();
+        fontInfos = new HashMap<String, FontInfo>();
+        itemInfos = new HashMap<String, ItemInfo>();
+        skillInfos = new HashMap<String, SkillInfo>();
+        imageInfos = new HashMap<String, Image>();
+    }
+
+    private void loadAnimations(XMLElement gameStateElement) throws SlickException {
+        XMLElement animationsElement = gameStateElement.getChildrenByName("animations").get(0);
         XMLElementList animationList = animationsElement.getChildrenByName("animation");
         for (int i = 0; i < animationList.size(); ++i) {
             XMLElement animationElement = animationList.get(i);
@@ -98,9 +144,10 @@ public class ResourceManager {
                 animationInfos.put(name, animationInfo);
             }
         }
+    }
 
-        // gameplay/masks
-        XMLElement masksElement = gameplayElement.getChildrenByName("masks").get(0);
+    private void loadMasks(XMLElement gameStateElement) throws SlickXMLException {
+        XMLElement masksElement = gameStateElement.getChildrenByName("masks").get(0);
         XMLElementList maskList = masksElement.getChildrenByName("mask");
         for (int i = 0; i < maskList.size(); ++i) {
             XMLElement maskElement = maskList.get(i);
@@ -112,9 +159,10 @@ public class ResourceManager {
 
             maskInfos.put(name, new MaskInfo(width, height, radius));
         }
+    }
 
-        // gameplay/items
-        XMLElement itemsElement = gameplayElement.getChildrenByName("items").get(0);
+    private void loadItems(XMLElement gameStateElement) throws SlickException {
+        XMLElement itemsElement = gameStateElement.getChildrenByName("items").get(0);
         XMLElementList itemList = itemsElement.getChildrenByName("item");
         for (int i = 0; i < itemList.size(); ++i) {
             XMLElement itemElement = itemList.get(i);
@@ -133,12 +181,36 @@ public class ResourceManager {
                     map.put(nameList.get(j), Integer.valueOf(itemElement.getAttribute(nameList.get(j))));
                 }
             }
-
             itemInfos.put(name, new ItemInfo(name, description, new Image(path), type, map));
         }
+    }
 
-        // gameplay/images
-        XMLElement imagesElement = gameplayElement.getChildrenByName("images").get(0);
+    private void loadSkills(XMLElement gameStateElement) throws SlickException {
+        XMLElement skillsElement = gameStateElement.getChildrenByName("skills").get(0);
+        XMLElementList skillList = skillsElement.getChildrenByName("skill");
+        for (int i = 0; i < skillList.size(); ++i) {
+            XMLElement skillElement = skillList.get(i);
+
+            String name = skillElement.getAttribute("name");
+            String description = skillElement.getAttribute("description");
+            String path = skillElement.getAttribute("path");
+            String type = skillElement.getAttribute("type");
+            ArrayList<String> nameList = new ArrayList<String>(Arrays.asList(skillElement.getAttributeNames()));
+            Map<String, String> map = new HashMap<String, String>();
+            for (int j = 0; j < nameList.size(); ++j) {
+                if (!nameList.get(j).equals("name") &&
+                        !nameList.get(j).equals("description") &&
+                        !nameList.get(j).equals("path") &&
+                        !nameList.get(j).equals("type")) {
+                    map.put(nameList.get(j), skillElement.getAttribute(nameList.get(j)));
+                }
+            }
+            skillInfos.put(name, new SkillInfo(name, description, type, new Image(path), map));
+        }
+    }
+
+    private void loadImages(XMLElement gameStateElement) throws SlickException {
+        XMLElement imagesElement = gameStateElement.getChildrenByName("images").get(0);
         XMLElementList imageList = imagesElement.getChildrenByName("image");
         for (int i = 0; i < imageList.size(); ++i) {
             XMLElement imageElement = imageList.get(i);
@@ -147,9 +219,10 @@ public class ResourceManager {
             String path = imageElement.getAttribute("path");
             imageInfos.put(name, new Image(path));
         }
+    }
 
-        // gameplay/fonts
-        XMLElement fontsElement = gameplayElement.getChildrenByName("fonts").get(0);
+    private void loadFonts(XMLElement gameStateElement) throws SlickXMLException {
+        XMLElement fontsElement = gameStateElement.getChildrenByName("fonts").get(0);
         XMLElementList fontList = fontsElement.getChildrenByName("font");
         for (int i = 0; i < fontList.size(); ++i) {
             XMLElement fontElement = fontList.get(i);
@@ -165,66 +238,6 @@ public class ResourceManager {
 
             fontInfos.put(name, new FontInfo(font, ttf));
         }
-
-        in.close();
-    }
-
-    private void loadMenuStart() throws SlickException, IOException {
-        XMLParser xmlParser = new XMLParser();
-        InputStream in = new FileInputStream(xmlFilePath);
-        XMLElement root = xmlParser.parse("", in);
-        XMLElement manustartElement = root.getChildrenByName("menustart").get(0);
-
-        // menustart/fonts
-        XMLElement fontsElement = manustartElement.getChildrenByName("fonts").get(0);
-        XMLElementList fontList = fontsElement.getChildrenByName("font");
-        for (int i = 0; i < fontList.size(); ++i) {
-            XMLElement fontElement = fontList.get(i);
-
-            String name = fontElement.getAttribute("name");
-            String fontName = fontElement.getAttribute("fontName");
-            int size = fontElement.getIntAttribute("size");
-            boolean isBold = fontElement.getBooleanAttribute("isBold");
-
-            int fontStyle = isBold == true ? Font.BOLD : Font.PLAIN;
-            Font font = new Font(fontName, fontStyle, size);
-            TrueTypeFont ttf = new TrueTypeFont(font, true);
-
-            fontInfos.put(name, new FontInfo(font, ttf));
-        }
-
-        in.close();
-    }
-
-    private void loadMenuPause() throws SlickException, IOException {
-        XMLParser xmlParser = new XMLParser();
-        InputStream in = new FileInputStream(xmlFilePath);
-        XMLElement root = xmlParser.parse("", in);
-        XMLElement menupauseElement = root.getChildrenByName("menupause").get(0);
-
-        // menustart/fonts
-        XMLElement fontsElement = menupauseElement.getChildrenByName("fonts").get(0);
-        XMLElementList fontList = fontsElement.getChildrenByName("font");
-        for (int i = 0; i < fontList.size(); ++i) {
-            XMLElement fontElement = fontList.get(i);
-
-            String name = fontElement.getAttribute("name");
-            String fontName = fontElement.getAttribute("fontName");
-            int size = fontElement.getIntAttribute("size");
-            boolean isBold = fontElement.getBooleanAttribute("isBold");
-
-            int fontStyle = isBold == true ? Font.BOLD : Font.PLAIN;
-            Font font = new Font(fontName, fontStyle, size);
-            TrueTypeFont ttf = new TrueTypeFont(font, true);
-
-            fontInfos.put(name, new FontInfo(font, ttf));
-        }
-
-        in.close();
-    }
-
-    public void unload() {
-        animationInfos = new HashMap<String, AnimationInfo>();
     }
 
     // GETTERS
@@ -275,6 +288,10 @@ public class ResourceManager {
             itemList.add(itemInfo.getItem());
         }
         return itemList;
+    }
+
+    public Skill getSkill(GameObjectMoving owner, String name) {
+        return skillInfos.get(name).getSkill(owner);
     }
 
 }

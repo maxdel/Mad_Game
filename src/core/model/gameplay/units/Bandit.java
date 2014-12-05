@@ -20,7 +20,7 @@ public class Bandit extends GameObjectMoving {
         setMask(new Circle(0, 0, ResourceManager.getInstance().getMaskRadius("bandit")));
         timer = (int) (Math.random() * 1000);
 
-        skillList.add(new AreaSkill(this, "Sword attack", 200, 1000, ItemDB.getInstance().getItem("Sword"), 0, 0, 15, 0, 70, Math.PI / 3));
+        skillList.add(ResourceManager.getInstance().getSkill(this, "Sword attack"));
         inventory.useItem(inventory.addItem("Sword"));
         inventory.useItem(inventory.addItem("Light armor"));
 

@@ -13,9 +13,9 @@ public class BulletSkill extends Skill {
     private double pAttack;
     private double mAttack;
 
-    public BulletSkill(GameObjectMoving owner, String name, int castTime, int cooldownTime, Item requiredItem,
+    public BulletSkill(GameObjectMoving owner, String name, String description, int castTime, int cooldownTime, String requiredItem,
                        double requiredHP, double requiredMP, double bulletSpeed, double pAttack, double mAttack) {
-        super(owner, name, castTime, cooldownTime, requiredItem, requiredHP, requiredMP);
+        super(owner, name, description, castTime, cooldownTime, requiredItem, requiredHP, requiredMP);
         this.bulletSpeed = bulletSpeed;
         this.pAttack = pAttack;
         this.mAttack = mAttack;

@@ -1,6 +1,7 @@
 package core.model.gameplay.skills;
 
 import core.model.gameplay.items.Item;
+import core.model.gameplay.items.ItemDB;
 import core.model.gameplay.units.GameObjectMoving;
 
 public abstract class Skill {
@@ -8,26 +9,27 @@ public abstract class Skill {
     protected GameObjectMoving owner;
 
     protected String name;
+    protected String description;
     protected int castTime;
     protected int currentCastTime;
     protected int cooldownTime;
     protected int currentCooldownTime;
 
     protected Item requiredItem;
-    protected Class requiredItemType;
 
     protected double requiredHP;
     protected double requiredMP;
 
-    public Skill(GameObjectMoving owner, String name, int castTime, int cooldownTime, Item requiredItem,
+    public Skill(GameObjectMoving owner, String name, String description, int castTime, int cooldownTime, String requiredItem,
                  double requiredHP, double requiredMP) {
         this.owner = owner;
         this.name = name;
+        this.description = description;
         this.castTime = castTime;
         this.currentCastTime = 0;
         this.cooldownTime = cooldownTime;
         this.currentCooldownTime = 0;
-        this.requiredItem = requiredItem;
+        this.requiredItem = ItemDB.getInstance().getItem(requiredItem);
         this.requiredHP = requiredHP;
         this.requiredMP = requiredMP;
     }
@@ -118,6 +120,10 @@ public abstract class Skill {
 
     public void setCooldownTime(int cooldownTime) {
         this.cooldownTime = cooldownTime;
+    }
+
+    public void setOwner(GameObjectMoving owner) {
+        this.owner = owner;
     }
 
 }

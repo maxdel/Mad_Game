@@ -48,6 +48,18 @@
             <item name="Heavy armor" description="Heavy armor" path = "/res/items/heavy armor.png" type="Armor" pArmor="5" mArmor="1" />
             <item name="Robe of magic" description="Robe of magic" path = "/res/items/robe of magic.png" type="Armor" pArmor="1" mArmor="5" />
         </items>
+        <skills>
+            <skill name="Bow shot" description="Shot!!!" path="/res/skills/bow shot.png" type="BulletSkill"
+                    castTime="200" cooldownTime="1000" requiredItem="Bow" requiredHP="0" requiredMP="0"
+                    pAttack="15" mAttack="0" bulletSpeed="0.5"/>
+            <skill name="Sword attack" description="Sword!!!" path="/res/skills/sword attack.png" type="AreaSkill"
+                   castTime="200" cooldownTime="1000" requiredItem="Sword" requiredHP="0" requiredMP="0"
+                   pAttack="15" mAttack="0" radius="70" angle="60"/>
+            <skill name="Fireball" description="Fireball!!!" path="/res/skills/fireball.png" type="BulletSkill"
+                   castTime="200" cooldownTime="1000" requiredItem="Staff" requiredHP="0" requiredMP="5"
+                   pAttack="0" mAttack="20" bulletSpeed="0.4"/>
+
+        </skills>
         <fonts>
             <font name="lootfont" fontName="verdana" size="10" isBold="false" />
             <font name="itemfont" fontName="verdana" size="12" isBold="false" />

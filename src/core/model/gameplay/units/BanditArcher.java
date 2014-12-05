@@ -20,8 +20,8 @@ public class BanditArcher extends GameObjectMoving {
         setMask(new Circle(0, 0, ResourceManager.getInstance().getMaskRadius("banditArcher")));
         timer = (int) (Math.random() * 1000);
 
-        // must be array of req items (siml and strong bows) or must be type + name of item
-        skillList.add(new BulletSkill(this, "Bow shot", 200, 1000, ItemDB.getInstance().getItem("Bow"), 0, 0, 0.5, 15, 0));
+        // ??? OLD COMMENT must be array of req items (siml and strong bows) or must be type + name of item
+        skillList.add(ResourceManager.getInstance().getSkill(this, "Bow shot"));
 
         inventory.useItem(inventory.addItem("Bow"));
         inventory.addItem("Arrow", 1000);

@@ -7,9 +7,9 @@ public class RegenSkill extends Skill {
 
     private int HPdelta;
 
-    public RegenSkill(GameObjectMoving owner, String name, int castTime, int cooldownTime, Item requiredItem,
+    public RegenSkill(GameObjectMoving owner, String name, String description, int castTime, int cooldownTime, String requiredItem,
                       double requiredHP, double requiredMP, int HPdelta) {
-        super(owner, name, castTime, cooldownTime, requiredItem, requiredHP, requiredMP);
+        super(owner, name, description, castTime, cooldownTime, requiredItem, requiredHP, requiredMP);
         this.HPdelta = HPdelta;
     }
 

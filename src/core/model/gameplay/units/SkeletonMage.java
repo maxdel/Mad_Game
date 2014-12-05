@@ -21,7 +21,7 @@ public class SkeletonMage extends GameObjectMoving {
         setMask(new Circle(0, 0, ResourceManager.getInstance().getMaskRadius("skeletonMage")));
         timer = (int) (Math.random() * 1000);
 
-        skillList.add(new BulletSkill(this, "Fireball", 200, 1000, ItemDB.getInstance().getItem("Staff"), 0, 5, 0.4, 0, 20));
+        skillList.add(ResourceManager.getInstance().getSkill(this, "Fireball"));
         inventory.useItem(inventory.addItem("Strong staff"));
         inventory.useItem(inventory.addItem("Robe of magic"));
 

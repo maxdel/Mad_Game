@@ -11,10 +11,10 @@ public class BuffSkill extends Skill {
     private int castTimeDelta;
     private int cooldownTimeDelta;
 
-    public BuffSkill(GameObjectMoving owner, String name, int castTime, int cooldownTime, Item requiredItem,
+    public BuffSkill(GameObjectMoving owner, String name, String description, int castTime, int cooldownTime, String requiredItem,
                      double requiredHP, double requiredMP, int workTime, String skillToBuff, int castTimeDelta,
                      int cooldownTimeDelta) {
-        super(owner, name, castTime, cooldownTime, requiredItem, requiredHP, requiredMP);
+        super(owner, name, description, castTime, cooldownTime, requiredItem, requiredHP, requiredMP);
         this.workTime = workTime;
         this.currentWorkTime = 0;
         this.skillToBuff = skillToBuff;

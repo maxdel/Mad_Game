@@ -35,14 +35,21 @@ public class Hero extends GameObjectMoving {
         pickLootCounter = 0;
         dropLootCounter = 0;
         useItemCounter = 0;
-        skillList.add(new AreaSkill(this, "Sword attack", 200, 1000, ItemDB.getInstance().getItem("Sword"), 0, 0, 30, 0, 70, Math.PI / 3));
+        skillList.add(ResourceManager.getInstance().getSkill(this, "Sword attack"));
+        skillList.add(ResourceManager.getInstance().getSkill(this, "Bow shot"));
+        skillList.add(ResourceManager.getInstance().getSkill(this, "Sword attack"));
+        skillList.add(ResourceManager.getInstance().getSkill(this, "Sword attack"));
+        skillList.add(ResourceManager.getInstance().getSkill(this, "Sword attack"));
+        skillList.add(ResourceManager.getInstance().getSkill(this, "Sword attack"));
+        skillList.add(ResourceManager.getInstance().getSkill(this, "Sword attack"));
+        /*skillList.add(new AreaSkill(this, "Sword attack", 200, 1000, ItemDB.getInstance().getItem("Sword"), 0, 0, 30, 0, 70, Math.PI / 3));
         skillList.add(new BulletSkill(this, "Bow shot", 200, 1000, ItemDB.getInstance().getItem("Bow"), 0, 0, 0.5, 15, 0));
         skillList.add(new BulletSkill(this, "Fireball", 200, 1000, ItemDB.getInstance().getItem("Staff"), 0, 10, 0.4, 0, 60));
         skillList.add(new AreaSkill(this, "Strong attack", 400, 2000, ItemDB.getInstance().getItem("Sword"), 0, 10, 50, 5, 100, Math.PI / 2));
         skillList.add(new BuffSkill(this, "Bow speed", 200, 10000, null, 0, 10, 5000, "Bow shot", 150, 950));
         skillList.add(new RegenSkill(this, "Heal", 200, 1000, null, 0, 10, 20));
         skillList.add(new BulletSkill(this, "Fireball", 200, 1000, ItemDB.getInstance().getItem("Staff"), 0, 10, 0.4, 0, 60));
-        skillList.add(new AreaSkill(this, "Staff attack", 200, 1000, ItemDB.getInstance().getItem("Staff"), 0, 0, 5, 1, 100, Math.PI / 3));
+        skillList.add(new AreaSkill(this, "Staff attack", 200, 1000, ItemDB.getInstance().getItem("Staff"), 0, 0, 5, 1, 100, Math.PI / 3));*/
 
     }
 

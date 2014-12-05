@@ -2,6 +2,7 @@ package core.model.gameplay.skills;
 
 import core.model.gameplay.World;
 import core.model.gameplay.items.Item;
+import core.model.gameplay.items.ItemDB;
 import core.model.gameplay.units.GameObjectMoving;
 import core.model.gameplay.units.GameObjectSolid;
 import org.newdawn.slick.geom.Vector2f;
@@ -14,9 +15,9 @@ public class AreaSkill extends Skill {
     private double radius;
     private double angle;
 
-    public AreaSkill(GameObjectMoving owner, String name, int castTime, int cooldownTime, Item requiredItem,
+    public AreaSkill(GameObjectMoving owner, String name, String description, int castTime, int cooldownTime, String requiredItem,
                      double requiredHP, double requiredMP, double pAttack, double mAttack, double radius, double angle) {
-        super(owner, name, castTime, cooldownTime, requiredItem, requiredHP, requiredMP);
+        super(owner, name, description, castTime, cooldownTime, requiredItem, requiredHP, requiredMP);
         this.pAttack = pAttack;
         this.mAttack = mAttack;
         this.radius = radius;
