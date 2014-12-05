@@ -7,6 +7,7 @@ public class Item {
     private String name;
     private String description;
     private String type;
+
     private Map<String, Integer> values;
 
     public Item(String name, String description, String type, Map<String, Integer> values) {

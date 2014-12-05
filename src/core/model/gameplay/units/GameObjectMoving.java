@@ -125,6 +125,7 @@ public class GameObjectMoving extends GameObjectSolid {
         return Math.sin(direction) * length;
     }
 
+
     public Attribute getAttribute() {
         return attribute;
     }

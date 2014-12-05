@@ -159,8 +159,8 @@ public class Inventory {
             undressItem(itemToUndress); // TODO: undress one time
 
             if (itemToDress != itemToUndress) {
-                owner.getAttribute().setPAttack(owner.getAttribute().getPAttack() + itemToDress.getParameter("pAttack"));
-                owner.getAttribute().setMAttack(owner.getAttribute().getMAttack() + itemToDress.getParameter("mAttack"));
+                owner.getAttribute().increasePAttack(itemToDress.getParameter("pAttack"));
+                owner.getAttribute().increaseMAttack(itemToDress.getParameter("mAttack"));
                 dressedItems.add(itemToDress);
                 itemToDress.setMarked(true);
             }
@@ -168,8 +168,8 @@ public class Inventory {
             undressItem(itemToUndress);
 
             if (itemToDress != itemToUndress) {
-                owner.getAttribute().setPArmor(owner.getAttribute().getPArmor() + itemToDress.getParameter("pArmor"));
-                owner.getAttribute().setMArmor(owner.getAttribute().getMArmor() + itemToDress.getParameter("mArmor"));
+                owner.getAttribute().increasePArmor(itemToDress.getParameter("pArmor"));
+                owner.getAttribute().increaseMArmor(itemToDress.getParameter("mArmor"));
                 dressedItems.add(itemToDress);
                 itemToDress.setMarked(true);
             }
@@ -181,11 +181,11 @@ public class Inventory {
             if (itemToUndress.getType().equals("sword") ||
                     itemToUndress.getType().equals("bow") ||
                     itemToUndress.getType().equals("staff")) {
-                owner.getAttribute().setPAttack(owner.getAttribute().getPAttack() - itemToUndress.getParameter("pAttack"));
-                owner.getAttribute().setMAttack(owner.getAttribute().getMAttack() - itemToUndress.getParameter("mAttack"));
+                owner.getAttribute().decreasePAttack(itemToUndress.getParameter("pAttack"));
+                owner.getAttribute().decreaseMAttack(itemToUndress.getParameter("mAttack"));
             } else if (itemToUndress.getType().equals("armor")) {
-                owner.getAttribute().setPArmor(owner.getAttribute().getPArmor() - itemToUndress.getParameter("pArmor"));
-                owner.getAttribute().setMArmor(owner.getAttribute().getMArmor() - itemToUndress.getParameter("mArmor"));
+                owner.getAttribute().decreasePArmor(itemToUndress.getParameter("pArmor"));
+                owner.getAttribute().decreaseMArmor(itemToUndress.getParameter("mArmor"));
             }
             dressedItems.remove(itemToUndress);
             itemToUndress.setMarked(false);

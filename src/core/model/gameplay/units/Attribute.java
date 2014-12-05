@@ -2,12 +2,12 @@ package core.model.gameplay.units;
 
 public class Attribute {
 
-    private AttributePair health;
-    private AttributePair mana;
+    private AttributePair hp;
+    private AttributePair mp;
 
     private double currentSpeed;
     private double maximumSpeed;
-
+    
     private double pArmor;
     private double mArmor;
 
@@ -15,8 +15,8 @@ public class Attribute {
     private double mAttack;
 
     public Attribute(double maximumHP, double maximumMP, double maximumSpeed) {
-        health = new AttributePair(maximumHP);
-        mana = new AttributePair(maximumMP);
+        hp = new AttributePair(maximumHP);
+        mp = new AttributePair(maximumMP);
         this.maximumSpeed = maximumSpeed;
         this.currentSpeed = 0;
         this.pArmor = 0;
@@ -26,65 +26,80 @@ public class Attribute {
     }
 
 
-    public void resetHpMp(int hpMaxValue, int mpMaxValue) {
-        health.init(hpMaxValue);
-        mana.init(mpMaxValue);
-    }
 
+    // Getters
     public AttributePair getHP() {
-        return health;
+        return hp;
     }
 
     public AttributePair getMP() {
-        return mana;
-    }
-
-    public double getCurrentSpeed() {
-        return currentSpeed;
-    }
-
-    public void setCurrentSpeed(double currentSpeed) {
-        this.currentSpeed = currentSpeed;
-    }
-
-    public double getMaximumSpeed() {
-        return maximumSpeed;
-    }
-
-    public void setMaximumSpeed(double maximumSpeed) {
-        this.maximumSpeed = maximumSpeed;
-    }
-
-    public double getPArmor() {
-        return pArmor;
-    }
-
-    public void setPArmor(double pArmor) {
-        this.pArmor = pArmor;
-    }
-
-    public double getMArmor() {
-        return mArmor;
-    }
-
-    public void setMArmor(double mArmor) {
-        this.mArmor = mArmor;
+        return mp;
     }
 
     public double getPAttack() {
         return pAttack;
     }
 
-    public void setPAttack(double pAttack) {
-        this.pAttack = pAttack;
-    }
-
     public double getMAttack() {
         return mAttack;
     }
 
-    public void setMAttack(double mAttack) {
-        this.mAttack = mAttack;
+    public double getPArmor() {
+        return pArmor;
+    }
+
+    public double getMArmor() {
+        return mArmor;
+    }
+
+    public double getCurrentSpeed() {
+        return currentSpeed;
+    }
+
+    public double getMaximumSpeed() {
+        return maximumSpeed;
+    }
+
+
+    // Modifiers
+    public void setCurrentSpeed(double currentSpeed) {
+        this.currentSpeed = currentSpeed;
+    }
+
+    public void setMaximumSpeed(double maximumSpeed) {
+        this.maximumSpeed = maximumSpeed;
+    }
+
+    public void increaseMArmor(double value) {
+        mArmor += value;
+    }
+
+    public void increasePArmor(double value) {
+        pArmor += value;
+    }
+
+    public void increasePAttack(double value) {
+        pAttack += value;
+    }
+
+    public void increaseMAttack(double value) {
+        pAttack += value;
+    }
+    
+    public void decreaseMArmor(double value) {
+        mArmor -= value;
+    }
+
+    public void decreasePArmor(double value) {
+        pArmor -= value;
+    }
+
+    public void decreasePAttack(double value) {
+        pAttack -= value;
+    }
+
+    public void decreaseMAttack(double value) {
+        pAttack -= value;
     }
 
 }
