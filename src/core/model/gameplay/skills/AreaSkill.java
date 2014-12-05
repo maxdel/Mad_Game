@@ -28,12 +28,12 @@ public class AreaSkill extends Skill {
     @Override
     public boolean startCast() {
         if (owner.getInventory().isItemDressed(requiredItem) &&
-                owner.getAttribute().getCurrentMP() >= requiredMP &&
-                owner.getAttribute().getCurrentHP() >= requiredHP &&
+                owner.getAttribute().getMP().getCurrent() >= requiredMP &&
+                owner.getAttribute().getHP().getCurrent() >= requiredHP &&
                 currentCooldownTime == 0) {
             currentCastTime = castTime;
-            owner.getAttribute().setCurrentMP(owner.getAttribute().getCurrentMP() - requiredMP);
-            owner.getAttribute().setCurrentHP(owner.getAttribute().getCurrentHP() - requiredHP);
+            owner.getAttribute().getMP().damage(requiredMP);
+            owner.getAttribute().getHP().damage(requiredHP);
             currentCooldownTime = cooldownTime;
             return true;
         }
@@ -58,14 +58,14 @@ public class AreaSkill extends Skill {
                         if (pDamage <= 1) {
                             pDamage = 1;
                         }
-                        target.getAttribute().setCurrentHP(target.getAttribute().getCurrentHP() - pDamage);
+                        target.getAttribute().getHP().damage(pDamage);
                     }
                     if (mAttack > 0) {
                         double mDamage = mAttack + owner.getAttribute().getMAttack() - target.getAttribute().getMArmor();
                         if (mDamage <= 1) {
                             mDamage = 1;
                         }
-                        target.getAttribute().setCurrentHP(target.getAttribute().getCurrentHP() - mDamage);
+                        target.getAttribute().getHP().damage(mDamage);
                     }
                 }
             }

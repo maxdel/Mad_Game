@@ -53,14 +53,14 @@ public class Fireball extends GameObjectSolid {
                         if (pDamage <= 1) {
                             pDamage = 1;
                         }
-                        otherMoving.getAttribute().setCurrentHP(otherMoving.getAttribute().getCurrentHP() - pDamage);
+                        otherMoving.getAttribute().getHP().damage(pDamage);
                     }
                     if (mAttack > 0) {
                         double mDamage = mAttack + owner.getAttribute().getMAttack() - otherMoving.getAttribute().getMArmor();
                         if (mDamage <= 1) {
                             mDamage = 1;
                         }
-                        otherMoving.getAttribute().setCurrentHP(otherMoving.getAttribute().getCurrentHP() - mDamage);
+                        otherMoving.getAttribute().getHP().damage(mDamage);
                     }
                     // TODO for fun
                     if (owner.getClass() == Hero.class) {

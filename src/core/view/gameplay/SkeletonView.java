@@ -27,10 +27,15 @@ public class SkeletonView extends GameObjectView {
         g.rotate((float) (gameObjectSolid.getX() - viewX),
                 (float) (gameObjectSolid.getY() - viewY),
                 (float) (viewDegreeAngle - skeleton.getDirection() / Math.PI * 180));
-        drawHealthbar(g, (int)(skeleton.getX() - viewX), (int)(skeleton.getY() - viewY) - 50, 60, 8, skeleton.getAttribute().getCurrentHP(),
-                skeleton.getAttribute().getMaximumHP(), Color.red);
-        drawHealthbar(g, (int) (skeleton.getX() - viewX), (int) (skeleton.getY() - viewY) - 38, 60, 8, skeleton.getAttribute().getCurrentMP(),
-                skeleton.getAttribute().getMaximumMP(), Color.blue);
+        drawHealthbar(g, (int)(skeleton.getX() - viewX), (int)(skeleton.getY() - viewY) - 50, 60, 8,
+                skeleton.getAttribute().getHP().getCurrent(),
+                skeleton.getAttribute().getHP().getMaximum(),
+                Color.red);
+
+        drawHealthbar(g, (int) (skeleton.getX() - viewX), (int) (skeleton.getY() - viewY) - 38, 60, 8,
+                skeleton.getAttribute().getMP().getCurrent(),
+                skeleton.getAttribute().getMP().getMaximum(),
+                Color.blue);
         /*g.drawString(String.valueOf((int) skeleton.getAttribute().getPAttack()) + "/" +
                         String.valueOf((int) skeleton.getAttribute().getMAttack()),
                 (float) (gameObject.getX() - viewX),

@@ -16,12 +16,12 @@ public class RegenSkill extends Skill {
     public boolean startCast() {
         if ((owner.getInventory().isItemDressed(requiredItem) ||
                 requiredItem == null) &&
-                owner.getAttribute().getCurrentMP() >= requiredMP &&
-                owner.getAttribute().getCurrentHP() >= requiredHP &&
+                owner.getAttribute().getMP().getCurrent() >= requiredMP &&
+                owner.getAttribute().getHP().getCurrent() >= requiredHP &&
                 currentCooldownTime == 0) {
             currentCastTime = castTime;
-            owner.getAttribute().setCurrentMP(owner.getAttribute().getCurrentMP() - requiredMP);
-            owner.getAttribute().setCurrentHP(owner.getAttribute().getCurrentHP() - requiredHP);
+            owner.getAttribute().getMP().damage((requiredMP));
+            owner.getAttribute().getHP().damage(requiredHP);
             currentCooldownTime = cooldownTime;
             return true;
         }
@@ -30,7 +30,7 @@ public class RegenSkill extends Skill {
 
     @Override
     public void cast() {
-        owner.getAttribute().setCurrentHP(owner.getAttribute().getCurrentHP() + HPdelta);
+        owner.getAttribute().getHP().heal(HPdelta);
     }
 
 }

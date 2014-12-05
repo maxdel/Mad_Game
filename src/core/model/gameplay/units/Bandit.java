@@ -24,10 +24,7 @@ public class Bandit extends GameObjectMoving {
         inventory.useItem(inventory.addItem("Sword"));
         inventory.useItem(inventory.addItem("Light armor"));
 
-        getAttribute().setMaximumHP(40);
-        getAttribute().setCurrentHP(40);
-        getAttribute().setCurrentMP(20);
-        getAttribute().setMaximumMP(20);
+        getAttribute().resetHpMp(40, 40);
 
         isTargetHero = false;
     }

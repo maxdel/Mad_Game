@@ -111,7 +111,7 @@ public class GameObjectMoving extends GameObjectSolid {
             }
         }
 
-        if (attribute.getCurrentHP() <= 0) {
+        if (attribute.getHP().getCurrent() == 0) {
             World.getInstance().getToDeleteList().add(this);
             onDelete();
         }

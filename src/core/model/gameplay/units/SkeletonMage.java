@@ -25,10 +25,7 @@ public class SkeletonMage extends GameObjectMoving {
         inventory.useItem(inventory.addItem("Strong staff"));
         inventory.useItem(inventory.addItem("Robe of magic"));
 
-        getAttribute().setMaximumHP(35);
-        getAttribute().setCurrentHP(35);
-        getAttribute().setCurrentMP(80);
-        getAttribute().setMaximumMP(80);
+        getAttribute().resetHpMp(35, 80);
 
         isTargetHero = false;
     }

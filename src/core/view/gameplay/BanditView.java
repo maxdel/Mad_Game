@@ -27,10 +27,13 @@ public class BanditView extends GameObjectView {
         g.rotate((float) (gameObjectSolid.getX() - viewX),
                 (float) (gameObjectSolid.getY() - viewY),
                 (float) (viewDegreeAngle - bandit.getDirection() / Math.PI * 180));
-        drawHealthbar(g, (int)(bandit.getX() - viewX), (int)(bandit.getY() - viewY) - 50, 60, 8, bandit.getAttribute().getCurrentHP(),
-                bandit.getAttribute().getMaximumHP(), Color.red);
-        drawHealthbar(g, (int) (bandit.getX() - viewX), (int) (bandit.getY() - viewY) - 38, 60, 8, bandit.getAttribute().getCurrentMP(),
-                bandit.getAttribute().getMaximumMP(), Color.blue);
+        drawHealthbar(g, (int)(bandit.getX() - viewX), (int)(bandit.getY() - viewY) - 50, 60, 8,
+                bandit.getAttribute().getHP().getCurrent(),
+                bandit.getAttribute().getHP().getMaximum(), Color.red);
+        drawHealthbar(g, (int) (bandit.getX() - viewX), (int) (bandit.getY() - viewY) - 38, 60, 8, 
+                bandit.getAttribute().getMP().getCurrent(),
+                bandit.getAttribute().getMP().getMaximum(),
+                Color.blue);
         /*g.drawString(String.valueOf((int) bandit.getAttribute().getPAttack()) + "/" +
                         String.valueOf((int) bandit.getAttribute().getMAttack()),
                 (float) (gameObject.getX() - viewX),
@@ -40,7 +43,7 @@ public class BanditView extends GameObjectView {
                 (float) (gameObject.getX() - viewX),
                 (float) (gameObject.getY() - viewY - 60));
         g.drawString(String.valueOf((int) bandit.getAttribute().getCurrentHP()) + "/" +
-                        String.valueOf((int) bandit.getAttribute().getMaximumHP()),
+                        String.valueOf((int) bandit.getAttribute().getHP().getMaximum()),
                 (float) (gameObject.getX() - viewX),
                 (float) (gameObject.getY() - viewY - 40));
         g.drawString(String.valueOf((int) bandit.getAttribute().getCurrentMP()) + "/" +

@@ -2,10 +2,9 @@ package core.model.gameplay.units;
 
 public class Attribute {
 
-    private double currentHP;
-    private double maximumHP;
-    private double currentMP;
-    private double maximumMP;
+    private AttributePair health;
+    private AttributePair mana;
+
     private double currentSpeed;
     private double maximumSpeed;
 
@@ -16,10 +15,8 @@ public class Attribute {
     private double mAttack;
 
     public Attribute(double maximumHP, double maximumMP, double maximumSpeed) {
-        this.maximumHP = maximumHP;
-        this.currentHP = maximumHP;
-        this.maximumMP = maximumMP;
-        this.currentMP = maximumMP;
+        health = new AttributePair(maximumHP);
+        mana = new AttributePair(maximumMP);
         this.maximumSpeed = maximumSpeed;
         this.currentSpeed = 0;
         this.pArmor = 0;
@@ -28,48 +25,18 @@ public class Attribute {
         this.mAttack = 0;
     }
 
-    public double getCurrentHP() {
-        return currentHP;
+
+    public void resetHpMp(int hpMaxValue, int mpMaxValue) {
+        health.init(hpMaxValue);
+        mana.init(mpMaxValue);
     }
 
-    public void setCurrentHP(double currentHP) {
-        if (currentHP >= 0 && currentHP <= maximumHP) {
-            this.currentHP = currentHP;
-        } else if (currentHP < 0) {
-            this.currentHP = 0;
-        } else {
-            this.currentHP = maximumHP;
-        }
+    public AttributePair getHP() {
+        return health;
     }
 
-    public double getMaximumHP() {
-        return maximumHP;
-    }
-
-    public void setMaximumHP(double maximumHP) {
-        this.maximumHP = maximumHP;
-    }
-
-    public double getCurrentMP() {
-        return currentMP;
-    }
-
-    public void setCurrentMP(double currentMP) {
-        if (currentMP >= 0 && currentMP <= maximumMP) {
-            this.currentMP = currentMP;
-        } else if (currentMP < 0) {
-            this.currentMP = 0;
-        } else {
-            this.currentMP = maximumMP;
-        }
-    }
-
-    public double getMaximumMP() {
-        return maximumMP;
-    }
-
-    public void setMaximumMP(double maximumMP) {
-        this.maximumMP = maximumMP;
+    public AttributePair getMP() {
+        return mana;
     }
 
     public double getCurrentSpeed() {

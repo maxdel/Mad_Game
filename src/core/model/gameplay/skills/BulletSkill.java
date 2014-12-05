@@ -20,21 +20,21 @@ public class BulletSkill extends Skill {
     @Override
     public boolean startCast() {
         if (owner.getInventory().isItemDressed(requiredItem) &&
-                owner.getAttribute().getCurrentMP() >= requiredMP &&
-                owner.getAttribute().getCurrentHP() >= requiredHP &&
+                owner.getAttribute().getMP().getCurrent() >= requiredMP &&
+                owner.getAttribute().getHP().getCurrent() >= requiredHP &&
                 currentCooldownTime == 0) {
             if (requiredItem.equals("bow")) {
                 if (owner.getInventory().isItemExists("Arrow")) {
                     currentCastTime = castTime;
-                    owner.getAttribute().setCurrentMP(owner.getAttribute().getCurrentMP() - requiredMP);
-                    owner.getAttribute().setCurrentHP(owner.getAttribute().getCurrentHP() - requiredHP);
+                    owner.getAttribute().getMP().damage(requiredMP);
+                    owner.getAttribute().getHP().damage(requiredHP);
                     currentCooldownTime = cooldownTime;
                     return true;
                 }
             } else { //TODO: refactor
                 currentCastTime = castTime;
-                owner.getAttribute().setCurrentMP(owner.getAttribute().getCurrentMP() - requiredMP);
-                owner.getAttribute().setCurrentHP(owner.getAttribute().getCurrentHP() - requiredHP);
+                owner.getAttribute().getMP().damage(requiredMP);
+                owner.getAttribute().getHP().damage(requiredHP);
                 currentCooldownTime = cooldownTime;
                 return true;
             }

@@ -111,11 +111,11 @@ public class Inventory {
 
     public boolean useItem(ItemRecord itemRecord) {
         if (itemRecord.getType().equals("healing")) {
-            owner.getAttribute().setCurrentHP((owner.getAttribute().getCurrentHP() + itemRecord.getParameter("heal")));
+            owner.getAttribute().getHP().heal(itemRecord.getParameter("heal"));
             deleteItem(itemRecord.getName(), 1);
             return true;
         } else if (itemRecord.getType().equals("mana")) {
-            owner.getAttribute().setCurrentMP((owner.getAttribute().getCurrentMP() + itemRecord.getParameter("mana")));
+            owner.getAttribute().getMP().heal(itemRecord.getParameter("mana"));
             deleteItem(itemRecord.getName(), 1);
             return true;
         } else if (itemRecord.getType().equals("sword") ||

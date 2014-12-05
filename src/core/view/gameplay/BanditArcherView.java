@@ -27,10 +27,12 @@ public class BanditArcherView extends GameObjectView {
         g.rotate((float) (gameObjectSolid.getX() - viewX),
                 (float) (gameObjectSolid.getY() - viewY),
                 (float) (viewDegreeAngle - banditArcher.getDirection() / Math.PI * 180));
-        drawHealthbar(g, (int)(banditArcher.getX() - viewX), (int)(banditArcher.getY() - viewY) - 50, 60, 8, banditArcher.getAttribute().getCurrentHP(),
-                banditArcher.getAttribute().getMaximumHP(), Color.red);
-        drawHealthbar(g, (int) (banditArcher.getX() - viewX), (int) (banditArcher.getY() - viewY) - 38, 60, 8, banditArcher.getAttribute().getCurrentMP(),
-                banditArcher.getAttribute().getMaximumMP(), Color.blue);
+        drawHealthbar(g, (int)(banditArcher.getX() - viewX), (int)(banditArcher.getY() - viewY) - 50, 60, 8, 
+                banditArcher.getAttribute().getHP().getCurrent(),
+                banditArcher.getAttribute().getHP().getMaximum(), Color.red);
+        drawHealthbar(g, (int) (banditArcher.getX() - viewX), (int) (banditArcher.getY() - viewY) - 38, 60, 8,
+                banditArcher.getAttribute().getMP().getCurrent(),
+                banditArcher.getAttribute().getMP().getMaximum(), Color.blue);
         /*g.drawString(String.valueOf((int) banditArcher.getAttribute().getPAttack()) + "/" +
                         String.valueOf((int) banditArcher.getAttribute().getMAttack()),
                 (float) (gameObject.getX() - viewX),
@@ -39,12 +41,12 @@ public class BanditArcherView extends GameObjectView {
                         String.valueOf((int) banditArcher.getAttribute().getMArmor()),
                 (float) (gameObject.getX() - viewX),
                 (float) (gameObject.getY() - viewY - 60));
-        g.drawString(String.valueOf((int) banditArcher.getAttribute().getCurrentHP()) + "/" +
-                        String.valueOf((int) banditArcher.getAttribute().getMaximumHP()),
+        g.drawString(String.valueOf((int) banditArcher.getAttribute().getHP().getCurrent()) + "/" +
+                        String.valueOf((int) banditArcher.getAttribute().getHP().getMaximum()),
                 (float) (gameObject.getX() - viewX),
                 (float) (gameObject.getY() - viewY - 40));
-        g.drawString(String.valueOf((int) banditArcher.getAttribute().getCurrentMP()) + "/" +
-                        String.valueOf((int) banditArcher.getAttribute().getMaximumMP()),
+        g.drawString(String.valueOf((int) banditArcher.getAttribute().getMP().getCurrent()) + "/" +
+                        String.valueOf((int) banditArcher.getAttribute().getMP().getMaximum()),
                 (float) (gameObject.getX() - viewX),
                 (float) (gameObject.getY() - viewY - 20));
         g.drawString("(" + String.valueOf((int) gameObject.getX()) + ";" + String.valueOf((int) gameObject.getY()) + ")",

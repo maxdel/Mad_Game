@@ -25,10 +25,7 @@ public class Skeleton extends GameObjectMoving {
         inventory.useItem(inventory.addItem("Strong sword"));
         inventory.useItem(inventory.addItem("Heavy armor"));
 
-        getAttribute().setMaximumHP(85);
-        getAttribute().setCurrentHP(85);
-        getAttribute().setCurrentMP(50);
-        getAttribute().setMaximumMP(50);
+        getAttribute().resetHpMp(80, 50);
 
         isTargetHero = false;
     }

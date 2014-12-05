@@ -101,10 +101,10 @@ public class HeroView extends GameObjectView {
         rotate(g, viewX, viewY, viewDegreeAngle, viewCenterX, viewCenterY, false);
 
         // For debug
-        drawHealthbar(g, (int)(hero.getX() - viewX), (int)(hero.getY() - viewY) - 50, 60, 8, hero.getAttribute().getCurrentHP(),
-                hero.getAttribute().getMaximumHP(), Color.red);
-        drawHealthbar(g, (int)(hero.getX() - viewX), (int)(hero.getY() - viewY) - 38, 60, 8, hero.getAttribute().getCurrentMP(),
-                hero.getAttribute().getMaximumMP(), Color.blue);
+        drawHealthbar(g, (int)(hero.getX() - viewX), (int)(hero.getY() - viewY) - 50, 60, 8, hero.getAttribute().getHP().getCurrent(),
+                hero.getAttribute().getHP().getMaximum(), Color.red);
+        drawHealthbar(g, (int)(hero.getX() - viewX), (int)(hero.getY() - viewY) - 38, 60, 8, hero.getAttribute().getMP().getCurrent(),
+                hero.getAttribute().getMP().getMaximum(), Color.blue);
         /*g.drawString(String.valueOf((int) hero.getAttribute().getPAttack()) + "/" +
                         String.valueOf((int) hero.getAttribute().getMAttack()),
                 (float) (gameObject.getX() - viewX),
@@ -113,11 +113,11 @@ public class HeroView extends GameObjectView {
                         String.valueOf((int) hero.getAttribute().getMArmor()),
                 (float) (gameObject.getX() - viewX),
                 (float) (gameObject.getY() - viewY - 60));
-        g.drawString(String.valueOf((int) hero.getAttribute().getCurrentHP()) + "/" +
+        g.drawString(String.valueOf((int) hero.getAttribute().getHP().getCurrent()) + "/" +
                         String.valueOf((int) hero.getAttribute().getMaximumHP()),
                 (float) (gameObject.getX() - viewX),
                 (float) (gameObject.getY() - viewY - 40));
-        g.drawString(String.valueOf((int) hero.getAttribute().getCurrentMP()) + "/" +
+        g.drawString(String.valueOf((int) hero.getAttribute().getMP().getCurrent()) + "/" +
                         String.valueOf((int) hero.getAttribute().getMaximumMP()),
                 (float) (gameObject.getX() - viewX),
                 (float) (gameObject.getY() - viewY - 20));

@@ -25,10 +25,8 @@ public class BanditArcher extends GameObjectMoving {
         inventory.addItem("Arrow", 1000);
         inventory.useItem(inventory.addItem("Light armor"));
 
-        getAttribute().setMaximumHP(25);
-        getAttribute().setCurrentHP(25);
-        getAttribute().setCurrentMP(10);
-        getAttribute().setMaximumMP(10);
+
+        getAttribute().resetHpMp(25, 10);
 
         isTargetHero = false;
     }

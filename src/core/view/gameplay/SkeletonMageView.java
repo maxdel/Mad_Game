@@ -27,10 +27,14 @@ public class SkeletonMageView extends GameObjectView {
         g.rotate((float) (gameObjectSolid.getX() - viewX),
                 (float) (gameObjectSolid.getY() - viewY),
                 (float) (viewDegreeAngle - skeletonMage.getDirection() / Math.PI * 180));
-        drawHealthbar(g, (int)(skeletonMage.getX() - viewX), (int)(skeletonMage.getY() - viewY) - 50, 60, 8, skeletonMage.getAttribute().getCurrentHP(),
-                skeletonMage.getAttribute().getMaximumHP(), Color.red);
-        drawHealthbar(g, (int) (skeletonMage.getX() - viewX), (int) (skeletonMage.getY() - viewY) - 38, 60, 8, skeletonMage.getAttribute().getCurrentMP(),
-                skeletonMage.getAttribute().getMaximumMP(), Color.blue);
+        drawHealthbar(g, (int)(skeletonMage.getX() - viewX), (int)(skeletonMage.getY() - viewY) - 50, 60, 8,
+                skeletonMage.getAttribute().getHP().getCurrent(),
+                skeletonMage.getAttribute().getHP().getMaximum(),
+                Color.red);
+        drawHealthbar(g, (int) (skeletonMage.getX() - viewX), (int) (skeletonMage.getY() - viewY) - 38, 60, 8,
+                skeletonMage.getAttribute().getMP().getCurrent(),
+                skeletonMage.getAttribute().getMP().getMaximum(),
+                Color.blue);
         g.rotate((float) (gameObjectSolid.getX() - viewX),
                 (float) (gameObjectSolid.getY() - viewY),
                 - (float) (viewDegreeAngle - skeletonMage.getDirection() / Math.PI * 180));
