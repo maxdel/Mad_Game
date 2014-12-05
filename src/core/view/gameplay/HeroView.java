@@ -18,6 +18,8 @@ public class HeroView extends GameObjectView {
     private Animation animationWalk;
     private Animation animationSwordWalk;
     private Animation animationSwordAttack;
+    private Animation animationBowWalk;
+    private Animation animationBowAttack;
 
     public HeroView(GameObjectSolid hero, ResourceManager resourceManager) throws SlickException {
         super(hero, resourceManager);
@@ -25,6 +27,8 @@ public class HeroView extends GameObjectView {
         animationAttack = ResourceManager.getInstance().getAnimation("heroattack");
         animationSwordWalk = ResourceManager.getInstance().getAnimation("heroswordwalk");
         animationSwordAttack = ResourceManager.getInstance().getAnimation("heroswordattack");
+        animationBowWalk = ResourceManager.getInstance().getAnimation("herobowwalk");
+        animationBowAttack = ResourceManager.getInstance().getAnimation("herobowattack");
         animationWalk = animation;
     }
 
@@ -39,6 +43,9 @@ public class HeroView extends GameObjectView {
                     if (hero.getInventory().getDressedWeaponType().equals("Sword")) {
                         animation = animationSwordWalk;
                         animation.setSpeed((float) (hero.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("heroswordwalk")));
+                    } else if (hero.getInventory().getDressedWeaponType().equals("Bow")) {
+                        animation = animationBowWalk;
+                        animation.setSpeed((float) (hero.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("herobowwalk")));
                     } else {
                         animation = animationWalk;
                         animation.setSpeed((float) (hero.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("hero")));
@@ -48,24 +55,30 @@ public class HeroView extends GameObjectView {
                 case STAND:
                     if (hero.getInventory().getDressedWeaponType().equals("Sword")) {
                         animation = animationSwordWalk;
+                    } else if (hero.getInventory().getDressedWeaponType().equals("Bow")) {
+                        animation = animationBowWalk;
                     } else {
-                        animation = animationWalk;
-                    }
+                    animation = animationWalk;
+                }
                     animation.stop();
                     animation.setCurrentFrame(0);
                     break;
                 case RUN:
                     if (hero.getInventory().getDressedWeaponType().equals("Sword")) {
                         animation = animationSwordWalk;
+                    } else if (hero.getInventory().getDressedWeaponType().equals("Bow")) {
+                        animation = animationBowWalk;
                     } else {
-                        animation = animationWalk;
-                    }
+                    animation = animationWalk;
+                }
                     animation.start();
                     animation.setSpeed((float) (hero.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("hero")));
                     break;
                 case PICK_ITEM:
                     if (hero.getInventory().getDressedWeaponType().equals("Sword")) {
                         animation = animationSwordWalk;
+                    } else if (hero.getInventory().getDressedWeaponType().equals("Bow")) {
+                        animation = animationBowWalk;
                     } else {
                         animation = animationWalk;
                     }
@@ -83,6 +96,15 @@ public class HeroView extends GameObjectView {
                         Music music = new Music("res/Swoosh01.wav");
                         music.play();
                         animation = animationSwordAttack;
+                        animation.restart();
+                        hero.getCurrentSkill().getCastTime();
+                        for (int i = 0; i < animation.getFrameCount(); ++i) {
+                            animation.setDuration(i, hero.getCurrentSkill().getCastTime() / animation.getFrameCount());
+                        }
+                    } else if (hero.getInventory().getDressedWeaponType().equals("Bow")) {
+                        Music music = new Music("res/Bowshot.wav");
+                        music.play();
+                        animation = animationBowAttack;
                         animation.restart();
                         hero.getCurrentSkill().getCastTime();
                         for (int i = 0; i < animation.getFrameCount(); ++i) {

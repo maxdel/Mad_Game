@@ -5,6 +5,8 @@
             <animation name="hero" path="/res/herowalk.png" isImage = "false" frameWidth="128" frameHeight="128" speedCoef="5" />
             <animation name="heroswordwalk" path="/res/herowalksword.png" isImage = "false" frameWidth="128" frameHeight="128" speedCoef="5" />
             <animation name="heroswordattack" path="/res/attacksword.png" isImage = "false" frameWidth="128" frameHeight="128" speedCoef="0.07" />
+            <animation name="herobowwalk" path="/res/herowalkbow.png" isImage = "false" frameWidth="128" frameHeight="128" speedCoef="5" />
+            <animation name="herobowattack" path="/res/attackbow.png" isImage = "false" frameWidth="128" frameHeight="128" speedCoef="0.07" />
             <animation name="heroattack" path="/res/hero attack.png" isImage = "false" frameWidth="50" frameHeight="50" speedCoef="0.3" />
             <animation name="bandit" path="/res/bandit.png" isImage = "true" />
             <animation name="banditArcher" path="/res/banditArcher.png" isImage = "true" />

@@ -28,7 +28,7 @@ public class Inventory {
         addItem("Apple");
         addItem("Apple");
         addItem("Arrow");
-        //addItem("Arrow", 100);
+        addItem("Arrow", 100);
         addItem("Arrow");
         deleteItem("Apple");
         addItem("Healing flask", 5);
