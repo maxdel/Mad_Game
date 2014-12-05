@@ -21,9 +21,6 @@ public class ItemRecord {
         return item.getDescription();
     }
 
-    public String getType() {
-        return item.getType();
-    }
 
     public int getParameter(String parameter) {
         return item.getParameter(parameter);

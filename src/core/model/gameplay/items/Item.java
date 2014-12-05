@@ -8,15 +8,13 @@ public class Item {
 
     private String name;
     private String description;
-    private String type;
     private ItemOperation itemOperation;
 
     private Map<String, Integer> values;
 
-    public Item(String name, String description, String type, Map<String, Integer> values) {
+    public Item(String name, String description, Map<String, Integer> values) {
         this.name = name;
         this.description = description;
-        this.type = type;
         this.values = values;
         setItemOperation(ItemOperation.EMPTY);
     }
@@ -37,9 +35,6 @@ public class Item {
         return description;
     }
 
-    public String getType() {
-        return type;
-    }
 
     public int getParameter(String parameter) {
         return values.get(parameter);
