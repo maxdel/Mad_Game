@@ -27,7 +27,7 @@ public class AreaSkill extends Skill {
 
     @Override
     public boolean startCast() {
-        if (owner.getInventory().isItemDressed(requiredItem) &&
+        if (owner.getInventory().getDressedWeaponType().equals(requiredItem) &&
                 owner.getAttribute().getMP().getCurrent() >= requiredMP &&
                 owner.getAttribute().getHP().getCurrent() >= requiredHP &&
                 currentCooldownTime == 0) {

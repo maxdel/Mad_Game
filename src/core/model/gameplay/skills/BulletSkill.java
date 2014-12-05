@@ -19,11 +19,11 @@ public class BulletSkill extends Skill {
 
     @Override
     public boolean startCast() {
-        if (owner.getInventory().isItemDressed(requiredItem) &&
+        if (owner.getInventory().getDressedWeaponType().equals(requiredItem) && //TODO: FIX
                 owner.getAttribute().getMP().getCurrent() >= requiredMP &&
                 owner.getAttribute().getHP().getCurrent() >= requiredHP &&
                 currentCooldownTime == 0) {
-            if (requiredItem.equals("bow")) {
+            if (requiredItem.equals("Bow")) {
                 if (owner.getInventory().isItemExists("Arrow")) {
                     currentCastTime = castTime;
                     owner.getAttribute().getMP().damage(requiredMP);
@@ -44,7 +44,7 @@ public class BulletSkill extends Skill {
 
     @Override
     public void cast() {
-        if (requiredItem.equals("bow")) { //todo: REF
+        if (requiredItem.equals("Bow")) { //todo: REF
             if (owner.getInventory().isItemExists("Arrow")) {
                 World.getInstance().getToAddList().add(new Arrow(owner, owner.getX(), owner.getY(), owner.getDirection(),
                         bulletSpeed, pAttack, mAttack));

@@ -21,7 +21,7 @@ public class Skeleton extends GameObjectMoving {
         setMask(new Circle(0, 0, ResourceManager.getInstance().getMaskRadius("skeleton")));
         timer = (int) (Math.random() * 1000);
 
-        skillList.add(new AreaSkill(this, "Sword attack", 200, 1000, "sword", 0, 0, 15, 0, 70, Math.PI / 3));
+        skillList.add(new AreaSkill(this, "Sword attack", 200, 1000, "Sword", 0, 0, 15, 0, 70, Math.PI / 3));
         inventory.useItem(inventory.addItem("Strong sword"));
         inventory.useItem(inventory.addItem("Heavy armor"));
 

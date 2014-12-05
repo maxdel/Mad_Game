@@ -110,20 +110,15 @@ public class Inventory {
 
 
     public boolean useItem(ItemRecord itemRecord) {
-        if (itemRecord.getType().equals("healing")) {
+        if (itemRecord.getItem() instanceof Reagent) { // TODO: must be item class method
             owner.getAttribute().getHP().heal(itemRecord.getParameter("heal"));
-            deleteItem(itemRecord.getName(), 1);
-            return true;
-        } else if (itemRecord.getType().equals("mana")) {
             owner.getAttribute().getMP().heal(itemRecord.getParameter("mana"));
             deleteItem(itemRecord.getName(), 1);
             return true;
-        } else if (itemRecord.getType().equals("sword") ||
-                itemRecord.getType().equals("bow") ||
-                itemRecord.getType().equals("staff")) {
+        } else if (itemRecord.getItem() instanceof Weapon) {
             dressItem(itemRecord);
             return true;
-        } else if (itemRecord.getType().equals("armor")) {
+        } else if (itemRecord.getItem() instanceof Armor) {
             dressItem(itemRecord);
             return true;
         } else {
@@ -137,12 +132,8 @@ public class Inventory {
             ItemRecord itemRecord = it.next();
             // TODO: do item common class
 
-            if (itemToDress.getType().equals("sword") ||
-                    itemToDress.getType().equals("bow") ||
-                    itemToDress.getType().equals("staff")) {
-                if (itemRecord.getType().equals("sword") ||
-                        itemRecord.getType().equals("bow") ||
-                        itemRecord.getType().equals("staff")) {
+            if (itemToDress.getItem() instanceof  Weapon) {
+                if (itemRecord.getItem() instanceof Weapon) {
                     itemToUndress = itemRecord;
                     break;
                 }
@@ -153,9 +144,7 @@ public class Inventory {
                 }
             }
         }
-        if (itemToDress.getType().equals("sword") ||
-                itemToDress.getType().equals("bow") ||
-                itemToDress.getType().equals("staff")) {
+        if (itemToDress.getItem() instanceof Weapon) {
             undressItem(itemToUndress); // TODO: undress one time
 
             if (itemToDress != itemToUndress) {
@@ -164,7 +153,7 @@ public class Inventory {
                 dressedItems.add(itemToDress);
                 itemToDress.setMarked(true);
             }
-        } else if (itemToDress.getType().equals("armor")) {
+        } else if (itemToDress.getItem() instanceof Armor) {
             undressItem(itemToUndress);
 
             if (itemToDress != itemToUndress) {
@@ -178,12 +167,10 @@ public class Inventory {
 
     private void undressItem(ItemRecord itemToUndress) {
         if (itemToUndress != null) {
-            if (itemToUndress.getType().equals("sword") ||
-                    itemToUndress.getType().equals("bow") ||
-                    itemToUndress.getType().equals("staff")) {
+            if (itemToUndress.getItem() instanceof Weapon) {
                 owner.getAttribute().decreasePAttack(itemToUndress.getParameter("pAttack"));
                 owner.getAttribute().decreaseMAttack(itemToUndress.getParameter("mAttack"));
-            } else if (itemToUndress.getType().equals("armor")) {
+            } else if (itemToUndress.getItem() instanceof Armor) {
                 owner.getAttribute().decreasePArmor(itemToUndress.getParameter("pArmor"));
                 owner.getAttribute().decreaseMArmor(itemToUndress.getParameter("mArmor"));
             }
@@ -192,6 +179,21 @@ public class Inventory {
         }
     }
 
+    // is Dressed function
+    public String getDressedWeaponType() {
+        for (Iterator<ItemRecord> it = dressedItems.iterator(); it.hasNext();) {
+            ItemRecord itemRecord = it.next();
+            if (itemRecord.getItem() instanceof Sword) {
+                return "Sword";
+            } else if (itemRecord.getItem() instanceof Bow) {
+                return "Bow";
+            } else if (itemRecord.getItem() instanceof Stuff) {
+                return "Stuff";
+            }
+        }
+        return "";
+    }
+    /*
     public boolean isItemDressed(String itemType) {
         for (Iterator<ItemRecord> it = dressedItems.iterator(); it.hasNext();) {
             ItemRecord itemRecord = it.next();
@@ -201,7 +203,7 @@ public class Inventory {
         }
         return false;
     }
-
+*/
     public boolean isItemExists(String itemName) {
         for (Iterator<ItemRecord> it = itemRecords.iterator(); it.hasNext();) {
             ItemRecord itemRecord = it.next();

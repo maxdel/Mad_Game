@@ -32,19 +32,19 @@
             <image name="Selected loot" path = "/res/items/selected loot.png" />
         </images>
         <items>
-            <item name="Healing flask" description="+20 HP" path = "/res/items/healing flask.png" type="healing" heal="20"/>
-            <item name="Mana flask" description="+20 MP" path = "/res/items/mana flask.png" type="mana" mana="20"/>
-            <item name="Apple" description="Green apple" path = "/res/items/apple.png" type="healing" heal="5"/>
-            <item name="Sword" description="Simple sword" path = "/res/items/sword.png" type="sword" pAttack="4" mAttack="1"/>
-            <item name="Strong sword" description="Strong sword" path = "/res/items/strong sword.png" type="sword" pAttack="10" mAttack="1"/>
-            <item name="Staff" description="Simple staff" path = "/res/items/staff.png" type="staff" pAttack="1" mAttack="4" />
-            <item name="Strong staff" description="Strong staff" path = "/res/items/strong staff.png" type="staff" pAttack="1" mAttack="10" />
-            <item name="Bow" description="Simple bow" path = "/res/items/bow.png" type="bow" pAttack="4" mAttack="1"/>
-            <item name="Strong bow" description="Strong bow" path = "/res/items/strong bow.png" type="bow" pAttack="10" mAttack="1" />
-            <item name="Arrow" description="Simple arrow" path = "/res/items/arrow.png" type="arrow" pAttack="1" />
-            <item name="Light armor" description="Light armor" path = "/res/items/light armor.png" type="armor" pArmor="3" mArmor="3" />
-            <item name="Heavy armor" description="Heavy armor" path = "/res/items/heavy armor.png" type="armor" pArmor="5" mArmor="1" />
-            <item name="Robe of magic" description="Robe of magic" path = "/res/items/robe of magic.png" type="armor" pArmor="1" mArmor="5" />
+            <item name="Healing flask" description="+20 HP" path = "/res/items/healing flask.png" type="Reagent" heal="20" mana="0"/>
+            <item name="Mana flask" description="+20 MP" path = "/res/items/mana flask.png" type="Reagent" heal="0" mana="20"/>
+            <item name="Apple" description="Green apple" path = "/res/items/apple.png" type="Reagent" heal="5" mana="0"/>
+            <item name="Sword" description="Simple sword" path = "/res/items/sword.png" type="Sword" pAttack="4" mAttack="1"/>
+            <item name="Strong sword" description="Strong sword" path = "/res/items/strong sword.png" type="Sword" pAttack="10" mAttack="1"/>
+            <item name="Staff" description="Simple staff" path = "/res/items/staff.png" type="Staff" pAttack="1" mAttack="4" />
+            <item name="Strong staff" description="Strong staff" path = "/res/items/strong staff.png" type="Staff" pAttack="1" mAttack="10" />
+            <item name="Bow" description="Simple bow" path = "/res/items/bow.png" type="Bow" pAttack="4" mAttack="1"/>
+            <item name="Strong bow" description="Strong bow" path = "/res/items/strong bow.png" type="Bow" pAttack="10" mAttack="1" />
+            <item name="Arrow" description="Simple arrow" path = "/res/items/arrow.png" type="Arrow" pAttack="1" />
+            <item name="Light armor" description="Light armor" path = "/res/items/light armor.png" type="Armor" pArmor="3" mArmor="3" />
+            <item name="Heavy armor" description="Heavy armor" path = "/res/items/heavy armor.png" type="Armor" pArmor="5" mArmor="1" />
+            <item name="Robe of magic" description="Robe of magic" path = "/res/items/robe of magic.png" type="Armor" pArmor="1" mArmor="5" />
         </items>
         <fonts>
             <font name="lootfont" fontName="verdana" size="10" isBold="false" />

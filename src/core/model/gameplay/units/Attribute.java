@@ -62,6 +62,11 @@ public class Attribute {
 
 
     // Modifiers
+    public void resetHpMp(double hpValue, double mpValue) {
+        hp.init(hpValue);
+        mp.init(mpValue);
+    }
+
     public void setCurrentSpeed(double currentSpeed) {
         this.currentSpeed = currentSpeed;
     }

@@ -20,7 +20,7 @@ public class BanditArcher extends GameObjectMoving {
         setMask(new Circle(0, 0, ResourceManager.getInstance().getMaskRadius("banditArcher")));
         timer = (int) (Math.random() * 1000);
 
-        skillList.add(new BulletSkill(this, "Bow shot", 200, 1000, "bow", 0, 0, 0.5, 15, 0));
+        skillList.add(new BulletSkill(this, "Bow shot", 200, 1000, "Bow", 0, 0, 0.5, 15, 0));
         inventory.useItem(inventory.addItem("Bow"));
         inventory.addItem("Arrow", 1000);
         inventory.useItem(inventory.addItem("Light armor"));

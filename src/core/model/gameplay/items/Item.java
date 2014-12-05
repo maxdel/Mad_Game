@@ -33,4 +33,7 @@ public class Item {
         return values.get(parameter);
     }
 
+    public Map<String, Integer> getValues() {
+        return values;
+    }
 }

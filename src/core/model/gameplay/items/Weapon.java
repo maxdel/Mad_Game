@@ -1,7 +1,11 @@
 package core.model.gameplay.items;
 
-public class Weapon extends BaseItem {
-    public Weapon(String name, String description, String type) {
-        super(name, description, type);
+import java.util.Map;
+
+public class Weapon extends Item {
+
+    public Weapon(String name, String description, String type, Map<String, Integer> values) {
+        super(name, description, type, values);
     }
+
 }

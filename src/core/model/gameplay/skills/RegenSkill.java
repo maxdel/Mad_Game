@@ -14,7 +14,7 @@ public class RegenSkill extends Skill {
 
     @Override
     public boolean startCast() {
-        if ((owner.getInventory().isItemDressed(requiredItem) ||
+        if ((owner.getInventory().getDressedWeaponType().equals(requiredItem) ||
                 requiredItem == null) &&
                 owner.getAttribute().getMP().getCurrent() >= requiredMP &&
                 owner.getAttribute().getHP().getCurrent() >= requiredHP &&

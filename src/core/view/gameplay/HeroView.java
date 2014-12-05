@@ -35,7 +35,8 @@ public class HeroView extends GameObjectView {
         if (hero.getCurrentState() != previousState) {
             switch (hero.getCurrentState()) {
                 case WALK:
-                    if (hero.getInventory().isItemDressed("sword")) {
+                    //TODO: bad code
+                    if (hero.getInventory().getDressedWeaponType().equals("Sword")) {
                         animation = animationSwordWalk;
                     } else {
                         animation = animationWalk;
@@ -44,7 +45,7 @@ public class HeroView extends GameObjectView {
                     animation.setSpeed((float) (hero.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("hero")));
                     break;
                 case STAND:
-                    if (hero.getInventory().isItemDressed("sword")) {
+                    if (hero.getInventory().getDressedWeaponType().equals("Sword")) {
                         animation = animationSwordWalk;
                     } else {
                         animation = animationWalk;
@@ -53,7 +54,7 @@ public class HeroView extends GameObjectView {
                     animation.setCurrentFrame(4);
                     break;
                 case RUN:
-                    if (hero.getInventory().isItemDressed("sword")) {
+                    if (hero.getInventory().getDressedWeaponType().equals("Sword")) {
                         animation = animationSwordWalk;
                     } else {
                         animation = animationWalk;
@@ -62,7 +63,7 @@ public class HeroView extends GameObjectView {
                     animation.setSpeed((float) (hero.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("hero")));
                     break;
                 case PICK_ITEM:
-                    if (hero.getInventory().isItemDressed("sword")) {
+                    if (hero.getInventory().getDressedWeaponType().equals("Sword")) {
                         animation = animationSwordWalk;
                     } else {
                         animation = animationWalk;
@@ -77,7 +78,7 @@ public class HeroView extends GameObjectView {
                     }
                      break;
                 case CAST:
-                    if (hero.getInventory().isItemDressed("sword")) {
+                    if (hero.getInventory().getDressedWeaponType().equals("Sword")) {
                         Music music = new Music("res/Swoosh01.wav");
                         music.play();
                         animation = animationSwordAttack;
