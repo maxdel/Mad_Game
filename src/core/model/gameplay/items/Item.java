@@ -1,5 +1,7 @@
 package core.model.gameplay.items;
 
+import core.model.gameplay.units.GameObjectMoving;
+
 import java.util.Map;
 
 public class Item {
@@ -7,6 +9,7 @@ public class Item {
     private String name;
     private String description;
     private String type;
+    private boolean canDress;
 
     private Map<String, Integer> values;
 
@@ -15,6 +18,14 @@ public class Item {
         this.description = description;
         this.type = type;
         this.values = values;
+    }
+
+    public void setBonuses(GameObjectMoving target) {
+        // pass
+    }
+
+    public void unsetBonuses(GameObjectMoving target) {
+        // pass
     }
 
     public String getName() {
@@ -35,5 +46,13 @@ public class Item {
 
     public Map<String, Integer> getValues() {
         return values;
+    }
+
+    public boolean canDress() {
+        return canDress;
+    }
+
+    public void setCanDress(boolean canDress) {
+        this.canDress = canDress;
     }
 }

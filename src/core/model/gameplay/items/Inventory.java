@@ -110,70 +110,56 @@ public class Inventory {
 
 
     public boolean useItem(ItemRecord itemRecord) {
-        if (itemRecord.getItem() instanceof Reagent) { // TODO: must be item class method
-            owner.getAttribute().getHP().heal(itemRecord.getParameter("heal"));
-            owner.getAttribute().getMP().heal(itemRecord.getParameter("mana"));
+        if (itemRecord.getItem().canDress()) {
+            dressItem(itemRecord);
+            return true;
+        } else if (!itemRecord.getItem().canDress()) {
+            itemRecord.getItem().setBonuses(owner);
             deleteItem(itemRecord.getName(), 1);
-            return true;
-        } else if (itemRecord.getItem() instanceof Weapon) {
-            dressItem(itemRecord);
-            return true;
-        } else if (itemRecord.getItem() instanceof Armor) {
-            dressItem(itemRecord);
             return true;
         } else {
             return false;
         }
     }
 
-    private void dressItem(ItemRecord itemToDress) {
+    private ItemRecord findItemToUndress(ItemRecord itemToDress) {
         ItemRecord itemToUndress = null;
-        for (Iterator<ItemRecord> it = dressedItems.iterator(); it.hasNext();) {
-            ItemRecord itemRecord = it.next();
-            // TODO: do item common class
+        for (ItemRecord currDressedItem : dressedItems) {
 
-            if (itemToDress.getItem() instanceof  Weapon) {
-                if (itemRecord.getItem() instanceof Weapon) {
-                    itemToUndress = itemRecord;
+            if (itemToDress.getItem() instanceof Weapon) {
+                if (currDressedItem.getItem() instanceof Weapon) {
+                    itemToUndress = currDressedItem;
                     break;
                 }
-            } else {
-                if (itemRecord.getType().equals(itemToDress.getType())) {
-                    itemToUndress = itemRecord;
+            } else if (itemToDress.getItem() instanceof Armor) {
+                if (currDressedItem.getItem() instanceof Armor) {
+                    itemToUndress = currDressedItem;
                     break;
                 }
             }
         }
-        if (itemToDress.getItem() instanceof Weapon) {
-            undressItem(itemToUndress); // TODO: undress one time
+        return itemToUndress;
+    }
 
-            if (itemToDress != itemToUndress) {
-                owner.getAttribute().increasePAttack(itemToDress.getParameter("pAttack"));
-                owner.getAttribute().increaseMAttack(itemToDress.getParameter("mAttack"));
-                dressedItems.add(itemToDress);
-                itemToDress.setMarked(true);
-            }
-        } else if (itemToDress.getItem() instanceof Armor) {
-            undressItem(itemToUndress);
+    private void dressItem(ItemRecord itemToDress) {
+        ItemRecord itemToUndress = findItemToUndress(itemToDress);
 
-            if (itemToDress != itemToUndress) {
-                owner.getAttribute().increasePArmor(itemToDress.getParameter("pArmor"));
-                owner.getAttribute().increaseMArmor(itemToDress.getParameter("mArmor"));
-                dressedItems.add(itemToDress);
-                itemToDress.setMarked(true);
-            }
+        undressItem(itemToUndress);
+
+        if (itemToDress == itemToUndress) {
+            return;
         }
+
+        itemToDress.getItem().setBonuses(owner);
+        dressedItems.add(itemToDress);
+        itemToDress.setMarked(true);
     }
 
     private void undressItem(ItemRecord itemToUndress) {
         if (itemToUndress != null) {
-            if (itemToUndress.getItem() instanceof Weapon) {
-                owner.getAttribute().decreasePAttack(itemToUndress.getParameter("pAttack"));
-                owner.getAttribute().decreaseMAttack(itemToUndress.getParameter("mAttack"));
-            } else if (itemToUndress.getItem() instanceof Armor) {
-                owner.getAttribute().decreasePArmor(itemToUndress.getParameter("pArmor"));
-                owner.getAttribute().decreaseMArmor(itemToUndress.getParameter("mArmor"));
-            }
+
+            itemToUndress.getItem().unsetBonuses(owner);
+
             dressedItems.remove(itemToUndress);
             itemToUndress.setMarked(false);
         }

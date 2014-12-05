@@ -12,7 +12,6 @@ public class ItemRecord {
         this.isMarked = false;
     }
 
-    //public set
 
     public String getName() {
         return item.getName();
