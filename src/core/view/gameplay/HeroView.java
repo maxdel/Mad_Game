@@ -55,7 +55,7 @@ public class HeroView extends GameObjectView {
                         animation = animationWalk;
                     }
                     animation.stop();
-                    animation.setCurrentFrame(4);
+                    animation.setCurrentFrame(0);
                     break;
                 case RUN:
                     if (hero.getInventory().isItemDressed("sword")) {
@@ -86,8 +86,11 @@ public class HeroView extends GameObjectView {
                         Music music = new Music("res/Swoosh01.wav");
                         music.play();
                         animation = animationSwordAttack;
-                        animation.stop();
-                        animation.setSpeed((float) (ResourceManager.getInstance().getSpeedCoef("heroswordattack")));
+                        animation.restart();
+                        hero.getCurrentSkill().getCastTime();
+                        for (int i = 0; i < animation.getFrameCount(); ++i) {
+                            animation.setDuration(i, hero.getCurrentSkill().getCastTime() / animation.getFrameCount());
+                        }
                     } else {
                         animation = animationAttack;
                         animation.setSpeed((float) (ResourceManager.getInstance().getSpeedCoef("heroattack")));
@@ -106,9 +109,9 @@ public class HeroView extends GameObjectView {
         rotate(g, viewX, viewY, viewDegreeAngle, viewCenterX, viewCenterY, false);
 
         // For debug
-        drawHealthbar(g, (int)(hero.getX() - viewX), (int)(hero.getY() - viewY) - 50, 60, 8, hero.getAttribute().getCurrentHP(),
+        drawHealthbar(g, 90, 100, 120, 6, hero.getAttribute().getCurrentHP(),
                 hero.getAttribute().getMaximumHP(), Color.red);
-        drawHealthbar(g, (int)(hero.getX() - viewX), (int)(hero.getY() - viewY) - 38, 60, 8, hero.getAttribute().getCurrentMP(),
+        drawHealthbar(g, 90, 120, 120, 6, hero.getAttribute().getCurrentMP(),
                 hero.getAttribute().getMaximumMP(), Color.blue);
         /*g.drawString(String.valueOf((int) hero.getAttribute().getPAttack()) + "/" +
                         String.valueOf((int) hero.getAttribute().getMAttack()),

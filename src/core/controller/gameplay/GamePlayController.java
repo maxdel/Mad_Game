@@ -23,7 +23,7 @@ public class GamePlayController {
     private int mouseX, mouseY;
     private int oldMouseX, oldMouseY;
     private String controlMode;
-    private final double ROTATE_SPEED = 1.0/288;
+    private final double ROTATE_SPEED = 1f/288;
 
     public GamePlayController(World world, GamePlayView gamePlayView) throws SlickException {
         hero = world.getHero();
@@ -38,7 +38,7 @@ public class GamePlayController {
     public void update(GameContainer gc, StateBasedGame game) throws SlickException {
         Input input = gc.getInput();
 
-        if (controlMode == "Hero") {
+        if (controlMode.equals("Hero")) {
             // Enter pause menu
             if (input.isKeyPressed(Input.KEY_ESCAPE)) {
                 game.enterState(GameState.MENUPAUSE.getValue());
@@ -131,7 +131,7 @@ public class GamePlayController {
                 input.enableKeyRepeat();
                 hero.stand();
             }
-        } else if (controlMode == "Inventory") {
+        } else if (controlMode.equals("Inventory")) {
             if (input.isKeyPressed(Input.KEY_ESCAPE) || input.isKeyPressed(Input.KEY_TAB)) {
                 controlMode = "Hero";
                 gamePlayView.getInventoryView().setActive(false);

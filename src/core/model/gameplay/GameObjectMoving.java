@@ -158,4 +158,9 @@ public class GameObjectMoving extends GameObject {
     public ItemRecord getUsingItem() {
         return usingItem;
     }
+
+    public Skill getCurrentSkill() {
+        return currentSkill;
+    }
+
 }
