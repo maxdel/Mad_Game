@@ -1,14 +1,12 @@
 package core.view.gameplay;
 
-import core.ResourceManager;
-import core.model.gameplay.Loot;
+import core.resource_manager.ResourceManager;
+import core.model.gameplay.items.Loot;
 import core.model.gameplay.World;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
-
-import java.awt.Font;
 
 public class LootView {
 

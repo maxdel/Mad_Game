@@ -2,15 +2,10 @@ package core.view.gameplay;
 
 import org.newdawn.slick.*;
 
-import core.ResourceManager;
-import core.model.gameplay.GameObject;
-import core.model.gameplay.Hero;
-import core.model.gameplay.GameObjectState;
-import org.newdawn.slick.openal.Audio;
-import org.newdawn.slick.openal.AudioLoader;
-import org.newdawn.slick.util.ResourceLoader;
-
-import java.io.IOException;
+import core.resource_manager.ResourceManager;
+import core.model.gameplay.units.GameObjectSolid;
+import core.model.gameplay.units.Hero;
+import core.model.gameplay.units.GameObjectState;
 
 /**
  * Provides functions for the definition of actors, as well as actor
@@ -24,7 +19,7 @@ public class HeroView extends GameObjectView {
     private Animation animationSwordWalk;
     private Animation animationSwordAttack;
 
-    public HeroView(GameObject hero, ResourceManager resourceManager) throws SlickException {
+    public HeroView(GameObjectSolid hero, ResourceManager resourceManager) throws SlickException {
         super(hero, resourceManager);
         animation = ResourceManager.getInstance().getAnimation("hero");
         animationAttack = ResourceManager.getInstance().getAnimation("heroattack");
@@ -40,7 +35,8 @@ public class HeroView extends GameObjectView {
         if (hero.getCurrentState() != previousState) {
             switch (hero.getCurrentState()) {
                 case WALK:
-                    if (hero.getInventory().isItemDressed("sword")) {
+                    //TODO: bad code
+                    if (hero.getInventory().getDressedWeaponType().equals("Sword")) {
                         animation = animationSwordWalk;
                     } else {
                         animation = animationWalk;
@@ -49,7 +45,7 @@ public class HeroView extends GameObjectView {
                     animation.setSpeed((float) (hero.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("hero")));
                     break;
                 case STAND:
-                    if (hero.getInventory().isItemDressed("sword")) {
+                    if (hero.getInventory().getDressedWeaponType().equals("Sword")) {
                         animation = animationSwordWalk;
                     } else {
                         animation = animationWalk;
@@ -58,7 +54,7 @@ public class HeroView extends GameObjectView {
                     animation.setCurrentFrame(0);
                     break;
                 case RUN:
-                    if (hero.getInventory().isItemDressed("sword")) {
+                    if (hero.getInventory().getDressedWeaponType().equals("Sword")) {
                         animation = animationSwordWalk;
                     } else {
                         animation = animationWalk;
@@ -67,7 +63,7 @@ public class HeroView extends GameObjectView {
                     animation.setSpeed((float) (hero.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("hero")));
                     break;
                 case PICK_ITEM:
-                    if (hero.getInventory().isItemDressed("sword")) {
+                    if (hero.getInventory().getDressedWeaponType().equals("Sword")) {
                         animation = animationSwordWalk;
                     } else {
                         animation = animationWalk;
@@ -82,7 +78,7 @@ public class HeroView extends GameObjectView {
                     }
                      break;
                 case CAST:
-                    if (hero.getInventory().isItemDressed("sword")) {
+                    if (hero.getInventory().getDressedWeaponType().equals("Sword")) {
                         Music music = new Music("res/Swoosh01.wav");
                         music.play();
                         animation = animationSwordAttack;
@@ -109,10 +105,10 @@ public class HeroView extends GameObjectView {
         rotate(g, viewX, viewY, viewDegreeAngle, viewCenterX, viewCenterY, false);
 
         // For debug
-        drawHealthbar(g, 90, 100, 120, 6, hero.getAttribute().getCurrentHP(),
-                hero.getAttribute().getMaximumHP(), Color.red);
-        drawHealthbar(g, 90, 120, 120, 6, hero.getAttribute().getCurrentMP(),
-                hero.getAttribute().getMaximumMP(), Color.blue);
+        drawHealthbar(g, 90, 100, 120, 6, hero.getAttribute().getHP().getCurrent(),
+                hero.getAttribute().getHP().getMaximum(), Color.red);
+        drawHealthbar(g, 90, 120, 120, 6, hero.getAttribute().getMP().getCurrent(),
+                hero.getAttribute().getMP().getMaximum(), Color.blue);
         /*g.drawString(String.valueOf((int) hero.getAttribute().getPAttack()) + "/" +
                         String.valueOf((int) hero.getAttribute().getMAttack()),
                 (float) (gameObject.getX() - viewX),
@@ -121,11 +117,11 @@ public class HeroView extends GameObjectView {
                         String.valueOf((int) hero.getAttribute().getMArmor()),
                 (float) (gameObject.getX() - viewX),
                 (float) (gameObject.getY() - viewY - 60));
-        g.drawString(String.valueOf((int) hero.getAttribute().getCurrentHP()) + "/" +
+        g.drawString(String.valueOf((int) hero.getAttribute().getHP().getCurrent()) + "/" +
                         String.valueOf((int) hero.getAttribute().getMaximumHP()),
                 (float) (gameObject.getX() - viewX),
                 (float) (gameObject.getY() - viewY - 40));
-        g.drawString(String.valueOf((int) hero.getAttribute().getCurrentMP()) + "/" +
+        g.drawString(String.valueOf((int) hero.getAttribute().getMP().getCurrent()) + "/" +
                         String.valueOf((int) hero.getAttribute().getMaximumMP()),
                 (float) (gameObject.getX() - viewX),
                 (float) (gameObject.getY() - viewY - 20));
@@ -140,7 +136,7 @@ public class HeroView extends GameObjectView {
     }
 
     private Hero getHero() {
-        return (Hero) gameObject;
+        return (Hero) gameObjectSolid;
     }
 
 }

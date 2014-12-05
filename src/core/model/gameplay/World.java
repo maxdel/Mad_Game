@@ -1,6 +1,8 @@
 package core.model.gameplay;
 
-import core.model.gameplay.inventory.ItemDB;
+import core.model.gameplay.items.ItemDB;
+import core.model.gameplay.items.Loot;
+import core.model.gameplay.units.*;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.tiled.TiledMap;
@@ -16,9 +18,9 @@ public class World {
 
     private static World instance;
 
-    private List<GameObject> gameObjects;
-    private List<GameObject> toDeleteList;
-    private List<GameObject> toAddList;
+    private List<GameObjectSolid> gameObjectSolids;
+    private List<GameObjectSolid> toDeleteList;
+    private List<GameObjectSolid> toAddList;
     private Hero hero;
     private List<Loot> lootList;
     private CollisionManager collisionManager;
@@ -26,9 +28,9 @@ public class World {
     private TiledMap tiledMap;
 
     private World() {
-        gameObjects = new ArrayList<GameObject>();
-        toDeleteList = new ArrayList<GameObject>();
-        toAddList = new ArrayList<GameObject>();
+        gameObjectSolids = new ArrayList<GameObjectSolid>();
+        toDeleteList = new ArrayList<GameObjectSolid>();
+        toAddList = new ArrayList<GameObjectSolid>();
         lootList = new ArrayList<Loot>();
         collisionManager = CollisionManager.getInstance();
 
@@ -43,10 +45,10 @@ public class World {
                 // Obstacles
                 String tileObstacleName = tiledMap.getTileProperty(tiledMap.getTileId(i, j, 1), "name", "error");
                 if (tileObstacleName.equals("stonewall")) {
-                    gameObjects.add(new Wall(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
+                    gameObjectSolids.add(new Wall(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
                             tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0));
                 } else if (tileObstacleName.equals("tree")) {
-                    gameObjects.add(new Tree(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
+                    gameObjectSolids.add(new Tree(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
                             tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0));
                 }
                 // Objects
@@ -54,18 +56,18 @@ public class World {
                 if (tileObjectName.equals("hero")) {
                     hero = new Hero(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
                             tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0.2F);
-                    gameObjects.add(hero);
+                    gameObjectSolids.add(hero);
                 } else if (tileObjectName.equals("banditsword")) {
-                    gameObjects.add(new Bandit(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
+                    gameObjectSolids.add(new Bandit(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
                             tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0.1F));
                 } else if (tileObjectName.equals("banditarcher")) {
-                    gameObjects.add(new BanditArcher(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
+                    gameObjectSolids.add(new BanditArcher(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
                             tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0.1F));
                 } else if (tileObjectName.equals("skeletsword")) {
-                    gameObjects.add(new Skeleton(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
+                    gameObjectSolids.add(new Skeleton(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
                             tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0.15F));
                 } else if (tileObjectName.equals("skeletmage")) {
-                    gameObjects.add(new SkeletonMage(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
+                    gameObjectSolids.add(new SkeletonMage(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
                             tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0.15F));
                 } else if (tileObjectName.equals("vampire")) {
 
@@ -92,24 +94,24 @@ public class World {
     }
 
     public void update(int delta) {
-        for (GameObject gameObject : toAddList) {
-            gameObjects.add(gameObject);
+        for (GameObjectSolid gameObjectSolid : toAddList) {
+            gameObjectSolids.add(gameObjectSolid);
         }
         toAddList.clear();
-        for (GameObject gameObject : gameObjects) {
-            Vector2f v = new Vector2f((float)(hero.getX() - gameObject.getX()), (float)(hero.getY() - gameObject.getY()));
+        for (GameObjectSolid gameObjectSolid : gameObjectSolids) {
+            Vector2f v = new Vector2f((float)(hero.getX() - gameObjectSolid.getX()), (float)(hero.getY() - gameObjectSolid.getY()));
             if (v.length() < 1000) {
-                gameObject.update(delta);
+                gameObjectSolid.update(delta);
             }
         }
-        for (GameObject gameObject : toDeleteList) {
-            gameObjects.remove(gameObject);
+        for (GameObjectSolid gameObjectSolid : toDeleteList) {
+            gameObjectSolids.remove(gameObjectSolid);
         }
         toDeleteList.clear();
     }
 
-    public List<GameObject> getGameObjects() {
-        return gameObjects;
+    public List<GameObjectSolid> getGameObjectSolids() {
+        return gameObjectSolids;
     }
 
     public Hero getHero() {
@@ -124,11 +126,11 @@ public class World {
         return tiledMap;
     }
 
-    protected List<GameObject> getToDeleteList() {
+    public List<GameObjectSolid> getToDeleteList() {
         return toDeleteList;
     }
 
-    protected List<GameObject> getToAddList() {
+    public List<GameObjectSolid> getToAddList() {
         return toAddList;
     }
 

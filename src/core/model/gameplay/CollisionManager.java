@@ -1,5 +1,6 @@
 package core.model.gameplay;
 
+import core.model.gameplay.units.GameObjectSolid;
 import org.newdawn.slick.geom.*;
 
 public class CollisionManager {
@@ -21,11 +22,11 @@ public class CollisionManager {
      * For debug
      */
     public void update() {
-        for (GameObject pivotObject: World.getInstance(false).getGameObjects()) {
-            for (GameObject currentGameObject : World.getInstance(false).getGameObjects()) {
-                if (pivotObject != currentGameObject && isCollides(pivotObject, currentGameObject)) {
+        for (GameObjectSolid pivotObject: World.getInstance(false).getGameObjectSolids()) {
+            for (GameObjectSolid currentGameObjectSolid : World.getInstance(false).getGameObjectSolids()) {
+                if (pivotObject != currentGameObjectSolid && isCollides(pivotObject, currentGameObjectSolid)) {
                     System.out.println("Collision: " + String.valueOf(pivotObject.getClass()) +
-                    " vs " + String.valueOf(currentGameObject.getClass()));
+                    " vs " + String.valueOf(currentGameObjectSolid.getClass()));
                 }
             }
         }
@@ -34,21 +35,21 @@ public class CollisionManager {
     /*
      * Returns true if @param gameObject has no collisions with objects of @param otherClass Class
      */
-    public boolean isCollidesWith(GameObject gameObject, Class otherClass, double x, double y) {
-        double originalX = gameObject.getX();
-        double originalY = gameObject.getY();
-        gameObject.setX(x);
-        gameObject.setY(y);
+    public boolean isCollidesWith(GameObjectSolid gameObjectSolid, Class otherClass, double x, double y) {
+        double originalX = gameObjectSolid.getX();
+        double originalY = gameObjectSolid.getY();
+        gameObjectSolid.setX(x);
+        gameObjectSolid.setY(y);
         boolean isCollidesWith = false;
-        for (GameObject currentGameObject: World.getInstance(false).getGameObjects()) {
-            if (gameObject != currentGameObject && otherClass == currentGameObject.getClass()
-                    && isCollides(gameObject, currentGameObject)) {
+        for (GameObjectSolid currentGameObjectSolid : World.getInstance(false).getGameObjectSolids()) {
+            if (gameObjectSolid != currentGameObjectSolid && otherClass == currentGameObjectSolid.getClass()
+                    && isCollides(gameObjectSolid, currentGameObjectSolid)) {
                 isCollidesWith = true;
                 break;
             }
         }
-        gameObject.setX(originalX);
-        gameObject.setY(originalY);
+        gameObjectSolid.setX(originalX);
+        gameObjectSolid.setY(originalY);
         return isCollidesWith;
     }
 
@@ -58,66 +59,66 @@ public class CollisionManager {
     /**
      * Returns true if @param gameObject has no collisions in point x, y with gameObjects array
      *
-     * @param  gameObject object to check collisions for
+     * @param  gameObjectSolid object to check collisions for
      */
-    public boolean isPlaceFree(GameObject gameObject, double x, double y) {
-        double originalX = gameObject.getX();
-        double originalY = gameObject.getY();
-        gameObject.setX(x);
-        gameObject.setY(y);
+    public boolean isPlaceFree(GameObjectSolid gameObjectSolid, double x, double y) {
+        double originalX = gameObjectSolid.getX();
+        double originalY = gameObjectSolid.getY();
+        gameObjectSolid.setX(x);
+        gameObjectSolid.setY(y);
         boolean isCollides = false;
-        for (GameObject currentGameObject: World.getInstance(false).getGameObjects()) {
-            if (gameObject != currentGameObject && isCollides(gameObject, currentGameObject)) {
+        for (GameObjectSolid currentGameObjectSolid : World.getInstance(false).getGameObjectSolids()) {
+            if (gameObjectSolid != currentGameObjectSolid && isCollides(gameObjectSolid, currentGameObjectSolid)) {
                 isCollides = true;
                 break;
             }
         }
-        gameObject.setX(originalX);
-        gameObject.setY(originalY);
+        gameObjectSolid.setX(originalX);
+        gameObjectSolid.setY(originalY);
         return !isCollides;
     }
 
-    public boolean isPlaceFreeAdv(GameObject gameObject, double x, double y) {
-        double originalX = gameObject.getX();
-        double originalY = gameObject.getY();
-        gameObject.setX(x);
-        gameObject.setY(y);
+    public boolean isPlaceFreeAdv(GameObjectSolid gameObjectSolid, double x, double y) {
+        double originalX = gameObjectSolid.getX();
+        double originalY = gameObjectSolid.getY();
+        gameObjectSolid.setX(x);
+        gameObjectSolid.setY(y);
         boolean isCollides = false;
         Vector2f v = new Vector2f();
-        for (GameObject currentGameObject: World.getInstance(false).getGameObjects()) {
-            v.set((float)(currentGameObject.getX() - x), (float)(currentGameObject.getY() - y));
+        for (GameObjectSolid currentGameObjectSolid : World.getInstance(false).getGameObjectSolids()) {
+            v.set((float)(currentGameObjectSolid.getX() - x), (float)(currentGameObjectSolid.getY() - y));
             // TODO fix magic number
-            if (gameObject != currentGameObject && v.length() < 70 && isCollides(gameObject, currentGameObject)) {
+            if (gameObjectSolid != currentGameObjectSolid && v.length() < 70 && isCollides(gameObjectSolid, currentGameObjectSolid)) {
                 isCollides = true;
                 break;
             }
         }
-        gameObject.setX(originalX);
-        gameObject.setY(originalY);
+        gameObjectSolid.setX(originalX);
+        gameObjectSolid.setY(originalY);
         return !isCollides;
     }
 
     /*
      * Returns the first GameObject object which collides with @param gameObject
      */
-    public GameObject collidesWith(GameObject gameObject, double x, double y) {
-        double originalX = gameObject.getX();
-        double originalY = gameObject.getY();
-        gameObject.setX(x);
-        gameObject.setY(y);
-        GameObject other = null;
+    public GameObjectSolid collidesWith(GameObjectSolid gameObjectSolid, double x, double y) {
+        double originalX = gameObjectSolid.getX();
+        double originalY = gameObjectSolid.getY();
+        gameObjectSolid.setX(x);
+        gameObjectSolid.setY(y);
+        GameObjectSolid other = null;
         Vector2f v = new Vector2f();
-        for (GameObject currentGameObject: World.getInstance(false).getGameObjects()) {
-            v.set((float)(currentGameObject.getX() - x), (float)(currentGameObject.getY() - y));
+        for (GameObjectSolid currentGameObjectSolid : World.getInstance(false).getGameObjectSolids()) {
+            v.set((float)(currentGameObjectSolid.getX() - x), (float)(currentGameObjectSolid.getY() - y));
             // TODO fix magic number
             if (v.length() < 70 &&
-                    gameObject != currentGameObject && isCollides(gameObject, currentGameObject)) {
-                other = currentGameObject;
+                    gameObjectSolid != currentGameObjectSolid && isCollides(gameObjectSolid, currentGameObjectSolid)) {
+                other = currentGameObjectSolid;
                 break;
             }
         }
-        gameObject.setX(originalX);
-        gameObject.setY(originalY);
+        gameObjectSolid.setX(originalX);
+        gameObjectSolid.setY(originalY);
         return other;
     }
 
@@ -126,8 +127,8 @@ public class CollisionManager {
     *
     * Should be private(!) but used by View for debug purposes (drawMask)
     * */
-    public Shape getUpdatedMask(GameObject gameObject, double dx, double dy, double direction) {
-        Shape mask = gameObject.getMask();
+    public Shape getUpdatedMask(GameObjectSolid gameObjectSolid, double dx, double dy, double direction) {
+        Shape mask = gameObjectSolid.getMask();
         Shape updatedMask;
 
         if (mask instanceof Circle) {
@@ -147,9 +148,9 @@ public class CollisionManager {
         return updatedMask;
     }
 
-    public boolean isCollides(GameObject gameObject1, GameObject gameObject2) {
-        Shape me = getUpdatedMask(gameObject1, gameObject1.getX(), gameObject1.getY(), gameObject1.getDirection());
-        Shape him = getUpdatedMask(gameObject2, gameObject2.getX(), gameObject2.getY(), gameObject2.getDirection());
+    public boolean isCollides(GameObjectSolid gameObjectSolid1, GameObjectSolid gameObjectSolid2) {
+        Shape me = getUpdatedMask(gameObjectSolid1, gameObjectSolid1.getX(), gameObjectSolid1.getY(), gameObjectSolid1.getDirection());
+        Shape him = getUpdatedMask(gameObjectSolid2, gameObjectSolid2.getX(), gameObjectSolid2.getY(), gameObjectSolid2.getDirection());
 
         return me.intersects(him);
         /*Vector2f v = new Vector2f((float)gameObject2.getX() - (float)gameObject1.getX(),

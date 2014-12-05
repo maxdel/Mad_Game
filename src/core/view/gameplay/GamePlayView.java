@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import core.model.gameplay.*;
+import core.model.gameplay.skills.bullets.Arrow;
+import core.model.gameplay.skills.bullets.Fireball;
+import core.model.gameplay.items.Loot;
+import core.model.gameplay.units.*;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-import core.ResourceManager;
+import core.resource_manager.ResourceManager;
 import org.newdawn.slick.tiled.TiledMap;
 
 /*
@@ -17,7 +20,7 @@ import org.newdawn.slick.tiled.TiledMap;
 * */
 public class GamePlayView {
 
-    private List<GameObject> gameObjects;
+    private List<GameObjectSolid> gameObjectSolids;
     private List<GameObjectView> gameObjectViews;
     private List<Loot> lootList;
     private List<LootView> lootViewList;
@@ -28,10 +31,10 @@ public class GamePlayView {
     private TiledMap tiledMap;
     private TileView tileView;
 
-    public GamePlayView(GameContainer gc, List<GameObject> gameObjects, Hero hero, List<Loot> lootList,
+    public GamePlayView(GameContainer gc, List<GameObjectSolid> gameObjectSolids, Hero hero, List<Loot> lootList,
                         ResourceManager resourceManager, TiledMap tiledMap) throws SlickException {
         this.resourceManager = resourceManager;
-        this.gameObjects = gameObjects;
+        this.gameObjectSolids = gameObjectSolids;
         this.hero = hero;
         this.lootList = lootList;
         inventoryView = new InventoryView(hero.getInventory());
@@ -39,15 +42,15 @@ public class GamePlayView {
         tileView = new TileView(tiledMap, hero);
 
         gameObjectViews = new ArrayList<GameObjectView>();
-        for (GameObject gameObject : gameObjects) {
-            if (gameObject.getClass() == Wall.class) {
-                gameObjectViews.add(new WallView(gameObject, resourceManager));
-            } else if (gameObject.getClass() == Bandit.class) {
-                gameObjectViews.add(new BanditView(gameObject, resourceManager));
-            } else if (gameObject.getClass() == Hero.class) {
-                gameObjectViews.add(new HeroView(gameObject, resourceManager));
-            } else if (gameObject.getClass() == Tree.class) {
-                gameObjectViews.add(new TreeView(gameObject, resourceManager));
+        for (GameObjectSolid gameObjectSolid : gameObjectSolids) {
+            if (gameObjectSolid.getClass() == Wall.class) {
+                gameObjectViews.add(new WallView(gameObjectSolid, resourceManager));
+            } else if (gameObjectSolid.getClass() == Bandit.class) {
+                gameObjectViews.add(new BanditView(gameObjectSolid, resourceManager));
+            } else if (gameObjectSolid.getClass() == Hero.class) {
+                gameObjectViews.add(new HeroView(gameObjectSolid, resourceManager));
+            } else if (gameObjectSolid.getClass() == Tree.class) {
+                gameObjectViews.add(new TreeView(gameObjectSolid, resourceManager));
             }
         }
 
@@ -84,8 +87,8 @@ public class GamePlayView {
         for (Iterator<GameObjectView> it = gameObjectViews.iterator(); it.hasNext();) {
             GameObjectView gameObjectView = it.next();
             boolean found = false;
-            for (GameObject gameObject : gameObjects) {
-                if (gameObjectView.gameObject == gameObject) {
+            for (GameObjectSolid gameObjectSolid : gameObjectSolids) {
+                if (gameObjectView.gameObjectSolid == gameObjectSolid) {
                     found = true;
                     break;
                 }
@@ -96,31 +99,31 @@ public class GamePlayView {
         }
 
         // looking for new gameObjects
-        for (GameObject gameObject : gameObjects) {
+        for (GameObjectSolid gameObjectSolid : gameObjectSolids) {
             boolean found = false;
             for (GameObjectView gameObjectView : gameObjectViews) {
-                if (gameObject == gameObjectView.gameObject) {
+                if (gameObjectSolid == gameObjectView.gameObjectSolid) {
                     found = true;
                     break;
                 }
             }
             if (!found) {
-                if (gameObject.getClass() == Wall.class) {
-                    gameObjectViews.add(new WallView(gameObject, resourceManager));
-                } else if (gameObject.getClass() == Bandit.class) {
-                    gameObjectViews.add(new BanditView(gameObject, resourceManager));
-                } else if (gameObject.getClass() == Hero.class) {
-                    gameObjectViews.add(new HeroView(gameObject, resourceManager));
-                } else if (gameObject.getClass() == Arrow.class) {
-                    gameObjectViews.add(new ArrowView(gameObject, resourceManager));
-                } else if (gameObject.getClass() == Fireball.class) {
-                    gameObjectViews.add(new FireballView(gameObject, resourceManager));
-                } else if (gameObject.getClass() == BanditArcher.class) {
-                    gameObjectViews.add(new BanditArcherView(gameObject, resourceManager));
-                } else if (gameObject.getClass() == Skeleton.class) {
-                    gameObjectViews.add(new SkeletonView(gameObject, resourceManager));
-                } else if (gameObject.getClass() == SkeletonMage.class) {
-                    gameObjectViews.add(new SkeletonMageView(gameObject, resourceManager));
+                if (gameObjectSolid.getClass() == Wall.class) {
+                    gameObjectViews.add(new WallView(gameObjectSolid, resourceManager));
+                } else if (gameObjectSolid.getClass() == Bandit.class) {
+                    gameObjectViews.add(new BanditView(gameObjectSolid, resourceManager));
+                } else if (gameObjectSolid.getClass() == Hero.class) {
+                    gameObjectViews.add(new HeroView(gameObjectSolid, resourceManager));
+                } else if (gameObjectSolid.getClass() == Arrow.class) {
+                    gameObjectViews.add(new ArrowView(gameObjectSolid, resourceManager));
+                } else if (gameObjectSolid.getClass() == Fireball.class) {
+                    gameObjectViews.add(new FireballView(gameObjectSolid, resourceManager));
+                } else if (gameObjectSolid.getClass() == BanditArcher.class) {
+                    gameObjectViews.add(new BanditArcherView(gameObjectSolid, resourceManager));
+                } else if (gameObjectSolid.getClass() == Skeleton.class) {
+                    gameObjectViews.add(new SkeletonView(gameObjectSolid, resourceManager));
+                } else if (gameObjectSolid.getClass() == SkeletonMage.class) {
+                    gameObjectViews.add(new SkeletonMageView(gameObjectSolid, resourceManager));
                 }
             }
         }

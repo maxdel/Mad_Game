@@ -1,12 +1,12 @@
 package core.view.gameplay;
 
-import core.ResourceManager;
-import core.model.gameplay.GameObject;
+import core.resource_manager.ResourceManager;
+import core.model.gameplay.units.GameObjectSolid;
 
 public class ArrowView extends GameObjectView {
 
-    public ArrowView(GameObject gameObject, ResourceManager resourceManager) {
-        super(gameObject, resourceManager);
+    public ArrowView(GameObjectSolid gameObjectSolid, ResourceManager resourceManager) {
+        super(gameObjectSolid, resourceManager);
         animation = resourceManager.getAnimation("arrow");
     }
 
