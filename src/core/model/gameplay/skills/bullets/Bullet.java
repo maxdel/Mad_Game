@@ -4,7 +4,7 @@ import core.model.gameplay.CollisionManager;
 import core.model.gameplay.World;
 import core.model.gameplay.units.*;
 
-public abstract class Bullet extends GameObjectSolid{
+public abstract class Bullet extends GameObjectSolid {
 
     private GameObjectMoving owner;
     private double speed;
