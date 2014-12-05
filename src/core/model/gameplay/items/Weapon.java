@@ -8,7 +8,7 @@ public class Weapon extends Item {
 
     public Weapon(String name, String description, String type, Map<String, Integer> values) {
         super(name, description, type, values);
-        setCanDress(true);
+        setItemOperation(ItemOperation.DRESS);
     }
 
     @Override

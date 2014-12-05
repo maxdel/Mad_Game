@@ -49,15 +49,6 @@ public class ItemDB {
             else if (items.get(i).getType().equals("Armor")) {
                 items.set(i, new Armor(items.get(i).getName(), items.get(i).getDescription(), items.get(i).getType(), items.get(i).getValues()));
             }
-
-            //TODO: FIX WHOLE THIS METHOD
-            if (items.get(i) instanceof Weapon || items.get(i) instanceof Armor) { //TODO: move "canDress" to XML
-
-                items.get(i).setCanDress(true);
-            }
-            else {
-                items.get(i).setCanDress(false);
-            }
         }
     }
 }
