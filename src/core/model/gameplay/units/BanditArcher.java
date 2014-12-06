@@ -1,5 +1,6 @@
 package core.model.gameplay.units;
 
+import core.GameState;
 import core.model.gameplay.skills.bullets.Bullet;
 import core.resource_manager.ResourceManager;
 import core.model.gameplay.*;
@@ -15,6 +16,7 @@ public class BanditArcher extends GameObjectMoving {
     private double targetX;
     private double targetY;
     private boolean isTargetHero;
+    private boolean usePredictedDirection;
 
     public BanditArcher(double x, double y, double maximumSpeed) {
         super(x, y, maximumSpeed);
@@ -31,12 +33,15 @@ public class BanditArcher extends GameObjectMoving {
         getAttribute().resetHpMp(25, 10);
 
         isTargetHero = false;
+        usePredictedDirection = false;
     }
 
     public void followTarget(double x, double y) {
-        double direction = Math.atan2(y - getY(), x - getX());
-        setDirection(direction);
-        run(0);
+        if (getCurrentState() != GameObjectState.CAST) {
+            double direction = Math.atan2(y - getY(), x - getX());
+            setDirection(direction);
+            run(0);
+        }
     }
 
     public void run(double direction) {
@@ -66,15 +71,26 @@ public class BanditArcher extends GameObjectMoving {
         if (!isTargetHero) {
             if (distanceToHero < attackHeroDistance) {
                 stand();
-                setDirection(
-                        getPredictedDirection(
-                                v.getTheta() / 180 * Math.PI,
-                                World.getInstance().getHero().getAttribute().getCurrentSpeed(),
-                                World.getInstance().getHero().getDirection() +
-                                        World.getInstance().getHero().getRelativeDirection(),
-                                ((BulletSkill) skillList.get(0)).getBulletSpeed()
-                        )
-                );
+                if (usePredictedDirection) {
+                    setDirection(
+                            getPredictedDirection(
+                                    v.getTheta() / 180 * Math.PI,
+                                    World.getInstance().getHero().getAttribute().getCurrentSpeed(),
+                                    World.getInstance().getHero().getDirection() +
+                                            World.getInstance().getHero().getRelativeDirection(),
+                                    ((BulletSkill) skillList.get(0)).getBulletSpeed()
+                            )
+                    );
+                } else {
+                    setDirection(v.getTheta() / 180 * Math.PI);
+                }
+                if (skillList.get(0).canStartCast(true)) {
+                    if (Math.random() < 0.5) {
+                        usePredictedDirection = true;
+                    } else {
+                        usePredictedDirection = false;
+                    }
+                }
                 startCastSkill(0);
             } else if (distanceToHero < followHeroDistance) {
                 targetX = World.getInstance().getHero().getX();
@@ -103,15 +119,26 @@ public class BanditArcher extends GameObjectMoving {
         } else {
             if (distanceToHero < attackHeroDistance) {
                 stand();
-                setDirection(
-                        getPredictedDirection(
-                                v.getTheta() / 180 * Math.PI,
-                                World.getInstance().getHero().getAttribute().getCurrentSpeed(),
-                                World.getInstance().getHero().getDirection() +
-                                        World.getInstance().getHero().getRelativeDirection(),
-                                ((BulletSkill)skillList.get(0)).getBulletSpeed()
-                        )
-                );
+                if (usePredictedDirection) {
+                    setDirection(
+                            getPredictedDirection(
+                                    v.getTheta() / 180 * Math.PI,
+                                    World.getInstance().getHero().getAttribute().getCurrentSpeed(),
+                                    World.getInstance().getHero().getDirection() +
+                                            World.getInstance().getHero().getRelativeDirection(),
+                                    ((BulletSkill) skillList.get(0)).getBulletSpeed()
+                            )
+                    );
+                } else {
+                    setDirection(v.getTheta() / 180 * Math.PI);
+                }
+                if (skillList.get(0).canStartCast(true)) {
+                    if (Math.random() < 0.5) {
+                        usePredictedDirection = true;
+                    } else {
+                        usePredictedDirection = false;
+                    }
+                }
                 startCastSkill(0);
             } else {
                 targetX = World.getInstance().getHero().getX();
