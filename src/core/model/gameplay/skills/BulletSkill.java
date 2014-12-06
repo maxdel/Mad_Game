@@ -21,7 +21,6 @@ public class BulletSkill extends Skill {
         this.mAttack = mAttack;
     }
 
-
     @Override
     public boolean startCast() {
         if (canStartCast(true)) {
@@ -49,4 +48,9 @@ public class BulletSkill extends Skill {
                     bulletSpeed, pAttack, mAttack));
         }
     }
+
+    public double getBulletSpeed() {
+        return bulletSpeed;
+    }
+
 }

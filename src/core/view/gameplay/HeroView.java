@@ -1,5 +1,6 @@
 package core.view.gameplay;
 
+import core.model.gameplay.items.Bow;
 import org.newdawn.slick.*;
 
 import core.resource_manager.ResourceManager;
@@ -17,6 +18,7 @@ public class HeroView extends GameObjectView {
     private Animation animationAttack;
     private Animation animationWalk;
     private Animation animationSwordWalk;
+    private Animation animationSwordAttackStrong;
     private Animation animationSwordAttack;
     private Animation animationBowWalk;
     private Animation animationBowAttack;
@@ -27,6 +29,7 @@ public class HeroView extends GameObjectView {
         animationAttack = ResourceManager.getInstance().getAnimation("heroattack");
         animationSwordWalk = ResourceManager.getInstance().getAnimation("heroswordwalk");
         animationSwordAttack = ResourceManager.getInstance().getAnimation("heroswordattack");
+        animationSwordAttackStrong = ResourceManager.getInstance().getAnimation("heroswordattackstrong");
         animationBowWalk = ResourceManager.getInstance().getAnimation("herobowwalk");
         animationBowAttack = ResourceManager.getInstance().getAnimation("herobowattack");
         animationWalk = animation;
@@ -92,10 +95,19 @@ public class HeroView extends GameObjectView {
                     }
                      break;
                 case CAST:
-                    if (hero.getInventory().getDressedWeaponType().equals("Sword")) {
+                    if (hero.getCurrentSkill().getName().equals("Sword attack")) {
                         Music music = new Music("res/Swoosh01.wav");
                         music.play();
                         animation = animationSwordAttack;
+                        animation.restart();
+                        hero.getCurrentSkill().getCastTime();
+                        for (int i = 0; i < animation.getFrameCount(); ++i) {
+                            animation.setDuration(i, hero.getCurrentSkill().getCastTime() / animation.getFrameCount());
+                        }
+                    } else if (hero.getCurrentSkill().getName().equals("Strong sword attack")) {
+                        Music music = new Music("res/Swoosh01.wav");
+                        music.play();
+                        animation = animationSwordAttackStrong;
                         animation.restart();
                         hero.getCurrentSkill().getCastTime();
                         for (int i = 0; i < animation.getFrameCount(); ++i) {
@@ -132,15 +144,24 @@ public class HeroView extends GameObjectView {
         rotate(g, viewX, viewY, viewDegreeAngle, viewCenterX, viewCenterY, true);
         draw(viewX, viewY);
         // draw mask
-        drawMask(g, viewX, viewY);
+        //drawMask(g, viewX, viewY);
 
         rotate(g, viewX, viewY, viewDegreeAngle, viewCenterX, viewCenterY, false);
 
+        if (hero.getInventory().isItemDressed(Bow.class)) {
+            Image aim = ResourceManager.getInstance().getImage("Bow aim");
+            aim.draw((float)viewCenterX - aim.getWidth() / 2, (float)viewCenterY - 250);
+        }
         // For debug
         drawHealthbar(g, 90, 100, 120, 6, hero.getAttribute().getHP().getCurrent(),
                 hero.getAttribute().getHP().getMaximum(), Color.red);
         drawHealthbar(g, 90, 120, 120, 6, hero.getAttribute().getMP().getCurrent(),
                 hero.getAttribute().getMP().getMaximum(), Color.blue);
+        /*g.drawString("(" + String.valueOf((int) hero.getX()) + ";" + String.valueOf((int) hero.getY())
+                        + ") dir=" + String.valueOf((int) (hero.getDirection() / Math.PI * 180) % 360
+                        + " curSpd=" + String.valueOf(hero.getAttribute().getCurrentSpeed())),
+                (float) (hero.getX() - viewX),
+                (float) (hero.getY() - viewY));*/
         /*g.drawString(String.valueOf((int) hero.getAttribute().getPAttack()) + "/" +
                         String.valueOf((int) hero.getAttribute().getMAttack()),
                 (float) (gameObject.getX() - viewX),

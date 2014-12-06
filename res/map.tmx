@@ -43,9 +43,6 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="17" name="items" tilewidth="64" tileheight="64">
-  <image source="items/items.png" width="512" height="512"/>
- </tileset>
  <layer name="Tiles" width="64" height="64">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAAC+3TMQ6AMAzF0ELvf2cmBiQEZWicFA+e+1+k9tZaNzMzMzMzMzMzW7A9wQbKfUZvodx/8t+5K/tHtz+5K/pHLSPuav4vppX8s9wV/LPtWf0R7gz+SCfpp42kn/aRftpG+WkT6ac9pJ+2kH7aQfnp/ZSf3k366c2Un95K+umdlJ/eR/mj3t8S+iPtZxn8xPv0DTL8cfoGGfIG1xvMjrbSN6Cdb356h379+vXr169fv379+vXbWh1BzSzGAEAAAA==
@@ -53,23 +50,30 @@
  </layer>
  <layer name="Obstacles" width="64" height="64">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2Z3Q6DMAhGvZnv/8jLLkyMGbXAB4XCSbya/Tlg0XbncRxn8UvDqL22b2va388/Yiza394fVWdm+DDvt/aX3OdJ++P9qf7aPx6Sb6OZ36mxoiHJ/9v9SH9uPef2F93fGk//iOzgr1kjI3/uftHzOw8FMv+ZvC/aHzfviP5vtQHtz60Z6Pc7l93z/wbyrDCzv6TNs20Vf6qPqv5IvOuh1t97vujxouXfm938V5z/ZoCKSxV/CrS/RT20rLGW+bd+rmbigtj/SOKfZV1ZzJPb58o9INrfKu9WMbLY/0fnHsve/+Sc98VoXcysmcj+HnUxsr8HWf1Rz0ZWfxTZ3tdoIudfcjYtvarS/u3f/nXRnn8g3nMr4x8h/+3vw79n1dufmoOmvYZK+afGXn3+jxoffU5tXffvc1hJj7//+JH//9yp/lGM6gV3fHTt2TH/szHa1Z8zdvvXvX58AQdcZLsAQAAA
+   H4sIAAAAAAAAC+2a3Q7DIAiFe7O9/yPvqkmzVCt4gEPhJCZrZsUPFH/S73Ec3+JlR7P3d9u2VvP78TP6ovnt+VF5ZkUfYX1rfk09TzU/nn/UXvPzSbM3Wvl/ZItNmvg/1UfyS/O5tD12fmt58jPqDfw7c2TGLz0veu7zUELGPxP3qebH9ZuR/yk3oPmlOQO9vkv19vg/CXlXmJlf887/u1X4R21U5UfKOx/u8nv3F22PLf7eeht/xP1vBo38UoV/JDS/RT60zLGW8bceVyt+QZx/NP7PMq8s+iltM/IMiOa3iruVjyzO/+y6+rLPPzn7fWo2L1bmDDO/R15k5vdQVn7U2MjKj1K29Rot5vhr7qa1paqav/mbv6527z8Q61yk/xni3/yxtj3t382XyLsyxvh77ssY7v9n3xBY+2DGb533r324+333jBbb+K/Ofz5nnf/aPkTa9rA/yxdS++jc0/GPVfPH2q5efm25OxkAQAAA
   </data>
  </layer>
  <layer name="Objects" width="64" height="64">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3YSRKAIAxEUbeO9z+uF9ACJNKh67+tVRqQDLoswFiHOgADa+H6FvCMM+AeTji3Y6j3Wf184E2p7pdE9IVaijwauT5gVwcAwE7mupI5tidfZ4KM3wG98x+gNFvtQF7UQmBe2XtBxvmvltt/MLf1KNAv/8G+xiHP0as3HzPPJeTHfHhndeijUGk9e5xVAK2oG1qXOgBjjnMu+eqPdzwW+92OPZuDYw8EojjUsUxr+DMWapm/G3T/ppgAQAAA
+   H4sIAAAAAAAAC+3YyxKDIBBEUbdGk///XPcpKUggdNO5Z2uVDK+Z0W0D5jrVAQTYK88fA8Z4DnhHEs7tHOp1Vo8PlNTyfs2IutBKcY9mzg841AEAiOOcV5xju/NtT+D4HdDb/wFKq+UO+CIXAutyrwWO/V+rtP9gafNRoF7+BusK+OitFe59CbVwLexXHWsEpU97OHo+oA25HS5e6gAKEu5IwhzeUefzscdwlZhTk7FfwDyK+/Yv/QK5LN8F9ff7AQBAAAA=
   </data>
  </layer>
  <objectgroup name="Слой объектов 1">
-  <object name="wall" gid="6" x="1465.51" y="1541.22" width="32" height="32" rotation="57.3295"/>
-  <object name="wall" gid="6" x="1557.01" y="1547.9" width="32" height="32" rotation="329.188"/>
-  <object name="wall" gid="6" x="1509.25" y="1552.25" width="32" height="32"/>
-  <object name="wall" gid="6" x="1664" y="1600"/>
-  <object name="wall" gid="6" x="1664" y="1568"/>
-  <object name="wall" gid="6" x="1664" y="1536"/>
-  <object name="wall" gid="6" x="1664" y="1504"/>
-  <object name="wall" gid="6" x="1696" y="1600"/>
-  <object name="wall" gid="6" x="1696" y="1536"/>
+  <object name="wall" gid="6" x="1837.29" y="1448.49" width="32" height="32" rotation="574.024"/>
+  <object name="wall" gid="6" x="1750.62" y="1478.54" width="32" height="32" rotation="845.882"/>
+  <object name="wall" gid="6" x="1792.76" y="1455.66" width="32" height="32" rotation="516.695"/>
+  <object name="wall" gid="6" x="1631.74" y="1473.03" width="32" height="32" rotation="516.695"/>
+  <object name="wall" gid="6" x="1614.35" y="1530.98" width="32" height="32" rotation="741.695"/>
+  <object name="wall" gid="6" x="1657.06" y="1531.8" width="32" height="32" rotation="516.695"/>
+  <object name="wall" gid="6" x="1669.72" y="1561.19" width="32" height="32" rotation="516.695"/>
+  <object name="wall" gid="6" x="1602.35" y="1485.69" width="32" height="32" rotation="516.695"/>
+  <object name="wall" gid="6" x="1568.9" y="1569.79" width="32" height="32" rotation="516.695"/>
+  <object name="wall" gid="6" x="1552.17" y="1611.83" width="32" height="32" rotation="606.695"/>
+  <object name="wall" gid="6" x="1598.28" y="1557.13" width="32" height="32" rotation="516.695"/>
+  <object name="wall" gid="6" x="1627.67" y="1544.46" width="32" height="32" rotation="516.695"/>
+  <object name="wall" gid="6" x="1770.81" y="1667.93" width="32" height="32" rotation="563.28"/>
+  <object name="wall" gid="6" x="1841.91" y="1739.19" width="32" height="32" rotation="516.05"/>
+  <object name="wall" gid="6" x="1567.38" y="1863.69" width="32" height="32" rotation="609.498"/>
+  <object name="wall" gid="6" x="1852.7" y="1843.94" width="32" height="32" rotation="607.42"/>
  </objectgroup>
 </map>

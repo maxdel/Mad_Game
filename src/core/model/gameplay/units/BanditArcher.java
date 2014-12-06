@@ -1,5 +1,6 @@
 package core.model.gameplay.units;
 
+import core.model.gameplay.skills.bullets.Bullet;
 import core.resource_manager.ResourceManager;
 import core.model.gameplay.*;
 import core.model.gameplay.items.ItemDB;
@@ -26,7 +27,6 @@ public class BanditArcher extends GameObjectMoving {
         inventory.useItem(inventory.addItem("Bow"));
         inventory.addItem("Arrow", 1000);
         inventory.useItem(inventory.addItem("Light armor"));
-
 
         getAttribute().resetHpMp(25, 10);
 
@@ -60,13 +60,21 @@ public class BanditArcher extends GameObjectMoving {
         Vector2f v = new Vector2f((float) World.getInstance().getHero().getX() - (float)getX(),
                 (float)World.getInstance().getHero().getY() - (float)getY());
         double distanceToHero = v.length();
-        double followHeroDistance = 300;
-        double attackHeroDistance = 200;
+        double followHeroDistance = 400;
+        double attackHeroDistance = 250;
 
         if (!isTargetHero) {
             if (distanceToHero < attackHeroDistance) {
                 stand();
-                setDirection(v.getTheta() / 180 * Math.PI);
+                setDirection(
+                        getPredictedDirection(
+                                v.getTheta() / 180 * Math.PI,
+                                World.getInstance().getHero().getAttribute().getCurrentSpeed(),
+                                World.getInstance().getHero().getDirection() +
+                                        World.getInstance().getHero().getRelativeDirection(),
+                                ((BulletSkill) skillList.get(0)).getBulletSpeed()
+                        )
+                );
                 startCastSkill(0);
             } else if (distanceToHero < followHeroDistance) {
                 targetX = World.getInstance().getHero().getX();
@@ -95,7 +103,15 @@ public class BanditArcher extends GameObjectMoving {
         } else {
             if (distanceToHero < attackHeroDistance) {
                 stand();
-                setDirection(v.getTheta() / 180 * Math.PI);
+                setDirection(
+                        getPredictedDirection(
+                                v.getTheta() / 180 * Math.PI,
+                                World.getInstance().getHero().getAttribute().getCurrentSpeed(),
+                                World.getInstance().getHero().getDirection() +
+                                        World.getInstance().getHero().getRelativeDirection(),
+                                ((BulletSkill)skillList.get(0)).getBulletSpeed()
+                        )
+                );
                 startCastSkill(0);
             } else {
                 targetX = World.getInstance().getHero().getX();
@@ -114,6 +130,17 @@ public class BanditArcher extends GameObjectMoving {
         }
 
         super.update(delta);
+    }
+
+    private double getPredictedDirection(double angleToTarget, double targetSpeed, double targetDirection,
+                                         double bulletSpeed) {
+        if (targetSpeed > 0) {
+            double alphaAngle = (Math.PI - targetDirection) + angleToTarget;
+            double neededOffsetAngle = Math.asin(Math.sin(alphaAngle) * targetSpeed / bulletSpeed);
+            return angleToTarget + neededOffsetAngle;
+        } else {
+            return angleToTarget;
+        }
     }
 
     @Override

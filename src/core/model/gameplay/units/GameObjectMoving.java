@@ -49,7 +49,6 @@ public class GameObjectMoving extends GameObjectSolid {
         usingItem = null;
     }
 
-
     public void startCastSkill(int skillIndex) {
         if (skillList.get(skillIndex) != null && skillList.get(skillIndex).startCast()) {
             currentSkill = skillList.get(skillIndex);

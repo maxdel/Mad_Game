@@ -58,7 +58,7 @@ public class Bandit extends GameObjectMoving {
 
         double distanceToHero = v.length();
         double followHeroDistance = 300;
-        double attackHeroDistance = 60;
+        double attackHeroDistance = 50;
 
         if (!isTargetHero) {
             if (distanceToHero < attackHeroDistance) {

@@ -73,7 +73,7 @@ public class World {
                 String tileObjectName = tiledMap.getTileProperty(tiledMap.getTileId(i, j, 2), "name", "error");
                 if (tileObjectName.equals("hero")) {
                     hero = new Hero(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
-                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0.2F);
+                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0.18F);
                     gameObjectSolids.add(hero);
                 } else if (tileObjectName.equals("banditsword")) {
                     gameObjectSolids.add(new Bandit(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,

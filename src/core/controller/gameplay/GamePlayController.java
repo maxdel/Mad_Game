@@ -23,6 +23,7 @@ public class GamePlayController {
     private int mouseX, mouseY;
     private int oldMouseX, oldMouseY;
     private String controlMode;
+    private boolean combatMode;
     private final double ROTATE_SPEED = 1f/288;
 
     public GamePlayController(World world, GamePlayView gamePlayView) throws SlickException {
@@ -32,6 +33,7 @@ public class GamePlayController {
         mouseX = -1;
         mouseY = -1;
         controlMode = "Hero";
+        combatMode = false;
         this.gamePlayView = gamePlayView;
     }
 
@@ -83,8 +85,12 @@ public class GamePlayController {
 
             direction *= Math.PI / 180;
             if (direction >= 0) {
-                if (input.isKeyDown(Input.KEY_LSHIFT)) {
-                    hero.run(direction);
+                if (direction <= Math.PI / 2 || direction >= 1.5 * Math.PI) {
+                    if (input.isKeyDown(Input.KEY_LSHIFT)) {
+                        hero.run(direction);
+                    } else {
+                        hero.walk(direction);
+                    }
                 } else {
                     hero.walk(direction);
                 }
@@ -93,8 +99,14 @@ public class GamePlayController {
             }
 
             // Pick loot
-            if (input.isMousePressed(input.MOUSE_LEFT_BUTTON)) {
-                hero.startPickItem();
+            if (input.isMouseButtonDown(input.MOUSE_LEFT_BUTTON)) {
+                if (combatMode) {
+                    hero.startCastSkill(0);
+                    hero.startCastSkill(1);
+                    hero.startCastSkill(2);
+                } else {
+                    hero.startPickItem();
+                }
             }
 
             // Use skill
@@ -123,6 +135,11 @@ public class GamePlayController {
                 } else {
                     ((AppGameContainer) gc).setDisplayMode(gc.getScreenWidth(), gc.getScreenHeight(), true);
                 }
+            }
+
+            // Swtich combat mode
+            if (input.isKeyPressed(Input.KEY_CAPITAL)) {
+                combatMode = !combatMode;
             }
 
             // Switch controller mode

@@ -20,6 +20,14 @@ public class BanditArcherView extends GameObjectView {
 
         rotate(g, viewX, viewY, viewDegreeAngle, viewCenterX, viewCenterY, true);
         draw(viewX, viewY);
+        /*
+        // For predicted direction calculations debug
+        g.drawLine((float) (gameObjectSolid.getX() - viewX),
+                (float) (gameObjectSolid.getY() - viewY),
+                (float) (gameObjectSolid.getX() - viewX + lengthDirX(0, 350)),
+                (float) (gameObjectSolid.getY() - viewY + lengthDirY(0, 350)));*/
+        animation.draw((float) (gameObjectSolid.getX() - viewX - animation.getWidth() / 2),
+                (float) (gameObjectSolid.getY() - viewY - animation.getHeight() / 2));
         // draw mask
         drawMask(g, viewX, viewY);
 
@@ -57,6 +65,14 @@ public class BanditArcherView extends GameObjectView {
         // ----- END -----
 
         rotate(g, viewX, viewY, viewDegreeAngle, viewCenterX, viewCenterY, false);
+    }
+
+    protected double lengthDirX(double direction, double length) {
+        return Math.cos(direction) * length;
+    }
+
+    protected double lengthDirY(double direction, double length) {
+        return Math.sin(direction) * length;
     }
 
 }
