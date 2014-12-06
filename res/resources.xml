@@ -58,7 +58,12 @@
             <skill name="Fireball" description="Fireball!!!" path="/res/skills/fireball.png" type="BulletSkill"
                    castTime="200" cooldownTime="1000" requiredItem="Staff" requiredHP="0" requiredMP="5"
                    pAttack="0" mAttack="20" bulletSpeed="0.4"/>
-
+            <skill name="Heal" description="Heal!!!" path="/res/skills/heal.png" type="RegenSkill"
+                   castTime="200" cooldownTime="1000" requiredItem="" requiredHP="0" requiredMP="10"
+                   HPdelta="20"/>
+            <skill name="Wind bow" description="WINDBOW!!!" path="/res/skills/wind bow.png" type="BuffSkill"
+                   castTime="200" cooldownTime="10000" requiredItem="" requiredHP="0" requiredMP="10"
+                   workTime="5000" skillToBuff="Bow shot" castTimeDelta="150" cooldownTimeDelta="950"/>
         </skills>
         <fonts>
             <font name="lootfont" fontName="verdana" size="10" isBold="false" />

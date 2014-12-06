@@ -1,17 +1,17 @@
 package core.view.gameplay;
 
+import core.resource_manager.MadTiledMap;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.tiled.TiledMap;
 
 import core.model.gameplay.units.Hero;
 
 public class TileView {
 
-    private TiledMap tiledMap;
+    private MadTiledMap tiledMap;
     private Hero hero;
 
-    public TileView(TiledMap tiledMap, Hero hero) {
+    public TileView(MadTiledMap tiledMap, Hero hero) {
         this.tiledMap = tiledMap;
         this.hero = hero;
     }

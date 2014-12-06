@@ -24,7 +24,7 @@ public class Hero extends GameObjectMoving {
 
     // TODO for fun
     public int level = 1;
-    public int kills = 0;
+    public int kills = 25;
 
     public Hero(double x, double y, double maximumSpeed) {
         super(x, y,  maximumSpeed);
@@ -37,11 +37,9 @@ public class Hero extends GameObjectMoving {
         useItemCounter = 0;
         skillList.add(ResourceManager.getInstance().getSkill(this, "Sword attack"));
         skillList.add(ResourceManager.getInstance().getSkill(this, "Bow shot"));
-        skillList.add(ResourceManager.getInstance().getSkill(this, "Sword attack"));
-        skillList.add(ResourceManager.getInstance().getSkill(this, "Sword attack"));
-        skillList.add(ResourceManager.getInstance().getSkill(this, "Sword attack"));
-        skillList.add(ResourceManager.getInstance().getSkill(this, "Sword attack"));
-        skillList.add(ResourceManager.getInstance().getSkill(this, "Sword attack"));
+        skillList.add(ResourceManager.getInstance().getSkill(this, "Fireball"));
+        skillList.add(ResourceManager.getInstance().getSkill(this, "Heal"));
+        skillList.add(ResourceManager.getInstance().getSkill(this, "Wind bow"));
         /*skillList.add(new AreaSkill(this, "Sword attack", 200, 1000, ItemDB.getInstance().getItem("Sword"), 0, 0, 30, 0, 70, Math.PI / 3));
         skillList.add(new BulletSkill(this, "Bow shot", 200, 1000, ItemDB.getInstance().getItem("Bow"), 0, 0, 0.5, 15, 0));
         skillList.add(new BulletSkill(this, "Fireball", 200, 1000, ItemDB.getInstance().getItem("Staff"), 0, 10, 0.4, 0, 60));

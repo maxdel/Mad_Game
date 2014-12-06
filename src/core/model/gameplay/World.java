@@ -3,6 +3,7 @@ package core.model.gameplay;
 import core.model.gameplay.items.ItemDB;
 import core.model.gameplay.items.Loot;
 import core.model.gameplay.units.*;
+import core.resource_manager.MadTiledMap;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.tiled.TiledMap;
@@ -25,7 +26,7 @@ public class World {
     private List<Loot> lootList;
     private CollisionManager collisionManager;
 
-    private TiledMap tiledMap;
+    private MadTiledMap tiledMap;
 
     private World() {
         gameObjectSolids = new ArrayList<GameObjectSolid>();
@@ -35,9 +36,26 @@ public class World {
         collisionManager = CollisionManager.getInstance();
 
         try {
-            tiledMap = new TiledMap("/res/map.tmx");
+            tiledMap = new MadTiledMap("/res/map.tmx");
         } catch (SlickException e) {
             e.printStackTrace();
+        }
+
+        for (int i = 0; i < tiledMap.getObjectGroupCount(); ++i) {
+            for (int j = 0; j < tiledMap.getObjectCount(i); ++j) {
+                if (tiledMap.getObjectName(i, j).equals("wall")) {
+                    double length;
+                    length = Math.sqrt(Math.pow(tiledMap.getObjectWidth(i, j) / 2, 2) +
+                            Math.pow(tiledMap.getObjectHeight(i, j) / 2, 2));
+                    double rotation;
+                    rotation = tiledMap.getObjectRotation(i, j) * Math.PI / 180;
+                    gameObjectSolids.add(new Wall(
+                            tiledMap.getObjectX(i, j) + lengthDirX(-Math.PI/4 + rotation, length),
+                            tiledMap.getObjectY(i, j) + lengthDirY(-Math.PI/4 + rotation, length),
+                                    rotation)
+                    );
+                }
+            }
         }
 
         for (int i = 0; i < tiledMap.getWidth(); ++i) {
@@ -122,7 +140,7 @@ public class World {
         return lootList;
     }
 
-    public TiledMap getTiledMap() {
+    public MadTiledMap getTiledMap() {
         return tiledMap;
     }
 
@@ -132,6 +150,14 @@ public class World {
 
     public List<GameObjectSolid> getToAddList() {
         return toAddList;
+    }
+
+    protected double lengthDirX(double direction, double length) {
+        return Math.cos(direction) * length;
+    }
+
+    protected double lengthDirY(double direction, double length) {
+        return Math.sin(direction) * length;
     }
 
 }

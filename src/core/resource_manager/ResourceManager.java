@@ -66,12 +66,12 @@ public class ResourceManager {
     }
 
     public void unload() {
-        animationInfos = new HashMap<String, AnimationInfo>();
+        /*animationInfos = new HashMap<String, AnimationInfo>();
         maskInfos = new HashMap<String, MaskInfo>();
         fontInfos = new HashMap<String, FontInfo>();
         itemInfos = new HashMap<String, ItemInfo>();
         skillInfos = new HashMap<String, SkillInfo>();
-        imageInfos = new HashMap<String, Image>();
+        imageInfos = new HashMap<String, Image>();*/
     }
 
     private void loadGamePlay() throws SlickException, IOException {

@@ -61,7 +61,7 @@ public abstract class Skill {
 
     public boolean canStartCast(boolean reqItemIsNecessary) {
         if (reqItemIsNecessary) {
-            if (!owner.getInventory().isItemDressed(requiredItem.getClass())) {
+            if (requiredItem != null && !owner.getInventory().isItemDressed(requiredItem.getClass())) {
                 return false;
             }
         }
@@ -71,7 +71,6 @@ public abstract class Skill {
                 return false;
             }
         }
-
 
         if (owner.getAttribute().getMP().getCurrent() < requiredMP
                 || owner.getAttribute().getHP().getCurrent() < requiredHP

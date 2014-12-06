@@ -38,13 +38,13 @@ public class WallView extends GameObjectView {
                 (float) (gameObjectSolid.getDirection() / Math.PI * 180));
 
         // ----- For debug and FUN -----
-        /*g.rotate((float) (gameObject.getX() - viewX),
-                (float) (gameObject.getY() - viewY),
+        /*g.rotate((float) (gameObjectSolid.getX() - viewX),
+                (float) (gameObjectSolid.getY() - viewY),
                 viewDegreeAngle);
-        g.drawString("(" + String.valueOf(gameObject.getX()) + ";" + String.valueOf(gameObject.getY()) + ")",
-                (float) (gameObject.getX() - viewX), (float) (gameObject.getY() - viewY));
-        g.rotate((float) (gameObject.getX() - viewX),
-                (float) (gameObject.getY() - viewY),
+        g.drawString("(" + String.valueOf(gameObjectSolid.getX()) + ";" + String.valueOf(gameObjectSolid.getY()) + ")",
+                (float) (gameObjectSolid.getX() - viewX), (float) (gameObjectSolid.getY() - viewY));
+        g.rotate((float) (gameObjectSolid.getX() - viewX),
+                (float) (gameObjectSolid.getY() - viewY),
                 - viewDegreeAngle);*/
 
         // ----- END -----

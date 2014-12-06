@@ -8,6 +8,7 @@ import core.model.gameplay.skills.bullets.Arrow;
 import core.model.gameplay.skills.bullets.Fireball;
 import core.model.gameplay.items.Loot;
 import core.model.gameplay.units.*;
+import core.resource_manager.MadTiledMap;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -28,11 +29,11 @@ public class GamePlayView {
     private Camera camera;
     private ResourceManager resourceManager;
     private InventoryView inventoryView;
-    private TiledMap tiledMap;
+    private MadTiledMap tiledMap;
     private TileView tileView;
 
     public GamePlayView(GameContainer gc, List<GameObjectSolid> gameObjectSolids, Hero hero, List<Loot> lootList,
-                        ResourceManager resourceManager, TiledMap tiledMap) throws SlickException {
+                        ResourceManager resourceManager, MadTiledMap tiledMap) throws SlickException {
         this.resourceManager = resourceManager;
         this.gameObjectSolids = gameObjectSolids;
         this.hero = hero;

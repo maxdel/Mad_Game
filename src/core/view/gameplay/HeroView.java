@@ -110,6 +110,15 @@ public class HeroView extends GameObjectView {
                         for (int i = 0; i < animation.getFrameCount(); ++i) {
                             animation.setDuration(i, hero.getCurrentSkill().getCastTime() / animation.getFrameCount());
                         }
+                    } else if (hero.getCurrentSkill().getName().equals("Fireball")) {
+                        Music music = new Music("res/fireball.wav");
+                        music.play();
+                        animation = animationBowAttack;
+                        animation.restart();
+                        hero.getCurrentSkill().getCastTime();
+                        for (int i = 0; i < animation.getFrameCount(); ++i) {
+                            animation.setDuration(i, hero.getCurrentSkill().getCastTime() / animation.getFrameCount());
+                        }
                     } else {
                         animation = animationAttack;
                         animation.setSpeed((float) (ResourceManager.getInstance().getSpeedCoef("heroattack")));

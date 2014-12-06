@@ -10,10 +10,14 @@ public class Wall extends GameObjectSolid {
 
     public Wall(double x, double y, double direction) {
         super(x, y, direction);
-        setMask(new Rectangle(- ResourceManager.getInstance().getMaskWidth("wall") / 2,
-                - ResourceManager.getInstance().getMaskHeight("wall") / 2,
+        setMask(new Rectangle(-ResourceManager.getInstance().getMaskWidth("wall") / 2,
+                -ResourceManager.getInstance().getMaskHeight("wall") / 2,
                 ResourceManager.getInstance().getMaskWidth("wall"),
                 ResourceManager.getInstance().getMaskHeight("wall")));
+        /*setMask(new Rectangle(0,
+                0,
+                ResourceManager.getInstance().getMaskWidth("wall"),
+                ResourceManager.getInstance().getMaskHeight("wall")));*/
     }
 
     @Override
