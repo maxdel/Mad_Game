@@ -88,7 +88,8 @@ public class World {
                     gameObjectSolids.add(new SkeletonMage(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
                             tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0.15F));
                 } else if (tileObjectName.equals("vampire")) {
-
+                    gameObjectSolids.add(new Vampire(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
+                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0.1F));
                 }
             }
         }

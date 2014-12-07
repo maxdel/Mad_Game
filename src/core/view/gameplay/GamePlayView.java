@@ -52,6 +52,8 @@ public class GamePlayView {
                 gameObjectViews.add(new HeroView(gameObjectSolid, resourceManager));
             } else if (gameObjectSolid.getClass() == Tree.class) {
                 gameObjectViews.add(new TreeView(gameObjectSolid, resourceManager));
+            }  else if (gameObjectSolid.getClass() == Vampire.class) {
+                gameObjectViews.add(new VampireView(gameObjectSolid, resourceManager));
             }
         }
 

@@ -1,7 +1,5 @@
 package core.model.gameplay.units;
 
-import core.GameState;
-import core.model.gameplay.skills.bullets.Bullet;
 import core.resource_manager.ResourceManager;
 import core.model.gameplay.*;
 import core.model.gameplay.items.ItemDB;

@@ -26,7 +26,6 @@ public class HeroView extends GameObjectView {
     public HeroView(GameObjectSolid hero, ResourceManager resourceManager) throws SlickException {
         super(hero, resourceManager);
         animation = ResourceManager.getInstance().getAnimation("hero");
-        animationAttack = ResourceManager.getInstance().getAnimation("heroattack");
         animationSwordWalk = ResourceManager.getInstance().getAnimation("heroswordwalk");
         animationSwordAttack = ResourceManager.getInstance().getAnimation("heroswordattack");
         animationSwordAttackStrong = ResourceManager.getInstance().getAnimation("heroswordattackstrong");

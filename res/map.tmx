@@ -50,30 +50,30 @@
  </layer>
  <layer name="Obstacles" width="64" height="64">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2a3Q7DIAiFe7O9/yPvqkmzVCt4gEPhJCZrZsUPFH/S73Ec3+JlR7P3d9u2VvP78TP6ovnt+VF5ZkUfYX1rfk09TzU/nn/UXvPzSbM3Wvl/ZItNmvg/1UfyS/O5tD12fmt58jPqDfw7c2TGLz0veu7zUELGPxP3qebH9ZuR/yk3oPmlOQO9vkv19vg/CXlXmJlf887/u1X4R21U5UfKOx/u8nv3F22PLf7eeht/xP1vBo38UoV/JDS/RT60zLGW8bceVyt+QZx/NP7PMq8s+iltM/IMiOa3iruVjyzO/+y6+rLPPzn7fWo2L1bmDDO/R15k5vdQVn7U2MjKj1K29Rot5vhr7qa1paqav/mbv6527z8Q61yk/xni3/yxtj3t382XyLsyxvh77ssY7v9n3xBY+2DGb533r324+333jBbb+K/Ofz5nnf/aPkTa9rA/yxdS++jc0/GPVfPH2q5efm25OxkAQAAA
+   H4sIAAAAAAAAC+2Yyw7DIAwEc2n+/5N7ihRV5WFYv/COlFMT8NjBKdzXdd3Frx16z++OrQ397fwj5oL++v6oPjPDR3i/tv/KfZbQH+/fGo/+8Vj5bzTze2uuaKzUf3Q/0l/az6XjRffXxtI/Iif476yRnr90v2j5Pw8Fsv6ZvB/oj4s7ov+oN6D9pT0D/X2Xcnr9RyDPCjP7rzzz+2wV/9YYVf2RWPfDXX/reNHzRau/Naf5e5z/ZqCVlyr+LdD+Gv1Qs8dq1l/7vZrJC2L/s5L/LOtKI07pmJ57QLS/Vt21cqSx/4/OO5fc/+SM+6G3LmbWTGR/i74Y2d+CrP6odyOrP4ps32s0keu/cja9elWF/vSnf112zz8Q3znP/EeoP/1957ac/996qeTfisFzbu/z/6j+2n3/HYMXfP/pT399ev2igv8oBs+56e9LBP/K1xfVbPN6AEAAAA==
   </data>
  </layer>
  <layer name="Objects" width="64" height="64">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3YyxKDIBBEUbdGk///XPcpKUggdNO5Z2uVDK+Z0W0D5jrVAQTYK88fA8Z4DnhHEs7tHOp1Vo8PlNTyfs2IutBKcY9mzg841AEAiOOcV5xju/NtT+D4HdDb/wFKq+UO+CIXAutyrwWO/V+rtP9gafNRoF7+BusK+OitFe59CbVwLexXHWsEpU97OHo+oA25HS5e6gAKEu5IwhzeUefzscdwlZhTk7FfwDyK+/Yv/QK5LN8F9ff7AQBAAAA=
+   H4sIAAAAAAAAC+3YMRKCQAwFUFpFvf9xLWl0VgWTbHivZQbCLiQflgVi3bILaOAyOH4NqeJcPLcxstc5+/rwzqjvj0TOhYz3yNwj0ppdANBO5b5SubZXfs0EFb8D9uY/yDRb76AuvRDmVX0WVMx/n+r2H6zb/WQwL//DukIf1XMJc5FdoLZvM5zMBzCXR3YBjXXMueZ8XfeDzmOPgSN0nIHA5ix5QS/r7wlBg/liAEAAAA==
   </data>
  </layer>
  <objectgroup name="Слой объектов 1">
-  <object name="wall" gid="6" x="1837.29" y="1448.49" width="32" height="32" rotation="574.024"/>
-  <object name="wall" gid="6" x="1750.62" y="1478.54" width="32" height="32" rotation="845.882"/>
-  <object name="wall" gid="6" x="1792.76" y="1455.66" width="32" height="32" rotation="516.695"/>
-  <object name="wall" gid="6" x="1631.74" y="1473.03" width="32" height="32" rotation="516.695"/>
-  <object name="wall" gid="6" x="1614.35" y="1530.98" width="32" height="32" rotation="741.695"/>
-  <object name="wall" gid="6" x="1657.06" y="1531.8" width="32" height="32" rotation="516.695"/>
-  <object name="wall" gid="6" x="1669.72" y="1561.19" width="32" height="32" rotation="516.695"/>
-  <object name="wall" gid="6" x="1602.35" y="1485.69" width="32" height="32" rotation="516.695"/>
-  <object name="wall" gid="6" x="1568.9" y="1569.79" width="32" height="32" rotation="516.695"/>
-  <object name="wall" gid="6" x="1552.17" y="1611.83" width="32" height="32" rotation="606.695"/>
-  <object name="wall" gid="6" x="1598.28" y="1557.13" width="32" height="32" rotation="516.695"/>
-  <object name="wall" gid="6" x="1627.67" y="1544.46" width="32" height="32" rotation="516.695"/>
-  <object name="wall" gid="6" x="1770.81" y="1667.93" width="32" height="32" rotation="563.28"/>
-  <object name="wall" gid="6" x="1841.91" y="1739.19" width="32" height="32" rotation="516.05"/>
-  <object name="wall" gid="6" x="1567.38" y="1863.69" width="32" height="32" rotation="609.498"/>
-  <object name="wall" gid="6" x="1852.7" y="1843.94" width="32" height="32" rotation="607.42"/>
+  <object name="wall" gid="6" x="1594.24" y="817.502" width="32" height="32" rotation="530.431"/>
+  <object name="wall" gid="6" x="1552.19" y="899.027" width="32" height="32" rotation="802.289"/>
+  <object name="wall" gid="6" x="1566.93" y="853.4" width="32" height="32" rotation="473.102"/>
+  <object name="wall" gid="6" x="1462.29" y="977.008" width="32" height="32" rotation="473.102"/>
+  <object name="wall" gid="6" x="1489.65" y="1030.97" width="32" height="32" rotation="698.102"/>
+  <object name="wall" gid="6" x="1521.15" y="1002.11" width="32" height="32" rotation="473.102"/>
+  <object name="wall" gid="6" x="1550.59" y="1014.67" width="32" height="32" rotation="473.102"/>
+  <object name="wall" gid="6" x="1449.73" y="1006.44" width="32" height="32" rotation="473.102"/>
+  <object name="wall" gid="6" x="1483.5" y="1090.42" width="32" height="32" rotation="473.102"/>
+  <object name="wall" gid="6" x="1500.37" y="1132.4" width="32" height="32" rotation="563.102"/>
+  <object name="wall" gid="6" x="1496.04" y="1060.99" width="32" height="32" rotation="473.102"/>
+  <object name="wall" gid="6" x="1508.59" y="1031.55" width="32" height="32" rotation="473.102"/>
+  <object name="wall" gid="6" x="1697.4" y="1022.27" width="32" height="32" rotation="519.687"/>
+  <object name="wall" gid="6" x="1798.03" y="1024.86" width="32" height="32" rotation="472.457"/>
+  <object name="wall" gid="6" x="989.38" y="1529.69" width="32" height="32" rotation="609.498"/>
+  <object name="wall" gid="6" x="1878.07" y="1093.29" width="32" height="32" rotation="563.827"/>
  </objectgroup>
 </map>
