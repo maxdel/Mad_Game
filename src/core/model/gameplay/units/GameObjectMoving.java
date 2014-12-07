@@ -32,6 +32,7 @@ public class GameObjectMoving extends GameObjectSolid {
         skillList = new ArrayList<Skill>();
     }
 
+
     @Override
     public void update(int delta) {
         updateUsingItem(delta);
@@ -66,10 +67,9 @@ public class GameObjectMoving extends GameObjectSolid {
         }
     }
 
-    protected void castCurrentSkill() {
-        castingSkill.cast();
-        setCurrentState(GameObjectState.STAND);
-        castingSkill = null;
+    protected void applyCurrentSkill() {
+        castingSkill.apply();
+        castingSkill.setAlreadyApplied(true);
     }
 
     private void updateDeath() {
@@ -123,11 +123,23 @@ public class GameObjectMoving extends GameObjectSolid {
     private void updateCastingSkill(int delta) {
         if (castingSkill != null && castingSkill.isCastingСontinues()) {
             castingSkill.tickCastingTime(delta);
+
+            if (castingSkill.isTimeToApply()) {
+                // post apply state code hear
+                applyCurrentSkill();
+            }
+
             if (castingSkill.isCastingFinished()) {
-               castingSkill.stopCasting();
-               castCurrentSkill();
-           }
+                stopCasting();
+            }
         }
+    }
+
+    private void stopCasting() {
+        setCurrentState(GameObjectState.STAND);
+        castingSkill.stopCasting();
+        castingSkill.setAlreadyApplied(false);
+        castingSkill = null;
     }
 
     private void updateSkills(int delta) {

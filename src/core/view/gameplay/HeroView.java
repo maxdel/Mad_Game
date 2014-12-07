@@ -3,7 +3,7 @@ package core.view.gameplay;
 import core.model.gameplay.items.Bow;
 import org.newdawn.slick.*;
 
-import core.resource_manager.ResourceManager;
+import core.resourcemanager.ResourceManager;
 import core.model.gameplay.units.GameObjectSolid;
 import core.model.gameplay.units.Hero;
 import core.model.gameplay.units.GameObjectState;

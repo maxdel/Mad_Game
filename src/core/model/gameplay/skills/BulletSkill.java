@@ -13,9 +13,9 @@ public class BulletSkill extends Skill {
     private double pAttack;
     private double mAttack;
 
-    public BulletSkill(GameObjectMoving owner, String name, String description, int castTime, int cooldownTime, String requiredItem,
+    public BulletSkill(GameObjectMoving owner, String name, String description, int castTime, int postCastTime, int cooldownTime, String requiredItem,
                        double requiredHP, double requiredMP, double bulletSpeed, double pAttack, double mAttack) {
-        super(owner, name, description, castTime, cooldownTime, requiredItem, requiredHP, requiredMP);
+        super(owner, name, description, castTime, postCastTime, cooldownTime, requiredItem, requiredHP, requiredMP);
         this.bulletSpeed = bulletSpeed;
         this.pAttack = pAttack;
         this.mAttack = mAttack;
@@ -38,7 +38,7 @@ public class BulletSkill extends Skill {
     }
 
     @Override
-    public void cast() {
+    public void apply() {
         if (requiredItem == ItemDB.getInstance().getItem("Bow")) {
             World.getInstance().getToAddList().add(new Arrow(owner, owner.getX(), owner.getY(), owner.getDirection(),
                     bulletSpeed, pAttack, mAttack));

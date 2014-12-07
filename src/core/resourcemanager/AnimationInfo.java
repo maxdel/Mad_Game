@@ -1,4 +1,4 @@
-package core.resource_manager;
+package core.resourcemanager;
 
 import org.newdawn.slick.Animation;
 

@@ -1,4 +1,4 @@
-package core.resource_manager;
+package core.resourcemanager;
 
 import core.model.gameplay.items.*;
 import org.newdawn.slick.Image;

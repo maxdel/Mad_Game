@@ -15,9 +15,10 @@ public class AreaSkill extends Skill {
     private double radius;
     private double angle;
 
-    public AreaSkill(GameObjectMoving owner, String name, String description, int castTime, int cooldownTime, String requiredItem,
-                     double requiredHP, double requiredMP, double pAttack, double mAttack, double radius, double angle) {
-        super(owner, name, description, castTime, cooldownTime, requiredItem, requiredHP, requiredMP);
+    public AreaSkill(GameObjectMoving owner, String name, String description, int castTime, int postCastTime,
+                     int cooldownTime, String requiredItem, double requiredHP, double requiredMP,
+                     double pAttack, double mAttack, double radius, double angle) {
+        super(owner, name, description, castTime, postCastTime, cooldownTime, requiredItem, requiredHP, requiredMP);
         this.pAttack = pAttack;
         this.mAttack = mAttack;
         this.radius = radius;
@@ -25,7 +26,7 @@ public class AreaSkill extends Skill {
     }
 
     @Override
-    public void cast() {
+    public void apply() {
         for (GameObjectSolid gameObjectSolid : World.getInstance().getGameObjectSolids()) {
             if (gameObjectSolid instanceof GameObjectMoving && gameObjectSolid != owner) {
                 GameObjectMoving target = (GameObjectMoving) gameObjectSolid;

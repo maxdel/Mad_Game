@@ -8,13 +8,12 @@ import core.model.gameplay.skills.bullets.Arrow;
 import core.model.gameplay.skills.bullets.Fireball;
 import core.model.gameplay.items.Loot;
 import core.model.gameplay.units.*;
-import core.resource_manager.MadTiledMap;
+import core.resourcemanager.MadTiledMap;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-import core.resource_manager.ResourceManager;
-import org.newdawn.slick.tiled.TiledMap;
+import core.resourcemanager.ResourceManager;
 
 /*
 * Renders game play game state

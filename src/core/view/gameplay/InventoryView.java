@@ -5,7 +5,7 @@ import java.util.Iterator;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
-import core.resource_manager.ResourceManager;
+import core.resourcemanager.ResourceManager;
 import core.model.gameplay.items.Inventory;
 import core.model.gameplay.items.ItemRecord;
 import org.newdawn.slick.TrueTypeFont;

@@ -2,12 +2,10 @@
 package core.model.gameplay.units;
 
 import core.model.gameplay.*;
-import core.model.gameplay.items.ItemDB;
 import core.model.gameplay.items.Loot;
-import core.model.gameplay.skills.*;
 import org.newdawn.slick.geom.Circle;
 
-import core.resource_manager.ResourceManager;
+import core.resourcemanager.ResourceManager;
 import org.newdawn.slick.geom.Vector2f;
 
 /**
