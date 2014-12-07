@@ -34,6 +34,20 @@ public abstract class Skill {
         this.requiredMP = requiredMP;
     }
 
+    public boolean isCastingСontinues() {
+        return currentCastTime > 0;
+    }
+
+    public void stopCasting() {
+        currentCastTime = 0;
+    }
+    public boolean isCastingFinished() {
+        return currentCastTime <= 0;
+    }
+    public void tickCastingTime(int delta) {
+        currentCastTime -= delta;
+    }
+
     public void runCast() {
         currentCastTime = castTime;
     }

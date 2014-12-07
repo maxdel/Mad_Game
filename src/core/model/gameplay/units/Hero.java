@@ -131,25 +131,43 @@ public class Hero extends GameObjectMoving {
 
     @Override
     public void update(int delta) {
-        if (dropLootCounter > 0) {
-            dropLootCounter -= delta;
-            if (dropLootCounter <= 0) {
-                dropLootCounter = 0;
-                dropItem();
-            }
+        if (isDroppingItem()) {
+            tickDropItem(delta);
         }
 
-        if (pickLootCounter > 0) {
-            pickLootCounter -= delta;
-            if (pickLootCounter <= 0) {
-                pickLootCounter = 0;
-                pickItem();
-            }
+
+
+        if (isPickingItem()) {
+            tickPickItem(delta);
         }
 
         updateCurrentLoot();
 
         super.update(delta);
+    }
+
+    private boolean isPickingItem() {
+        return pickLootCounter > 0;
+    }
+
+    private boolean isDroppingItem() {
+        return dropLootCounter > 0;
+    }
+
+    private void tickPickItem(int delta) {
+        pickLootCounter -= delta;
+        if (pickLootCounter <= 0) {
+            pickLootCounter = 0;
+            pickItem();
+        }
+    }
+
+    private void tickDropItem(int delta) {
+        dropLootCounter -= delta;
+        if (dropLootCounter <= 0) {
+            dropLootCounter = 0;
+            dropItem();
+        }
     }
 
     public Loot getSelectedLoot() {

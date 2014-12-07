@@ -28,6 +28,10 @@ public class Attribute {
 
 
     // Getters
+    public boolean hpAreEnded() {
+        return hp.getCurrent() == 0;
+    }
+
     public AttributePair getHP() {
         return hp;
     }
