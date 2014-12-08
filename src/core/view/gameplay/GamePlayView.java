@@ -86,7 +86,7 @@ public class GamePlayView {
             }
         }
 
-        // looking for new gameObjects
+        /* looking for new gameObjects */
         for (GameObject gameObject : gameObjects) {
             boolean found = false;
             for (GameObjectView gameObjectView : gameObjectViews) {
