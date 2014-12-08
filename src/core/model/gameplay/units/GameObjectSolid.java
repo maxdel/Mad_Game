@@ -14,6 +14,7 @@ public abstract class GameObjectSolid extends GameObject {
 
     public GameObjectSolid(double x, double y, double direction) {
         super(x, y, direction);
+        this.mask = ResourceManager.getInstance().getMask(type);
     }
 
     public Shape getMask() {
