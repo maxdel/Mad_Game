@@ -10,7 +10,7 @@ public class Tree extends Obstacle {
 
     public Tree(double x, double y, double direction) {
         super(x, y, direction);
-        setMask(ResourceManager.getInstance().getMask("tree"));
+        setMask(ResourceManager.getInstance().getMask(ObstacleType.TREE));
     }
 
     @Override

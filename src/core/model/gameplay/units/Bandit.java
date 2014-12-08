@@ -16,7 +16,7 @@ public class Bandit extends Unit {
 
     public Bandit(double x, double y, double maximumSpeed) {
         super(x, y, maximumSpeed);
-        setMask(ResourceManager.getInstance().getMask("bandit"));
+        setMask(ResourceManager.getInstance().getMask(ObstacleType.BANDIT));
 
         timer = (int) (Math.random() * 1000);
 

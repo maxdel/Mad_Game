@@ -17,7 +17,7 @@ public class SkeletonMage extends Unit {
 
     public SkeletonMage(double x, double y, double maximumSpeed) {
         super(x, y, maximumSpeed);
-        setMask(ResourceManager.getInstance().getMask("skeletonMage"));
+        setMask(ResourceManager.getInstance().getMask(ObstacleType.SKELETONMAGE));
 
         timer = (int) (Math.random() * 1000);
 

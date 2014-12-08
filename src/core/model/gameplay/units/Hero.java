@@ -26,7 +26,7 @@ public class Hero extends Unit {
     public Hero(double x, double y, double maximumSpeed) {
         super(x, y,  maximumSpeed);
         setDirection(Math.PI);
-        setMask(ResourceManager.getInstance().getMask("hero"));
+        setMask(ResourceManager.getInstance().getMask(ObstacleType.HERO));
         selectedLoot = null;
         usingItem = null;
         pickLootCounter = 0;

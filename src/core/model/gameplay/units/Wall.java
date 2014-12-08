@@ -10,7 +10,7 @@ public class Wall extends Obstacle {
 
     public Wall(double x, double y, double direction) {
         super(x, y, direction);
-        setMask(ResourceManager.getInstance().getMask("wall"));
+        setMask(ResourceManager.getInstance().getMask(ObstacleType.WALL));
 
         /*setMask(new Rectangle(0,
                 0,

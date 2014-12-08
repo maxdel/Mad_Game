@@ -17,7 +17,7 @@ public class Skeleton extends Unit {
 
     public Skeleton(double x, double y, double maximumSpeed) {
         super(x, y, maximumSpeed);
-        setMask(ResourceManager.getInstance().getMask("skeleton"));
+        setMask(ResourceManager.getInstance().getMask(ObstacleType.SKELETON));
         timer = (int) (Math.random() * 1000);
 
         skillList.add(ResourceManager.getInstance().getSkill(this, "Sword attack"));

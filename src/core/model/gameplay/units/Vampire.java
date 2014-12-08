@@ -30,7 +30,7 @@ public class Vampire extends Unit {
     public Vampire(double x, double y, double maximumSpeed) {
         super(x, y, maximumSpeed);
 
-        setMask(ResourceManager.getInstance().getMask("vampire"));
+        setMask(ResourceManager.getInstance().getMask(ObstacleType.VAMPIRE));
 
         skillList.add(ResourceManager.getInstance().getSkill(this, "Sword attack"));
         skillList.add(ResourceManager.getInstance().getSkill(this, "Fireball"));
