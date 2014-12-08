@@ -5,7 +5,6 @@ import core.model.gameplay.*;
 import core.model.gameplay.items.ItemDB;
 import core.model.gameplay.skills.BulletSkill;
 import core.model.gameplay.items.Loot;
-import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Vector2f;
 
 /**
@@ -30,7 +29,7 @@ public class Vampire extends Unit {
     public Vampire(double x, double y, double maximumSpeed) {
         super(x, y, maximumSpeed);
 
-        setMask(ResourceManager.getInstance().getMask(ObstacleType.VAMPIRE));
+        setMask(ResourceManager.getInstance().getMask(GameObjectSolidType.VAMPIRE));
 
         skillList.add(ResourceManager.getInstance().getSkill(this, "Sword attack"));
         skillList.add(ResourceManager.getInstance().getSkill(this, "Fireball"));

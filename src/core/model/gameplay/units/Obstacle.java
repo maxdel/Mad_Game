@@ -1,32 +1,18 @@
 package core.model.gameplay.units;
 
+import core.resourcemanager.ResourceManager;
 import org.newdawn.slick.geom.Shape;
 
-/**
- * Contains common fields to define a solid game object
- * */
-public abstract class Obstacle extends GameObject {
+public  class Obstacle extends GameObjectSolid {
 
-    private Shape mask;
-
-    private ObstacleType type;
-
-    public Obstacle(double x, double y, double direction, Shape mask) {
+    public Obstacle(double x, double y, double direction, GameObjectSolidType type) {
         super(x, y, direction);
-        this.mask = mask;
+        this.type = type;
+        this.mask = ResourceManager.getInstance().getMask(type);
     }
 
-    public Obstacle(double x, double y, double direction) {
-        super(x, y, direction);
-    }
+    @Override
+    public void update(int delta) {
 
-    public Shape getMask() {
-        return mask;
     }
-
-    public void setMask(Shape mask) {
-        this.mask = mask;
-    }
-
-    public abstract void update(int delta);
 }

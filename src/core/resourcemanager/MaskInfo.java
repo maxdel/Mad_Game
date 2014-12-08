@@ -1,6 +1,5 @@
 package core.resourcemanager;
 
-import core.model.gameplay.units.ObstacleType;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;

@@ -8,7 +8,7 @@ import core.model.gameplay.skills.Skill;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Unit extends Obstacle {
+public class Unit extends GameObjectSolid {
 
     private double relativeDirection;
     private GameObjectState currentState;

@@ -2,7 +2,6 @@ package core.model.gameplay.units;
 
 import core.model.gameplay.*;
 import core.model.gameplay.items.Loot;
-import org.newdawn.slick.geom.Circle;
 
 import core.resourcemanager.ResourceManager;
 import org.newdawn.slick.geom.Vector2f;
@@ -24,9 +23,9 @@ public class Hero extends Unit {
     public int kills = 25;
 
     public Hero(double x, double y, double maximumSpeed) {
-        super(x, y,  maximumSpeed);
+        super(x, y, maximumSpeed);
         setDirection(Math.PI);
-        setMask(ResourceManager.getInstance().getMask(ObstacleType.HERO));
+        setMask(ResourceManager.getInstance().getMask(GameObjectSolidType.HERO));
         selectedLoot = null;
         usingItem = null;
         pickLootCounter = 0;

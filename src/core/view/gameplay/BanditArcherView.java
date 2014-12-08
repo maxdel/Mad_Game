@@ -5,18 +5,18 @@ import core.model.gameplay.units.Hero;
 import org.newdawn.slick.*;
 
 import core.resourcemanager.ResourceManager;
-import core.model.gameplay.units.Obstacle;
+import core.model.gameplay.units.GameObjectSolid;
 
 public class BanditArcherView extends GameObjectView {
 
-    public BanditArcherView(Obstacle enemy, ResourceManager resourceManager) throws SlickException {
+    public BanditArcherView(GameObjectSolid enemy, ResourceManager resourceManager) throws SlickException {
         super(enemy, resourceManager);
         animation = resourceManager.getAnimation("banditArcher");
     }
 
     @Override
     public void render(Graphics g, double viewX, double viewY, float viewDegreeAngle, double viewCenterX, double viewCenterY, Hero hero) {
-        BanditArcher banditArcher = (BanditArcher) obstacle;
+        BanditArcher banditArcher = (BanditArcher) gameObjectSolid;
 
         rotate(g, viewX, viewY, viewDegreeAngle, viewCenterX, viewCenterY, true);
         draw(viewX, viewY);
@@ -26,14 +26,14 @@ public class BanditArcherView extends GameObjectView {
                 (float) (gameObjectSolid.getY() - viewY),
                 (float) (gameObjectSolid.getX() - viewX + lengthDirX(0, 350)),
                 (float) (gameObjectSolid.getY() - viewY + lengthDirY(0, 350)));*/
-        animation.draw((float) (obstacle.getX() - viewX - animation.getWidth() / 2),
-                (float) (obstacle.getY() - viewY - animation.getHeight() / 2));
+        animation.draw((float) (gameObjectSolid.getX() - viewX - animation.getWidth() / 2),
+                (float) (gameObjectSolid.getY() - viewY - animation.getHeight() / 2));
         // draw mask
         drawMask(g, viewX, viewY);
 
         // ----- For debug and FUN -----
-        g.rotate((float) (obstacle.getX() - viewX),
-                (float) (obstacle.getY() - viewY),
+        g.rotate((float) (gameObjectSolid.getX() - viewX),
+                (float) (gameObjectSolid.getY() - viewY),
                 (float) (viewDegreeAngle - banditArcher.getDirection() / Math.PI * 180));
         drawHealthbar(g, (int)(banditArcher.getX() - viewX), (int)(banditArcher.getY() - viewY) - 50, 60, 8, 
                 banditArcher.getAttribute().getHP().getCurrent(),
@@ -59,8 +59,8 @@ public class BanditArcherView extends GameObjectView {
                 (float) (gameObject.getY() - viewY - 20));
         g.drawString("(" + String.valueOf((int) gameObject.getX()) + ";" + String.valueOf((int) gameObject.getY()) + ")",
                 (float) (gameObject.getX() - viewX), (float) (gameObject.getY() - viewY));*/
-        g.rotate((float) (obstacle.getX() - viewX),
-                (float) (obstacle.getY() - viewY),
+        g.rotate((float) (gameObjectSolid.getX() - viewX),
+                (float) (gameObjectSolid.getY() - viewY),
                 - (float) (viewDegreeAngle - banditArcher.getDirection() / Math.PI * 180));
         // ----- END -----
 

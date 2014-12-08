@@ -18,9 +18,9 @@ public class World {
 
     private static World instance;
 
-    private List<Obstacle> obstacles;
-    private List<Obstacle> toDeleteList;
-    private List<Obstacle> toAddList;
+    private List<GameObjectSolid> gameObjectSolids;
+    private List<GameObjectSolid> toDeleteList;
+    private List<GameObjectSolid> toAddList;
     private Hero hero;
     private List<Loot> lootList;
     private CollisionManager collisionManager;
@@ -28,9 +28,9 @@ public class World {
     private MadTiledMap tiledMap;
 
     private World() {
-        obstacles = new ArrayList<Obstacle>();
-        toDeleteList = new ArrayList<Obstacle>();
-        toAddList = new ArrayList<Obstacle>();
+        gameObjectSolids = new ArrayList<GameObjectSolid>();
+        toDeleteList = new ArrayList<GameObjectSolid>();
+        toAddList = new ArrayList<GameObjectSolid>();
         lootList = new ArrayList<Loot>();
         collisionManager = CollisionManager.getInstance();
 
@@ -48,10 +48,10 @@ public class World {
                             Math.pow(tiledMap.getObjectHeight(i, j) / 2, 2));
                     double rotation;
                     rotation = tiledMap.getObjectRotation(i, j) * Math.PI / 180;
-                    obstacles.add(new Wall(
+                    gameObjectSolids.add(new Obstacle(
                             tiledMap.getObjectX(i, j) + lengthDirX(-Math.PI/4 + rotation, length),
                             tiledMap.getObjectY(i, j) + lengthDirY(-Math.PI/4 + rotation, length),
-                                    rotation)
+                                    rotation, GameObjectSolidType.WALL)
                     );
                 }
             }
@@ -62,32 +62,34 @@ public class World {
                 // Obstacles
                 String tileObstacleName = tiledMap.getTileProperty(tiledMap.getTileId(i, j, 1), "name", "error");
                 if (tileObstacleName.equals("stonewall")) {
-                    obstacles.add(new Wall(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
-                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0));
+                    gameObjectSolids.add(new Obstacle(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
+                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0,
+                            GameObjectSolidType.WALL));
                 } else if (tileObstacleName.equals("tree")) {
-                    obstacles.add(new Tree(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
-                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0));
+                    gameObjectSolids.add(new Obstacle(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
+                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0,
+                            GameObjectSolidType.TREE));
                 }
                 // Objects
                 String tileObjectName = tiledMap.getTileProperty(tiledMap.getTileId(i, j, 2), "name", "error");
                 if (tileObjectName.equals("hero")) {
                     hero = new Hero(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
                             tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0.18F);
-                    obstacles.add(hero);
+                    gameObjectSolids.add(hero);
                 } else if (tileObjectName.equals("banditsword")) {
-                    obstacles.add(new Bandit(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
+                    gameObjectSolids.add(new Bandit(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
                             tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0.1F));
                 } else if (tileObjectName.equals("banditarcher")) {
-                    obstacles.add(new BanditArcher(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
+                    gameObjectSolids.add(new BanditArcher(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
                             tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0.1F));
                 } else if (tileObjectName.equals("skeletsword")) {
-                    obstacles.add(new Skeleton(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
+                    gameObjectSolids.add(new Skeleton(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
                             tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0.15F));
                 } else if (tileObjectName.equals("skeletmage")) {
-                    obstacles.add(new SkeletonMage(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
+                    gameObjectSolids.add(new SkeletonMage(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
                             tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0.15F));
                 } else if (tileObjectName.equals("vampire")) {
-                    obstacles.add(new Vampire(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
+                    gameObjectSolids.add(new Vampire(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
                             tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0.1F));
                 }
             }
@@ -112,24 +114,24 @@ public class World {
     }
 
     public void update(int delta) {
-        for (Obstacle obstacle : toAddList) {
-            obstacles.add(obstacle);
+        for (GameObjectSolid gameObjectSolid : toAddList) {
+            gameObjectSolids.add(gameObjectSolid);
         }
         toAddList.clear();
-        for (Obstacle obstacle : obstacles) {
-            Vector2f v = new Vector2f((float)(hero.getX() - obstacle.getX()), (float)(hero.getY() - obstacle.getY()));
+        for (GameObjectSolid gameObjectSolid : gameObjectSolids) {
+            Vector2f v = new Vector2f((float)(hero.getX() - gameObjectSolid.getX()), (float)(hero.getY() - gameObjectSolid.getY()));
             if (v.length() < 1000) {
-                obstacle.update(delta);
+                gameObjectSolid.update(delta);
             }
         }
-        for (Obstacle obstacle : toDeleteList) {
-            obstacles.remove(obstacle);
+        for (GameObjectSolid gameObjectSolid : toDeleteList) {
+            gameObjectSolids.remove(gameObjectSolid);
         }
         toDeleteList.clear();
     }
 
-    public List<Obstacle> getObstacles() {
-        return obstacles;
+    public List<GameObjectSolid> getGameObjectSolids() {
+        return gameObjectSolids;
     }
 
     public Hero getHero() {
@@ -144,11 +146,11 @@ public class World {
         return tiledMap;
     }
 
-    public List<Obstacle> getToDeleteList() {
+    public List<GameObjectSolid> getToDeleteList() {
         return toDeleteList;
     }
 
-    public List<Obstacle> getToAddList() {
+    public List<GameObjectSolid> getToAddList() {
         return toAddList;
     }
 

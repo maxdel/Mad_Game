@@ -10,7 +10,7 @@ import java.util.List;
 import core.GameState;
 import core.model.gameplay.items.Item;
 import core.model.gameplay.skills.Skill;
-import core.model.gameplay.units.ObstacleType;
+import core.model.gameplay.units.GameObjectSolidType;
 import core.model.gameplay.units.Unit;
 import org.newdawn.slick.*;
 import org.newdawn.slick.Image;
@@ -27,7 +27,7 @@ public class ResourceManager {
     private final String xmlFilePath = "res/resources.xml";
 
     private Map<String, AnimationInfo> animationInfos;
-    private Map<ObstacleType, MaskInfo> maskInfos;
+    private Map<GameObjectSolidType, MaskInfo> maskInfos;
     private Map<String, FontInfo> fontInfos;
     private Map<String, ItemInfo> itemInfos;
     private Map<String, SkillInfo> skillInfos;
@@ -35,7 +35,7 @@ public class ResourceManager {
 
     private ResourceManager() {
         animationInfos = new HashMap<String, AnimationInfo>();
-        maskInfos = new HashMap<ObstacleType, MaskInfo>();
+        maskInfos = new HashMap<GameObjectSolidType, MaskInfo>();
         fontInfos = new HashMap<String, FontInfo>();
         itemInfos = new HashMap<String, ItemInfo>();
         skillInfos = new HashMap<String, SkillInfo>();
@@ -151,7 +151,7 @@ public class ResourceManager {
         for (int i = 0; i < maskList.size(); ++i) {
             XMLElement maskElement = maskList.get(i);
 
-            ObstacleType type = ObstacleType.valueOf(maskElement.getAttribute("name").toUpperCase());
+            GameObjectSolidType type = GameObjectSolidType.valueOf(maskElement.getAttribute("name").toUpperCase());
             String shape = maskElement.getAttribute("shape");
             int width = maskElement.getIntAttribute("width");
             int height = maskElement.getIntAttribute("height");
@@ -254,7 +254,7 @@ public class ResourceManager {
     }
 
 
-    public Shape getMask(ObstacleType type) {
+    public Shape getMask(GameObjectSolidType type) {
         return maskInfos.get(type).getMask();
     }
 

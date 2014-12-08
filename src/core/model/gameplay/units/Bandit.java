@@ -4,7 +4,6 @@ import core.resourcemanager.ResourceManager;
 import core.model.gameplay.*;
 import core.model.gameplay.items.ItemDB;
 import core.model.gameplay.items.Loot;
-import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Vector2f;
 
 public class Bandit extends Unit {
@@ -16,7 +15,7 @@ public class Bandit extends Unit {
 
     public Bandit(double x, double y, double maximumSpeed) {
         super(x, y, maximumSpeed);
-        setMask(ResourceManager.getInstance().getMask(ObstacleType.BANDIT));
+        setMask(ResourceManager.getInstance().getMask(GameObjectSolidType.BANDIT));
 
         timer = (int) (Math.random() * 1000);
 

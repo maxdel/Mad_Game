@@ -9,24 +9,24 @@ import org.newdawn.slick.geom.Shape;
 
 import core.resourcemanager.ResourceManager;
 import core.model.gameplay.CollisionManager;
-import core.model.gameplay.units.Obstacle;
+import core.model.gameplay.units.GameObjectSolid;
 import org.newdawn.slick.geom.Vector2f;
 
 public abstract class GameObjectView {
 
-    protected Obstacle obstacle;
+    protected GameObjectSolid gameObjectSolid;
     protected Animation animation;
     protected ResourceManager resourceManager;
 
-    public GameObjectView(Obstacle obstacle, ResourceManager resourceManager) {
-        this.obstacle = obstacle;
+    public GameObjectView(GameObjectSolid gameObjectSolid, ResourceManager resourceManager) {
+        this.gameObjectSolid = gameObjectSolid;
         this.resourceManager = resourceManager;
         this.animation = null;
     }
 
     public void render(Graphics g, double viewX, double viewY, float viewDegreeAngle,
                        double viewCenterX, double viewCenterY, Hero hero) throws SlickException {
-        Vector2f v = new Vector2f((float)(hero.getX() - obstacle.getX()), (float)(hero.getY() - obstacle.getY()));
+        Vector2f v = new Vector2f((float)(hero.getX() - gameObjectSolid.getX()), (float)(hero.getY() - gameObjectSolid.getY()));
 
         if (v.length() < 900) {
             rotate(g, viewX, viewY, viewDegreeAngle, viewCenterX, viewCenterY, true);
@@ -39,20 +39,20 @@ public abstract class GameObjectView {
                        double viewCenterX, double viewCenterY, boolean isFront) {
         if (isFront) {
             g.rotate((float)viewCenterX, (float)viewCenterY, - viewDegreeAngle);
-            g.rotate((float) (obstacle.getX() - viewX),
-                    (float) (obstacle.getY() - viewY),
-                    (float)(obstacle.getDirection() / Math.PI * 180));
+            g.rotate((float) (gameObjectSolid.getX() - viewX),
+                    (float) (gameObjectSolid.getY() - viewY),
+                    (float)(gameObjectSolid.getDirection() / Math.PI * 180));
         } else {
-            g.rotate((float) (obstacle.getX() - viewX),
-                    (float) (obstacle.getY() - viewY),
-                    (float) - (obstacle.getDirection() / Math.PI * 180));
+            g.rotate((float) (gameObjectSolid.getX() - viewX),
+                    (float) (gameObjectSolid.getY() - viewY),
+                    (float) - (gameObjectSolid.getDirection() / Math.PI * 180));
             g.rotate((float)viewCenterX, (float)viewCenterY, viewDegreeAngle);
         }
     }
 
     public void draw(double viewX, double viewY) {
-        animation.draw((float) (obstacle.getX() - viewX - animation.getWidth() / 2),
-                (float) (obstacle.getY() - viewY - animation.getHeight() / 2));
+        animation.draw((float) (gameObjectSolid.getX() - viewX - animation.getWidth() / 2),
+                (float) (gameObjectSolid.getY() - viewY - animation.getHeight() / 2));
     }
 
     protected void drawHealthbar(Graphics g, int x, int y, int width, int height, double current, double maximum,
@@ -72,8 +72,8 @@ public abstract class GameObjectView {
      * Draws mask around a game object
      * */
     protected void drawMask(Graphics g, double viewX, double viewY) {
-        Shape mask = CollisionManager.getInstance().getUpdatedMask(obstacle, (float) obstacle.getX() - (float) viewX,
-                (float) obstacle.getY() - (float) viewY, obstacle.getDirection());
+        Shape mask = CollisionManager.getInstance().getUpdatedMask(gameObjectSolid, (float) gameObjectSolid.getX() - (float) viewX,
+                (float) gameObjectSolid.getY() - (float) viewY, gameObjectSolid.getDirection());
         g.draw(mask);
     }
 

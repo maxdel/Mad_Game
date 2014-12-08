@@ -4,7 +4,7 @@ import core.model.gameplay.items.Bow;
 import org.newdawn.slick.*;
 
 import core.resourcemanager.ResourceManager;
-import core.model.gameplay.units.Obstacle;
+import core.model.gameplay.units.GameObjectSolid;
 import core.model.gameplay.units.Hero;
 import core.model.gameplay.units.GameObjectState;
 
@@ -23,7 +23,7 @@ public class HeroView extends GameObjectView {
     private Animation animationBowWalk;
     private Animation animationBowAttack;
 
-    public HeroView(Obstacle hero, ResourceManager resourceManager) throws SlickException {
+    public HeroView(GameObjectSolid hero, ResourceManager resourceManager) throws SlickException {
         super(hero, resourceManager);
         animation = ResourceManager.getInstance().getAnimation("hero");
         animationSwordWalk = ResourceManager.getInstance().getAnimation("heroswordwalk");
@@ -188,7 +188,7 @@ public class HeroView extends GameObjectView {
     }
 
     private Hero getHero() {
-        return (Hero) obstacle;
+        return (Hero) gameObjectSolid;
     }
 
 }

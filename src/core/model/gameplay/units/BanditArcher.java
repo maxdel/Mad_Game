@@ -5,7 +5,6 @@ import core.model.gameplay.*;
 import core.model.gameplay.items.ItemDB;
 import core.model.gameplay.skills.BulletSkill;
 import core.model.gameplay.items.Loot;
-import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Vector2f;
 
 public class BanditArcher extends Unit {
@@ -18,7 +17,7 @@ public class BanditArcher extends Unit {
 
     public BanditArcher(double x, double y, double maximumSpeed) {
         super(x, y, maximumSpeed);
-        setMask(ResourceManager.getInstance().getMask(ObstacleType.BANDITARCHER));
+        setMask(ResourceManager.getInstance().getMask(GameObjectSolidType.BANDITARCHER));
         timer = (int) (Math.random() * 1000);
 
         // ??? OLD COMMENT must be array of req items (siml and strong bows) or must be type + name of item

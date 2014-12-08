@@ -5,7 +5,6 @@ import core.model.gameplay.CollisionManager;
 import core.model.gameplay.items.Loot;
 import core.model.gameplay.World;
 import core.model.gameplay.items.ItemDB;
-import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Vector2f;
 
 public class Skeleton extends Unit {
@@ -17,7 +16,7 @@ public class Skeleton extends Unit {
 
     public Skeleton(double x, double y, double maximumSpeed) {
         super(x, y, maximumSpeed);
-        setMask(ResourceManager.getInstance().getMask(ObstacleType.SKELETON));
+        setMask(ResourceManager.getInstance().getMask(GameObjectSolidType.SKELETON));
         timer = (int) (Math.random() * 1000);
 
         skillList.add(ResourceManager.getInstance().getSkill(this, "Sword attack"));
