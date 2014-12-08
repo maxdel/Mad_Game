@@ -3,6 +3,7 @@ package core.model.gameplay.skills;
 import core.model.gameplay.World;
 import core.model.gameplay.units.Unit;
 import core.model.gameplay.units.GameObjectSolid;
+
 import org.newdawn.slick.geom.Vector2f;
 
 public class AreaSkill extends Skill {
