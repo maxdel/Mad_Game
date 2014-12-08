@@ -4,7 +4,6 @@ import core.model.gameplay.units.ObstacleType;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
-import org.newdawn.slick.geom.Transform;
 
 public class MaskInfo {
 
@@ -25,19 +24,6 @@ public class MaskInfo {
         } else if (shapeName.equals("rectangle")) {
             mask = new Rectangle(-width / 2, -height / 2, width, height);
         }
-
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public int getRadius() {
-        return radius;
     }
 
     public Shape getMask() {

@@ -253,17 +253,6 @@ public class ResourceManager {
         return animationInfos.get(name).getSpeedCoef();
     }
 
-    public int getMaskWidth(String name) {
-        return maskInfos.get(name).getWidth();
-    }
-
-    public int getMaskHeight(String name) {
-        return maskInfos.get(name).getHeight();
-    }
-
-    public int getMaskRadius(String name) {
-        return maskInfos.get(name).getRadius();
-    }
 
     public Shape getMask(String name) {
         return maskInfos.get(name).getMask();
