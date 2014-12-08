@@ -1,4 +1,3 @@
-
 package core.model.gameplay.units;
 
 import core.model.gameplay.*;
@@ -11,7 +10,7 @@ import org.newdawn.slick.geom.Vector2f;
 /**
  * Represents hero
  * */
-public class Hero extends GameObjectMoving {
+public class Hero extends Unit {
 
     private Loot selectedLoot;
     
@@ -132,8 +131,6 @@ public class Hero extends GameObjectMoving {
         if (isDroppingItem()) {
             tickDropItem(delta);
         }
-
-
 
         if (isPickingItem()) {
             tickPickItem(delta);

@@ -1,6 +1,6 @@
 package core.model.gameplay.items;
 
-import core.model.gameplay.units.GameObjectMoving;
+import core.model.gameplay.units.Unit;
 
 import java.util.Map;
 
@@ -12,13 +12,13 @@ public class Armor extends Item {
     }
 
     @Override
-    public void setBonuses(GameObjectMoving target) {
+    public void setBonuses(Unit target) {
         target.getAttribute().increasePArmor(getParameter("pArmor"));
         target.getAttribute().increaseMArmor(getParameter("mArmor"));
     }
 
     @Override
-    public void unsetBonuses(GameObjectMoving target) {
+    public void unsetBonuses(Unit target) {
         target.getAttribute().decreasePArmor(getParameter("pArmor"));
         target.getAttribute().decreaseMArmor(getParameter("mArmor"));
 

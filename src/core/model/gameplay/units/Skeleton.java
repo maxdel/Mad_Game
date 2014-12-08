@@ -8,7 +8,7 @@ import core.model.gameplay.items.ItemDB;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Vector2f;
 
-public class Skeleton extends GameObjectMoving {
+public class Skeleton extends Unit {
 
     private int timer;
     private double targetX;

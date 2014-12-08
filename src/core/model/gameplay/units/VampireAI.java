@@ -134,7 +134,7 @@ public class VampireAI {
 
     private void attackHeroWithSword() {
         vampire.stand();
-        vampire.setDirection(vampire.getPredictedDirection(0));
+        vampire.setDirection(vampire.getPredictedDirection(1));
         vampire.inventory.useItem(vampire.inventory.addItem("Sword"));
         vampire.startCastSkill(0);
     }

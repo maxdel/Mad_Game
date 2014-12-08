@@ -1,6 +1,6 @@
 package core.model.gameplay.items;
 
-import core.model.gameplay.units.GameObjectMoving;
+import core.model.gameplay.units.Unit;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -8,12 +8,12 @@ import java.util.List;
 
 public class Inventory {
 
-    private GameObjectMoving owner;
+    private Unit owner;
     private List<ItemRecord> existedItems;
     private List<ItemRecord> dressedItems;
     private ItemRecord selectedRecord;
 
-    public Inventory(GameObjectMoving owner) {
+    public Inventory(Unit owner) {
         this.owner = owner;
         existedItems = new ArrayList<ItemRecord>();
         dressedItems = new ArrayList<ItemRecord>();

@@ -8,7 +8,7 @@ import core.model.gameplay.skills.Skill;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameObjectMoving extends GameObjectSolid {
+public class Unit extends GameObjectSolid {
 
     private double relativeDirection;
     private GameObjectState currentState;
@@ -22,7 +22,7 @@ public class GameObjectMoving extends GameObjectSolid {
     protected int useItemCounter;
     protected final int USE_ITEM_TIME = 400;
 
-    public GameObjectMoving(double x, double y, double maximumSpeed) {
+    public Unit(double x, double y, double maximumSpeed) {
         super(x, y, 0);
 
         this.relativeDirection = 0;
@@ -31,7 +31,6 @@ public class GameObjectMoving extends GameObjectSolid {
         attribute = new Attribute(100, 50, maximumSpeed);
         skillList = new ArrayList<Skill>();
     }
-
 
     @Override
     public void update(int delta) {

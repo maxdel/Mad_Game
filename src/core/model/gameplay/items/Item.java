@@ -1,6 +1,6 @@
 package core.model.gameplay.items;
 
-import core.model.gameplay.units.GameObjectMoving;
+import core.model.gameplay.units.Unit;
 
 import java.util.Map;
 
@@ -19,11 +19,11 @@ public class Item {
         setItemOperation(ItemOperation.EMPTY);
     }
 
-    public void setBonuses(GameObjectMoving target) {
+    public void setBonuses(Unit target) {
         // pass
     }
 
-    public void unsetBonuses(GameObjectMoving target) {
+    public void unsetBonuses(Unit target) {
         // pass
     }
 

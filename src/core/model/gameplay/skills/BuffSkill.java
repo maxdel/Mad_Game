@@ -1,7 +1,6 @@
 package core.model.gameplay.skills;
 
-import core.model.gameplay.items.Item;
-import core.model.gameplay.units.GameObjectMoving;
+import core.model.gameplay.units.Unit;
 
 public class BuffSkill extends Skill {
 
@@ -11,7 +10,7 @@ public class BuffSkill extends Skill {
     private int castTimeDelta;
     private int cooldownTimeDelta;
 
-    public BuffSkill(GameObjectMoving owner, String name, String description, int castTime, int postCastTime,
+    public BuffSkill(Unit owner, String name, String description, int castTime, int postCastTime,
                      int cooldownTime, String requiredItem, double requiredHP, double requiredMP,
                      int workTime, String skillToBuff, int castTimeDelta, int cooldownTimeDelta) {
         super(owner, name, description, castTime, postCastTime, cooldownTime, requiredItem, requiredHP, requiredMP);

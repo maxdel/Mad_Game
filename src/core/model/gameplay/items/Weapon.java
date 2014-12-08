@@ -1,6 +1,6 @@
 package core.model.gameplay.items;
 
-import core.model.gameplay.units.GameObjectMoving;
+import core.model.gameplay.units.Unit;
 
 import java.util.Map;
 
@@ -12,14 +12,14 @@ public class Weapon extends Item {
     }
 
     @Override
-    public void setBonuses(GameObjectMoving target) {
+    public void setBonuses(Unit target) {
         target.getAttribute().increasePAttack(getParameter("pAttack"));
         target.getAttribute().increaseMAttack(getParameter("mAttack"));
 
     }
 
     @Override
-    public void unsetBonuses(GameObjectMoving target) {
+    public void unsetBonuses(Unit target) {
         target.getAttribute().decreasePAttack(getParameter("pAttack"));
         target.getAttribute().decreaseMAttack(getParameter("mAttack"));
     }

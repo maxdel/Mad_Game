@@ -7,7 +7,7 @@ import core.model.gameplay.items.Loot;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Vector2f;
 
-public class Bandit extends GameObjectMoving {
+public class Bandit extends Unit {
 
     private int timer;
     private double targetX;

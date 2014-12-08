@@ -2,11 +2,11 @@ package core.model.gameplay.skills;
 
 import core.model.gameplay.items.Item;
 import core.model.gameplay.items.ItemDB;
-import core.model.gameplay.units.GameObjectMoving;
+import core.model.gameplay.units.Unit;
 
 public abstract class Skill {
 
-    protected GameObjectMoving owner;
+    protected Unit owner;
 
     protected String name;
     protected String description;
@@ -23,7 +23,7 @@ public abstract class Skill {
     protected double requiredHP;
     protected double requiredMP;
 
-    public Skill(GameObjectMoving owner, String name, String description, int castTime, int postApplyTime, int cooldownTime, String requiredItem,
+    public Skill(Unit owner, String name, String description, int castTime, int postApplyTime, int cooldownTime, String requiredItem,
                  double requiredHP, double requiredMP) {
         this.owner = owner;
         this.name = name;
@@ -42,18 +42,18 @@ public abstract class Skill {
         return currentCastTime <= preApplyTime && alreadyApplied == false;
     }
 
-
     public boolean isCastingСontinues() {
         return currentCastTime > 0;
     }
 
     public void stopCasting() {
         currentCastTime = 0;
-
     }
+
     public boolean isCastingFinished() {
         return currentCastTime <= 0;
     }
+
     public void tickCastingTime(int delta) {
         currentCastTime -= delta;
     }
@@ -79,6 +79,7 @@ public abstract class Skill {
             }
         }
     }
+
     public void update(int delta) {
         updateCD(delta);
     }
@@ -145,7 +146,7 @@ public abstract class Skill {
         this.cooldownTime = cooldownTime;
     }
 
-    public void setOwner(GameObjectMoving owner) {
+    public void setOwner(Unit owner) {
         this.owner = owner;
     }
 
@@ -153,8 +154,8 @@ public abstract class Skill {
         return preApplyTime;
     }
 
-
     public void setAlreadyApplied(boolean alreadyApplied) {
         this.alreadyApplied = alreadyApplied;
     }
+
 }

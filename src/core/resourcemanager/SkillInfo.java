@@ -1,7 +1,7 @@
 package core.resourcemanager;
 
 import core.model.gameplay.skills.*;
-import core.model.gameplay.units.GameObjectMoving;
+import core.model.gameplay.units.Unit;
 import org.newdawn.slick.Image;
 
 import java.util.Map;
@@ -22,7 +22,7 @@ public class SkillInfo {
         this.map = map;
     }
 
-    public Skill getSkill(GameObjectMoving owner) {
+    public Skill getSkill(Unit owner) {
         Skill skill = null;
         if (type.equals("BulletSkill")) {
             skill = new BulletSkill(owner, name, description, Integer.parseInt(map.get("castTime")),

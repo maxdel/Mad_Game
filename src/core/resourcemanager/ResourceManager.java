@@ -10,7 +10,7 @@ import java.util.List;
 import core.GameState;
 import core.model.gameplay.items.Item;
 import core.model.gameplay.skills.Skill;
-import core.model.gameplay.units.GameObjectMoving;
+import core.model.gameplay.units.Unit;
 import org.newdawn.slick.*;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.util.xml.SlickXMLException;
@@ -287,7 +287,7 @@ public class ResourceManager {
         return itemList;
     }
 
-    public Skill getSkill(GameObjectMoving owner, String name) {
+    public Skill getSkill(Unit owner, String name) {
         return skillInfos.get(name).getSkill(owner);
     }
 

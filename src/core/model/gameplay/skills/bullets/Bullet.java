@@ -6,14 +6,14 @@ import core.model.gameplay.units.*;
 
 public abstract class Bullet extends GameObjectSolid {
 
-    private GameObjectMoving owner;
+    private Unit owner;
     private double speed;
     private double pAttack;
     private double mAttack;
     private final int maximumDistance = 1000;
     private double currentDistance;
 
-    public Bullet(GameObjectMoving owner, double x, double y, double direction, double speed, double pAttack,
+    public Bullet(Unit owner, double x, double y, double direction, double speed, double pAttack,
                     double mAttack) {
         super(x, y, direction);
         this.owner = owner;
@@ -43,8 +43,8 @@ public abstract class Bullet extends GameObjectSolid {
                 setY(getY() + lengthDirY);
                 currentDistance += length;
             } else {
-                if (other instanceof GameObjectMoving) {
-                    GameObjectMoving otherMoving = (GameObjectMoving) other;
+                if (other instanceof Unit) {
+                    Unit otherMoving = (Unit) other;
                     if (pAttack > 0) {
                         double pDamage = pAttack + owner.getAttribute().getPAttack() - otherMoving.getAttribute().getPArmor();
                         if (pDamage <= 1) {

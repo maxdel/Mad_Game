@@ -56,7 +56,7 @@
         </items>
         <skills>
             <skill name="Bow shot" description="Shot!!!" path="/res/skills/bow shot.png" type="BulletSkill"
-                    castTime="2000" postApplyTime="500" cooldownTime="1000" requiredItem="Bow" requiredHP="0" requiredMP="0"
+                    castTime="300" postApplyTime="200" cooldownTime="1000" requiredItem="Bow" requiredHP="0" requiredMP="0"
                     pAttack="15" mAttack="0" bulletSpeed="0.5"/>
             <skill name="Sword attack" description="Sword!!!" path="/res/skills/sword attack.png" type="AreaSkill"
                    castTime="200" postApplyTime="100" cooldownTime="1000" requiredItem="Sword" requiredHP="0" requiredMP="0"

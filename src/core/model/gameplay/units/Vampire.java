@@ -8,7 +8,22 @@ import core.model.gameplay.items.Loot;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Vector2f;
 
-public class Vampire extends GameObjectMoving {
+/**
+ *  Unit характеризуется:
+ *  1. Набором возможных состояний
+ *  2. Правилами перехода между ними
+ *  3. Описанием этих состояний
+ *
+ *  Конкретный вид Unit характеризуется:
+ *  1. Маской
+ *  2. Аттрибутами
+ *  3. Инвентарем
+ *  4. Способностями
+ *  5. Поведением (ИИ)
+ *  6. Событие удаления
+ */
+
+public class Vampire extends Unit {
 
     private VampireAI vampireAI;
 
@@ -21,7 +36,7 @@ public class Vampire extends GameObjectMoving {
 
         inventory.useItem(inventory.addItem("Light armor"));
 
-        getAttribute().resetHpMp(1000, 1000);
+        getAttribute().resetHpMp(200, 2001);
 
         vampireAI = new VampireAI(this);
     }

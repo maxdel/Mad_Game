@@ -1,13 +1,12 @@
 package core.model.gameplay.skills;
 
-import core.model.gameplay.items.Item;
-import core.model.gameplay.units.GameObjectMoving;
+import core.model.gameplay.units.Unit;
 
 public class RegenSkill extends Skill {
 
     private int HPdelta;
 
-    public RegenSkill(GameObjectMoving owner, String name, String description, int castTime, int postCastTime,
+    public RegenSkill(Unit owner, String name, String description, int castTime, int postCastTime,
                       int cooldownTime, String requiredItem,
                       double requiredHP, double requiredMP, int HPdelta) {
         super(owner, name, description, castTime, postCastTime, cooldownTime, requiredItem, requiredHP, requiredMP);

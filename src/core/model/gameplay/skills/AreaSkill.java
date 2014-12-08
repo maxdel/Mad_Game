@@ -1,9 +1,7 @@
 package core.model.gameplay.skills;
 
 import core.model.gameplay.World;
-import core.model.gameplay.items.Item;
-import core.model.gameplay.items.ItemDB;
-import core.model.gameplay.units.GameObjectMoving;
+import core.model.gameplay.units.Unit;
 import core.model.gameplay.units.GameObjectSolid;
 import org.newdawn.slick.geom.Vector2f;
 
@@ -15,7 +13,7 @@ public class AreaSkill extends Skill {
     private double radius;
     private double angle;
 
-    public AreaSkill(GameObjectMoving owner, String name, String description, int castTime, int postCastTime,
+    public AreaSkill(Unit owner, String name, String description, int castTime, int postCastTime,
                      int cooldownTime, String requiredItem, double requiredHP, double requiredMP,
                      double pAttack, double mAttack, double radius, double angle) {
         super(owner, name, description, castTime, postCastTime, cooldownTime, requiredItem, requiredHP, requiredMP);
@@ -28,8 +26,8 @@ public class AreaSkill extends Skill {
     @Override
     public void apply() {
         for (GameObjectSolid gameObjectSolid : World.getInstance().getGameObjectSolids()) {
-            if (gameObjectSolid instanceof GameObjectMoving && gameObjectSolid != owner) {
-                GameObjectMoving target = (GameObjectMoving) gameObjectSolid;
+            if (gameObjectSolid instanceof Unit && gameObjectSolid != owner) {
+                Unit target = (Unit) gameObjectSolid;
 
                 Vector2f v1 = new Vector2f((float)lengthDirX(owner.getDirection(), angle),
                         (float)lengthDirY(owner.getDirection(), angle));
@@ -49,7 +47,7 @@ public class AreaSkill extends Skill {
         }
     }
 
-    private void applyMagicDamage(GameObjectMoving target) {
+    private void applyMagicDamage(Unit target) {
         double mDamage = mAttack + owner.getAttribute().getMAttack() - target.getAttribute().getMArmor();
         if (mDamage <= 1) {
             mDamage = 1;
@@ -57,7 +55,7 @@ public class AreaSkill extends Skill {
         target.getAttribute().getHP().damage(mDamage);
     }
 
-    private void applyPhysDamage(GameObjectMoving target) {
+    private void applyPhysDamage(Unit target) {
         double pDamage = pAttack + owner.getAttribute().getPAttack() - target.getAttribute().getPArmor();
         if (pDamage <= 1) {
             pDamage = 1;

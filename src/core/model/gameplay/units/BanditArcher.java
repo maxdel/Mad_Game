@@ -8,7 +8,7 @@ import core.model.gameplay.items.Loot;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Vector2f;
 
-public class BanditArcher extends GameObjectMoving {
+public class BanditArcher extends Unit {
 
     private int timer;
     private double targetX;

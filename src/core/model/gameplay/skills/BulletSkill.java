@@ -1,11 +1,10 @@
 package core.model.gameplay.skills;
 
 import core.model.gameplay.World;
-import core.model.gameplay.items.Item;
 import core.model.gameplay.items.ItemDB;
 import core.model.gameplay.skills.bullets.Arrow;
 import core.model.gameplay.skills.bullets.Fireball;
-import core.model.gameplay.units.GameObjectMoving;
+import core.model.gameplay.units.Unit;
 
 public class BulletSkill extends Skill {
 
@@ -13,7 +12,7 @@ public class BulletSkill extends Skill {
     private double pAttack;
     private double mAttack;
 
-    public BulletSkill(GameObjectMoving owner, String name, String description, int castTime, int postCastTime, int cooldownTime, String requiredItem,
+    public BulletSkill(Unit owner, String name, String description, int castTime, int postCastTime, int cooldownTime, String requiredItem,
                        double requiredHP, double requiredMP, double bulletSpeed, double pAttack, double mAttack) {
         super(owner, name, description, castTime, postCastTime, cooldownTime, requiredItem, requiredHP, requiredMP);
         this.bulletSpeed = bulletSpeed;
