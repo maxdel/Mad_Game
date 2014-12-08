@@ -23,7 +23,8 @@ public class Unit extends GameObjectSolid {
     protected final int USE_ITEM_TIME = 400;
 
     public Unit(double x, double y, double maximumSpeed) {
-        super(x, y, 0);
+        /* TERRIBLE  last parameter. Must be type from Unit constructor */
+        super(x, y, 0, GameObjectSolidType.BANDIT); //TODO : TERRIBLE
 
         this.relativeDirection = 0;
         this.currentState = GameObjectState.STAND;

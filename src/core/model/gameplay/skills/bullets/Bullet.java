@@ -4,7 +4,7 @@ import core.model.gameplay.CollisionManager;
 import core.model.gameplay.World;
 import core.model.gameplay.units.*;
 
-public abstract class Bullet extends GameObjectSolid {
+public class Bullet extends GameObjectSolid {
 
     private Unit owner;
     private double speed;
@@ -14,13 +14,14 @@ public abstract class Bullet extends GameObjectSolid {
     private double currentDistance;
 
     public Bullet(Unit owner, double x, double y, double direction, double speed, double pAttack,
-                    double mAttack) {
-        super(x, y, direction);
+                    double mAttack, GameObjectSolidType type) {
+        super(x, y, direction, type);
         this.owner = owner;
         this.speed = speed;
         this.pAttack = pAttack;
         this.mAttack = mAttack;
         currentDistance = 0;
+
     }
 
     @Override

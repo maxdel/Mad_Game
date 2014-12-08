@@ -12,8 +12,9 @@ public abstract class GameObjectSolid extends GameObject {
     protected GameObjectSolidType type;
 
 
-    public GameObjectSolid(double x, double y, double direction) {
+    public GameObjectSolid(double x, double y, double direction, GameObjectSolidType type) {
         super(x, y, direction);
+        this.type = type;
         this.mask = ResourceManager.getInstance().getMask(type);
     }
 

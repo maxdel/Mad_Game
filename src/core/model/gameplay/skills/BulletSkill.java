@@ -2,8 +2,8 @@ package core.model.gameplay.skills;
 
 import core.model.gameplay.World;
 import core.model.gameplay.items.ItemDB;
-import core.model.gameplay.skills.bullets.Arrow;
-import core.model.gameplay.skills.bullets.Fireball;
+import core.model.gameplay.skills.bullets.Bullet;
+import core.model.gameplay.units.GameObjectSolidType;
 import core.model.gameplay.units.Unit;
 
 public class BulletSkill extends Skill {
@@ -39,12 +39,12 @@ public class BulletSkill extends Skill {
     @Override
     public void apply() {
         if (requiredItem == ItemDB.getInstance().getItem("Bow")) {
-            World.getInstance().getToAddList().add(new Arrow(owner, owner.getX(), owner.getY(), owner.getDirection(),
-                    bulletSpeed, pAttack, mAttack));
+            World.getInstance().getToAddList().add(new Bullet(owner, owner.getX(), owner.getY(), owner.getDirection(),
+                    bulletSpeed, pAttack, mAttack, GameObjectSolidType.ARROW));
             owner.getInventory().deleteItem("Arrow", 1);
         } else if (requiredItem == ItemDB.getInstance().getItem("Staff")) {
-            World.getInstance().getToAddList().add(new Fireball(owner, owner.getX(), owner.getY(), owner.getDirection(),
-                    bulletSpeed, pAttack, mAttack));
+            World.getInstance().getToAddList().add(new Bullet(owner, owner.getX(), owner.getY(), owner.getDirection(),
+                    bulletSpeed, pAttack, mAttack, GameObjectSolidType.FIREBALL));
         }
     }
 

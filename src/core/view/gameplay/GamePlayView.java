@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import core.model.gameplay.skills.bullets.Arrow;
-import core.model.gameplay.skills.bullets.Fireball;
 import core.model.gameplay.items.Loot;
 import core.model.gameplay.units.*;
 import core.resourcemanager.MadTiledMap;
@@ -116,9 +114,9 @@ public class GamePlayView {
                     gameObjectViews.add(new BanditView(gameObjectSolid, resourceManager));
                 } else if (gameObjectSolid.getClass() == Hero.class) {
                     gameObjectViews.add(new HeroView(gameObjectSolid, resourceManager));
-                } else if (gameObjectSolid.getClass() == Arrow.class) {
+                } else if (gameObjectSolid.getType() == GameObjectSolidType.ARROW) {
                     gameObjectViews.add(new ArrowView(gameObjectSolid, resourceManager));
-                } else if (gameObjectSolid.getClass() == Fireball.class) {
+                } else if (gameObjectSolid.getType() == GameObjectSolidType.FIREBALL) {
                     gameObjectViews.add(new FireballView(gameObjectSolid, resourceManager));
                 } else if (gameObjectSolid.getClass() == BanditArcher.class) {
                     gameObjectViews.add(new BanditArcherView(gameObjectSolid, resourceManager));
