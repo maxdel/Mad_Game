@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import core.model.gameplay.items.Loot;
-import core.model.gameplay.units.*;
+import core.model.gameplay.gameobjects.*;
 import core.resourcemanager.MadTiledMap;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;

@@ -1,11 +1,11 @@
 package core.view.gameplay;
 
-import core.model.gameplay.units.BanditArcher;
-import core.model.gameplay.units.Hero;
+import core.model.gameplay.gameobjects.BanditArcher;
+import core.model.gameplay.gameobjects.Hero;
 import org.newdawn.slick.*;
 
 import core.resourcemanager.ResourceManager;
-import core.model.gameplay.units.GameObjectSolid;
+import core.model.gameplay.gameobjects.GameObjectSolid;
 
 public class BanditArcherView extends GameObjectView {
 

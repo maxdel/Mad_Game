@@ -4,9 +4,9 @@ import core.model.gameplay.items.Bow;
 import org.newdawn.slick.*;
 
 import core.resourcemanager.ResourceManager;
-import core.model.gameplay.units.GameObjectSolid;
-import core.model.gameplay.units.Hero;
-import core.model.gameplay.units.GameObjectState;
+import core.model.gameplay.gameobjects.GameObjectSolid;
+import core.model.gameplay.gameobjects.Hero;
+import core.model.gameplay.gameobjects.GameObjectState;
 
 /**
  * Provides functions for the definition of actors, as well as actor

@@ -1,7 +1,7 @@
 package core.resourcemanager;
 
 import core.model.gameplay.skills.*;
-import core.model.gameplay.units.Unit;
+import core.model.gameplay.gameobjects.Unit;
 import org.newdawn.slick.Image;
 
 import java.util.Map;

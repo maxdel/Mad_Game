@@ -8,7 +8,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 import core.GameState;
-import core.model.gameplay.units.Hero;
+import core.model.gameplay.gameobjects.Hero;
 import core.model.gameplay.World;
 
 import core.view.gameplay.GamePlayView;

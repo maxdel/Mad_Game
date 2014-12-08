@@ -1,7 +1,7 @@
 package core.view.gameplay;
 
 import core.resourcemanager.ResourceManager;
-import core.model.gameplay.units.GameObjectSolid;
+import core.model.gameplay.gameobjects.GameObjectSolid;
 
 public class FireballView extends GameObjectView {
 

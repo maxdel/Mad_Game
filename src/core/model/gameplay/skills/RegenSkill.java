@@ -1,6 +1,6 @@
 package core.model.gameplay.skills;
 
-import core.model.gameplay.units.Unit;
+import core.model.gameplay.gameobjects.Unit;
 
 public class RegenSkill extends Skill {
 

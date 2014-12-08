@@ -1,11 +1,11 @@
 package core.view.gameplay;
 
-import core.model.gameplay.units.Hero;
-import core.model.gameplay.units.Vampire;
+import core.model.gameplay.gameobjects.Hero;
+import core.model.gameplay.gameobjects.Vampire;
 import org.newdawn.slick.*;
 
 import core.resourcemanager.ResourceManager;
-import core.model.gameplay.units.GameObjectSolid;
+import core.model.gameplay.gameobjects.GameObjectSolid;
 
 public class VampireView extends GameObjectView {
 

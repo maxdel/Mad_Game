@@ -4,7 +4,7 @@ import core.resourcemanager.MadTiledMap;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
-import core.model.gameplay.units.Hero;
+import core.model.gameplay.gameobjects.Hero;
 
 public class TileView {
 

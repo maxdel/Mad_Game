@@ -1,4 +1,4 @@
-package core.model.gameplay.units;
+package core.model.gameplay.gameobjects;
 
 import core.resourcemanager.ResourceManager;
 import core.model.gameplay.CollisionManager;
@@ -7,24 +7,23 @@ import core.model.gameplay.World;
 import core.model.gameplay.items.ItemDB;
 import org.newdawn.slick.geom.Vector2f;
 
-public class SkeletonMage extends Unit {
+public class Skeleton extends Unit {
 
     private int timer;
     private double targetX;
     private double targetY;
     private boolean isTargetHero;
 
-    public SkeletonMage(double x, double y, double maximumSpeed) {
+    public Skeleton(double x, double y, double maximumSpeed) {
         super(x, y, maximumSpeed);
-        setMask(ResourceManager.getInstance().getMask(GameObjectSolidType.SKELETONMAGE));
-
+        setMask(ResourceManager.getInstance().getMask(GameObjectSolidType.SKELETON));
         timer = (int) (Math.random() * 1000);
 
-        skillList.add(ResourceManager.getInstance().getSkill(this, "Fireball"));
-        inventory.useItem(inventory.addItem("Strong staff"));
-        inventory.useItem(inventory.addItem("Robe of magic"));
+        skillList.add(ResourceManager.getInstance().getSkill(this, "Sword attack"));
+        inventory.useItem(inventory.addItem("Strong sword"));
+        inventory.useItem(inventory.addItem("Heavy armor"));
 
-        getAttribute().resetHpMp(35, 80);
+        getAttribute().resetHpMp(80, 50);
 
         isTargetHero = false;
     }
@@ -55,9 +54,10 @@ public class SkeletonMage extends Unit {
     public void update(int delta) {
         Vector2f v = new Vector2f((float) World.getInstance().getHero().getX() - (float)getX(),
                 (float)World.getInstance().getHero().getY() - (float)getY());
+
         double distanceToHero = v.length();
-        double followHeroDistance = 350;
-        double attackHeroDistance = 250;
+        double followHeroDistance = 300;
+        double attackHeroDistance = 60;
 
         if (!isTargetHero) {
             if (distanceToHero < attackHeroDistance) {
@@ -88,8 +88,7 @@ public class SkeletonMage extends Unit {
                     followTarget(targetX, targetY);
                 }
             }
-        }
-        else {
+        } else {
             if (distanceToHero < attackHeroDistance) {
                 stand();
                 setDirection(v.getTheta() / 180 * Math.PI);
@@ -115,21 +114,26 @@ public class SkeletonMage extends Unit {
 
     @Override
     protected void onDelete() {
-        if (Math.random() < 0.7) {
+        if (Math.random() < 0.9) {
             World.getInstance().getLootList().add(new Loot(getX() - 10 + Math.random() * 20,
                     getY() - 10 + Math.random() * 20, Math.random() * 2 * Math.PI, ItemDB.getInstance().getItem("Healing flask"), 1));
         }
-        if (Math.random() < 0.6) {
+        if (Math.random() < 0.8) {
             World.getInstance().getLootList().add(new Loot(getX() - 10 + Math.random() * 20,
                     getY() - 10 + Math.random() * 20, Math.random() * 2 * Math.PI, ItemDB.getInstance().getItem("Mana flask"), 1));
         }
         if (Math.random() < 0.5) {
             World.getInstance().getLootList().add(new Loot(getX() - 10 + Math.random() * 20,
-                    getY() - 10 + Math.random() * 20, Math.random() * 2 * Math.PI, ItemDB.getInstance().getItem("Robe of magic"), 1));
+                    getY() - 10 + Math.random() * 20, Math.random() * 2 * Math.PI, ItemDB.getInstance().getItem("Strong sword"), 1));
         }
         if (Math.random() < 0.3) {
             World.getInstance().getLootList().add(new Loot(getX() - 10 + Math.random() * 20,
-                    getY() - 10 + Math.random() * 20, Math.random() * 2 * Math.PI, ItemDB.getInstance().getItem("Strong staff"), 1));
+                    getY() - 10 + Math.random() * 20, Math.random() * 2 * Math.PI, ItemDB.getInstance().getItem("Heavy armor"), 1));
+        }
+        if (Math.random() < 0.7) {
+            World.getInstance().getLootList().add(new Loot(getX() - 10 + Math.random() * 20,
+                    getY() - 10 + Math.random() * 20, Math.random() * 2 * Math.PI, ItemDB.getInstance().getItem("Arrow"),
+                    (int)(6 + Math.random() * 10)));
         }
         // TODO for fun
         World.getInstance().getHero().kills++;

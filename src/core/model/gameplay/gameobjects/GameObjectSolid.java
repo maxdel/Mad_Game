@@ -1,4 +1,4 @@
-package core.model.gameplay.units;
+package core.model.gameplay.gameobjects;
 
 import core.resourcemanager.ResourceManager;
 import org.newdawn.slick.geom.Shape;

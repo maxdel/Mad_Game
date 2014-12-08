@@ -1,8 +1,7 @@
-package core.model.gameplay.skills.bullets;
+package core.model.gameplay.gameobjects;
 
 import core.model.gameplay.CollisionManager;
 import core.model.gameplay.World;
-import core.model.gameplay.units.*;
 
 public class Bullet extends GameObjectSolid {
 

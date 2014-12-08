@@ -1,6 +1,6 @@
 package core.view.gameplay;
 
-import core.model.gameplay.units.Hero;
+import core.model.gameplay.gameobjects.Hero;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
@@ -9,7 +9,7 @@ import org.newdawn.slick.geom.Shape;
 
 import core.resourcemanager.ResourceManager;
 import core.model.gameplay.CollisionManager;
-import core.model.gameplay.units.GameObjectSolid;
+import core.model.gameplay.gameobjects.GameObjectSolid;
 import org.newdawn.slick.geom.Vector2f;
 
 public abstract class GameObjectView {

@@ -1,6 +1,6 @@
 package core.model.gameplay;
 
-import core.model.gameplay.units.GameObjectSolid;
+import core.model.gameplay.gameobjects.GameObjectSolid;
 import org.newdawn.slick.geom.*;
 
 public class CollisionManager {

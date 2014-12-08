@@ -1,4 +1,4 @@
-package core.model.gameplay.units;
+package core.model.gameplay.gameobjects;
 
 import core.model.gameplay.*;
 import core.model.gameplay.items.Inventory;

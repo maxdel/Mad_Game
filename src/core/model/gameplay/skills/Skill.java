@@ -2,7 +2,7 @@ package core.model.gameplay.skills;
 
 import core.model.gameplay.items.Item;
 import core.model.gameplay.items.ItemDB;
-import core.model.gameplay.units.Unit;
+import core.model.gameplay.gameobjects.Unit;
 
 public abstract class Skill {
 

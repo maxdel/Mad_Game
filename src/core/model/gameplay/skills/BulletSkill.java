@@ -2,9 +2,9 @@ package core.model.gameplay.skills;
 
 import core.model.gameplay.World;
 import core.model.gameplay.items.ItemDB;
-import core.model.gameplay.skills.bullets.Bullet;
-import core.model.gameplay.units.GameObjectSolidType;
-import core.model.gameplay.units.Unit;
+import core.model.gameplay.gameobjects.Bullet;
+import core.model.gameplay.gameobjects.GameObjectSolidType;
+import core.model.gameplay.gameobjects.Unit;
 
 public class BulletSkill extends Skill {
 

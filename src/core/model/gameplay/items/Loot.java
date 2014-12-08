@@ -1,6 +1,6 @@
 package core.model.gameplay.items;
 
-import core.model.gameplay.units.GameObject;
+import core.model.gameplay.gameobjects.GameObject;
 
 public class Loot extends GameObject {
 
