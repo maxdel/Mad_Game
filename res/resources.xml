@@ -22,16 +22,16 @@
             <animation name="fireball" path="/res/fireball.png" isImage = "true" />
         </animations>
         <masks>
-            <mask name="hero" width="0" height="0" radius="20" />
-            <mask name="vampire" width="0" height="0" radius="20" />
-            <mask name="bandit" width="0" height="0" radius="20" />
-            <mask name="banditArcher" width="0" height="0" radius="20" />
-            <mask name="skeleton" width="0" height="0" radius="30" />
-            <mask name="skeletonMage" width="0" height="0" radius="30" />
-            <mask name="wall" width="32" height="32" radius="0" />
-            <mask name="tree" width="0" height="0" radius="32" />
-            <mask name="arrow" width="20" height="3" radius="0" />
-            <mask name="fireball" width="0" height="0" radius="5" />
+            <mask name="hero" shape="circle" width="0" height="0" radius="20" />
+            <mask name="vampire" shape="circle" width="0" height="0" radius="20" />
+            <mask name="bandit" shape="circle" width="0" height="0" radius="20" />
+            <mask name="banditArcher" shape="circle" width="0" height="0" radius="20" />
+            <mask name="skeleton" shape="circle" width="0" height="0" radius="30" />
+            <mask name="skeletonMage" shape="circle" width="0" height="0" radius="30" />
+            <mask name="wall" shape="rectangle" width="32" height="32" radius="0"/>
+            <mask name="tree" shape="circle" width="0" height="0" radius="32"/>
+            <mask name="arrow" shape="rectangle" width="20" height="3" radius="0" />
+            <mask name="fireball" shape="circle" width="0" height="0" radius="5" />
         </masks>
         <images>
             <image name="Selected item frame" path = "/res/items/selected item.png" />

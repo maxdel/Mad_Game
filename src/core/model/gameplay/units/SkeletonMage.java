@@ -17,7 +17,8 @@ public class SkeletonMage extends Unit {
 
     public SkeletonMage(double x, double y, double maximumSpeed) {
         super(x, y, maximumSpeed);
-        setMask(new Circle(0, 0, ResourceManager.getInstance().getMaskRadius("skeletonMage")));
+        setMask(ResourceManager.getInstance().getMask("skeletonMage"));
+
         timer = (int) (Math.random() * 1000);
 
         skillList.add(ResourceManager.getInstance().getSkill(this, "Fireball"));

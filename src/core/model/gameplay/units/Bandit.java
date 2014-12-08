@@ -16,7 +16,8 @@ public class Bandit extends Unit {
 
     public Bandit(double x, double y, double maximumSpeed) {
         super(x, y, maximumSpeed);
-        setMask(new Circle(0, 0, ResourceManager.getInstance().getMaskRadius("bandit")));
+        setMask(ResourceManager.getInstance().getMask("bandit"));
+
         timer = (int) (Math.random() * 1000);
 
         skillList.add(ResourceManager.getInstance().getSkill(this, "Sword attack"));

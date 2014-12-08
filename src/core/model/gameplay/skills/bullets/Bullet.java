@@ -4,7 +4,7 @@ import core.model.gameplay.CollisionManager;
 import core.model.gameplay.World;
 import core.model.gameplay.units.*;
 
-public abstract class Bullet extends GameObjectSolid {
+public abstract class Bullet extends Obstacle {
 
     private Unit owner;
     private double speed;
@@ -37,7 +37,7 @@ public abstract class Bullet extends GameObjectSolid {
             setY(getY() + lengthDirY);
             currentDistance += length;
         } else {
-            GameObjectSolid other = CollisionManager.getInstance().collidesWith(this, getX() + lengthDirX, getY() + lengthDirY);
+            Obstacle other = CollisionManager.getInstance().collidesWith(this, getX() + lengthDirX, getY() + lengthDirY);
             if (other == owner) {
                 setX(getX() + lengthDirX);
                 setY(getY() + lengthDirY);

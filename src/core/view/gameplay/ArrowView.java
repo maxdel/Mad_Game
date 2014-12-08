@@ -1,12 +1,12 @@
 package core.view.gameplay;
 
 import core.resourcemanager.ResourceManager;
-import core.model.gameplay.units.GameObjectSolid;
+import core.model.gameplay.units.Obstacle;
 
 public class ArrowView extends GameObjectView {
 
-    public ArrowView(GameObjectSolid gameObjectSolid, ResourceManager resourceManager) {
-        super(gameObjectSolid, resourceManager);
+    public ArrowView(Obstacle obstacle, ResourceManager resourceManager) {
+        super(obstacle, resourceManager);
         animation = resourceManager.getAnimation("arrow");
     }
 

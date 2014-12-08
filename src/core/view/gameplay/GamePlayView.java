@@ -20,7 +20,7 @@ import core.resourcemanager.ResourceManager;
 * */
 public class GamePlayView {
 
-    private List<GameObjectSolid> gameObjectSolids;
+    private List<Obstacle> obstacles;
     private List<GameObjectView> gameObjectViews;
     private List<Loot> lootList;
     private List<LootView> lootViewList;
@@ -31,10 +31,10 @@ public class GamePlayView {
     private MadTiledMap tiledMap;
     private TileView tileView;
 
-    public GamePlayView(GameContainer gc, List<GameObjectSolid> gameObjectSolids, Hero hero, List<Loot> lootList,
+    public GamePlayView(GameContainer gc, List<Obstacle> obstacles, Hero hero, List<Loot> lootList,
                         ResourceManager resourceManager, MadTiledMap tiledMap) throws SlickException {
         this.resourceManager = resourceManager;
-        this.gameObjectSolids = gameObjectSolids;
+        this.obstacles = obstacles;
         this.hero = hero;
         this.lootList = lootList;
         inventoryView = new InventoryView(hero.getInventory());
@@ -42,17 +42,17 @@ public class GamePlayView {
         tileView = new TileView(tiledMap, hero);
 
         gameObjectViews = new ArrayList<GameObjectView>();
-        for (GameObjectSolid gameObjectSolid : gameObjectSolids) {
-            if (gameObjectSolid.getClass() == Wall.class) {
-                gameObjectViews.add(new WallView(gameObjectSolid, resourceManager));
-            } else if (gameObjectSolid.getClass() == Bandit.class) {
-                gameObjectViews.add(new BanditView(gameObjectSolid, resourceManager));
-            } else if (gameObjectSolid.getClass() == Hero.class) {
-                gameObjectViews.add(new HeroView(gameObjectSolid, resourceManager));
-            } else if (gameObjectSolid.getClass() == Tree.class) {
-                gameObjectViews.add(new TreeView(gameObjectSolid, resourceManager));
-            }  else if (gameObjectSolid.getClass() == Vampire.class) {
-                gameObjectViews.add(new VampireView(gameObjectSolid, resourceManager));
+        for (Obstacle obstacle : obstacles) {
+            if (obstacle.getClass() == Wall.class) {
+                gameObjectViews.add(new WallView(obstacle, resourceManager));
+            } else if (obstacle.getClass() == Bandit.class) {
+                gameObjectViews.add(new BanditView(obstacle, resourceManager));
+            } else if (obstacle.getClass() == Hero.class) {
+                gameObjectViews.add(new HeroView(obstacle, resourceManager));
+            } else if (obstacle.getClass() == Tree.class) {
+                gameObjectViews.add(new TreeView(obstacle, resourceManager));
+            }  else if (obstacle.getClass() == Vampire.class) {
+                gameObjectViews.add(new VampireView(obstacle, resourceManager));
             }
         }
 
@@ -89,8 +89,8 @@ public class GamePlayView {
         for (Iterator<GameObjectView> it = gameObjectViews.iterator(); it.hasNext();) {
             GameObjectView gameObjectView = it.next();
             boolean found = false;
-            for (GameObjectSolid gameObjectSolid : gameObjectSolids) {
-                if (gameObjectView.gameObjectSolid == gameObjectSolid) {
+            for (Obstacle obstacle : obstacles) {
+                if (gameObjectView.obstacle == obstacle) {
                     found = true;
                     break;
                 }
@@ -101,31 +101,31 @@ public class GamePlayView {
         }
 
         // looking for new gameObjects
-        for (GameObjectSolid gameObjectSolid : gameObjectSolids) {
+        for (Obstacle obstacle : obstacles) {
             boolean found = false;
             for (GameObjectView gameObjectView : gameObjectViews) {
-                if (gameObjectSolid == gameObjectView.gameObjectSolid) {
+                if (obstacle == gameObjectView.obstacle) {
                     found = true;
                     break;
                 }
             }
             if (!found) {
-                if (gameObjectSolid.getClass() == Wall.class) {
-                    gameObjectViews.add(new WallView(gameObjectSolid, resourceManager));
-                } else if (gameObjectSolid.getClass() == Bandit.class) {
-                    gameObjectViews.add(new BanditView(gameObjectSolid, resourceManager));
-                } else if (gameObjectSolid.getClass() == Hero.class) {
-                    gameObjectViews.add(new HeroView(gameObjectSolid, resourceManager));
-                } else if (gameObjectSolid.getClass() == Arrow.class) {
-                    gameObjectViews.add(new ArrowView(gameObjectSolid, resourceManager));
-                } else if (gameObjectSolid.getClass() == Fireball.class) {
-                    gameObjectViews.add(new FireballView(gameObjectSolid, resourceManager));
-                } else if (gameObjectSolid.getClass() == BanditArcher.class) {
-                    gameObjectViews.add(new BanditArcherView(gameObjectSolid, resourceManager));
-                } else if (gameObjectSolid.getClass() == Skeleton.class) {
-                    gameObjectViews.add(new SkeletonView(gameObjectSolid, resourceManager));
-                } else if (gameObjectSolid.getClass() == SkeletonMage.class) {
-                    gameObjectViews.add(new SkeletonMageView(gameObjectSolid, resourceManager));
+                if (obstacle.getClass() == Wall.class) {
+                    gameObjectViews.add(new WallView(obstacle, resourceManager));
+                } else if (obstacle.getClass() == Bandit.class) {
+                    gameObjectViews.add(new BanditView(obstacle, resourceManager));
+                } else if (obstacle.getClass() == Hero.class) {
+                    gameObjectViews.add(new HeroView(obstacle, resourceManager));
+                } else if (obstacle.getClass() == Arrow.class) {
+                    gameObjectViews.add(new ArrowView(obstacle, resourceManager));
+                } else if (obstacle.getClass() == Fireball.class) {
+                    gameObjectViews.add(new FireballView(obstacle, resourceManager));
+                } else if (obstacle.getClass() == BanditArcher.class) {
+                    gameObjectViews.add(new BanditArcherView(obstacle, resourceManager));
+                } else if (obstacle.getClass() == Skeleton.class) {
+                    gameObjectViews.add(new SkeletonView(obstacle, resourceManager));
+                } else if (obstacle.getClass() == SkeletonMage.class) {
+                    gameObjectViews.add(new SkeletonMageView(obstacle, resourceManager));
                 }
             }
         }

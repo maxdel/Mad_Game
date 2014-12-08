@@ -18,7 +18,7 @@ public class BanditArcher extends Unit {
 
     public BanditArcher(double x, double y, double maximumSpeed) {
         super(x, y, maximumSpeed);
-        setMask(new Circle(0, 0, ResourceManager.getInstance().getMaskRadius("banditArcher")));
+        setMask(ResourceManager.getInstance().getMask("banditArcher"));
         timer = (int) (Math.random() * 1000);
 
         // ??? OLD COMMENT must be array of req items (siml and strong bows) or must be type + name of item

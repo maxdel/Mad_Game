@@ -2,7 +2,7 @@ package core.model.gameplay.skills;
 
 import core.model.gameplay.World;
 import core.model.gameplay.units.Unit;
-import core.model.gameplay.units.GameObjectSolid;
+import core.model.gameplay.units.Obstacle;
 
 import org.newdawn.slick.geom.Vector2f;
 
@@ -26,9 +26,9 @@ public class AreaSkill extends Skill {
 
     @Override
     public void apply() {
-        for (GameObjectSolid gameObjectSolid : World.getInstance().getGameObjectSolids()) {
-            if (gameObjectSolid instanceof Unit && gameObjectSolid != owner) {
-                Unit target = (Unit) gameObjectSolid;
+        for (Obstacle obstacle : World.getInstance().getObstacles()) {
+            if (obstacle instanceof Unit && obstacle != owner) {
+                Unit target = (Unit) obstacle;
 
                 Vector2f v1 = new Vector2f((float)lengthDirX(owner.getDirection(), angle),
                         (float)lengthDirY(owner.getDirection(), angle));

@@ -10,9 +10,11 @@ import java.util.List;
 import core.GameState;
 import core.model.gameplay.items.Item;
 import core.model.gameplay.skills.Skill;
+import core.model.gameplay.units.ObstacleType;
 import core.model.gameplay.units.Unit;
 import org.newdawn.slick.*;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.util.xml.SlickXMLException;
 import org.newdawn.slick.util.xml.XMLElement;
 import org.newdawn.slick.util.xml.XMLElementList;
@@ -150,11 +152,12 @@ public class ResourceManager {
             XMLElement maskElement = maskList.get(i);
 
             String name = maskElement.getAttribute("name");
+            String shape = maskElement.getAttribute("shape");
             int width = maskElement.getIntAttribute("width");
             int height = maskElement.getIntAttribute("height");
             int radius = maskElement.getIntAttribute("radius");
 
-            maskInfos.put(name, new MaskInfo(width, height, radius));
+            maskInfos.put(name, new MaskInfo(shape, width, height, radius));
         }
     }
 
@@ -260,6 +263,10 @@ public class ResourceManager {
 
     public int getMaskRadius(String name) {
         return maskInfos.get(name).getRadius();
+    }
+
+    public Shape getMask(String name) {
+        return maskInfos.get(name).getMask();
     }
 
     public TrueTypeFont getFont(String name) {

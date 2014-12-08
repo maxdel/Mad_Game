@@ -3,18 +3,20 @@ package core.model.gameplay.units;
 import org.newdawn.slick.geom.Shape;
 
 /**
- * Contains common fields to define a game object
+ * Contains common fields to define a solid game object
  * */
-public abstract class GameObjectSolid extends GameObject {
+public abstract class Obstacle extends GameObject {
 
     private Shape mask;
 
-    public GameObjectSolid(double x, double y, double direction, Shape mask) {
+    private ObstacleType type;
+
+    public Obstacle(double x, double y, double direction, Shape mask) {
         super(x, y, direction);
         this.mask = mask;
     }
 
-    public GameObjectSolid(double x, double y, double direction) {
+    public Obstacle(double x, double y, double direction) {
         super(x, y, direction);
     }
 
