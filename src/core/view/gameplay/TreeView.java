@@ -4,7 +4,7 @@ import core.model.gameplay.units.Hero;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-import core.resource_manager.ResourceManager;
+import core.resourcemanager.ResourceManager;
 import core.model.gameplay.units.GameObjectSolid;
 import org.newdawn.slick.geom.Vector2f;
 

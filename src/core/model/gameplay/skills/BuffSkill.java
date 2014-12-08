@@ -11,10 +11,10 @@ public class BuffSkill extends Skill {
     private int castTimeDelta;
     private int cooldownTimeDelta;
 
-    public BuffSkill(GameObjectMoving owner, String name, String description, int castTime, int cooldownTime, String requiredItem,
-                     double requiredHP, double requiredMP, int workTime, String skillToBuff, int castTimeDelta,
-                     int cooldownTimeDelta) {
-        super(owner, name, description, castTime, cooldownTime, requiredItem, requiredHP, requiredMP);
+    public BuffSkill(GameObjectMoving owner, String name, String description, int castTime, int postCastTime,
+                     int cooldownTime, String requiredItem, double requiredHP, double requiredMP,
+                     int workTime, String skillToBuff, int castTimeDelta, int cooldownTimeDelta) {
+        super(owner, name, description, castTime, postCastTime, cooldownTime, requiredItem, requiredHP, requiredMP);
         this.workTime = workTime;
         this.currentWorkTime = 0;
         this.skillToBuff = skillToBuff;
@@ -41,7 +41,7 @@ public class BuffSkill extends Skill {
 
 
     @Override
-    public void cast() {
+    public void apply() {
         for (Skill skill : owner.getSkillList()) {
             if (skill.getName().equals(skillToBuff)) {
                 skill.setCastTime(skill.getCastTime() - castTimeDelta);

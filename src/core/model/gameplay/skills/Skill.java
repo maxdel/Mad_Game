@@ -15,12 +15,15 @@ public abstract class Skill {
     protected int cooldownTime;
     protected int currentCooldownTime;
 
+    protected int preApplyTime;
+    protected boolean alreadyApplied;
+
     protected Item requiredItem;
 
     protected double requiredHP;
     protected double requiredMP;
 
-    public Skill(GameObjectMoving owner, String name, String description, int castTime, int cooldownTime, String requiredItem,
+    public Skill(GameObjectMoving owner, String name, String description, int castTime, int postApplyTime, int cooldownTime, String requiredItem,
                  double requiredHP, double requiredMP) {
         this.owner = owner;
         this.name = name;
@@ -32,6 +35,27 @@ public abstract class Skill {
         this.requiredItem = ItemDB.getInstance().getItem(requiredItem);
         this.requiredHP = requiredHP;
         this.requiredMP = requiredMP;
+        this.preApplyTime = castTime - postApplyTime;
+    }
+
+    public boolean isTimeToApply() {
+        return currentCastTime <= preApplyTime && alreadyApplied == false;
+    }
+
+
+    public boolean isCastingСontinues() {
+        return currentCastTime > 0;
+    }
+
+    public void stopCasting() {
+        currentCastTime = 0;
+
+    }
+    public boolean isCastingFinished() {
+        return currentCastTime <= 0;
+    }
+    public void tickCastingTime(int delta) {
+        currentCastTime -= delta;
     }
 
     public void runCast() {
@@ -91,7 +115,7 @@ public abstract class Skill {
         return false;
     }
 
-    public abstract void cast();
+    public abstract void apply();
 
     public int getCurrentCastTime() {
         return currentCastTime;
@@ -125,4 +149,12 @@ public abstract class Skill {
         this.owner = owner;
     }
 
+    public int getPreApplyTime() {
+        return preApplyTime;
+    }
+
+
+    public void setAlreadyApplied(boolean alreadyApplied) {
+        this.alreadyApplied = alreadyApplied;
+    }
 }

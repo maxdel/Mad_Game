@@ -1,6 +1,6 @@
 package core.view.gameplay;
 
-import core.resource_manager.MadTiledMap;
+import core.resourcemanager.MadTiledMap;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 

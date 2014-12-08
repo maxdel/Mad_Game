@@ -4,7 +4,7 @@ import core.model.gameplay.units.BanditArcher;
 import core.model.gameplay.units.Hero;
 import org.newdawn.slick.*;
 
-import core.resource_manager.ResourceManager;
+import core.resourcemanager.ResourceManager;
 import core.model.gameplay.units.GameObjectSolid;
 
 public class BanditArcherView extends GameObjectView {

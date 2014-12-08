@@ -1,6 +1,6 @@
 package core.view.gameplay;
 
-import core.resource_manager.ResourceManager;
+import core.resourcemanager.ResourceManager;
 import core.model.gameplay.items.Loot;
 import core.model.gameplay.World;
 import org.newdawn.slick.Graphics;

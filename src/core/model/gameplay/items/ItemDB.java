@@ -1,6 +1,6 @@
 package core.model.gameplay.items;
 
-import core.resource_manager.ResourceManager;
+import core.resourcemanager.ResourceManager;
 
 import java.util.List;
 

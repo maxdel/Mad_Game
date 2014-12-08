@@ -1,6 +1,6 @@
 package core.model.gameplay.skills.bullets;
 
-import core.resource_manager.ResourceManager;
+import core.resourcemanager.ResourceManager;
 import core.model.gameplay.units.*;
 import org.newdawn.slick.geom.Rectangle;
 

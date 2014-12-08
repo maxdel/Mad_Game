@@ -1,4 +1,4 @@
-package core.resource_manager;
+package core.resourcemanager;
 
 public class MaskInfo {
 

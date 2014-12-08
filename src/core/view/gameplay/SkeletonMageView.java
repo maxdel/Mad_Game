@@ -5,7 +5,7 @@ import core.model.gameplay.units.Hero;
 import core.model.gameplay.units.SkeletonMage;
 import org.newdawn.slick.*;
 
-import core.resource_manager.ResourceManager;
+import core.resourcemanager.ResourceManager;
 
 public class SkeletonMageView extends GameObjectView {
 

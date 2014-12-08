@@ -56,25 +56,25 @@
         </items>
         <skills>
             <skill name="Bow shot" description="Shot!!!" path="/res/skills/bow shot.png" type="BulletSkill"
-                    castTime="200" cooldownTime="1000" requiredItem="Bow" requiredHP="0" requiredMP="0"
+                    castTime="2000" postApplyTime="500" cooldownTime="1000" requiredItem="Bow" requiredHP="0" requiredMP="0"
                     pAttack="15" mAttack="0" bulletSpeed="0.5"/>
             <skill name="Sword attack" description="Sword!!!" path="/res/skills/sword attack.png" type="AreaSkill"
-                   castTime="200" cooldownTime="1000" requiredItem="Sword" requiredHP="0" requiredMP="0"
+                   castTime="200" postApplyTime="100" cooldownTime="1000" requiredItem="Sword" requiredHP="0" requiredMP="0"
                    pAttack="15" mAttack="0" radius="40" angle="90"/>
             <skill name="Fireball" description="Fireball!!!" path="/res/skills/fireball.png" type="BulletSkill"
-                   castTime="200" cooldownTime="1000" requiredItem="Staff" requiredHP="0" requiredMP="5"
+                   castTime="200" postApplyTime="100" cooldownTime="1000" requiredItem="Staff" requiredHP="0" requiredMP="5"
                    pAttack="0" mAttack="20" bulletSpeed="0.4"/>
             <skill name="Heal" description="Heal!!!" path="/res/skills/heal.png" type="RegenSkill"
-                   castTime="200" cooldownTime="1000" requiredItem="" requiredHP="0" requiredMP="10"
+                   castTime="200" postApplyTime="100" cooldownTime="1000" requiredItem="" requiredHP="0" requiredMP="10"
                    HPdelta="20"/>
             <skill name="Wind bow" description="WINDBOW!!!" path="/res/skills/wind bow.png" type="BuffSkill"
-                   castTime="200" cooldownTime="10000" requiredItem="" requiredHP="0" requiredMP="10"
+                   castTime="200" postApplyTime="100" cooldownTime="10000" requiredItem="" requiredHP="0" requiredMP="10"
                    workTime="5000" skillToBuff="Bow shot" castTimeDelta="150" cooldownTimeDelta="950"/>
             <skill name="Strong sword attack" description="SSSSword!!!" path="/res/skills/strong sword attack.png" type="AreaSkill"
-                   castTime="400" cooldownTime="2000" requiredItem="Sword" requiredHP="0" requiredMP="4"
+                   castTime="400" postApplyTime="100" cooldownTime="2000" requiredItem="Sword" requiredHP="0" requiredMP="4"
                    pAttack="50" mAttack="5" radius="100" angle="60"/>
             <skill name="Staff attack" description="Staff!!!" path="/res/skills/staff attack.png" type="AreaSkill"
-                   castTime="200" cooldownTime="1000" requiredItem="Staff" requiredHP="0" requiredMP="0"
+                   castTime="200" postApplyTime="100" cooldownTime="1000" requiredItem="Staff" requiredHP="0" requiredMP="0"
                    pAttack="5" mAttack="1" radius="50" angle="60"/>
         </skills>
         <fonts>

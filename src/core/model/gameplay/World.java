@@ -3,10 +3,9 @@ package core.model.gameplay;
 import core.model.gameplay.items.ItemDB;
 import core.model.gameplay.items.Loot;
 import core.model.gameplay.units.*;
-import core.resource_manager.MadTiledMap;
+import core.resourcemanager.MadTiledMap;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
-import org.newdawn.slick.tiled.TiledMap;
 
 import java.util.ArrayList;
 import java.util.List;

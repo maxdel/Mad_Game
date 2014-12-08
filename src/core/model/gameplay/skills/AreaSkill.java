@@ -15,9 +15,10 @@ public class AreaSkill extends Skill {
     private double radius;
     private double angle;
 
-    public AreaSkill(GameObjectMoving owner, String name, String description, int castTime, int cooldownTime, String requiredItem,
-                     double requiredHP, double requiredMP, double pAttack, double mAttack, double radius, double angle) {
-        super(owner, name, description, castTime, cooldownTime, requiredItem, requiredHP, requiredMP);
+    public AreaSkill(GameObjectMoving owner, String name, String description, int castTime, int postCastTime,
+                     int cooldownTime, String requiredItem, double requiredHP, double requiredMP,
+                     double pAttack, double mAttack, double radius, double angle) {
+        super(owner, name, description, castTime, postCastTime, cooldownTime, requiredItem, requiredHP, requiredMP);
         this.pAttack = pAttack;
         this.mAttack = mAttack;
         this.radius = radius;
@@ -25,7 +26,7 @@ public class AreaSkill extends Skill {
     }
 
     @Override
-    public void cast() {
+    public void apply() {
         for (GameObjectSolid gameObjectSolid : World.getInstance().getGameObjectSolids()) {
             if (gameObjectSolid instanceof GameObjectMoving && gameObjectSolid != owner) {
                 GameObjectMoving target = (GameObjectMoving) gameObjectSolid;
@@ -38,22 +39,30 @@ public class AreaSkill extends Skill {
                 if (v2.length() - target.getMask().getBoundingCircleRadius() <= radius &&
                         Math.abs(angleBetweenObjects) < angle / 2) {
                     if (pAttack > 0) {
-                        double pDamage = pAttack + owner.getAttribute().getPAttack() - target.getAttribute().getPArmor();
-                        if (pDamage <= 1) {
-                            pDamage = 1;
-                        }
-                        target.getAttribute().getHP().damage(pDamage);
+                        applyPhysDamage(target);
                     }
                     if (mAttack > 0) {
-                        double mDamage = mAttack + owner.getAttribute().getMAttack() - target.getAttribute().getMArmor();
-                        if (mDamage <= 1) {
-                            mDamage = 1;
-                        }
-                        target.getAttribute().getHP().damage(mDamage);
+                        applyMagicDamage(target);
                     }
                 }
             }
         }
+    }
+
+    private void applyMagicDamage(GameObjectMoving target) {
+        double mDamage = mAttack + owner.getAttribute().getMAttack() - target.getAttribute().getMArmor();
+        if (mDamage <= 1) {
+            mDamage = 1;
+        }
+        target.getAttribute().getHP().damage(mDamage);
+    }
+
+    private void applyPhysDamage(GameObjectMoving target) {
+        double pDamage = pAttack + owner.getAttribute().getPAttack() - target.getAttribute().getPArmor();
+        if (pDamage <= 1) {
+            pDamage = 1;
+        }
+        target.getAttribute().getHP().damage(pDamage);
     }
 
     protected double lengthDirX(double direction, double length) {

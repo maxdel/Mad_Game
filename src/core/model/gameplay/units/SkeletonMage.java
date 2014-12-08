@@ -1,7 +1,6 @@
 package core.model.gameplay.units;
 
-import core.resource_manager.ResourceManager;
-import core.model.gameplay.skills.BulletSkill;
+import core.resourcemanager.ResourceManager;
 import core.model.gameplay.CollisionManager;
 import core.model.gameplay.items.Loot;
 import core.model.gameplay.World;

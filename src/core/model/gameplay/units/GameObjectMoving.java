@@ -17,7 +17,7 @@ public class GameObjectMoving extends GameObjectSolid {
     private Attribute attribute;
 
     protected List<Skill> skillList;
-    protected Skill currentSkill;
+    protected Skill castingSkill;
 
     protected int useItemCounter;
     protected final int USE_ITEM_TIME = 400;
@@ -30,6 +30,16 @@ public class GameObjectMoving extends GameObjectSolid {
         inventory = new Inventory(this);
         attribute = new Attribute(100, 50, maximumSpeed);
         skillList = new ArrayList<Skill>();
+    }
+
+
+    @Override
+    public void update(int delta) {
+        updateUsingItem(delta);
+        updateCastingSkill(delta);
+        updateSkills(delta);
+        motionInCollisionProcessing(delta);
+        updateDeath();
     }
 
     public void startUseItem() {//todo: ref if clause
@@ -51,39 +61,29 @@ public class GameObjectMoving extends GameObjectSolid {
 
     public void startCastSkill(int skillIndex) {
         if (skillList.get(skillIndex) != null && skillList.get(skillIndex).startCast()) {
-            currentSkill = skillList.get(skillIndex);
+            castingSkill = skillList.get(skillIndex);
             setCurrentState(GameObjectState.CAST);
             getAttribute().setCurrentSpeed(0);
         }
     }
 
-    protected void castSkill() {
-        currentSkill.cast();
-        setCurrentState(GameObjectState.STAND);
-        currentSkill = null;
+    protected void applyCurrentSkill() {
+        castingSkill.apply();
+        castingSkill.setAlreadyApplied(true);
     }
 
-    @Override
-    public void update(int delta) { // add comments
-        if (useItemCounter > 0) {
-            useItemCounter -= delta;
-            if (useItemCounter <= 0) {
-                useItemCounter = 0;
-                useItem();
-            }
+    private void updateDeath() {
+        if (attribute.hpAreEnded()) {
+            die();
         }
-         if (currentSkill != null && currentSkill.getCurrentCastTime() > 0) {
-            currentSkill.setCurrentCastTime(currentSkill.getCurrentCastTime() - delta);
-            if (currentSkill.getCurrentCastTime() <= 0) {
-                currentSkill.setCurrentCastTime(0);
-                castSkill();
-            }
-        }
+    }
 
-        for (Skill skill : skillList) {
-            skill.update(delta);
-        }
+    private void die() {
+        World.getInstance().getToDeleteList().add(this);
+        onDelete();
+    }
 
+    private void motionInCollisionProcessing(int delta) {
         double length, direction, lengthDirX, lengthDirY;
         length = attribute.getCurrentSpeed() * delta;
         direction = getDirection() + getRelativeDirection();
@@ -108,10 +108,43 @@ public class GameObjectMoving extends GameObjectSolid {
                 }
             }
         }
+    }
 
-        if (attribute.getHP().getCurrent() == 0) {
-            World.getInstance().getToDeleteList().add(this);
-            onDelete();
+    private void updateUsingItem(int delta) {
+        if (useItemCounter > 0) {
+            useItemCounter -= delta;
+            if (useItemCounter <= 0) {
+                useItemCounter = 0;
+                useItem();
+            }
+        }
+    }
+
+    private void updateCastingSkill(int delta) {
+        if (castingSkill != null && castingSkill.isCastingСontinues()) {
+            castingSkill.tickCastingTime(delta);
+
+            if (castingSkill.isTimeToApply()) {
+                // post apply state code hear
+                applyCurrentSkill();
+            }
+
+            if (castingSkill.isCastingFinished()) {
+                stopCasting();
+            }
+        }
+    }
+
+    private void stopCasting() {
+        setCurrentState(GameObjectState.STAND);
+        castingSkill.stopCasting();
+        castingSkill.setAlreadyApplied(false);
+        castingSkill = null;
+    }
+
+    private void updateSkills(int delta) {
+        for (Skill skill : skillList) {
+            skill.update(delta);
         }
     }
 
@@ -152,8 +185,8 @@ public class GameObjectMoving extends GameObjectSolid {
         return skillList;
     }
 
-    public Skill getCurrentSkill() {
-        return currentSkill;
+    public Skill getCastingSkill() {
+        return castingSkill;
     }
 
     protected void onDelete() {

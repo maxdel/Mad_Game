@@ -4,7 +4,7 @@ import core.model.gameplay.units.Hero;
 import core.model.gameplay.units.Vampire;
 import org.newdawn.slick.*;
 
-import core.resource_manager.ResourceManager;
+import core.resourcemanager.ResourceManager;
 import core.model.gameplay.units.GameObjectSolid;
 
 public class VampireView extends GameObjectView {

@@ -1,6 +1,6 @@
 package core.model.gameplay.units;
 
-import core.resource_manager.ResourceManager;
+import core.resourcemanager.ResourceManager;
 import org.newdawn.slick.geom.Rectangle;
 
 /**
