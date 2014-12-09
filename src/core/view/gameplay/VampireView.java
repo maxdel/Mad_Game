@@ -1,7 +1,7 @@
 package core.view.gameplay;
 
+import core.model.gameplay.gameobjects.Bot;
 import core.model.gameplay.gameobjects.Hero;
-import core.model.gameplay.gameobjects.Vampire;
 import org.newdawn.slick.*;
 
 import core.resourcemanager.ResourceManager;
@@ -16,7 +16,7 @@ public class VampireView extends GameObjectView {
 
     @Override
     public void render(Graphics g, double viewX, double viewY, float viewDegreeAngle, double viewCenterX, double viewCenterY, Hero hero) {
-        Vampire vampire = (Vampire) gameObjectSolid;
+        Bot vampire = (Bot) gameObjectSolid;
 
         rotate(g, viewX, viewY, viewDegreeAngle, viewCenterX, viewCenterY, true);
         draw(viewX, viewY);
@@ -41,7 +41,7 @@ public class VampireView extends GameObjectView {
         drawHealthbar(g, (int) (vampire.getX() - viewX), (int) (vampire.getY() - viewY) - 38, 60, 8,
                 vampire.getAttribute().getMP().getCurrent(),
                 vampire.getAttribute().getMP().getMaximum(), Color.blue);
-        String str = "curState: " + vampire.getVampireAI().getCurrentState();
+        String str = "curState: " + vampire.getBotAI().getCurrentState();
         g.drawString(str,
                 (float) (vampire.getX() - viewX),
                 (float) (vampire.getY() - viewY - 80));

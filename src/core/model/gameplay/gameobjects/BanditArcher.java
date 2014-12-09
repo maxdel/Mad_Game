@@ -16,17 +16,17 @@ public class BanditArcher extends Unit {
     private boolean usePredictedDirection;
 
     public BanditArcher(double x, double y, double maximumSpeed) {
-        super(x, y, maximumSpeed);
+        super(x, y, maximumSpeed, GameObjectSolidType.BANDITARCHER);
         setMask(ResourceManager.getInstance().getMask(GameObjectSolidType.BANDITARCHER));
         timer = (int) (Math.random() * 1000);
 
         // ??? OLD COMMENT must be array of req items (siml and strong bows) or must be type + name of item
-        skillList.add(ResourceManager.getInstance().getSkill(this, "Bow shot"));
+        /*skillList.add(ResourceManager.getInstance().getSkill(this, "Bow shot"));
 
         inventory.useItem(inventory.addItem("Bow"));
         inventory.addItem("Arrow", 1000);
         inventory.useItem(inventory.addItem("Light armor"));
-
+*/
         getAttribute().resetHpMp(25, 10);
 
         isTargetHero = false;
@@ -34,32 +34,32 @@ public class BanditArcher extends Unit {
     }
 
     public void followTarget(double x, double y) {
-        if (getCurrentState() != GameObjectState.CAST) {
+        /*if (getCurrentState() != GameObjectState.CAST) {
             double direction = Math.atan2(y - getY(), x - getX());
             setDirection(direction);
             run(0);
-        }
+        }*/
     }
 
     public void run(double direction) {
-        if (getCurrentState() == GameObjectState.STAND || getCurrentState() == GameObjectState.WALK ||
+        /*if (getCurrentState() == GameObjectState.STAND || getCurrentState() == GameObjectState.WALK ||
                 getCurrentState() == GameObjectState.RUN) {
             setCurrentState(GameObjectState.RUN);
             getAttribute().setCurrentSpeed(getAttribute().getMaximumSpeed());
             setRelativeDirection(direction);
-        }
+        }*/
     }
 
     public void stand() {
-        if (getCurrentState() == GameObjectState.RUN || getCurrentState() == GameObjectState.WALK) {
+        /*if (getCurrentState() == GameObjectState.RUN || getCurrentState() == GameObjectState.WALK) {
             setCurrentState(GameObjectState.STAND);
             getAttribute().setCurrentSpeed(0);
-        }
+        }*/
     }
 
     @Override
     public void update(int delta) {
-        Vector2f v = new Vector2f((float) World.getInstance().getHero().getX() - (float)getX(),
+        /*Vector2f v = new Vector2f((float) World.getInstance().getHero().getX() - (float)getX(),
                 (float)World.getInstance().getHero().getY() - (float)getY());
         double distanceToHero = v.length();
         double followHeroDistance = 400;
@@ -153,7 +153,7 @@ public class BanditArcher extends Unit {
             stand();
         }
 
-        super.update(delta);
+        super.update(delta);*/
     }
 
     private double getPredictedDirection(double angleToTarget, double targetSpeed, double targetDirection,
@@ -191,7 +191,7 @@ public class BanditArcher extends Unit {
                     (int)(6 + Math.random() * 10)));
         }
         // TODO for fun
-        World.getInstance().getHero().kills++;
+        //World.getInstance().getHero().kills++;
     }
 
     public void setTargetHero(boolean isTargetHero) {

@@ -1,89 +1,249 @@
 package core.model.gameplay.gameobjects;
 
+import java.util.List;
+
+import org.newdawn.slick.geom.Vector2f;
+
+import core.model.gameplay.items.LootRecord;
+import core.resourcemanager.ResourceManager;
+import core.model.Timer;
 import core.model.gameplay.*;
 import core.model.gameplay.items.Inventory;
 import core.model.gameplay.items.ItemRecord;
+import core.model.gameplay.items.Loot;
 import core.model.gameplay.skills.Skill;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class Unit extends GameObjectSolid {
+public abstract class Unit extends GameObjectSolid {
 
     private double relativeDirection;
-    private GameObjectState currentState;
-    protected ItemRecord usingItem;
-    protected Inventory inventory;
     private Attribute attribute;
+    private GameObjectState currentState;
 
-    protected List<Skill> skillList;
-    protected Skill castingSkill;
+    private List<LootRecord> lootRecordList;
+    private Inventory inventory;
 
-    protected int useItemCounter;
-    protected final int USE_ITEM_TIME = 400;
+    private ItemRecord itemToUse;
+    private ItemRecord itemToDrop;
+    private Loot itemToPick;
 
-    public Unit(double x, double y, double maximumSpeed) {
-        /* TERRIBLE  last parameter. Must be type from Unit constructor */
-        super(x, y, 0, GameObjectSolidType.BANDIT); //TODO : TERRIBLE
+    private Timer useItemTimer;
+    private Timer dropItemTimer;
+    private Timer pickItemTimer;
 
-        this.relativeDirection = 0;
+    private final int USE_ITEM_TIME = 300;
+    private final int DROP_ITEM_TIME = 300;
+    private final int PICK_ITEM_TIME = 300;
+    private final int LOOT_RANGE = 50;
+    private final int LOOT_PICK_RADIUS = 30;
+
+    private List<Skill> skillList;
+    private Skill castingSkill;
+    private Timer castSkillTimer;
+    private Timer endSkillTimer;
+
+    public Unit(double x, double y, double direction, GameObjectSolidType type) {
+        super(x, y, direction, type); //TODO : TERRIBLE
+
+        this.attribute = ResourceManager.getInstance().getUnitInfo(type).getAttribute();
         this.currentState = GameObjectState.STAND;
-        inventory = new Inventory(this);
-        attribute = new Attribute(100, 50, maximumSpeed);
-        skillList = new ArrayList<Skill>();
+
+        this.lootRecordList = ResourceManager.getInstance().getUnitInfo(type).getLootRecordList();
+        this.inventory = ResourceManager.getInstance().getUnitInfo(type).getInventory(this);
+        this.skillList = ResourceManager.getInstance().getUnitInfo(type).getSkilLList(this);
+
+        useItemTimer = new Timer();
+        dropItemTimer = new Timer();
+        pickItemTimer = new Timer();
+
+        castSkillTimer = new Timer();
+        endSkillTimer = new Timer();
     }
 
+    /**
+     * Updates unit according to passed time
+     * @param delta passed time in milliseconds
+     */
     @Override
     public void update(int delta) {
-        updateUsingItem(delta);
-        updateCastingSkill(delta);
-        updateSkills(delta);
-        motionInCollisionProcessing(delta);
-        updateDeath();
-    }
-
-    public void startUseItem() {//todo: ref if clause
-        if (inventory.getSelectedRecord() != null && getCurrentState() != GameObjectState.PICK_ITEM &&
-                getCurrentState() != GameObjectState.DROP_ITEM &&
-                getCurrentState() != GameObjectState.USE_ITEM) {
-            setCurrentState(GameObjectState.USE_ITEM);
-            getAttribute().setCurrentSpeed(0);
-            usingItem = inventory.getSelectedRecord();
-            useItemCounter = USE_ITEM_TIME;
+        if (useItemTimer.update(delta)) {
+            useItem();
         }
-    }
-
-    private void useItem(){
-        inventory.useItem(usingItem);
-        setCurrentState(GameObjectState.STAND);
-        usingItem = null;
-    }
-
-    public void startCastSkill(int skillIndex) {
-        if (skillList.get(skillIndex) != null && skillList.get(skillIndex).startCast()) {
-            castingSkill = skillList.get(skillIndex);
-            setCurrentState(GameObjectState.CAST);
-            getAttribute().setCurrentSpeed(0);
+        if (dropItemTimer.update(delta)) {
+            dropItem();
         }
-    }
+        if (pickItemTimer.update(delta)) {
+            pickItem();
+        }
+        updateItemToPick();
 
-    protected void applyCurrentSkill() {
-        castingSkill.apply();
-        castingSkill.setAlreadyApplied(true);
-    }
+        if (castSkillTimer.update(delta)) {
+            castingSkill.apply();
+        }
+        if (endSkillTimer.update(delta)) {
+            endCastSkill();
+        }
 
-    private void updateDeath() {
+        updateSkillsCD(delta);
+        updatePosition(delta);
+
         if (attribute.hpAreEnded()) {
-            die();
+            onDelete();
         }
     }
 
-    private void die() {
-        World.getInstance().getToDeleteList().add(this);
-        onDelete();
+    /**
+     * Stops unit
+     */
+    public void stand() {
+        if (currentState == GameObjectState.MOVE) {
+            setCurrentState(GameObjectState.STAND);
+            attribute.setCurrentSpeed(0);
+        }
     }
 
-    private void motionInCollisionProcessing(int delta) {
+    /**
+     * Moves unit at its maximum speed with 0 relativeDirection
+     */
+    public void move() {
+        move(0);
+    }
+
+    /**
+     * Moves unit at its maximum speed using @param relativeDirection
+     * @param relativeDirection angle in radians
+     */
+    public void move(double relativeDirection) {
+        if (currentState == GameObjectState.STAND || currentState == GameObjectState.MOVE) {
+            setCurrentState(GameObjectState.MOVE);
+            this.relativeDirection = relativeDirection;
+            attribute.setCurrentSpeed(attribute.getMaximumSpeed());
+        }
+    }
+
+    /**
+     * Changing direction of unit on the @param directionDelta value
+     * @param directionDelta angle in radians
+     */
+    public void rotate(double directionDelta) {
+        if (currentState == GameObjectState.STAND || currentState == GameObjectState.MOVE) {
+            changeDirection(directionDelta);
+        }
+    }
+
+    /**
+     * Tries to start use item
+     */
+    public void startUseItem() {
+        if (currentState == GameObjectState.STAND && inventory.getSelectedRecord() != null) {
+            currentState = GameObjectState.ITEM;
+            itemToUse = inventory.getSelectedRecord();
+            useItemTimer.activate(USE_ITEM_TIME);
+        }
+    }
+
+    /**
+     * Uses item
+     */
+    private void useItem() {
+        inventory.useItem(itemToUse);
+        itemToUse = null;
+        currentState = GameObjectState.STAND;
+    }
+
+    /**
+     * Tries to start drop action
+     */
+    public void startDropItem() {
+        if (currentState == GameObjectState.STAND && inventory.getSelectedRecord() != null) {
+            currentState = GameObjectState.ITEM;
+            itemToDrop = inventory.getSelectedRecord();
+            dropItemTimer.activate(DROP_ITEM_TIME);
+        }
+    }
+
+    /**
+     * Drops itemToDrop
+     */
+    private void dropItem() {
+        Loot loot = new Loot(getX() + lengthDirX(getDirection(), LOOT_RANGE),
+                getY() + lengthDirY(getDirection(), LOOT_RANGE),
+                itemToDrop.getItem());
+        World.getInstance().getLootList().add(loot);
+        inventory.deleteItem(inventory.getSelectedRecord().getName());
+        currentState = GameObjectState.STAND;
+    }
+
+    /**
+     * Updating current Loot itemToPick object
+     */
+    private void updateItemToPick() {
+        if (currentState != GameObjectState.ITEM) {
+            double lookPointX = getX() + lengthDirX(getDirection(), LOOT_RANGE);
+            double lookPointY = getY() + lengthDirY(getDirection(), LOOT_RANGE);
+            double lookRadius = LOOT_PICK_RADIUS;
+            itemToPick = null;
+            for (Loot loot : World.getInstance().getLootList()) {
+                Vector2f distanceToLoot =
+                        new Vector2f((float) (loot.getX() - lookPointX), (float) (loot.getY() - lookPointY));
+                if (distanceToLoot.length() < lookRadius) {
+                    lookRadius = distanceToLoot.length();
+                    itemToPick = loot;
+                }
+            }
+        }
+    }
+
+    /**
+     * Tries to start pick item
+     */
+    public void startPickItem() {
+        if (currentState == GameObjectState.STAND && itemToPick != null) {
+            currentState = GameObjectState.ITEM;
+            pickItemTimer.activate(PICK_ITEM_TIME);
+        }
+    }
+
+    /**
+     * Tries to pick item and add it to inventory
+     * It's possible that someone else picked it during unit 'casting' pick action
+     */
+    private void pickItem() {
+        if (itemToPick != null) {
+            inventory.addItem(itemToPick.getItem().getName(), itemToPick.getNumber());
+            World.getInstance().getLootList().remove(itemToPick);
+            itemToPick = null;
+        }
+        currentState = GameObjectState.STAND;
+    }
+
+    /**
+     * TODO: Change parameter from int to ENUM
+     * Tries to start casting skill @param skillIndex
+     * @param skillIndex bad param :(
+     */
+    public void startCastSkill(int skillIndex) {
+        if ((currentState == GameObjectState.STAND || currentState == GameObjectState.MOVE) &&
+                skillList.get(skillIndex) != null && skillList.get(skillIndex).startCast()) {
+            stand();
+            currentState = GameObjectState.SKILL;
+            castingSkill = skillList.get(skillIndex);
+            castSkillTimer.activate(castingSkill.getPreApplyTime());
+        }
+    }
+
+    /**
+     * Finishes casting skill and bring unit to STAND state
+     */
+    private void endCastSkill() {
+        currentState = GameObjectState.STAND;
+        castingSkill = null;
+    }
+
+    /**
+     * Updates coordinates according to current speed, directions and free place around unit
+     * @param delta milliseconds from last step
+     */
+    private void updatePosition(int delta) {
         double length, direction, lengthDirX, lengthDirY;
         length = attribute.getCurrentSpeed() * delta;
         direction = getDirection() + getRelativeDirection();
@@ -110,43 +270,30 @@ public class Unit extends GameObjectSolid {
         }
     }
 
-    private void updateUsingItem(int delta) {
-        if (useItemCounter > 0) {
-            useItemCounter -= delta;
-            if (useItemCounter <= 0) {
-                useItemCounter = 0;
-                useItem();
-            }
-        }
-    }
-
-    private void updateCastingSkill(int delta) {
-        if (castingSkill != null && castingSkill.isCastingСontinues()) {
-            castingSkill.tickCastingTime(delta);
-
-            if (castingSkill.isTimeToApply()) {
-                // post apply state code hear
-                applyCurrentSkill();
-            }
-
-            if (castingSkill.isCastingFinished()) {
-                stopCasting();
-            }
-        }
-    }
-
-    private void stopCasting() {
-        setCurrentState(GameObjectState.STAND);
-        castingSkill.stopCasting();
-        castingSkill.setAlreadyApplied(false);
-        castingSkill = null;
-    }
-
-    private void updateSkills(int delta) {
+    /**
+     * Updates skills of this unit in skillList
+     * @param delta milliseconds from last step
+     */
+    private void updateSkillsCD(int delta) {
         for (Skill skill : skillList) {
-            skill.update(delta);
+            skill.updateCD(delta);
         }
     }
+
+    /**
+     * Actions to do on delete event
+     */
+    protected void onDelete() {
+        World.getInstance().getToDeleteList().add(this);
+        for (LootRecord lootRecord : lootRecordList) {
+            Loot loot = lootRecord.generateLoot(getX() - 10 + Math.random() * 20, getY() - 10 + Math.random() * 20);
+            if (loot != null) {
+                World.getInstance().getLootList().add(loot);
+            }
+        }
+    }
+
+    // Getters and setters
 
     protected double lengthDirX(double direction, double length) {
         return Math.cos(direction) * length;
@@ -189,12 +336,8 @@ public class Unit extends GameObjectSolid {
         return castingSkill;
     }
 
-    protected void onDelete() {
-
-    }
-
-    public ItemRecord getUsingItem() {
-        return usingItem;
+    public Loot getItemToPick() {
+        return itemToPick;
     }
 
 }

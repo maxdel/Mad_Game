@@ -15,13 +15,13 @@ public class Skeleton extends Unit {
     private boolean isTargetHero;
 
     public Skeleton(double x, double y, double maximumSpeed) {
-        super(x, y, maximumSpeed);
+        super(x, y, maximumSpeed, GameObjectSolidType.SKELETON);
         setMask(ResourceManager.getInstance().getMask(GameObjectSolidType.SKELETON));
         timer = (int) (Math.random() * 1000);
 
-        skillList.add(ResourceManager.getInstance().getSkill(this, "Sword attack"));
+        /*skillList.add(ResourceManager.getInstance().getSkill(this, "Sword attack"));
         inventory.useItem(inventory.addItem("Strong sword"));
-        inventory.useItem(inventory.addItem("Heavy armor"));
+        inventory.useItem(inventory.addItem("Heavy armor"));*/
 
         getAttribute().resetHpMp(80, 50);
 
@@ -35,16 +35,16 @@ public class Skeleton extends Unit {
     }
 
     public void run(double direction) {
-        if (getCurrentState() == GameObjectState.STAND || getCurrentState() == GameObjectState.WALK ||
-                getCurrentState() == GameObjectState.RUN) {
-            setCurrentState(GameObjectState.RUN);
+        if (getCurrentState() == GameObjectState.STAND ||
+                getCurrentState() == GameObjectState.MOVE) {
+            setCurrentState(GameObjectState.MOVE);
             getAttribute().setCurrentSpeed(getAttribute().getMaximumSpeed());
             setRelativeDirection(direction);
         }
     }
 
     public void stand() {
-        if (getCurrentState() == GameObjectState.RUN || getCurrentState() == GameObjectState.WALK) {
+        if (getCurrentState() == GameObjectState.MOVE) {
             setCurrentState(GameObjectState.STAND);
             getAttribute().setCurrentSpeed(0);
         }
@@ -136,7 +136,7 @@ public class Skeleton extends Unit {
                     (int)(6 + Math.random() * 10)));
         }
         // TODO for fun
-        World.getInstance().getHero().kills++;
+        //World.getInstance().getHero().kills++;
     }
 
     public void setTargetHero(boolean isTargetHero) {

@@ -1,6 +1,5 @@
 package core.model.gameplay.gameobjects;
 
-
 public abstract class GameObject {
 
     private double x;
@@ -36,4 +35,9 @@ public abstract class GameObject {
     public void setDirection(double direction) {
         this.direction = direction;
     }
+
+    public void changeDirection(double directionDelta) {
+        direction += directionDelta;
+    }
+
 }

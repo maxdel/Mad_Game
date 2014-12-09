@@ -40,7 +40,7 @@ public class HeroView extends GameObjectView {
         Hero hero = getHero();
         if (hero.getCurrentState() != previousState) {
             switch (hero.getCurrentState()) {
-                case WALK:
+                case MOVE:
                     //TODO: bad code
                     if (hero.getInventory().getDressedWeaponType().equals("Sword")) {
                         animation = animationSwordWalk;
@@ -65,18 +65,7 @@ public class HeroView extends GameObjectView {
                     animation.stop();
                     animation.setCurrentFrame(0);
                     break;
-                case RUN:
-                    if (hero.getInventory().getDressedWeaponType().equals("Sword")) {
-                        animation = animationSwordWalk;
-                    } else if (hero.getInventory().getDressedWeaponType().equals("Bow")) {
-                        animation = animationBowWalk;
-                    } else {
-                    animation = animationWalk;
-                }
-                    animation.start();
-                    animation.setSpeed((float) (hero.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("hero")));
-                    break;
-                case PICK_ITEM:
+                case ITEM:
                     if (hero.getInventory().getDressedWeaponType().equals("Sword")) {
                         animation = animationSwordWalk;
                     } else if (hero.getInventory().getDressedWeaponType().equals("Bow")) {
@@ -87,13 +76,7 @@ public class HeroView extends GameObjectView {
                     animation.start();
                     animation.setSpeed((float) (hero.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("hero")));
                     break;
-                case USE_ITEM:
-                    if (hero.getUsingItem().getItem().getName().equals("Apple")) {
-                        Music music = new Music("res/AppleBite.wav");
-                        music.play();
-                    }
-                     break;
-                case CAST:
+                case SKILL:
                     if (hero.getCastingSkill().getName().equals("Sword attack")) {
                         Music music = new Music("res/Swoosh01.wav");
                         music.play();
@@ -182,9 +165,9 @@ public class HeroView extends GameObjectView {
                 (float) (gameObject.getX() - viewX),
                 (float) (gameObject.getY() - viewY));*/
         // TODO for fun
-        g.drawString("Kills to next skill: " + (hero.level * 3 - hero.kills), 10, 30);
+        /*g.drawString("Kills to next skill: " + (hero.level * 3 - hero.kills), 10, 30);
         g.drawString("Current level: " + hero.level , 10, 50);
-        hero.level = hero.kills / 3 + 1;
+        hero.level = hero.kills / 3 + 1;*/
     }
 
     private Hero getHero() {

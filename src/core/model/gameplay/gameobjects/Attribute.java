@@ -7,25 +7,28 @@ public class Attribute {
 
     private double currentSpeed;
     private double maximumSpeed;
+
+    private double pAttack;
+    private double mAttack;
     
     private double pArmor;
     private double mArmor;
 
-    private double pAttack;
-    private double mAttack;
-
-    public Attribute(double maximumHP, double maximumMP, double maximumSpeed) {
-        hp = new AttributePair(maximumHP);
-        mp = new AttributePair(maximumMP);
-        this.maximumSpeed = maximumSpeed;
+    public Attribute(double maximumHP, double maximumMP, double maximumSpeed, double pAttack, double mAttack,
+                     double pArmor, double mArmor) {
+        this.hp = new AttributePair(maximumHP);
+        this.mp = new AttributePair(maximumMP);
         this.currentSpeed = 0;
-        this.pArmor = 0;
-        this.mArmor = 0;
-        this.pAttack = 0;
-        this.mAttack = 0;
+        this.maximumSpeed = maximumSpeed;
+        this.pAttack = pAttack;
+        this.mAttack = mAttack;
+        this.pArmor = pArmor;
+        this.mArmor = mArmor;
     }
 
-
+    public Attribute(double maximumHP, double maximumMP, double maximumSpeed) {
+        this(maximumHP, maximumMP, maximumSpeed, 0, 0, 0, 0);
+    }
 
     // Getters
     public boolean hpAreEnded() {

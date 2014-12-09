@@ -43,14 +43,16 @@ public class GamePlayView {
         for (GameObjectSolid gameObjectSolid : gameObjectSolids) {
             if (gameObjectSolid.getType() == GameObjectSolidType.WALL) {
                 gameObjectViews.add(new WallView(gameObjectSolid, resourceManager));
-            } else if (gameObjectSolid.getClass() == Bandit.class) {
+            } else if (gameObjectSolid.getType() == GameObjectSolidType.BANDIT) {
                 gameObjectViews.add(new BanditView(gameObjectSolid, resourceManager));
-            } else if (gameObjectSolid.getClass() == Hero.class) {
+            } else if (gameObjectSolid.getType() == GameObjectSolidType.HERO) {
                 gameObjectViews.add(new HeroView(gameObjectSolid, resourceManager));
             } else if (gameObjectSolid.getType() == GameObjectSolidType.TREE) {
                 gameObjectViews.add(new TreeView(gameObjectSolid, resourceManager));
-            }  else if (gameObjectSolid.getClass() == Vampire.class) {
+            }  else if (gameObjectSolid.getType() == GameObjectSolidType.VAMPIRE) {
                 gameObjectViews.add(new VampireView(gameObjectSolid, resourceManager));
+            }  else if (gameObjectSolid.getType() == GameObjectSolidType.SKELETON) {
+                gameObjectViews.add(new SkeletonView(gameObjectSolid, resourceManager));
             }
         }
 

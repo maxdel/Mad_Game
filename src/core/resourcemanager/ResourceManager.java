@@ -8,10 +8,13 @@ import java.util.*;
 import java.util.List;
 
 import core.GameState;
+import core.model.gameplay.gameobjects.GameObjectSolid;
 import core.model.gameplay.items.Item;
+import core.model.gameplay.items.ItemDB;
 import core.model.gameplay.skills.Skill;
 import core.model.gameplay.gameobjects.GameObjectSolidType;
 import core.model.gameplay.gameobjects.Unit;
+import javafx.util.Pair;
 import org.newdawn.slick.*;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Shape;
@@ -32,6 +35,7 @@ public class ResourceManager {
     private Map<String, ItemInfo> itemInfos;
     private Map<String, SkillInfo> skillInfos;
     private Map<String, Image> imageInfos;
+    private Map<GameObjectSolidType, UnitInfo> unitInfos;
 
     private ResourceManager() {
         animationInfos = new HashMap<String, AnimationInfo>();
@@ -40,6 +44,7 @@ public class ResourceManager {
         itemInfos = new HashMap<String, ItemInfo>();
         skillInfos = new HashMap<String, SkillInfo>();
         imageInfos = new HashMap<String, Image>();
+        unitInfos = new HashMap<GameObjectSolidType, UnitInfo>();
     }
 
     public static ResourceManager getInstance() {
@@ -88,6 +93,7 @@ public class ResourceManager {
         loadSkills(gameplayElement);
         loadImages(gameplayElement);
         loadFonts(gameplayElement);
+        loadUnits(gameplayElement);
 
         in.close();
     }
@@ -240,6 +246,68 @@ public class ResourceManager {
         }
     }
 
+    private void loadUnits(XMLElement gameStateElement) throws SlickXMLException {
+        XMLElement unitsElement = gameStateElement.getChildrenByName("units").get(0);
+        XMLElementList unitList = unitsElement.getChildrenByName("unit");
+        for (int i = 0; i < unitList.size(); ++i) {
+            XMLElement unitElement = unitList.get(i);
+
+            String unitName = unitElement.getAttribute("name");
+            String maskName = unitElement.getAttribute("mask");
+
+            XMLElement attributeElement = unitElement.getChildrenByName("attribute").get(0);
+
+            double maximumHP = Double.parseDouble(attributeElement.getAttribute("hp"));
+            double maximumMP = Double.parseDouble(attributeElement.getAttribute("mp"));
+            double maximumSpeed = Double.parseDouble(attributeElement.getAttribute("maximumSpeed"));
+            double pAttack = Double.parseDouble(attributeElement.getAttribute("pAttack"));
+            double mAttack = Double.parseDouble(attributeElement.getAttribute("mAttack"));
+            double pArmor = Double.parseDouble(attributeElement.getAttribute("pArmor"));
+            double mArmor = Double.parseDouble(attributeElement.getAttribute("mArmor"));
+
+            List<Pair<String, Integer>> itemsList = new ArrayList<Pair<String, Integer>>();
+            XMLElement inventoryElement = unitElement.getChildrenByName("inventory").get(0);
+            XMLElementList itemRecordList = inventoryElement.getChildrenByName("itemRecord");
+            for (int j = 0; j < itemRecordList.size(); ++j) {
+                XMLElement itemRecord = itemRecordList.get(j);
+
+                String itemName = itemRecord.getAttribute("name");
+                Integer itemNumber = Integer.valueOf(itemRecord.getAttribute("number"));
+
+                Pair<String, Integer> pair = new Pair<String, Integer>(itemName, itemNumber);
+                itemsList.add(pair);
+            }
+
+            List<String> skillNameList = new ArrayList<String>();
+            XMLElement skillListElement = unitElement.getChildrenByName("skillList").get(0);
+            XMLElementList skillList = skillListElement.getChildrenByName("skill");
+            for (int j = 0; j < skillList.size(); ++j) {
+                XMLElement skill = skillList.get(j);
+
+                String skillName = skill.getAttribute("name");
+
+                skillNameList.add(skillName);
+            }
+
+            List<Pair<String, Double>> dropList = new ArrayList<Pair<String, Double>>();
+            XMLElement lootListElement = unitElement.getChildrenByName("lootList").get(0);
+            XMLElementList lootList = lootListElement.getChildrenByName("loot");
+            for (int j = 0; j < lootList.size(); ++j) {
+                XMLElement drop = lootList.get(j);
+
+                String itemName = drop.getAttribute("name");
+                Double probability = Double.valueOf(drop.getAttribute("probability"));
+
+                Pair<String, Double> pair = new Pair<String, Double>(itemName, probability);
+                dropList.add(pair);
+            }
+
+            unitInfos.put(GameObjectSolidType.valueOf(unitName.toUpperCase()),
+                    new UnitInfo(GameObjectSolidType.valueOf(unitName.toUpperCase()), maskName, maximumHP, maximumMP,
+                            maximumSpeed, pAttack, mAttack, pArmor, mArmor, itemsList, skillNameList, dropList));
+        }
+    }
+
     // GETTERS
     public Image getImage(String name) {
         return imageInfos.get(name);
@@ -253,7 +321,6 @@ public class ResourceManager {
         return animationInfos.get(name).getSpeedCoef();
     }
 
-
     public Shape getMask(GameObjectSolidType type) {
         return maskInfos.get(type).getMask();
     }
@@ -264,10 +331,6 @@ public class ResourceManager {
 
     public Image getItemImage(String name) {
         return itemInfos.get(name).getImage();
-    }
-
-    public String getItemName(String name) {
-        return itemInfos.get(name).getName();
     }
 
     public String getItemDescription(String name) {
@@ -283,8 +346,16 @@ public class ResourceManager {
         return itemList;
     }
 
+    public Item getItem(String itemName) {
+        return itemInfos.get(itemName).getItem();
+    }
+
     public Skill getSkill(Unit owner, String name) {
         return skillInfos.get(name).getSkill(owner);
+    }
+
+    public UnitInfo getUnitInfo(GameObjectSolidType type) {
+        return unitInfos.get(type);
     }
 
 }

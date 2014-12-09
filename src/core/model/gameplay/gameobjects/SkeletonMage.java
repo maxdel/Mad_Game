@@ -15,14 +15,14 @@ public class SkeletonMage extends Unit {
     private boolean isTargetHero;
 
     public SkeletonMage(double x, double y, double maximumSpeed) {
-        super(x, y, maximumSpeed);
+        super(x, y, maximumSpeed, GameObjectSolidType.SKELETONMAGE);
         setMask(ResourceManager.getInstance().getMask(GameObjectSolidType.SKELETONMAGE));
 
         timer = (int) (Math.random() * 1000);
 
-        skillList.add(ResourceManager.getInstance().getSkill(this, "Fireball"));
+        /*skillList.add(ResourceManager.getInstance().getSkill(this, "Fireball"));
         inventory.useItem(inventory.addItem("Strong staff"));
-        inventory.useItem(inventory.addItem("Robe of magic"));
+        inventory.useItem(inventory.addItem("Robe of magic"));*/
 
         getAttribute().resetHpMp(35, 80);
 
@@ -36,19 +36,19 @@ public class SkeletonMage extends Unit {
     }
 
     public void run(double direction) {
-        if (getCurrentState() == GameObjectState.STAND || getCurrentState() == GameObjectState.WALK ||
+        /*if (getCurrentState() == GameObjectState.STAND || getCurrentState() == GameObjectState.WALK ||
                 getCurrentState() == GameObjectState.RUN) {
             setCurrentState(GameObjectState.RUN);
             getAttribute().setCurrentSpeed(getAttribute().getMaximumSpeed());
             setRelativeDirection(direction);
-        }
+        }*/
     }
 
     public void stand() {
-        if (getCurrentState() == GameObjectState.RUN || getCurrentState() == GameObjectState.WALK) {
+        /*if (getCurrentState() == GameObjectState.RUN || getCurrentState() == GameObjectState.WALK) {
             setCurrentState(GameObjectState.STAND);
             getAttribute().setCurrentSpeed(0);
-        }
+        }*/
     }
 
     @Override
@@ -132,7 +132,7 @@ public class SkeletonMage extends Unit {
                     getY() - 10 + Math.random() * 20, Math.random() * 2 * Math.PI, ItemDB.getInstance().getItem("Strong staff"), 1));
         }
         // TODO for fun
-        World.getInstance().getHero().kills++;
+        //World.getInstance().getHero().kills++;
     }
 
     public void setTargetHero(boolean isTargetHero) {
