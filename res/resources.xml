@@ -105,6 +105,7 @@
                 </inventory>
                 <skillList>
                     <skill name="Sword attack" />
+                    <skill name="Bow shot" />
                     <skill name="Fireball" />
                 </skillList>
                 <lootList>

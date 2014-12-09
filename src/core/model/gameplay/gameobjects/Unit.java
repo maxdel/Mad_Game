@@ -228,6 +228,7 @@ public abstract class Unit extends GameObjectSolid {
             currentState = GameObjectState.SKILL;
             castingSkill = skillList.get(skillIndex);
             castSkillTimer.activate(castingSkill.getPreApplyTime());
+            endSkillTimer.activate(castingSkill.getCastTime());
         }
     }
 

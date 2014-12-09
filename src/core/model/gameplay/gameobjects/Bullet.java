@@ -60,7 +60,7 @@ public class Bullet extends GameObjectSolid {
                         otherMoving.getAttribute().getHP().damage(mDamage);
                     }
                     // TODO for fun
-                    if (owner.getClass() == Hero.class) {
+                    /*if (owner.getClass() == Hero.class) {
                         if (otherMoving instanceof Bandit) {
                             ((Bandit)otherMoving).setTargetHero(true);
                         }
@@ -73,7 +73,7 @@ public class Bullet extends GameObjectSolid {
                         if (otherMoving instanceof SkeletonMage) {
                             ((SkeletonMage)otherMoving).setTargetHero(true);
                         }
-                    }
+                    }*/
                 }
                 World.getInstance().getToDeleteList().add(this);
             }

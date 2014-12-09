@@ -112,9 +112,9 @@ public class GamePlayView {
             if (!found) {
                 if (gameObjectSolid.getType() == GameObjectSolidType.WALL) {
                     gameObjectViews.add(new WallView(gameObjectSolid, resourceManager));
-                } else if (gameObjectSolid.getClass() == Bandit.class) {
+                } else if (gameObjectSolid.getType() == GameObjectSolidType.BANDIT) {
                     gameObjectViews.add(new BanditView(gameObjectSolid, resourceManager));
-                } else if (gameObjectSolid.getClass() == Hero.class) {
+                } else if (gameObjectSolid.getType() == GameObjectSolidType.HERO) {
                     gameObjectViews.add(new HeroView(gameObjectSolid, resourceManager));
                 } else if (gameObjectSolid.getType() == GameObjectSolidType.ARROW) {
                     gameObjectViews.add(new ArrowView(gameObjectSolid, resourceManager));
@@ -122,7 +122,7 @@ public class GamePlayView {
                     gameObjectViews.add(new FireballView(gameObjectSolid, resourceManager));
                 } else if (gameObjectSolid.getClass() == BanditArcher.class) {
                     gameObjectViews.add(new BanditArcherView(gameObjectSolid, resourceManager));
-                } else if (gameObjectSolid.getClass() == Skeleton.class) {
+                } else if (gameObjectSolid.getType() == GameObjectSolidType.SKELETON) {
                     gameObjectViews.add(new SkeletonView(gameObjectSolid, resourceManager));
                 } else if (gameObjectSolid.getClass() == SkeletonMage.class) {
                     gameObjectViews.add(new SkeletonMageView(gameObjectSolid, resourceManager));
