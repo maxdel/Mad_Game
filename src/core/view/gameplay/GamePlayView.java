@@ -124,11 +124,11 @@ public class GamePlayView {
                     gameObjectViews.add(new ArrowView(gameObjectSolid, resourceManager));
                 } else if (gameObjectSolid.getType() == GameObjectSolidType.FIREBALL) {
                     gameObjectViews.add(new FireballView(gameObjectSolid, resourceManager));
-                } else if (gameObjectSolid.getClass() == BanditArcher.class) {
+                } else if (gameObjectSolid.getType() == GameObjectSolidType.BANDITARCHER) {
                     gameObjectViews.add(new BanditArcherView(gameObjectSolid, resourceManager));
                 } else if (gameObjectSolid.getType() == GameObjectSolidType.SKELETON) {
                     gameObjectViews.add(new SkeletonView(gameObjectSolid, resourceManager));
-                } else if (gameObjectSolid.getClass() == SkeletonMage.class) {
+                } else if (gameObjectSolid.getType() == GameObjectSolidType.SKELETONMAGE) {
                     gameObjectViews.add(new SkeletonMageView(gameObjectSolid, resourceManager));
                 }
             }
