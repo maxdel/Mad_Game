@@ -4,7 +4,6 @@ import core.model.Timer;
 import core.model.gameplay.CollisionManager;
 import core.model.gameplay.World;
 import core.model.gameplay.gameobjects.Bot;
-import core.model.gameplay.gameobjects.GameObjectState;
 import core.model.gameplay.skills.BulletSkill;
 import org.newdawn.slick.geom.Point;
 import org.newdawn.slick.geom.Vector2f;
@@ -30,8 +29,8 @@ public class MeleeAI extends BotAI {
         currentState = MeleeAIState.STAND;
         stateMap.put(MeleeAIState.STAND, new AIState() {
             private Timer timer;
-            public void enter()           { timer = new Timer(3000);                                                   }
-            public void run()             { owner.stand();                                                             }
+            public void enter()           { timer = new Timer(1000);                                                   }
+            public void run()             { owner.stand(); System.out.println("Stand" + Math.random());                                }
             public void update(int delta) { if (timer.update(delta))       currentState = MeleeAIState.WALK;
                                             if (getDistanceToHero() < 300) currentState = MeleeAIState.PURSUE;         }
         });
@@ -40,7 +39,7 @@ public class MeleeAI extends BotAI {
             public void enter()           { target = getRandomTarget();                                                }
             public void run()             { followTarget(target);                                                      }
             public void update(int delta) { if (getDistanceToHero() < 300)       currentState = MeleeAIState.PURSUE;
-                if (getDistanceToTarget(target) < 2) currentState = MeleeAIState.STAND;  }
+                                            if (getDistanceToTarget(target) < 2) currentState = MeleeAIState.STAND;    }
         });
         stateMap.put(MeleeAIState.PURSUE, new AIState() {
             public void enter()           {                                                                            }
@@ -56,6 +55,12 @@ public class MeleeAI extends BotAI {
     }
 
     private double getDistanceToHero() {
+        System.out.println("Distance to hero: " + (new Vector2f((float) World.getInstance().getHero().getX() - (float)owner.getX(),
+                (float)World.getInstance().getHero().getY() - (float)owner.getY())).length());
+        System.out.println("HeroX:  " + World.getInstance().getHero().getX());
+        System.out.println("HeroY:  " + World.getInstance().getHero().getY());
+        System.out.println("OwnerX: " + owner.getX());
+        System.out.println("OwnerY: " + owner.getY());
         return (new Vector2f((float) World.getInstance().getHero().getX() - (float)owner.getX(),
                 (float)World.getInstance().getHero().getY() - (float)owner.getY())).length();
     }
@@ -64,7 +69,7 @@ public class MeleeAI extends BotAI {
         Point target = new Point(0, 0);
         int attemptNumber = 0;
         while (attemptNumber < 5) {
-            double randomDistance = 30 + Math.random() * 10;
+            double randomDistance = 100 + Math.random() * 10;
             double randomAngle = Math.random() * 2 * Math.PI;
             double tmpX = owner.getX() + lengthDirX(randomAngle, randomDistance);
             double tmpY = owner.getY() + lengthDirY(randomAngle, randomDistance);
@@ -89,11 +94,11 @@ public class MeleeAI extends BotAI {
     }
 
     private void followTarget(Point target) {
-        if (owner.getCurrentState() != GameObjectState.SKILL) {
+        //if (owner.getCurrentState() != GameObjectState.SKILL) {
             double direction = Math.atan2(target.getY() - owner.getY(), target.getX() - owner.getX());
             owner.setDirection(direction);
             owner.move();
-        }
+        //}
     }
 
     private void followHero() {

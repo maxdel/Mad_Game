@@ -96,7 +96,7 @@ public abstract class Unit extends GameObjectSolid {
      */
     public void stand() {
         if (currentState == GameObjectState.MOVE) {
-            setCurrentState(GameObjectState.STAND);
+            currentState = GameObjectState.STAND;
             attribute.setCurrentSpeed(0);
         }
     }
@@ -114,7 +114,7 @@ public abstract class Unit extends GameObjectSolid {
      */
     public void move(double relativeDirection) {
         if (currentState == GameObjectState.STAND || currentState == GameObjectState.MOVE) {
-            setCurrentState(GameObjectState.MOVE);
+            currentState = GameObjectState.MOVE;
             this.relativeDirection = relativeDirection;
             attribute.setCurrentSpeed(attribute.getMaximumSpeed());
         }
@@ -247,6 +247,7 @@ public abstract class Unit extends GameObjectSolid {
     private void updatePosition(int delta) {
         double length, direction, lengthDirX, lengthDirY;
         length = attribute.getCurrentSpeed() * delta;
+        System.out.println("Length: " + length);
         direction = getDirection() + getRelativeDirection();
 
         lengthDirX = lengthDirX(direction, length);

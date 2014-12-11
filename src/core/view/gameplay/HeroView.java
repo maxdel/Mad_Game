@@ -15,7 +15,6 @@ import core.model.gameplay.gameobjects.GameObjectState;
 public class HeroView extends GameObjectView {
 
     private GameObjectState previousState;
-    private Animation animationAttack;
     private Animation animationWalk;
     private Animation animationSwordWalk;
     private Animation animationSwordAttackStrong;
@@ -113,9 +112,6 @@ public class HeroView extends GameObjectView {
                         for (int i = 0; i < animation.getFrameCount(); ++i) {
                             animation.setDuration(i, hero.getCastingSkill().getCastTime() / animation.getFrameCount());
                         }
-                    } else {
-                        animation = animationAttack;
-                        animation.setSpeed((float) (ResourceManager.getInstance().getSpeedCoef("heroattack")));
                     }
                     animation.start();
                     break;

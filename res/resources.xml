@@ -8,11 +8,12 @@
             <animation name="heroswordattackstrong" path="/res/attackswordstrong.png" isImage = "false" frameWidth="160" frameHeight="160" speedCoef="0.07" />
             <animation name="herobowwalk" path="/res/herowalkbow.png" isImage = "false" frameWidth="128" frameHeight="128" speedCoef="5" />
             <animation name="herobowattack" path="/res/attackbow.png" isImage = "false" frameWidth="128" frameHeight="128" speedCoef="0.07" />
-            <!--<animation name="heroattack" path="/res/hero attack.png" isImage = "false" frameWidth="50" frameHeight="50" speedCoef="0.3" />-->
 
             <animation name="vampire" path="/res/vampire/vampire.png" isImage = "true" />
 
             <animation name="bandit" path="/res/bandit.png" isImage = "true" />
+            <animation name="banditwalksword" path="/res/bandit/bandit_walk_sword.png" isImage = "false" frameWidth="160" frameHeight="160" speedCoef="5" />
+
             <animation name="banditArcher" path="/res/banditArcher.png" isImage = "true" />
             <animation name="skeleton" path="/res/skeleton.png" isImage = "true" />
             <animation name="skeletonMage" path="/res/skeletonMage.png" isImage = "true" />
@@ -60,7 +61,7 @@
                     pAttack="15" mAttack="0" bulletSpeed="0.5"/>
             <skill name="Sword attack" description="Sword!!!" path="/res/skills/sword attack.png" type="AreaSkill"
                    castTime="200" postApplyTime="100" cooldownTime="1000" requiredItem="Sword" requiredHP="0" requiredMP="0"
-                   pAttack="15" mAttack="0" radius="40" angle="90"/>
+                   pAttack="15" mAttack="0" radius="50" angle="90"/>
             <skill name="Fireball" description="Fireball!!!" path="/res/skills/fireball.png" type="BulletSkill"
                    castTime="200" postApplyTime="100" cooldownTime="1000" requiredItem="Staff" requiredHP="0" requiredMP="5"
                    pAttack="0" mAttack="20" bulletSpeed="0.4"/>
