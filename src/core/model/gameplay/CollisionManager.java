@@ -1,6 +1,7 @@
 package core.model.gameplay;
 
 import core.model.gameplay.gameobjects.GameObjectSolid;
+
 import org.newdawn.slick.geom.*;
 
 public class CollisionManager {
@@ -52,9 +53,6 @@ public class CollisionManager {
         gameObjectSolid.setY(originalY);
         return isCollidesWith;
     }
-
-    /*
-     */
 
     /**
      * Returns true if @param gameObject has no collisions in point x, y with gameObjects array

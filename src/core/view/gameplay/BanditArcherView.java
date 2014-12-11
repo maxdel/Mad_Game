@@ -1,6 +1,7 @@
 package core.view.gameplay;
 
 import core.model.gameplay.gameobjects.BanditArcher;
+import core.model.gameplay.gameobjects.Bot;
 import core.model.gameplay.gameobjects.Hero;
 import org.newdawn.slick.*;
 
@@ -16,7 +17,7 @@ public class BanditArcherView extends GameObjectView {
 
     @Override
     public void render(Graphics g, double viewX, double viewY, float viewDegreeAngle, double viewCenterX, double viewCenterY, Hero hero) {
-        BanditArcher banditArcher = (BanditArcher) gameObjectSolid;
+        Bot banditArcher = (Bot) gameObjectSolid;
 
         rotate(g, viewX, viewY, viewDegreeAngle, viewCenterX, viewCenterY, true);
         draw(viewX, viewY);
