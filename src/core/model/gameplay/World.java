@@ -1,5 +1,6 @@
 package core.model.gameplay;
 
+import core.MathAdv;
 import core.model.gameplay.gameobjects.ai.MeleeAI;
 import core.model.gameplay.gameobjects.ai.RangedAI;
 import core.model.gameplay.gameobjects.ai.VampireAI;
@@ -53,8 +54,8 @@ public class World {
                     double rotation;
                     rotation = tiledMap.getObjectRotation(i, j) * Math.PI / 180;
                     gameObjectSolids.add(new Obstacle(
-                            tiledMap.getObjectX(i, j) + lengthDirX(-Math.PI/4 + rotation, length),
-                            tiledMap.getObjectY(i, j) + lengthDirY(-Math.PI/4 + rotation, length),
+                            tiledMap.getObjectX(i, j) + MathAdv.lengthDirX(-Math.PI / 4 + rotation, length),
+                            tiledMap.getObjectY(i, j) + MathAdv.lengthDirY(-Math.PI / 4 + rotation, length),
                                     rotation, GameObjectSolidType.WALL)
                     );
                 }
@@ -176,14 +177,6 @@ public class World {
 
     public List<GameObjectSolid> getToAddList() {
         return toAddList;
-    }
-
-    protected double lengthDirX(double direction, double length) {
-        return Math.cos(direction) * length;
-    }
-
-    protected double lengthDirY(double direction, double length) {
-        return Math.sin(direction) * length;
     }
 
 }

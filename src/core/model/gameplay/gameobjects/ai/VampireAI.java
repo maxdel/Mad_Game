@@ -3,6 +3,7 @@ package core.model.gameplay.gameobjects.ai;
 import java.util.HashMap;
 import java.util.Map;
 
+import core.MathAdv;
 import core.model.Timer;
 import core.model.gameplay.CollisionManager;
 import core.model.gameplay.World;
@@ -78,8 +79,8 @@ public class VampireAI extends BotAI {
         while (attemptNumber < 5) {
             double randomDistance = 30 + Math.random() * 10;
             double randomAngle = Math.random() * 2 * Math.PI;
-            double tmpX = owner.getX() + lengthDirX(randomAngle, randomDistance);
-            double tmpY = owner.getY() + lengthDirY(randomAngle, randomDistance);
+            double tmpX = owner.getX() + MathAdv.lengthDirX(randomAngle, randomDistance);
+            double tmpY = owner.getY() + MathAdv.lengthDirY(randomAngle, randomDistance);
             if (CollisionManager.getInstance().isPlaceFreeAdv(owner, tmpX, tmpY)) {
                 target.setX((float) tmpX);
                 target.setY((float) tmpY);
@@ -90,14 +91,6 @@ public class VampireAI extends BotAI {
         target.setX((float)owner.getX());
         target.setY((float)owner.getY());
         return target;
-    }
-
-    private double lengthDirX(double direction, double length) {
-        return Math.cos(direction) * length;
-    }
-
-    private double lengthDirY(double direction, double length) {
-        return Math.sin(direction) * length;
     }
 
     private void followTarget(Point target) {

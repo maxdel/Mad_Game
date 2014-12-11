@@ -1,5 +1,6 @@
 package core.model.gameplay.gameobjects.ai;
 
+import core.MathAdv;
 import core.model.Timer;
 import core.model.gameplay.CollisionManager;
 import core.model.gameplay.World;
@@ -30,7 +31,7 @@ public class MeleeAI extends BotAI {
         stateMap.put(MeleeAIState.STAND, new AIState() {
             private Timer timer;
             public void enter()           { timer = new Timer(1000);                                                   }
-            public void run()             { owner.stand(); System.out.println("Stand" + Math.random());                                }
+            public void run()             { owner.stand();                                                             }
             public void update(int delta) { if (timer.update(delta))       currentState = MeleeAIState.WALK;
                                             if (getDistanceToHero() < 300) currentState = MeleeAIState.PURSUE;         }
         });
@@ -42,25 +43,33 @@ public class MeleeAI extends BotAI {
                                             if (getDistanceToTarget(target) < 2) currentState = MeleeAIState.STAND;    }
         });
         stateMap.put(MeleeAIState.PURSUE, new AIState() {
-            public void enter()           {                                                                            }
-            public void run()             { followHero();                                                              }
-            public void update(int delta) { if (getDistanceToHero() >= 300) currentState = MeleeAIState.STAND;
-                                            if (getDistanceToHero() < 55)  currentState = MeleeAIState.ATTACK;}
+            public void enter() {
+            }
+
+            public void run() {
+                followHero();
+            }
+
+            public void update(int delta) {
+                if (getDistanceToHero() >= 300) currentState = MeleeAIState.STAND;
+                if (getDistanceToHero() < 55) currentState = MeleeAIState.ATTACK;
+            }
         });
         stateMap.put(MeleeAIState.ATTACK, new AIState() {
-            public void enter()           {                                                                            }
-            public void run()             { attackHeroWithSword();                                                     }
-            public void update(int delta) { if (getDistanceToHero() >= 55) currentState = MeleeAIState.PURSUE;         }
+            public void enter() {
+            }
+
+            public void run() {
+                attackHeroWithSword();
+            }
+
+            public void update(int delta) {
+                if (getDistanceToHero() >= 55) currentState = MeleeAIState.PURSUE;
+            }
         });
     }
 
     private double getDistanceToHero() {
-        System.out.println("Distance to hero: " + (new Vector2f((float) World.getInstance().getHero().getX() - (float)owner.getX(),
-                (float)World.getInstance().getHero().getY() - (float)owner.getY())).length());
-        System.out.println("HeroX:  " + World.getInstance().getHero().getX());
-        System.out.println("HeroY:  " + World.getInstance().getHero().getY());
-        System.out.println("OwnerX: " + owner.getX());
-        System.out.println("OwnerY: " + owner.getY());
         return (new Vector2f((float) World.getInstance().getHero().getX() - (float)owner.getX(),
                 (float)World.getInstance().getHero().getY() - (float)owner.getY())).length();
     }
@@ -71,8 +80,8 @@ public class MeleeAI extends BotAI {
         while (attemptNumber < 5) {
             double randomDistance = 100 + Math.random() * 10;
             double randomAngle = Math.random() * 2 * Math.PI;
-            double tmpX = owner.getX() + lengthDirX(randomAngle, randomDistance);
-            double tmpY = owner.getY() + lengthDirY(randomAngle, randomDistance);
+            double tmpX = owner.getX() + MathAdv.lengthDirX(randomAngle, randomDistance);
+            double tmpY = owner.getY() + MathAdv.lengthDirY(randomAngle, randomDistance);
             if (CollisionManager.getInstance().isPlaceFreeAdv(owner, tmpX, tmpY)) {
                 target.setX((float) tmpX);
                 target.setY((float) tmpY);
@@ -85,18 +94,10 @@ public class MeleeAI extends BotAI {
         return target;
     }
 
-    private double lengthDirX(double direction, double length) {
-        return Math.cos(direction) * length;
-    }
-
-    private double lengthDirY(double direction, double length) {
-        return Math.sin(direction) * length;
-    }
-
     private void followTarget(Point target) {
         //if (owner.getCurrentState() != GameObjectState.SKILL) {
             double direction = Math.atan2(target.getY() - owner.getY(), target.getX() - owner.getX());
-            owner.setDirection(direction);
+            owner.setDirection(direction); // TODO unwanted direct field changing
             owner.move();
         //}
     }

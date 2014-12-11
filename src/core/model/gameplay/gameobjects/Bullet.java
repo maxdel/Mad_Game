@@ -1,5 +1,6 @@
 package core.model.gameplay.gameobjects;
 
+import core.MathAdv;
 import core.model.gameplay.CollisionManager;
 import core.model.gameplay.World;
 
@@ -29,8 +30,8 @@ public class Bullet extends GameObjectSolid {
         length = speed * delta;
         direction = getDirection();
 
-        lengthDirX = lengthDirX(direction, length);
-        lengthDirY = lengthDirY(direction, length);
+        lengthDirX = MathAdv.lengthDirX(direction, length);
+        lengthDirY = MathAdv.lengthDirY(direction, length);
 
         if (CollisionManager.getInstance().isPlaceFreeAdv(this, getX() + lengthDirX, getY() + lengthDirY)) {
             setX(getX() + lengthDirX);
@@ -67,14 +68,6 @@ public class Bullet extends GameObjectSolid {
         if (currentDistance >= maximumDistance) {
             World.getInstance().getToDeleteList().add(this);
         }
-    }
-
-    protected double lengthDirX(double direction, double length) {
-        return Math.cos(direction) * length;
-    }
-
-    protected double lengthDirY(double direction, double length) {
-        return Math.sin(direction) * length;
     }
 
 }

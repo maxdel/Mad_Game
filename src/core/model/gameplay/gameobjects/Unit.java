@@ -2,6 +2,7 @@ package core.model.gameplay.gameobjects;
 
 import java.util.List;
 
+import core.MathAdv;
 import org.newdawn.slick.geom.Vector2f;
 
 import core.model.gameplay.items.LootRecord;
@@ -121,7 +122,7 @@ public abstract class Unit extends GameObjectSolid {
     }
 
     /**
-     * Changing direction of unit on the @param directionDelta value
+     * Changing direction of unit on @param directionDelta value
      * @param directionDelta angle in radians
      */
     public void rotate(double directionDelta) {
@@ -165,8 +166,8 @@ public abstract class Unit extends GameObjectSolid {
      * Drops itemToDrop
      */
     private void dropItem() {
-        Loot loot = new Loot(getX() + lengthDirX(getDirection(), LOOT_RANGE),
-                getY() + lengthDirY(getDirection(), LOOT_RANGE),
+        Loot loot = new Loot(getX() + MathAdv.lengthDirX(getDirection(), LOOT_RANGE),
+                getY() + MathAdv.lengthDirY(getDirection(), LOOT_RANGE),
                 itemToDrop.getItem());
         World.getInstance().getLootList().add(loot);
         inventory.deleteItem(inventory.getSelectedRecord().getName());
@@ -178,8 +179,8 @@ public abstract class Unit extends GameObjectSolid {
      */
     private void updateItemToPick() {
         if (currentState != GameObjectState.ITEM) {
-            double lookPointX = getX() + lengthDirX(getDirection(), LOOT_RANGE);
-            double lookPointY = getY() + lengthDirY(getDirection(), LOOT_RANGE);
+            double lookPointX = getX() + MathAdv.lengthDirX(getDirection(), LOOT_RANGE);
+            double lookPointY = getY() + MathAdv.lengthDirY(getDirection(), LOOT_RANGE);
             double lookRadius = LOOT_PICK_RADIUS;
             itemToPick = null;
             for (Loot loot : World.getInstance().getLootList()) {
@@ -247,11 +248,10 @@ public abstract class Unit extends GameObjectSolid {
     private void updatePosition(int delta) {
         double length, direction, lengthDirX, lengthDirY;
         length = attribute.getCurrentSpeed() * delta;
-        System.out.println("Length: " + length);
         direction = getDirection() + getRelativeDirection();
 
-        lengthDirX = lengthDirX(direction, length);
-        lengthDirY = lengthDirY(direction, length);
+        lengthDirX = MathAdv.lengthDirX(direction, length);
+        lengthDirY = MathAdv.lengthDirY(direction, length);
 
         if (CollisionManager.getInstance().isPlaceFreeAdv(this, getX() + lengthDirX, getY() + lengthDirY)) {
             setX(getX() + lengthDirX);
@@ -261,8 +261,8 @@ public abstract class Unit extends GameObjectSolid {
             double altDirection = direction;
             for (int i = 0; Math.abs(altDirection - direction) < Math.PI / 2; ++i) {
                 altDirection += i * stepAngle * (i % 2 == 0 ? 1 : -1);
-                lengthDirX = lengthDirX(altDirection, length * Math.cos(altDirection - direction));
-                lengthDirY = lengthDirY(altDirection, length * Math.cos(altDirection - direction));
+                lengthDirX = MathAdv.lengthDirX(altDirection, length * Math.cos(altDirection - direction));
+                lengthDirY = MathAdv.lengthDirY(altDirection, length * Math.cos(altDirection - direction));
                 if (CollisionManager.getInstance().isPlaceFreeAdv(this, getX() + lengthDirX, getY() + lengthDirY)) {
                     setX(getX() + lengthDirX);
                     setY(getY() + lengthDirY);
@@ -297,15 +297,6 @@ public abstract class Unit extends GameObjectSolid {
 
     // Getters and setters
 
-    protected double lengthDirX(double direction, double length) {
-        return Math.cos(direction) * length;
-    }
-
-    protected double lengthDirY(double direction, double length) {
-        return Math.sin(direction) * length;
-    }
-
-
     public Attribute getAttribute() {
         return attribute;
     }
@@ -314,16 +305,8 @@ public abstract class Unit extends GameObjectSolid {
         return relativeDirection;
     }
 
-    public void setRelativeDirection(double relativeDirection) {
-        this.relativeDirection = relativeDirection;
-    }
-
     public GameObjectState getCurrentState() {
         return currentState;
-    }
-
-    public void setCurrentState(GameObjectState currentState) {
-        this.currentState = currentState;
     }
 
     public Inventory getInventory() {

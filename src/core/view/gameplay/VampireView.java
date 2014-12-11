@@ -24,8 +24,8 @@ public class VampireView extends GameObjectView {
         // For predicted direction calculations debug
         g.drawLine((float) (gameObjectSolid.getX() - viewX),
                 (float) (gameObjectSolid.getY() - viewY),
-                (float) (gameObjectSolid.getX() - viewX + lengthDirX(0, 350)),
-                (float) (gameObjectSolid.getY() - viewY + lengthDirY(0, 350)));*/
+                (float) (gameObjectSolid.getX() - viewX + MathAdv.lengthDirX(0, 350)),
+                (float) (gameObjectSolid.getY() - viewY + MathAdv.lengthDirY(0, 350)));*/
         animation.draw((float) (gameObjectSolid.getX() - viewX - animation.getWidth() / 2),
                 (float) (gameObjectSolid.getY() - viewY - animation.getHeight() / 2));
         // draw mask
@@ -69,14 +69,6 @@ public class VampireView extends GameObjectView {
         // ----- END -----
 
         rotate(g, viewX, viewY, viewDegreeAngle, viewCenterX, viewCenterY, false);
-    }
-
-    protected double lengthDirX(double direction, double length) {
-        return Math.cos(direction) * length;
-    }
-
-    protected double lengthDirY(double direction, double length) {
-        return Math.sin(direction) * length;
     }
 
 }

@@ -1,5 +1,6 @@
 package core.model.gameplay.skills;
 
+import core.MathAdv;
 import core.model.gameplay.World;
 import core.model.gameplay.gameobjects.Unit;
 import core.model.gameplay.gameobjects.GameObjectSolid;
@@ -30,8 +31,8 @@ public class AreaSkill extends Skill {
             if (gameObjectSolid instanceof Unit && gameObjectSolid != owner) {
                 Unit target = (Unit) gameObjectSolid;
 
-                Vector2f v1 = new Vector2f((float)lengthDirX(owner.getDirection(), angle),
-                        (float)lengthDirY(owner.getDirection(), angle));
+                Vector2f v1 = new Vector2f((float) MathAdv.lengthDirX(owner.getDirection(), angle),
+                        (float)MathAdv.lengthDirY(owner.getDirection(), angle));
                 Vector2f v2 = new Vector2f((float)(target.getX() - owner.getX()), (float)(target.getY() - owner.getY()));
                 double angleBetweenObjects = Math.acos(v1.dot(v2) / (v1.length() * v2.length()));
 
@@ -62,14 +63,6 @@ public class AreaSkill extends Skill {
             pDamage = 1;
         }
         target.getAttribute().getHP().damage(pDamage);
-    }
-
-    protected double lengthDirX(double direction, double length) {
-        return Math.cos(direction) * length;
-    }
-
-    protected double lengthDirY(double direction, double length) {
-        return Math.sin(direction) * length;
     }
 
     public int getCurrentCastTime() {
