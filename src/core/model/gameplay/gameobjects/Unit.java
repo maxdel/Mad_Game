@@ -52,12 +52,12 @@ public abstract class Unit extends GameObjectSolid {
         this.inventory = ResourceManager.getInstance().getUnitInfo(type).getInventory(this);
         this.skillList = ResourceManager.getInstance().getUnitInfo(type).getSkilLList(this);
 
-        useItemTimer = new Timer();
-        dropItemTimer = new Timer();
-        pickItemTimer = new Timer();
+        this.useItemTimer = new Timer();
+        this.dropItemTimer = new Timer();
+        this.pickItemTimer = new Timer();
 
-        castSkillTimer = new Timer();
-        endSkillTimer = new Timer();
+        this.castSkillTimer = new Timer();
+        this.endSkillTimer = new Timer();
     }
 
     /**
