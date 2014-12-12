@@ -60,7 +60,7 @@ public class RangedAI extends BotAI {
         owner.stand();
         owner.setDirection(getPredictedDirection(0));
         if (owner.getSkillList().get(0).getKind() == BulletShot.Kinds.BOW_SHOT) {
-            owner.getInventory().useItem(owner.getInventory().addItem("Strong bow"));
+            owner.getInventory().useItem(owner.getInventory().addItem("Strong_bow"));
         } else {
             owner.getInventory().useItem(owner.getInventory().addItem("Staff"));
         }

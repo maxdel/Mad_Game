@@ -39,8 +39,8 @@ public abstract class Unit extends GameObjectSolid {
 
     private List<Skill> skillList;
     private Skill castingSkill;
-    private Timer timerPreApplyCasting;
-    private Timer timerCasting;
+    private Timer preApplyCastingTimer;
+    private Timer castingTimer;
 
     public Unit(double x, double y, double direction, GameObjectSolidType type) {
         super(x, y, direction, type);
@@ -56,8 +56,8 @@ public abstract class Unit extends GameObjectSolid {
         this.dropItemTimer = new Timer();
         this.pickItemTimer = new Timer();
 
-        this.timerPreApplyCasting = new Timer();
-        this.timerCasting = new Timer();
+        this.preApplyCastingTimer = new Timer();
+        this.castingTimer = new Timer();
     }
 
     /**
@@ -80,12 +80,12 @@ public abstract class Unit extends GameObjectSolid {
         // ---------------------------------
 
         /* Update actions with current skill */
-        if (timerPreApplyCasting.update(delta)) {
+        if (preApplyCastingTimer.update(delta)) {
             castingSkill.apply();
         }
 
-        if (timerCasting.update(delta)) {
-            toFinishCasting();
+        if (castingTimer.update(delta)) {
+            onCastingFinish();
         }
         // ---------------------------------
 
@@ -237,8 +237,8 @@ public abstract class Unit extends GameObjectSolid {
 
             castingSkill = skillToCast;
 
-            timerPreApplyCasting.activate(castingSkill.getPreApplyTime());
-            timerCasting.activate(castingSkill.getCastTime());
+            preApplyCastingTimer.activate(castingSkill.getPreApplyTime());
+            castingTimer.activate(castingSkill.getCastTime());
 
             castingSkill.decreasePointsCost();
           }
@@ -247,7 +247,7 @@ public abstract class Unit extends GameObjectSolid {
     /**
      * Finishes casting skill and bring unit to STAND state
      */
-    private void toFinishCasting() {
+    private void onCastingFinish() {
         castingSkill.activateCooldownTimer();
         castingSkill = null;
         currentState = GameObjectState.STAND;

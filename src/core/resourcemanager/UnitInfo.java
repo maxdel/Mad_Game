@@ -1,11 +1,9 @@
 package core.resourcemanager;
 
 import core.model.gameplay.gameobjects.Attribute;
-import core.model.gameplay.gameobjects.Bot;
 import core.model.gameplay.gameobjects.GameObjectSolidType;
 import core.model.gameplay.gameobjects.Unit;
 import core.model.gameplay.items.Inventory;
-import core.model.gameplay.items.Item;
 import core.model.gameplay.items.LootRecord;
 import core.model.gameplay.skills.Skill;
 import core.model.gameplay.skills.SkillKinds;
@@ -52,8 +50,7 @@ public class UnitInfo {
     }
 
     public Attribute getAttribute() {
-        Attribute attribute = new Attribute(maximumHP, maximumMP, maximumSpeed, pAttack, mAttack, pArmor, mArmor);
-        return attribute;
+        return new Attribute(maximumHP, maximumMP, maximumSpeed, pAttack, mAttack, pArmor, mArmor);
     }
 
     public Inventory getInventory(Unit owner) {
