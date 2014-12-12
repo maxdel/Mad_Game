@@ -34,7 +34,7 @@ public class BuffSkill extends Skill {
 
     @Override
     public void update(int delta) {
-        updateCD(delta);
+        super.update(delta);
         updateWorkTime(delta);
     }
 

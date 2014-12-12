@@ -89,7 +89,7 @@ public abstract class Unit extends GameObjectSolid {
         }
         // ---------------------------------
 
-        updateSkillsCD(delta);
+        updateSkills(delta);
 
         updatePosition(delta);
 
@@ -289,9 +289,9 @@ public abstract class Unit extends GameObjectSolid {
      * Updates skills of this unit in skillList
      * @param delta milliseconds from last step
      */
-    private void updateSkillsCD(int delta) {
+    private void updateSkills(int delta) {
         for (Skill skill : skillList) {
-            skill.updateCD(delta);
+            skill.update(delta);
         }
     }
 

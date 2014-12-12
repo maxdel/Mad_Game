@@ -34,6 +34,21 @@ public abstract class Skill {
         this.requiredMP = requiredMP;
         this.preApplyTime = castTime - postApplyTime;
     }
+
+    public void update(int delta) {
+        updateCD(delta);
+    }
+
+    private void updateCD(int delta) {
+        if (currentCooldownTime > 0) {
+            currentCooldownTime -= delta;
+            if (currentCooldownTime < 0) {
+                currentCooldownTime = 0;
+            }
+        }
+    }
+
+
     public void runCD() {
         currentCooldownTime = cooldownTime;
     }
@@ -43,18 +58,6 @@ public abstract class Skill {
         owner.getAttribute().getHP().damage(requiredHP);
     }
 
-    public void updateCD(int delta) {
-        if (currentCooldownTime > 0) {
-            currentCooldownTime -= delta;
-            if (currentCooldownTime < 0) {
-                currentCooldownTime = 0;
-            }
-        }
-    }
-
-    public void update(int delta) {
-        updateCD(delta);
-    }
 
     public boolean canStartCast(boolean reqItemIsNecessary) {
         if (reqItemIsNecessary) {
