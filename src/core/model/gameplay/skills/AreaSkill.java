@@ -64,31 +64,4 @@ public class AreaSkill extends Skill {
         }
         target.getAttribute().getHP().damage(pDamage);
     }
-
-<<<<<<< HEAD
-    protected double lengthDirX(double direction, double length) {
-        return Math.cos(direction) * length;
-    }
-
-    protected double lengthDirY(double direction, double length) {
-        return Math.sin(direction) * length;
-    }
-
-   // public int getCurrentCastTime() {
-     //   return currentCastTime;
-    //}
-=======
-    public int getCurrentCastTime() {
-        return currentCastTime;
-    }
->>>>>>> 7e080fdf6dedc8c89516ba7329edb83f2de6b254
-
-//    public void setCurrentCastTime(int currentCastTime) {
-  //      this.currentCastTime = currentCastTime;
-    //}
-
-    public double getRadius() {
-        return radius;
-    }
-
 }
