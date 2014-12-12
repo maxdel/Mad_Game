@@ -34,32 +34,39 @@ public class GamePlayView {
         this.inventoryView = new InventoryView(hero.getInventory());
         this.tileView = new TileView(tiledMap);
 
-        this.gameObjectViews = new ArrayList<GameObjectView>();
+        this.gameObjectViews = new ArrayList<>();
         ResourceManager resourceManager = ResourceManager.getInstance();
         for (GameObjectSolid gameObjectSolid : gameObjectSolids) {
-            if (gameObjectSolid.getType() == GameObjectSolidType.WALL) {
-                gameObjectViews.add(new WallView(gameObjectSolid, resourceManager));
-            } else if (gameObjectSolid.getType() == GameObjectSolidType.TREE) {
-                gameObjectViews.add(new TreeView(gameObjectSolid, resourceManager));
-            } else if (gameObjectSolid.getType() == GameObjectSolidType.HERO) {
-                gameObjectViews.add(new HeroView(gameObjectSolid, resourceManager));
-            } else if (gameObjectSolid.getType() == GameObjectSolidType.BANDITARCHER) {
-                gameObjectViews.add(new BanditArcherView(gameObjectSolid, resourceManager));
-            } else if (gameObjectSolid.getType() == GameObjectSolidType.BANDIT) {
-                gameObjectViews.add(new BanditView(gameObjectSolid, resourceManager));
-            }  else if (gameObjectSolid.getType() == GameObjectSolidType.VAMPIRE) {
-                gameObjectViews.add(new VampireView(gameObjectSolid, resourceManager));
-            }  else if (gameObjectSolid.getType() == GameObjectSolidType.SKELETON) {
-                gameObjectViews.add(new SkeletonView(gameObjectSolid, resourceManager));
-            }  else if (gameObjectSolid.getType() == GameObjectSolidType.SKELETONMAGE) {
-                gameObjectViews.add(new SkeletonMageView(gameObjectSolid, resourceManager));
+            switch (gameObjectSolid.getType()) {
+                case WALL:
+                    gameObjectViews.add(new WallView(gameObjectSolid, resourceManager));
+                    break;
+                case TREE:
+                    gameObjectViews.add(new TreeView(gameObjectSolid, resourceManager));
+                    break;
+                case HERO:
+                    gameObjectViews.add(new HeroView(gameObjectSolid, resourceManager));
+                    break;
+                case BANDITARCHER:
+                    gameObjectViews.add(new BanditArcherView(gameObjectSolid, resourceManager));
+                    break;
+                case BANDIT:
+                    gameObjectViews.add(new BanditView(gameObjectSolid, resourceManager));
+                    break;
+                case VAMPIRE:
+                    gameObjectViews.add(new VampireView(gameObjectSolid, resourceManager));
+                    break;
+                case SKELETON:
+                    gameObjectViews.add(new SkeletonView(gameObjectSolid, resourceManager));
+                    break;
+                case SKELETONMAGE:
+                    gameObjectViews.add(new SkeletonMageView(gameObjectSolid, resourceManager));
+                    break;
             }
         }
 
-        this.lootViewList = new ArrayList<LootView>();
-        for (Loot loot : lootList) {
-            lootViewList.add(new LootView(loot));
-        }
+        this.lootViewList = new ArrayList<>();
+        lootList.forEach(loot -> lootViewList.add(new LootView(loot)));
 
         this.camera = new Camera(gc.getWidth(), gc.getHeight());
     }
@@ -89,22 +96,31 @@ public class GamePlayView {
         ResourceManager resourceManager = ResourceManager.getInstance();
 
         for (GameObjectSolid gameObjectSolid : World.getInstance().getToAddList()) {
-            if (gameObjectSolid.getType() == GameObjectSolidType.WALL) {
-                gameObjectViews.add(new WallView(gameObjectSolid, resourceManager));
-            } else if (gameObjectSolid.getType() == GameObjectSolidType.BANDIT) {
-                gameObjectViews.add(new BanditView(gameObjectSolid, resourceManager));
-            } else if (gameObjectSolid.getType() == GameObjectSolidType.HERO) {
-                gameObjectViews.add(new HeroView(gameObjectSolid, resourceManager));
-            } else if (gameObjectSolid.getType() == GameObjectSolidType.ARROW) {
-                gameObjectViews.add(new ArrowView(gameObjectSolid, resourceManager));
-            } else if (gameObjectSolid.getType() == GameObjectSolidType.FIREBALL) {
-                gameObjectViews.add(new FireballView(gameObjectSolid, resourceManager));
-            } else if (gameObjectSolid.getType() == GameObjectSolidType.BANDITARCHER) {
-                gameObjectViews.add(new BanditArcherView(gameObjectSolid, resourceManager));
-            } else if (gameObjectSolid.getType() == GameObjectSolidType.SKELETON) {
-                gameObjectViews.add(new SkeletonView(gameObjectSolid, resourceManager));
-            } else if (gameObjectSolid.getType() == GameObjectSolidType.SKELETONMAGE) {
-                gameObjectViews.add(new SkeletonMageView(gameObjectSolid, resourceManager));
+            switch (gameObjectSolid.getType()) {
+                case WALL:
+                    gameObjectViews.add(new WallView(gameObjectSolid, resourceManager));
+                    break;
+                case BANDIT:
+                    gameObjectViews.add(new BanditView(gameObjectSolid, resourceManager));
+                    break;
+                case HERO:
+                    gameObjectViews.add(new HeroView(gameObjectSolid, resourceManager));
+                    break;
+                case ARROW:
+                    gameObjectViews.add(new ArrowView(gameObjectSolid, resourceManager));
+                    break;
+                case FIREBALL:
+                    gameObjectViews.add(new FireballView(gameObjectSolid, resourceManager));
+                    break;
+                case BANDITARCHER:
+                    gameObjectViews.add(new BanditArcherView(gameObjectSolid, resourceManager));
+                    break;
+                case SKELETON:
+                    gameObjectViews.add(new SkeletonView(gameObjectSolid, resourceManager));
+                    break;
+                case SKELETONMAGE:
+                    gameObjectViews.add(new SkeletonMageView(gameObjectSolid, resourceManager));
+                    break;
             }
         }
 

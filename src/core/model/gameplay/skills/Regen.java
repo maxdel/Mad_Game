@@ -18,7 +18,7 @@ public class Regen extends Skill {
      * Increases the owner's health
      */
     @Override
-    public void apply(Unit owner) {
+    protected void apply(Unit owner) {
         owner.getAttribute().getHP().heal(HPdelta);
     }
 

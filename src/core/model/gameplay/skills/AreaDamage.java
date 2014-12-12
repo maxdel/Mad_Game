@@ -28,7 +28,7 @@ public class AreaDamage extends Skill {
      *  Detect the solid object's, that fall under the area of effect and applies the effect
      */
     @Override
-    public void apply(Unit owner) {
+    protected void apply(Unit owner) {
         for (GameObjectSolid gameObjectSolid : World.getInstance().getGameObjectSolids()) {
             if (gameObjectSolid instanceof Unit && gameObjectSolid != owner) {
                 Unit target = (Unit) gameObjectSolid;

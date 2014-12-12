@@ -41,7 +41,7 @@ public class SkillImprover extends Skill {
      * Decrease the cast time and cooldown time of the skill
      */
     @Override
-    public void apply(Unit owner) {
+    protected void apply(Unit owner) {
         for (Skill skill : owner.getSkillList()) {
       /*      if (skill.getClass() == getKind().equals(skillToBuff)) {
                 skill.setCastTime(skill.getCastTime() - castTimeDelta);

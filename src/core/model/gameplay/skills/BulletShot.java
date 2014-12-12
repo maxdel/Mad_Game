@@ -28,7 +28,7 @@ public class BulletShot extends Skill {
      * After this the bullet lives her life
      */
     @Override
-    public void apply(Unit owner) {
+    protected void apply(Unit owner) {
         if (requiredItem.getClass() == Bow.class) {
             World.getInstance().getToAddList().add(new core.model.gameplay.gameobjects.Bullet(owner, owner.getX(), owner.getY(), owner.getDirection(),
                     bulletSpeed, pAttack, mAttack, GameObjectSolidType.ARROW));

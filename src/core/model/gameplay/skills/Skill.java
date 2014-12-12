@@ -51,22 +51,22 @@ public abstract class Skill {
     /**
      * Just description of actions, that this skill can do
      */
-    public abstract void apply(Unit owner);
+    protected abstract void apply(Unit owner);
 
     /**
      * Type of function, that Owner will call
      * @param <O> means Owner, which will do action using this skill
      */
     @FunctionalInterface
-    public interface ISkillAction<O> {
-        void realized(O owner);
+    public interface ISkillAction {
+        void realized(Unit owner);
     }
 
     /**
      * Returns actions, that owner will apply using this skill
      * @return apply function
      */
-    public ISkillAction<Unit> getToApplyAction() {
+    public ISkillAction getToApplyAction() {
         return this::apply;
     }
 
@@ -75,7 +75,7 @@ public abstract class Skill {
      * Returns actions, that owner will apply using this skill
      * @return apply function
      */
-    public ISkillAction<Unit> getStealSkillCostAction() {
+    public ISkillAction getStealSkillCostAction() {
         return this::stealSkillCost;
     }
 

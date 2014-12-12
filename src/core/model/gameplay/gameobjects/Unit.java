@@ -23,8 +23,8 @@ public abstract class Unit extends GameObjectSolid {
     private List<LootRecord> lootRecordList;
     private Inventory inventory;
 
-    private Skill.ISkillAction<Unit> skillApplyAction;
-    private Skill.ISkillAction<Unit> stealSkillCostAction;
+    private Skill.ISkillAction skillApplyAction;
+    private Skill.ISkillAction stealSkillCostAction;
 
     private ItemRecord itemToUse;
     private ItemRecord itemToDrop;
