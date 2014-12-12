@@ -5,8 +5,6 @@ import core.model.gameplay.items.Item;
 import core.model.gameplay.items.ItemDB;
 import core.model.gameplay.gameobjects.Unit;
 
-import java.security.acl.Owner;
-
 public abstract class Skill {
 
     protected SkillKind kind;
