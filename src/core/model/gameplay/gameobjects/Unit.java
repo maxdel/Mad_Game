@@ -66,6 +66,7 @@ public abstract class Unit extends GameObjectSolid {
      */
     @Override
     public void update(int delta) {
+        /* Update actions with current item */
         if (useItemTimer.update(delta)) {
             useItem();
         }
@@ -76,15 +77,20 @@ public abstract class Unit extends GameObjectSolid {
             pickItem();
         }
         updateItemToPick();
+        // ---------------------------------
 
+        /* Update actions with current skill */
         if (castSkillTimer.update(delta)) {
             castingSkill.apply();
         }
+
         if (endSkillTimer.update(delta)) {
             endCastSkill();
         }
+        // ---------------------------------
 
-        updateSkillsCD(delta);
+        updateSkills(delta);
+
         updatePosition(delta);
 
         if (attribute.hpAreEnded()) {
@@ -223,22 +229,29 @@ public abstract class Unit extends GameObjectSolid {
      * @param skillIndex bad param :(
      */
     public void startCastSkill(int skillIndex) {
-        if ((currentState == GameObjectState.STAND || currentState == GameObjectState.MOVE) &&
-                skillList.get(skillIndex) != null && skillList.get(skillIndex).startCast()) {
+        Skill skillToCast = skillList.get(skillIndex);
+        if (((currentState == GameObjectState.STAND || currentState == GameObjectState.MOVE)) &&
+                skillToCast != null && skillToCast.canStartCast(true) ) {
             stand();
             currentState = GameObjectState.SKILL;
-            castingSkill = skillList.get(skillIndex);
+
+            castingSkill = skillToCast;
+
             castSkillTimer.activate(castingSkill.getPreApplyTime());
             endSkillTimer.activate(castingSkill.getCastTime());
-        }
+
+            castingSkill.decreasePointsCost();
+          }
     }
+
 
     /**
      * Finishes casting skill and bring unit to STAND state
      */
     private void endCastSkill() {
-        currentState = GameObjectState.STAND;
+        castingSkill.runCD();
         castingSkill = null;
+        currentState = GameObjectState.STAND;
     }
 
     /**
@@ -276,9 +289,9 @@ public abstract class Unit extends GameObjectSolid {
      * Updates skills of this unit in skillList
      * @param delta milliseconds from last step
      */
-    private void updateSkillsCD(int delta) {
+    private void updateSkills(int delta) {
         for (Skill skill : skillList) {
-            skill.updateCD(delta);
+            skill.update(delta);
         }
     }
 

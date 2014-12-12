@@ -11,12 +11,10 @@ public abstract class Skill {
     protected String name;
     protected String description;
     protected int castTime;
-    protected int currentCastTime;
     protected int cooldownTime;
     protected int currentCooldownTime;
 
     protected int preApplyTime;
-    protected boolean alreadyApplied;
 
     protected Item requiredItem;
 
@@ -29,7 +27,6 @@ public abstract class Skill {
         this.name = name;
         this.description = description;
         this.castTime = castTime;
-        this.currentCastTime = 0;
         this.cooldownTime = cooldownTime;
         this.currentCooldownTime = 0;
         this.requiredItem = ItemDB.getInstance().getItem(requiredItem);
@@ -38,40 +35,11 @@ public abstract class Skill {
         this.preApplyTime = castTime - postApplyTime;
     }
 
-    public boolean isTimeToApply() {
-        return currentCastTime <= preApplyTime && alreadyApplied == false;
+    public void update(int delta) {
+        updateCD(delta);
     }
 
-    public boolean isCastingСontinues() {
-        return currentCastTime > 0;
-    }
-
-    public void stopCasting() {
-        currentCastTime = 0;
-    }
-
-    public boolean isCastingFinished() {
-        return currentCastTime <= 0;
-    }
-
-    public void tickCastingTime(int delta) {
-        currentCastTime -= delta;
-    }
-
-    public void runCast() {
-        currentCastTime = castTime;
-    }
-
-    public void runCD() {
-        currentCooldownTime = cooldownTime;
-    }
-
-    public void decreasePointsCost(double mp, double hp) {
-        owner.getAttribute().getMP().damage(requiredMP);
-        owner.getAttribute().getHP().damage(requiredHP);
-    }
-
-    public void updateCD(int delta) {
+    private void updateCD(int delta) {
         if (currentCooldownTime > 0) {
             currentCooldownTime -= delta;
             if (currentCooldownTime < 0) {
@@ -80,9 +48,16 @@ public abstract class Skill {
         }
     }
 
-    public void update(int delta) {
-        updateCD(delta);
+
+    public void runCD() {
+        currentCooldownTime = cooldownTime;
     }
+
+    public void decreasePointsCost() {
+        owner.getAttribute().getMP().damage(requiredMP);
+        owner.getAttribute().getHP().damage(requiredHP);
+    }
+
 
     public boolean canStartCast(boolean reqItemIsNecessary) {
         if (reqItemIsNecessary) {
@@ -105,26 +80,7 @@ public abstract class Skill {
 
         return true;
     }
-
-    public boolean startCast() {
-        if (canStartCast(true)) {
-            decreasePointsCost(requiredMP, requiredHP);
-            runCast();
-            runCD();
-            return true;
-        }
-        return false;
-    }
-
     public abstract void apply();
-
-    public int getCurrentCastTime() {
-        return currentCastTime;
-    }
-
-    public void setCurrentCastTime(int currentCastTime) {
-        this.currentCastTime = currentCastTime;
-    }
 
     public String getName() {
         return name;
@@ -154,8 +110,5 @@ public abstract class Skill {
         return preApplyTime;
     }
 
-    public void setAlreadyApplied(boolean alreadyApplied) {
-        this.alreadyApplied = alreadyApplied;
-    }
 
 }

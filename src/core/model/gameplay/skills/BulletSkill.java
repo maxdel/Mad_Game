@@ -20,14 +20,14 @@ public class BulletSkill extends Skill {
         this.mAttack = mAttack;
     }
 
-    @Override
+   // @Override
     public boolean startCast() {
         if (canStartCast(true)) {
             if ((requiredItem == ItemDB.getInstance().getItem("Bow")
                     && owner.getInventory().isItemExists(ItemDB.getInstance().getItem("Arrow")))
                     || requiredItem == ItemDB.getInstance().getItem("Staff")) {
-                decreasePointsCost(requiredMP, requiredHP);
-                runCast();
+                decreasePointsCost();
+                // runCast();
                 runCD();
                 return true;
             }

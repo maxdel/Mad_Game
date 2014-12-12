@@ -64,17 +64,4 @@ public class AreaSkill extends Skill {
         }
         target.getAttribute().getHP().damage(pDamage);
     }
-
-    public int getCurrentCastTime() {
-        return currentCastTime;
-    }
-
-    public void setCurrentCastTime(int currentCastTime) {
-        this.currentCastTime = currentCastTime;
-    }
-
-    public double getRadius() {
-        return radius;
-    }
-
 }
