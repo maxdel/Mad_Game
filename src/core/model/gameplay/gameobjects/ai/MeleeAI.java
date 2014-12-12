@@ -22,31 +22,34 @@ public class MeleeAI extends BotAI {
 
     @Override
     protected void init() {
+        final int standTime = 1000;
+        final int pursueDistance = 300;
+        final int attackDistance = 55;
         currentState = MeleeAIState.STAND;
         stateMap.put(MeleeAIState.STAND, new AIState() {
             private Timer timer;
-            public void enter()           { timer = new Timer(1000);                                                   }
-            public void run()             { owner.stand();                                                             }
-            public void update(int delta) { if (timer.update(delta))       currentState = MeleeAIState.WALK;
-                                            if (getDistanceToHero() < 300) currentState = MeleeAIState.PURSUE;         }
+            public void enter()           { timer = new Timer(standTime);                                                  }
+            public void run()             { owner.stand();                                                                 }
+            public void update(int delta) { if (timer.update(delta))                  currentState = MeleeAIState.WALK;
+                                            if (getDistanceToHero() < pursueDistance) currentState = MeleeAIState.PURSUE;  }
         });
         stateMap.put(MeleeAIState.WALK, new AIState() {
             private Point target;
-            public void enter()           { target = getRandomTarget();                                                }
-            public void run()             { followTarget(target);                                                      }
-            public void update(int delta) { if (getDistanceToHero() < 300)       currentState = MeleeAIState.PURSUE;
-                                            if (getDistanceToTarget(target) < 2) currentState = MeleeAIState.STAND;    }
+            public void enter()           { target = getRandomTarget();                                                    }
+            public void run()             { followTarget(target);                                                          }
+            public void update(int delta) { if (getDistanceToHero() < pursueDistance) currentState = MeleeAIState.PURSUE;
+                                            if (getDistanceToTarget(target) < 2)      currentState = MeleeAIState.STAND;   }
         });
         stateMap.put(MeleeAIState.PURSUE, new AIState() {
-            public void enter()           {                                                                            }
-            public void run()             { followHero();                                                              }
-            public void update(int delta) { if (getDistanceToHero() >= 300) currentState = MeleeAIState.STAND;
-                                            if (getDistanceToHero() < 55) currentState = MeleeAIState.ATTACK;          }
+            public void enter()           {                                                                                }
+            public void run()             { followHero();                                                                  }
+            public void update(int delta) { if (getDistanceToHero() >= pursueDistance) currentState = MeleeAIState.STAND;
+                                            if (getDistanceToHero() < attackDistance)  currentState = MeleeAIState.ATTACK; }
         });
         stateMap.put(MeleeAIState.ATTACK, new AIState() {
-            public void enter()           {                                                                            }
-            public void run()             { attackHeroWithSword();                                                     }
-            public void update(int delta) { if (getDistanceToHero() >= 55) currentState = MeleeAIState.PURSUE;         }
+            public void enter()           {                                                                                }
+            public void run()             { attackHeroWithSword();                                                         }
+            public void update(int delta) { if (getDistanceToHero() >= attackDistance) currentState = MeleeAIState.PURSUE; }
         });
     }
 
