@@ -1,4 +1,4 @@
-package core.model.gameplay.gameobjects;
+package core.model.gameplay.gameobjects.ai;
 
 public interface AIState {
 

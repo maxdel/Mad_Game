@@ -72,7 +72,7 @@ public abstract class GameObjectView {
      * Draws mask around a game object
      * */
     protected void drawMask(Graphics g, double viewX, double viewY) {
-        Shape mask = CollisionManager.getInstance().getUpdatedMask(gameObjectSolid, (float) gameObjectSolid.getX() - (float) viewX,
+        Shape mask = CollisionManager.getInstance().getUpdatedMask(gameObjectSolid.getMask(), (float) gameObjectSolid.getX() - (float) viewX,
                 (float) gameObjectSolid.getY() - (float) viewY, gameObjectSolid.getDirection());
         g.draw(mask);
     }

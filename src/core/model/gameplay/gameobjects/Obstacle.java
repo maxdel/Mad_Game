@@ -1,6 +1,6 @@
 package core.model.gameplay.gameobjects;
 
-public  class Obstacle extends GameObjectSolid {
+public class Obstacle extends GameObjectSolid {
 
     public Obstacle(double x, double y, double direction, GameObjectSolidType type) {
         super(x, y, direction, type);

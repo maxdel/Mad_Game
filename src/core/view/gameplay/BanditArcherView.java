@@ -1,6 +1,6 @@
 package core.view.gameplay;
 
-import core.model.gameplay.gameobjects.BanditArcher;
+import core.model.gameplay.gameobjects.Bot;
 import core.model.gameplay.gameobjects.Hero;
 import org.newdawn.slick.*;
 
@@ -16,7 +16,7 @@ public class BanditArcherView extends GameObjectView {
 
     @Override
     public void render(Graphics g, double viewX, double viewY, float viewDegreeAngle, double viewCenterX, double viewCenterY, Hero hero) {
-        BanditArcher banditArcher = (BanditArcher) gameObjectSolid;
+        Bot banditArcher = (Bot) gameObjectSolid;
 
         rotate(g, viewX, viewY, viewDegreeAngle, viewCenterX, viewCenterY, true);
         draw(viewX, viewY);
@@ -24,8 +24,8 @@ public class BanditArcherView extends GameObjectView {
         // For predicted direction calculations debug
         g.drawLine((float) (gameObjectSolid.getX() - viewX),
                 (float) (gameObjectSolid.getY() - viewY),
-                (float) (gameObjectSolid.getX() - viewX + lengthDirX(0, 350)),
-                (float) (gameObjectSolid.getY() - viewY + lengthDirY(0, 350)));*/
+                (float) (gameObjectSolid.getX() - viewX + MathAdv.lengthDirX(0, 350)),
+                (float) (gameObjectSolid.getY() - viewY + MathAdv.lengthDirY(0, 350)));*/
         animation.draw((float) (gameObjectSolid.getX() - viewX - animation.getWidth() / 2),
                 (float) (gameObjectSolid.getY() - viewY - animation.getHeight() / 2));
         // draw mask
@@ -65,14 +65,6 @@ public class BanditArcherView extends GameObjectView {
         // ----- END -----
 
         rotate(g, viewX, viewY, viewDegreeAngle, viewCenterX, viewCenterY, false);
-    }
-
-    protected double lengthDirX(double direction, double length) {
-        return Math.cos(direction) * length;
-    }
-
-    protected double lengthDirY(double direction, double length) {
-        return Math.sin(direction) * length;
     }
 
 }

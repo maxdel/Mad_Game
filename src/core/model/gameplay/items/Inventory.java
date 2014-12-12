@@ -69,7 +69,7 @@ public class Inventory {
         return null;
     }
 
-    protected void deleteItem(String name) {
+    public void deleteItem(String name) {
         deleteItem(name, 1);
     }
 

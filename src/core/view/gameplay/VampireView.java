@@ -1,7 +1,7 @@
 package core.view.gameplay;
 
+import core.model.gameplay.gameobjects.Bot;
 import core.model.gameplay.gameobjects.Hero;
-import core.model.gameplay.gameobjects.Vampire;
 import org.newdawn.slick.*;
 
 import core.resourcemanager.ResourceManager;
@@ -16,7 +16,7 @@ public class VampireView extends GameObjectView {
 
     @Override
     public void render(Graphics g, double viewX, double viewY, float viewDegreeAngle, double viewCenterX, double viewCenterY, Hero hero) {
-        Vampire vampire = (Vampire) gameObjectSolid;
+        Bot vampire = (Bot) gameObjectSolid;
 
         rotate(g, viewX, viewY, viewDegreeAngle, viewCenterX, viewCenterY, true);
         draw(viewX, viewY);
@@ -24,8 +24,8 @@ public class VampireView extends GameObjectView {
         // For predicted direction calculations debug
         g.drawLine((float) (gameObjectSolid.getX() - viewX),
                 (float) (gameObjectSolid.getY() - viewY),
-                (float) (gameObjectSolid.getX() - viewX + lengthDirX(0, 350)),
-                (float) (gameObjectSolid.getY() - viewY + lengthDirY(0, 350)));*/
+                (float) (gameObjectSolid.getX() - viewX + MathAdv.lengthDirX(0, 350)),
+                (float) (gameObjectSolid.getY() - viewY + MathAdv.lengthDirY(0, 350)));*/
         animation.draw((float) (gameObjectSolid.getX() - viewX - animation.getWidth() / 2),
                 (float) (gameObjectSolid.getY() - viewY - animation.getHeight() / 2));
         // draw mask
@@ -41,7 +41,7 @@ public class VampireView extends GameObjectView {
         drawHealthbar(g, (int) (vampire.getX() - viewX), (int) (vampire.getY() - viewY) - 38, 60, 8,
                 vampire.getAttribute().getMP().getCurrent(),
                 vampire.getAttribute().getMP().getMaximum(), Color.blue);
-        String str = "curState: " + vampire.getVampireAI().getCurrentState();
+        String str = "curState: " + vampire.getBotAI().getCurrentState();
         g.drawString(str,
                 (float) (vampire.getX() - viewX),
                 (float) (vampire.getY() - viewY - 80));
@@ -69,14 +69,6 @@ public class VampireView extends GameObjectView {
         // ----- END -----
 
         rotate(g, viewX, viewY, viewDegreeAngle, viewCenterX, viewCenterY, false);
-    }
-
-    protected double lengthDirX(double direction, double length) {
-        return Math.cos(direction) * length;
-    }
-
-    protected double lengthDirY(double direction, double length) {
-        return Math.sin(direction) * length;
     }
 
 }

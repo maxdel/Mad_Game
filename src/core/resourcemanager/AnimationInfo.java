@@ -17,7 +17,7 @@ public class AnimationInfo {
     }
 
     public Animation getAnimation() {
-        return animation;
+        return animation.copy();
     }
 
     public double getSpeedCoef() {

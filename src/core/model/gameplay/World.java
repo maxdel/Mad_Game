@@ -1,9 +1,14 @@
 package core.model.gameplay;
 
+import core.MathAdv;
+import core.model.gameplay.gameobjects.ai.MeleeAI;
+import core.model.gameplay.gameobjects.ai.RangedAI;
+import core.model.gameplay.gameobjects.ai.VampireAI;
 import core.model.gameplay.items.ItemDB;
 import core.model.gameplay.items.Loot;
 import core.model.gameplay.gameobjects.*;
 import core.resourcemanager.MadTiledMap;
+import core.resourcemanager.ResourceManager;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 
@@ -49,8 +54,8 @@ public class World {
                     double rotation;
                     rotation = tiledMap.getObjectRotation(i, j) * Math.PI / 180;
                     gameObjectSolids.add(new Obstacle(
-                            tiledMap.getObjectX(i, j) + lengthDirX(-Math.PI/4 + rotation, length),
-                            tiledMap.getObjectY(i, j) + lengthDirY(-Math.PI/4 + rotation, length),
+                            tiledMap.getObjectX(i, j) + MathAdv.lengthDirX(-Math.PI / 4 + rotation, length),
+                            tiledMap.getObjectY(i, j) + MathAdv.lengthDirY(-Math.PI / 4 + rotation, length),
                                     rotation, GameObjectSolidType.WALL)
                     );
                 }
@@ -74,23 +79,43 @@ public class World {
                 String tileObjectName = tiledMap.getTileProperty(tiledMap.getTileId(i, j, 2), "name", "error");
                 if (tileObjectName.equals("hero")) {
                     hero = new Hero(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
-                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0.18F);
+                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0);
                     gameObjectSolids.add(hero);
-                } else if (tileObjectName.equals("banditsword")) {
-                    gameObjectSolids.add(new Bandit(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
-                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0.1F));
-                } else if (tileObjectName.equals("banditarcher")) {
-                    gameObjectSolids.add(new BanditArcher(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
-                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0.1F));
-                } else if (tileObjectName.equals("skeletsword")) {
-                    gameObjectSolids.add(new Skeleton(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
-                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0.15F));
-                } else if (tileObjectName.equals("skeletmage")) {
-                    gameObjectSolids.add(new SkeletonMage(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
-                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0.15F));
                 } else if (tileObjectName.equals("vampire")) {
-                    gameObjectSolids.add(new Vampire(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
-                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0.1F));
+                    VampireAI vampireAI = new VampireAI();
+                    Bot bot = new Bot(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
+                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjectSolidType.VAMPIRE,
+                            vampireAI);
+                    vampireAI.setOwner(bot);
+                    gameObjectSolids.add(bot);
+                } else if (tileObjectName.equals("banditsword")) {
+                    MeleeAI meleeAI = new MeleeAI();
+                    Bot bot = new Bot(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
+                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjectSolidType.BANDIT,
+                            meleeAI);
+                    meleeAI.setOwner(bot);
+                    gameObjectSolids.add(bot);
+                } else if (tileObjectName.equals("skeletsword")) {
+                    MeleeAI meleeAI = new MeleeAI();
+                    Bot bot = new Bot(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
+                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjectSolidType.SKELETON,
+                            meleeAI);
+                    meleeAI.setOwner(bot);
+                    gameObjectSolids.add(bot);
+                } else if (tileObjectName.equals("banditarcher")) {
+                    RangedAI rangedAI = new RangedAI();
+                    Bot bot = new Bot(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
+                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjectSolidType.BANDITARCHER,
+                            rangedAI);
+                    rangedAI.setOwner(bot);
+                    gameObjectSolids.add(bot);
+                } else if (tileObjectName.equals("skeletonmage")) {
+                    RangedAI rangedAI = new RangedAI();
+                    Bot bot = new Bot(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
+                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjectSolidType.SKELETONMAGE,
+                            rangedAI);
+                    rangedAI.setOwner(bot);
+                    gameObjectSolids.add(bot);
                 }
             }
         }
@@ -152,14 +177,6 @@ public class World {
 
     public List<GameObjectSolid> getToAddList() {
         return toAddList;
-    }
-
-    protected double lengthDirX(double direction, double length) {
-        return Math.cos(direction) * length;
-    }
-
-    protected double lengthDirY(double direction, double length) {
-        return Math.sin(direction) * length;
     }
 
 }

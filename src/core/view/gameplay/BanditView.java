@@ -1,6 +1,7 @@
 package core.view.gameplay;
 
-import core.model.gameplay.gameobjects.Bandit;
+import core.model.gameplay.gameobjects.Bot;
+import core.model.gameplay.gameobjects.GameObjectState;
 import core.model.gameplay.gameobjects.Hero;
 import org.newdawn.slick.*;
 
@@ -9,14 +10,38 @@ import core.model.gameplay.gameobjects.GameObjectSolid;
 
 public class BanditView extends GameObjectView {
 
+    private Animation animationWalkSword;
+    private GameObjectState previousState;
+
     public BanditView(GameObjectSolid enemy, ResourceManager resourceManager) throws SlickException {
         super(enemy, resourceManager);
         animation = resourceManager.getAnimation("bandit");
+        animationWalkSword = resourceManager.getAnimation("banditwalksword");
     }
 
     @Override
     public void render(Graphics g, double viewX, double viewY, float viewDegreeAngle, double viewCenterX, double viewCenterY, Hero hero) {
-        Bandit bandit = (Bandit) gameObjectSolid;
+        Bot bandit = (Bot) gameObjectSolid;
+
+        if (bandit.getCurrentState() != previousState) {
+            switch (bandit.getCurrentState()) {
+                case MOVE:
+                    animation = animationWalkSword;
+                    animation.setSpeed((float) (bandit.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("banditwalksword")));
+                    animation.start();
+                    break;
+                case STAND:
+                    animation = animationWalkSword;
+                    animation.setCurrentFrame(0);
+                    animation.stop();
+                    break;
+                case ITEM:
+                    break;
+                case SKILL:
+                    break;
+            }
+        }
+        previousState = bandit.getCurrentState();
 
         rotate(g, viewX, viewY, viewDegreeAngle, viewCenterX, viewCenterY, true);
         draw(viewX, viewY);
@@ -34,6 +59,10 @@ public class BanditView extends GameObjectView {
                 bandit.getAttribute().getMP().getCurrent(),
                 bandit.getAttribute().getMP().getMaximum(),
                 Color.blue);
+        String str = "curState: " + bandit.getCurrentState();
+        g.drawString(str,
+                (float) (bandit.getX() - viewX),
+                (float) (bandit.getY() - viewY - 80));
         /*g.drawString(String.valueOf((int) bandit.getAttribute().getPAttack()) + "/" +
                         String.valueOf((int) bandit.getAttribute().getMAttack()),
                 (float) (gameObject.getX() - viewX),

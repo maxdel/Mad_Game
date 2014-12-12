@@ -1,6 +1,5 @@
 package core.model.gameplay.gameobjects;
 
-
 public abstract class GameObject {
 
     private double x;
@@ -17,23 +16,36 @@ public abstract class GameObject {
         return x;
     }
 
-    public void setX(double x) {
-        this.x = x;
-    }
-
     public double getY() {
         return y;
-    }
-
-    public void setY(double y) {
-        this.y = y;
     }
 
     public double getDirection() {
         return direction;
     }
 
-    public void setDirection(double direction) {
+    protected void setX(double x) {
+        this.x = x;
+    }
+
+    protected void setY(double y) {
+        this.y = y;
+    }
+
+    protected void setDirection(double direction) {
         this.direction = direction;
     }
+
+    protected void changeDirection(double directionDelta) {
+        direction += directionDelta;
+    }
+
+    protected void changeX(double xDelta) {
+        x += xDelta;
+    }
+
+    protected void changeY(double yDelta) {
+        y += yDelta;
+    }
+
 }

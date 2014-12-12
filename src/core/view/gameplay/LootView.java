@@ -41,7 +41,7 @@ public class LootView {
         // ----- END -----*/
         rotate(g, viewX, viewY, viewDegreeAngle, centerViewX, centerViewY, false);
 
-        if (World.getInstance().getHero().getSelectedLoot() == loot) {
+        if (World.getInstance().getHero().getItemToPick() == loot) {
             // On the screen without rotation
             double x;
             double y;
@@ -84,7 +84,7 @@ public class LootView {
     }
 
     private void draw(double viewX, double viewY, Graphics g) {
-        if (World.getInstance().getHero().getSelectedLoot() == loot) {
+        if (World.getInstance().getHero().getItemToPick() == loot) {
             ResourceManager.getInstance().getImage("Selected loot").draw((float) (loot.getX() - viewX - image.getWidth() / 4),
                     (float) (loot.getY() - viewY - image.getHeight() / 4), 0.5F);
         }

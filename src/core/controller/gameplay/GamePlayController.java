@@ -87,12 +87,10 @@ public class GamePlayController {
             if (direction >= 0) {
                 if (direction <= Math.PI / 2 || direction >= 1.5 * Math.PI) {
                     if (input.isKeyDown(Input.KEY_LSHIFT)) {
-                        hero.run(direction);
-                    } else {
-                        hero.walk(direction);
+                        hero.move(direction);
                     }
                 } else {
-                    hero.walk(direction);
+                    hero.move(direction);
                 }
             } else {
                 hero.stand();
@@ -115,16 +113,16 @@ public class GamePlayController {
                 hero.startCastSkill(1);
                 hero.startCastSkill(2);
             }
-            if (input.isKeyDown(input.KEY_2) && hero.level >= 2) {
+            if (input.isKeyDown(input.KEY_2)) {
                 hero.startCastSkill(3);
             }
-            if (input.isKeyDown(input.KEY_3) && hero.level >= 3) {
+            if (input.isKeyDown(input.KEY_3)) {
                 hero.startCastSkill(4);
             }
-            if (input.isKeyDown(input.KEY_4) && hero.level >= 4) {
+            if (input.isKeyDown(input.KEY_4)) {
                 hero.startCastSkill(5);
             }
-            if (input.isKeyDown(input.KEY_5) && hero.level >= 5) {
+            if (input.isKeyDown(input.KEY_5)) {
                 hero.startCastSkill(6);
             }
 

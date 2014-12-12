@@ -1,8 +1,8 @@
 package core.view.gameplay;
 
+import core.model.gameplay.gameobjects.Bot;
 import core.model.gameplay.gameobjects.GameObjectSolid;
 import core.model.gameplay.gameobjects.Hero;
-import core.model.gameplay.gameobjects.SkeletonMage;
 import org.newdawn.slick.*;
 
 import core.resourcemanager.ResourceManager;
@@ -16,7 +16,7 @@ public class SkeletonMageView extends GameObjectView {
 
     @Override
     public void render(Graphics g, double viewX, double viewY, float viewDegreeAngle, double viewCenterX, double viewCenterY, Hero hero) {
-        SkeletonMage skeletonMage = (SkeletonMage) gameObjectSolid;
+        Bot skeletonMage = (Bot) gameObjectSolid;
 
         rotate(g, viewX, viewY, viewDegreeAngle, viewCenterX, viewCenterY, true);
         draw(viewX, viewY);
