@@ -85,13 +85,7 @@ public class GamePlayController {
 
             direction *= Math.PI / 180;
             if (direction >= 0) {
-                if (direction <= Math.PI / 2 || direction >= 1.5 * Math.PI) {
-                    if (input.isKeyDown(Input.KEY_LSHIFT)) {
-                        hero.move(direction);
-                    }
-                } else {
-                    hero.move(direction);
-                }
+                hero.move(direction);
             } else {
                 hero.stand();
             }
