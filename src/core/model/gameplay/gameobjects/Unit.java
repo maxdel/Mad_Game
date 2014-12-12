@@ -39,8 +39,8 @@ public abstract class Unit extends GameObjectSolid {
 
     private List<Skill> skillList;
     private Skill castingSkill;
-    private Timer castSkillTimer;
-    private Timer endSkillTimer;
+    private Timer timerPreApplyCasting;
+    private Timer timerCasting;
 
     public Unit(double x, double y, double direction, GameObjectSolidType type) {
         super(x, y, direction, type);
@@ -56,8 +56,8 @@ public abstract class Unit extends GameObjectSolid {
         this.dropItemTimer = new Timer();
         this.pickItemTimer = new Timer();
 
-        this.castSkillTimer = new Timer();
-        this.endSkillTimer = new Timer();
+        this.timerPreApplyCasting = new Timer();
+        this.timerCasting = new Timer();
     }
 
     /**
@@ -80,12 +80,12 @@ public abstract class Unit extends GameObjectSolid {
         // ---------------------------------
 
         /* Update actions with current skill */
-        if (castSkillTimer.update(delta)) {
+        if (timerPreApplyCasting.update(delta)) {
             castingSkill.apply();
         }
 
-        if (endSkillTimer.update(delta)) {
-            endCastSkill();
+        if (timerCasting.update(delta)) {
+            toFinishCasting();
         }
         // ---------------------------------
 
@@ -237,18 +237,17 @@ public abstract class Unit extends GameObjectSolid {
 
             castingSkill = skillToCast;
 
-            castSkillTimer.activate(castingSkill.getPreApplyTime());
-            endSkillTimer.activate(castingSkill.getCastTime());
+            timerPreApplyCasting.activate(castingSkill.getPreApplyTime());
+            timerCasting.activate(castingSkill.getCastTime());
 
             castingSkill.decreasePointsCost();
           }
     }
 
-
     /**
      * Finishes casting skill and bring unit to STAND state
      */
-    private void endCastSkill() {
+    private void toFinishCasting() {
         castingSkill.activateCooldownTimer();
         castingSkill = null;
         currentState = GameObjectState.STAND;

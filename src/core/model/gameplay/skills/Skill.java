@@ -5,7 +5,6 @@ import core.model.gameplay.items.Item;
 import core.model.gameplay.items.ItemDB;
 import core.model.gameplay.gameobjects.Unit;
 
-
 public abstract class Skill {
 
     protected Unit owner;
@@ -14,9 +13,8 @@ public abstract class Skill {
     protected String description;
     protected int castTime;
 
-
     protected int cooldownTime;
-    protected Timer timerCooldown = new Timer();
+    protected Timer timerCooldown;
 
     protected int preApplyTime;
 
@@ -25,8 +23,8 @@ public abstract class Skill {
     protected double requiredHP;
     protected double requiredMP;
 
-    public Skill(Unit owner, String name, String description, int castTime, int postApplyTime, int cooldownTime, String requiredItem,
-                 double requiredHP, double requiredMP) {
+    public Skill(Unit owner, String name, String description, int castTime, int postApplyTime,
+                 int cooldownTime, String requiredItem, double requiredHP, double requiredMP) {
         this.owner = owner;
         this.name = name;
         this.description = description;
@@ -36,22 +34,39 @@ public abstract class Skill {
         this.requiredHP = requiredHP;
         this.requiredMP = requiredMP;
         this.preApplyTime = castTime - postApplyTime;
+
+        timerCooldown = new Timer();
     }
 
+    /**
+     * Updates skill according to passed time
+     * @param delta passed time in milliseconds
+     */
     public void update(int delta) {
         timerCooldown.update(delta);
     }
 
+    /**
+     * Activates cooldown timer with skill cooldown time
+     */
     public void activateCooldownTimer() {
         timerCooldown.activate(cooldownTime);
     }
 
+    /**
+     * Skills have the health and magic points cost, that will still from unit,
+     * when unit successfully uses skill
+     */
     public void decreasePointsCost() {
         owner.getAttribute().getMP().damage(requiredMP);
         owner.getAttribute().getHP().damage(requiredHP);
     }
 
-
+    /**
+     * Returns true if the skill can casting with current owner conditions
+     * @param reqItemIsNecessary shows if owner must be wearing some item
+     * @return true if an owner can start this skill
+     */
     public boolean canStartCast(boolean reqItemIsNecessary) {
         if (reqItemIsNecessary) {
             if (requiredItem != null && !owner.getInventory().isItemDressed(requiredItem.getClass())) {
@@ -73,7 +88,21 @@ public abstract class Skill {
 
         return true;
     }
+
+    /**
+     * Applies skill to owner
+     */
     public abstract void apply();
+
+    /**
+     * Changes primary cooldown time of unit on @param deltaCooldownTime value
+     * @param deltaCooldownTime
+     */
+    public void changeCooldownTime(int deltaCooldownTime) {
+        cooldownTime += deltaCooldownTime;
+    }
+
+    /* Getters and setters */
 
     public String getName() {
         return name;
@@ -95,7 +124,4 @@ public abstract class Skill {
         return preApplyTime;
     }
 
-    public void changeCooldownTime(int deltaCooldownTime) {
-        cooldownTime += deltaCooldownTime;
-    }
 }
