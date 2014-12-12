@@ -8,6 +8,7 @@ import core.model.gameplay.items.Inventory;
 import core.model.gameplay.items.Item;
 import core.model.gameplay.items.LootRecord;
 import core.model.gameplay.skills.Skill;
+import core.model.gameplay.skills.SkillKinds;
 import javafx.util.Pair;
 import org.newdawn.slick.geom.Shape;
 
@@ -25,12 +26,12 @@ public class UnitInfo {
     private double pArmor;
     private double mArmor;
     private List<Pair<String, Integer>> itemRecordList;
-    private List<String> skillList;
+    private List<SkillKinds> skillList;
     private List<Pair<String, Double>> lootList;
 
     public UnitInfo(GameObjectSolidType type, String mask, double maximumHP, double maximumMP, double maximumSpeed,
                     double pAttack, double mAttack, double pArmor, double mArmor,
-                    List<Pair<String, Integer>> itemRecordList, List<String> skillList,
+                    List<Pair<String, Integer>> itemRecordList, List<SkillKinds> skillList,
                     List<Pair<String, Double>> lootList) {
         this.type = type;
         this.mask = mask;
@@ -65,8 +66,8 @@ public class UnitInfo {
 
     public List<Skill> getSkilLList(Unit owner) {
         ArrayList<Skill> skillArrayList = new ArrayList<Skill>();
-        for (String skillName : skillList) {
-            skillArrayList.add(ResourceManager.getInstance().getSkill(owner, skillName));
+        for (SkillKinds skillKind : skillList) {
+            skillArrayList.add(ResourceManager.getInstance().getSkill(owner, skillKind));
         }
         return skillArrayList;
     }

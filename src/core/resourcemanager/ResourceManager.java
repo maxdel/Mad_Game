@@ -11,7 +11,7 @@ import core.GameState;
 import core.model.gameplay.gameobjects.GameObjectSolid;
 import core.model.gameplay.items.Item;
 import core.model.gameplay.items.ItemDB;
-import core.model.gameplay.skills.Skill;
+import core.model.gameplay.skills.*;
 import core.model.gameplay.gameobjects.GameObjectSolidType;
 import core.model.gameplay.gameobjects.Unit;
 import javafx.util.Pair;
@@ -33,7 +33,7 @@ public class ResourceManager {
     private Map<GameObjectSolidType, MaskInfo> maskInfos;
     private Map<String, FontInfo> fontInfos;
     private Map<String, ItemInfo> itemInfos;
-    private Map<String, SkillInfo> skillInfos;
+    private Map<SkillKinds, SkillInfo> skillInfos;
     private Map<String, Image> imageInfos;
     private Map<GameObjectSolidType, UnitInfo> unitInfos;
 
@@ -42,7 +42,7 @@ public class ResourceManager {
         maskInfos = new HashMap<GameObjectSolidType, MaskInfo>();
         fontInfos = new HashMap<String, FontInfo>();
         itemInfos = new HashMap<String, ItemInfo>();
-        skillInfos = new HashMap<String, SkillInfo>();
+        skillInfos = new HashMap<SkillKinds, SkillInfo>();
         imageInfos = new HashMap<String, Image>();
         unitInfos = new HashMap<GameObjectSolidType, UnitInfo>();
     }
@@ -211,10 +211,28 @@ public class ResourceManager {
                     map.put(nameList.get(j), skillElement.getAttribute(nameList.get(j)));
                 }
             }
-            skillInfos.put(name, new SkillInfo(name, description, type, new Image(path), map));
+
+
+            SkillKinds skillKind = getSkillKind(type, name);
+            skillInfos.put(skillKind, new SkillInfo(name, description, type, new Image(path), map, skillKind));
         }
     }
 
+    public SkillKinds getSkillKind(String type, String name) {
+        SkillKinds kind = null;
+
+        if (type.equals("BulletShot")) {
+            kind = BulletShot.Kinds.valueOf(name.toUpperCase());
+        } else if (type.equals("AreaDamage")) {
+            kind = AreaDamage.Kinds.valueOf(name.toUpperCase());
+        } else if (type.equals("ImproverSkill")) {
+            kind = SkillImprover.Kinds.valueOf(name.toUpperCase());
+        } else if (type.equals("Regen")) {
+            kind = Regen.Kinds.valueOf(name.toUpperCase());
+        }
+
+        return kind;
+    }
     private void loadImages(XMLElement gameStateElement) throws SlickException {
         XMLElement imagesElement = gameStateElement.getChildrenByName("images").get(0);
         XMLElementList imageList = imagesElement.getChildrenByName("image");
@@ -278,15 +296,16 @@ public class ResourceManager {
                 itemsList.add(pair);
             }
 
-            List<String> skillNameList = new ArrayList<String>();
+            List<SkillKinds> skillKindsListList = new ArrayList<SkillKinds>();
             XMLElement skillListElement = unitElement.getChildrenByName("skillList").get(0);
             XMLElementList skillList = skillListElement.getChildrenByName("skill");
             for (int j = 0; j < skillList.size(); ++j) {
                 XMLElement skill = skillList.get(j);
 
+                String skillType = skill.getAttribute("type");
                 String skillName = skill.getAttribute("name");
-
-                skillNameList.add(skillName);
+                SkillKinds skillKind = getSkillKind(skillType, skillName);
+                skillKindsListList.add(skillKind);
             }
 
             List<Pair<String, Double>> dropList = new ArrayList<Pair<String, Double>>();
@@ -304,7 +323,7 @@ public class ResourceManager {
 
             unitInfos.put(GameObjectSolidType.valueOf(unitName.toUpperCase()),
                     new UnitInfo(GameObjectSolidType.valueOf(unitName.toUpperCase()), maskName, maximumHP, maximumMP,
-                            maximumSpeed, pAttack, mAttack, pArmor, mArmor, itemsList, skillNameList, dropList));
+                            maximumSpeed, pAttack, mAttack, pArmor, mArmor, itemsList, skillKindsListList, dropList));
         }
     }
 
@@ -350,12 +369,13 @@ public class ResourceManager {
         return itemInfos.get(itemName).getItem();
     }
 
-    public Skill getSkill(Unit owner, String name) {
-        return skillInfos.get(name).getSkill(owner);
+
+    public Skill getSkill(Unit owner, SkillKinds skillKind) {
+        return skillInfos.get(skillKind).getSkill(owner);
     }
+
 
     public UnitInfo getUnitInfo(GameObjectSolidType type) {
         return unitInfos.get(type);
     }
-
 }

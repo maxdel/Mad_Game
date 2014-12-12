@@ -1,6 +1,10 @@
 package core.view.gameplay;
 
 import core.model.gameplay.items.Bow;
+import core.model.gameplay.skills.AreaDamage;
+import core.model.gameplay.skills.BulletShot;
+import core.model.gameplay.skills.Skill;
+import core.model.gameplay.skills.SkillKinds;
 import org.newdawn.slick.*;
 
 import core.resourcemanager.ResourceManager;
@@ -76,41 +80,55 @@ public class HeroView extends GameObjectView {
                     animation.setSpeed((float) (hero.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("hero")));
                     break;
                 case SKILL:
-                    if (hero.getCastingSkill().getName().equals("Sword attack")) {
-                        Music music = new Music("res/Swoosh01.wav");
-                        music.play();
-                        animation = animationSwordAttack;
-                        animation.restart();
-                        hero.getCastingSkill().getCastTime();
-                        for (int i = 0; i < animation.getFrameCount(); ++i) {
-                            animation.setDuration(i, hero.getCastingSkill().getCastTime() / animation.getFrameCount());
+                    Music music = null;
+                    Skill castingSkill = hero.getCastingSkill();
+                    if (castingSkill.getClass() == AreaDamage.class) {
+                        switch ((AreaDamage.Kinds) castingSkill.getKind()) {
+                            case SWORD_ATTACK:
+                                music = new Music("res/Swoosh01.wav");
+                                music.play();
+                                animation = animationSwordAttack;
+                                animation.restart();
+                                hero.getCastingSkill().getCastTime();
+                                for (int i = 0; i < animation.getFrameCount(); ++i) {
+                                    animation.setDuration(i, hero.getCastingSkill().getCastTime() / animation.getFrameCount());
+                                }
+                                break;
+                            case STAFF_ATTACK:
+                                break;
+                            case STRONG_SWORD_ATTACK:
+                                music = new Music("res/Swoosh01.wav");
+                                music.play();
+                                animation = animationSwordAttackStrong;
+                                animation.restart();
+                                hero.getCastingSkill().getCastTime();
+                                for (int i = 0; i < animation.getFrameCount(); ++i) {
+                                    animation.setDuration(i, hero.getCastingSkill().getCastTime() / animation.getFrameCount());
+                                }
+                                break;
                         }
-                    } else if (hero.getCastingSkill().getName().equals("Strong sword attack")) {
-                        Music music = new Music("res/Swoosh01.wav");
-                        music.play();
-                        animation = animationSwordAttackStrong;
-                        animation.restart();
-                        hero.getCastingSkill().getCastTime();
-                        for (int i = 0; i < animation.getFrameCount(); ++i) {
-                            animation.setDuration(i, hero.getCastingSkill().getCastTime() / animation.getFrameCount());
-                        }
-                    } else if (hero.getInventory().getDressedWeaponType().equals("Bow")) {
-                        Music music = new Music("res/Bowshot.wav");
-                        music.play();
-                        animation = animationBowAttack;
-                        animation.restart();
-                        hero.getCastingSkill().getCastTime();
-                        for (int i = 0; i < animation.getFrameCount(); ++i) {
-                            animation.setDuration(i, hero.getCastingSkill().getCastTime() / animation.getFrameCount());
-                        }
-                    } else if (hero.getCastingSkill().getName().equals("Fireball")) {
-                        Music music = new Music("res/fireball.wav");
-                        music.play();
-                        animation = animationBowAttack;
-                        animation.restart();
-                        hero.getCastingSkill().getCastTime();
-                        for (int i = 0; i < animation.getFrameCount(); ++i) {
-                            animation.setDuration(i, hero.getCastingSkill().getCastTime() / animation.getFrameCount());
+                    } else if (castingSkill.getClass() == BulletShot.class) {
+                        switch ((BulletShot.Kinds) castingSkill.getKind()) {
+                            case FIREBALL:
+                                music = new Music("res/fireball.wav");
+                                music.play();
+                                animation = animationBowAttack;
+                                animation.restart();
+                                hero.getCastingSkill().getCastTime();
+                                for (int i = 0; i < animation.getFrameCount(); ++i) {
+                                    animation.setDuration(i, hero.getCastingSkill().getCastTime() / animation.getFrameCount());
+                                }
+                                break;
+                            case BOW_SHOT:
+                                music = new Music("res/Bowshot.wav");
+                                music.play();
+                                animation = animationBowAttack;
+                                animation.restart();
+                                hero.getCastingSkill().getCastTime();
+                                for (int i = 0; i < animation.getFrameCount(); ++i) {
+                                    animation.setDuration(i, hero.getCastingSkill().getCastTime() / animation.getFrameCount());
+                                }
+                                break;
                         }
                     }
                     animation.start();
@@ -127,7 +145,7 @@ public class HeroView extends GameObjectView {
         rotate(g, viewX, viewY, viewDegreeAngle, viewCenterX, viewCenterY, false);
 
         if (hero.getInventory().isItemDressed(Bow.class)) {
-            Image aim = ResourceManager.getInstance().getImage("Bow aim");
+            Image aim = ResourceManager.getInstance().getImage("Bow_aim");
             aim.draw((float)viewCenterX - aim.getWidth() / 2, (float)viewCenterY - 250);
         }
         // For debug

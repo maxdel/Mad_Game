@@ -16,7 +16,7 @@ public class ItemInfo {
         } else if (type.equals("Bow")) {
             item = new Bow(name, description, map);
         } else if (type.equals("Staff")) {
-            item = new Stuff(name, description, map);
+            item = new Staff(name, description, map);
         } else if (type.equals("Reagent")) {
             item = new Reagent(name, description, map);
         } else if (type.equals("Armor")) {

@@ -19,6 +19,7 @@ public class Inventory {
         dressedItems = new ArrayList<ItemRecord>();
         selectedRecord = null;
 
+/*
         addItem("Sword");
         addItem("Strong sword");
         addItem("Bow");
@@ -36,6 +37,7 @@ public class Inventory {
         addItem("Light armor");
         addItem("Heavy armor");
         addItem("Robe of magic");
+*/
     }
 
     public List<ItemRecord> getExistedItems() {
@@ -174,7 +176,7 @@ public class Inventory {
                 return "Sword";
             } else if (itemRecord.getItem() instanceof Bow) {
                 return "Bow";
-            } else if (itemRecord.getItem() instanceof Stuff) {
+            } else if (itemRecord.getItem() instanceof Staff) {
                 return "Stuff";
             }
         }

@@ -20,7 +20,6 @@ public class ItemDB {
         }
         return instance;
     }
-
     public Item getItem(String name) {
         for (Item item : items) {
             if (item.getName().equals(name)) {

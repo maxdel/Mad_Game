@@ -7,6 +7,8 @@ import core.model.gameplay.gameobjects.Unit;
 
 public abstract class Skill {
 
+    protected SkillKinds kind;
+
     protected Unit owner;
 
     protected String name;
@@ -24,7 +26,7 @@ public abstract class Skill {
     protected double requiredMP;
 
     public Skill(Unit owner, String name, String description, int castTime, int postApplyTime,
-                 int cooldownTime, String requiredItem, double requiredHP, double requiredMP) {
+                 int cooldownTime, String requiredItem, double requiredHP, double requiredMP, SkillKinds kind) {
         this.owner = owner;
         this.name = name;
         this.description = description;
@@ -34,6 +36,7 @@ public abstract class Skill {
         this.requiredHP = requiredHP;
         this.requiredMP = requiredMP;
         this.preApplyTime = castTime - postApplyTime;
+        this.kind = kind;
 
         timerCooldown = new Timer();
     }
@@ -103,11 +106,10 @@ public abstract class Skill {
     }
 
     /* Getters and setters region */
-    public String getName() {
+  /*  public String getName() {
         return name;
     }
-
-    public int getCastTime() {
+*/    public int getCastTime() {
         return castTime;
     }
 
@@ -123,4 +125,7 @@ public abstract class Skill {
         return preApplyTime;
     }
 
+    public SkillKinds getKind() {
+        return kind;
+    }
 }
