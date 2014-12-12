@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import core.model.gameplay.World;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -87,49 +88,30 @@ public class GamePlayView {
     }
 
     private void updateViews() throws SlickException {
-        for (Iterator<GameObjectView> it = gameObjectViews.iterator(); it.hasNext();) {
-            GameObjectView gameObjectView = it.next();
-            boolean found = false;
-            for (GameObjectSolid gameObjectSolid : gameObjectSolids) {
-                if (gameObjectView.gameObjectSolid == gameObjectSolid) {
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
-                it.remove();
+        ResourceManager resourceManager = ResourceManager.getInstance();
+
+        for (GameObjectSolid gameObjectSolid : World.getInstance().getToAddList()) {
+            if (gameObjectSolid.getType() == GameObjectSolidType.WALL) {
+                gameObjectViews.add(new WallView(gameObjectSolid, resourceManager));
+            } else if (gameObjectSolid.getType() == GameObjectSolidType.BANDIT) {
+                gameObjectViews.add(new BanditView(gameObjectSolid, resourceManager));
+            } else if (gameObjectSolid.getType() == GameObjectSolidType.HERO) {
+                gameObjectViews.add(new HeroView(gameObjectSolid, resourceManager));
+            } else if (gameObjectSolid.getType() == GameObjectSolidType.ARROW) {
+                gameObjectViews.add(new ArrowView(gameObjectSolid, resourceManager));
+            } else if (gameObjectSolid.getType() == GameObjectSolidType.FIREBALL) {
+                gameObjectViews.add(new FireballView(gameObjectSolid, resourceManager));
+            } else if (gameObjectSolid.getType() == GameObjectSolidType.BANDITARCHER) {
+                gameObjectViews.add(new BanditArcherView(gameObjectSolid, resourceManager));
+            } else if (gameObjectSolid.getType() == GameObjectSolidType.SKELETON) {
+                gameObjectViews.add(new SkeletonView(gameObjectSolid, resourceManager));
+            } else if (gameObjectSolid.getType() == GameObjectSolidType.SKELETONMAGE) {
+                gameObjectViews.add(new SkeletonMageView(gameObjectSolid, resourceManager));
             }
         }
 
-        // looking for new gameObjects
-        ResourceManager resourceManager = ResourceManager.getInstance();
-        for (GameObjectSolid gameObjectSolid : gameObjectSolids) {
-            boolean found = false;
-            for (GameObjectView gameObjectView : gameObjectViews) {
-                if (gameObjectSolid == gameObjectView.gameObjectSolid) {
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
-                if (gameObjectSolid.getType() == GameObjectSolidType.WALL) {
-                    gameObjectViews.add(new WallView(gameObjectSolid, resourceManager));
-                } else if (gameObjectSolid.getType() == GameObjectSolidType.BANDIT) {
-                    gameObjectViews.add(new BanditView(gameObjectSolid, resourceManager));
-                } else if (gameObjectSolid.getType() == GameObjectSolidType.HERO) {
-                    gameObjectViews.add(new HeroView(gameObjectSolid, resourceManager));
-                } else if (gameObjectSolid.getType() == GameObjectSolidType.ARROW) {
-                    gameObjectViews.add(new ArrowView(gameObjectSolid, resourceManager));
-                } else if (gameObjectSolid.getType() == GameObjectSolidType.FIREBALL) {
-                    gameObjectViews.add(new FireballView(gameObjectSolid, resourceManager));
-                } else if (gameObjectSolid.getType() == GameObjectSolidType.BANDITARCHER) {
-                    gameObjectViews.add(new BanditArcherView(gameObjectSolid, resourceManager));
-                } else if (gameObjectSolid.getType() == GameObjectSolidType.SKELETON) {
-                    gameObjectViews.add(new SkeletonView(gameObjectSolid, resourceManager));
-                } else if (gameObjectSolid.getType() == GameObjectSolidType.SKELETONMAGE) {
-                    gameObjectViews.add(new SkeletonMageView(gameObjectSolid, resourceManager));
-                }
-            }
+        for (GameObjectSolid gameObjectSolid : World.getInstance().getToDeleteList()) {
+            gameObjectViews.removeIf(gameObjectView -> gameObjectView.gameObjectSolid == gameObjectSolid);
         }
     }
 

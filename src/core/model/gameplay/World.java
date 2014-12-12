@@ -143,16 +143,18 @@ public class World {
             gameObjectSolids.add(gameObjectSolid);
         }
         toAddList.clear();
+
+        for (GameObjectSolid gameObjectSolid : toDeleteList) {
+            gameObjectSolids.remove(gameObjectSolid);
+        }
+        toDeleteList.clear();
+
         for (GameObjectSolid gameObjectSolid : gameObjectSolids) {
             Vector2f v = new Vector2f((float)(hero.getX() - gameObjectSolid.getX()), (float)(hero.getY() - gameObjectSolid.getY()));
             if (v.length() < 1000) {
                 gameObjectSolid.update(delta);
             }
         }
-        for (GameObjectSolid gameObjectSolid : toDeleteList) {
-            gameObjectSolids.remove(gameObjectSolid);
-        }
-        toDeleteList.clear();
     }
 
     public List<GameObjectSolid> getGameObjectSolids() {
