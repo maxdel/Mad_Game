@@ -15,7 +15,6 @@ public class Weapon extends Item {
     public void setBonuses(Unit target) {
         target.getAttribute().increasePAttack(getParameter("pAttack"));
         target.getAttribute().increaseMAttack(getParameter("mAttack"));
-
     }
 
     @Override

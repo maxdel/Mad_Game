@@ -28,12 +28,12 @@ public class HeroView extends GameObjectView {
 
     public HeroView(GameObjectSolid hero, ResourceManager resourceManager) throws SlickException {
         super(hero, resourceManager);
-        animation = ResourceManager.getInstance().getAnimation("hero");
-        animationSwordWalk = ResourceManager.getInstance().getAnimation("heroswordwalk");
-        animationSwordAttack = ResourceManager.getInstance().getAnimation("heroswordattack");
-        animationSwordAttackStrong = ResourceManager.getInstance().getAnimation("heroswordattackstrong");
-        animationBowWalk = ResourceManager.getInstance().getAnimation("herobowwalk");
-        animationBowAttack = ResourceManager.getInstance().getAnimation("herobowattack");
+        animation = ResourceManager.getInstance().getAnimation("hero_walk");
+        animationSwordWalk = ResourceManager.getInstance().getAnimation("hero_walk_sword");
+        animationBowWalk = ResourceManager.getInstance().getAnimation("hero_walk_bow");
+        animationSwordAttack = ResourceManager.getInstance().getAnimation("hero_skill_sword_attack");
+        animationSwordAttackStrong = ResourceManager.getInstance().getAnimation("hero_skill_strong_sword_attack");
+        animationBowAttack = ResourceManager.getInstance().getAnimation("hero_skill_bow_shot");
         animationWalk = animation;
     }
 
@@ -47,13 +47,13 @@ public class HeroView extends GameObjectView {
                     //TODO: bad code
                     if (hero.getInventory().getDressedWeaponType().equals("Sword")) {
                         animation = animationSwordWalk;
-                        animation.setSpeed((float) (hero.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("heroswordwalk")));
+                        animation.setSpeed((float) (hero.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("hero_walk_sword")));
                     } else if (hero.getInventory().getDressedWeaponType().equals("Bow")) {
                         animation = animationBowWalk;
-                        animation.setSpeed((float) (hero.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("herobowwalk")));
+                        animation.setSpeed((float) (hero.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("hero_walk_bow")));
                     } else {
                         animation = animationWalk;
-                        animation.setSpeed((float) (hero.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("hero")));
+                        animation.setSpeed((float) (hero.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("hero_walk")));
                     }
                     animation.start();
                     break;
@@ -77,7 +77,7 @@ public class HeroView extends GameObjectView {
                         animation = animationWalk;
                     }
                     animation.start();
-                    animation.setSpeed((float) (hero.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("hero")));
+                    animation.setSpeed((float) (hero.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("hero_walk")));
                     break;
                 case SKILL:
                     Music music = null;
@@ -85,7 +85,7 @@ public class HeroView extends GameObjectView {
                     if (castingSkill.getClass() == AreaDamage.class) {
                         switch ((AreaDamage.Kinds) castingSkill.getKind()) {
                             case SWORD_ATTACK:
-                                music = new Music("res/Swoosh01.wav");
+                                music = new Music("res/sounds/Swoosh01.wav");
                                 music.play();
                                 animation = animationSwordAttack;
                                 animation.restart();
@@ -97,7 +97,7 @@ public class HeroView extends GameObjectView {
                             case STAFF_ATTACK:
                                 break;
                             case STRONG_SWORD_ATTACK:
-                                music = new Music("res/Swoosh01.wav");
+                                music = new Music("res/sounds/Swoosh01.wav");
                                 music.play();
                                 animation = animationSwordAttackStrong;
                                 animation.restart();
@@ -110,7 +110,7 @@ public class HeroView extends GameObjectView {
                     } else if (castingSkill.getClass() == BulletShot.class) {
                         switch ((BulletShot.Kinds) castingSkill.getKind()) {
                             case FIREBALL:
-                                music = new Music("res/fireball.wav");
+                                music = new Music("res/sounds/fireball.wav");
                                 music.play();
                                 animation = animationBowAttack;
                                 animation.restart();
@@ -120,7 +120,7 @@ public class HeroView extends GameObjectView {
                                 }
                                 break;
                             case BOW_SHOT:
-                                music = new Music("res/Bowshot.wav");
+                                music = new Music("res/sounds/Bowshot.wav");
                                 music.play();
                                 animation = animationBowAttack;
                                 animation.restart();
