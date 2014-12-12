@@ -9,22 +9,14 @@ import org.newdawn.slick.geom.Shape;
 public abstract class GameObjectSolid extends GameObject {
 
     protected Shape mask;
-    protected GameObjectSolidType type;
 
-    public GameObjectSolid(double x, double y, double direction, GameObjectSolidType type) {
-        super(x, y, direction);
-        this.type = type;
+    public GameObjectSolid(double x, double y, double direction, GameObjectType type) {
+        super(x, y, direction, type);
         this.mask = ResourceManager.getInstance().getMask(type);
     }
 
     public Shape getMask() {
         return mask;
     }
-
-    public GameObjectSolidType getType() {
-        return type;
-    }
-
-    public abstract void update(int delta);
 
 }

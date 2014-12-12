@@ -11,7 +11,6 @@ import core.model.Timer;
 import core.model.gameplay.*;
 import core.model.gameplay.items.Inventory;
 import core.model.gameplay.items.ItemRecord;
-import core.model.gameplay.items.Loot;
 import core.model.gameplay.skills.Skill;
 
 public abstract class Unit extends GameObjectSolid {
@@ -45,7 +44,7 @@ public abstract class Unit extends GameObjectSolid {
     private Timer preApplyCastingTimer;
     private Timer castingTimer;
 
-    public Unit(double x, double y, double direction, GameObjectSolidType type) {
+    public Unit(double x, double y, double direction, GameObjectType type) {
         super(x, y, direction, type);
 
         this.attribute = ResourceManager.getInstance().getUnitInfo(type).getAttribute();
@@ -178,7 +177,7 @@ public abstract class Unit extends GameObjectSolid {
         Loot loot = new Loot(getX() + MathAdv.lengthDirX(getDirection(), LOOT_RANGE),
                 getY() + MathAdv.lengthDirY(getDirection(), LOOT_RANGE),
                 itemToDrop.getItem());
-        World.getInstance().getLootList().add(loot);
+        World.getInstance().getGameObjectList().add(loot);
         inventory.deleteItem(inventory.getSelectedRecord().getName());
         currentState = GameObjectState.STAND;
     }
@@ -192,12 +191,15 @@ public abstract class Unit extends GameObjectSolid {
             double lookPointY = getY() + MathAdv.lengthDirY(getDirection(), LOOT_RANGE);
             double lookRadius = LOOT_PICK_RADIUS;
             itemToPick = null;
-            for (Loot loot : World.getInstance().getLootList()) {
-                Vector2f distanceToLoot =
-                        new Vector2f((float) (loot.getX() - lookPointX), (float) (loot.getY() - lookPointY));
-                if (distanceToLoot.length() < lookRadius) {
-                    lookRadius = distanceToLoot.length();
-                    itemToPick = loot;
+            for (GameObject gameObject : World.getInstance().getGameObjectList()) {
+                if (gameObject.getClass() == Loot.class) {
+                    Loot loot = (Loot) gameObject;
+                    Vector2f distanceToLoot =
+                            new Vector2f((float) (loot.getX() - lookPointX), (float) (loot.getY() - lookPointY));
+                    if (distanceToLoot.length() < lookRadius) {
+                        lookRadius = distanceToLoot.length();
+                        itemToPick = loot;
+                    }
                 }
             }
         }
@@ -220,7 +222,7 @@ public abstract class Unit extends GameObjectSolid {
     private void pickItem() {
         if (itemToPick != null) {
             inventory.addItem(itemToPick.getItem().getName(), itemToPick.getNumber());
-            World.getInstance().getLootToDeleteList().add(itemToPick);
+            World.getInstance().getGameObjectToDeleteList().add(itemToPick);
             itemToPick = null;
         }
         currentState = GameObjectState.STAND;
@@ -307,7 +309,7 @@ public abstract class Unit extends GameObjectSolid {
         for (LootRecord lootRecord : lootRecordList) {
             Loot loot = lootRecord.generateLoot(getX() - 10 + Math.random() * 20, getY() - 10 + Math.random() * 20);
             if (loot != null) {
-                World.getInstance().getLootToAddList().add(loot);
+                World.getInstance().getGameObjectToAddList().add(loot);
             }
         }
     }
@@ -379,6 +381,5 @@ public abstract class Unit extends GameObjectSolid {
     public Loot getItemToPick() {
         return itemToPick;
     }
-
 
 }

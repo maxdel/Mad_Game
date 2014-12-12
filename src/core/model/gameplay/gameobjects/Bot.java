@@ -6,7 +6,7 @@ public class Bot extends Unit {
 
     private BotAI botAI;
 
-    public Bot(double x, double y, double direction, GameObjectSolidType type, BotAI botAI) {
+    public Bot(double x, double y, double direction, GameObjectType type, BotAI botAI) {
         super(x, y, direction, type);
         this.botAI = botAI;
     }

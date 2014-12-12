@@ -5,12 +5,16 @@ public abstract class GameObject {
     private double x;
     private double y;
     private double direction;
+    private GameObjectType type;
 
-    public GameObject(double x, double y, double direction) {
+    public GameObject(double x, double y, double direction, GameObjectType type) {
         this.x = x;
         this.y = y;
         this.direction = direction;
+        this.type = type;
     }
+
+    public abstract void update(int delta);
 
     public double getX() {
         return x;
@@ -22,6 +26,10 @@ public abstract class GameObject {
 
     public double getDirection() {
         return direction;
+    }
+
+    public GameObjectType getType() {
+        return type;
     }
 
     protected void setX(double x) {

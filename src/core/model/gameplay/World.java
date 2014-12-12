@@ -11,7 +11,7 @@ import core.model.gameplay.gameobjects.ai.MeleeAI;
 import core.model.gameplay.gameobjects.ai.RangedAI;
 import core.model.gameplay.gameobjects.ai.VampireAI;
 import core.model.gameplay.items.ItemDB;
-import core.model.gameplay.items.Loot;
+import core.model.gameplay.gameobjects.Loot;
 import core.model.gameplay.gameobjects.*;
 import core.resourcemanager.MadTiledMap;
 
@@ -23,23 +23,18 @@ public class World {
 
     private static World instance;
 
-    private List<GameObjectSolid> gameObjectSolids;
-    private List<GameObjectSolid> gameObjectToDeleteList;
-    private List<GameObjectSolid> gameObjectToAddList;
+    private List<GameObject> gameObjectList;
+    private List<GameObject> gameObjectToDeleteList;
+    private List<GameObject> gameObjectToAddList;
     private Hero hero;
-    private List<Loot> lootList;
-    private List<Loot> lootToAddList;
-    private List<Loot> lootToDeleteList;
-
     private MadTiledMap tiledMap;
 
+    private final int UPDATE_RADIUS = 1000;
+
     private World() {
-        gameObjectSolids = new ArrayList<>();
+        gameObjectList = new ArrayList<>();
         gameObjectToDeleteList = new ArrayList<>();
         gameObjectToAddList = new ArrayList<>();
-        lootList = new ArrayList<>();
-        lootToAddList = new ArrayList<>();
-        lootToDeleteList = new ArrayList<>();
 
         try {
             tiledMap = new MadTiledMap("/res/map.tmx");
@@ -55,10 +50,10 @@ public class World {
                             Math.pow(tiledMap.getObjectHeight(i, j) / 2, 2));
                     double rotation;
                     rotation = tiledMap.getObjectRotation(i, j) * Math.PI / 180;
-                    gameObjectSolids.add(new Obstacle(
+                    gameObjectList.add(new Obstacle(
                             tiledMap.getObjectX(i, j) + MathAdv.lengthDirX(-Math.PI / 4 + rotation, length),
                             tiledMap.getObjectY(i, j) + MathAdv.lengthDirY(-Math.PI / 4 + rotation, length),
-                                    rotation, GameObjectSolidType.WALL)
+                                    rotation, GameObjectType.WALL)
                     );
                 }
             }
@@ -69,60 +64,60 @@ public class World {
                 // Obstacles
                 String tileObstacleName = tiledMap.getTileProperty(tiledMap.getTileId(i, j, 1), "name", "error");
                 if (tileObstacleName.equals("stonewall")) {
-                    gameObjectSolids.add(new Obstacle(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
+                    gameObjectList.add(new Obstacle(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
                             tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0,
-                            GameObjectSolidType.WALL));
+                            GameObjectType.WALL));
                 } else if (tileObstacleName.equals("tree")) {
-                    gameObjectSolids.add(new Obstacle(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
+                    gameObjectList.add(new Obstacle(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
                             tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0,
-                            GameObjectSolidType.TREE));
+                            GameObjectType.TREE));
                 }
                 // Objects
                 String tileObjectName = tiledMap.getTileProperty(tiledMap.getTileId(i, j, 2), "name", "error");
                 if (tileObjectName.equals("hero")) {
                     hero = new Hero(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
                             tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0);
-                    gameObjectSolids.add(hero);
+                    gameObjectList.add(hero);
                 } else if (tileObjectName.equals("vampire")) {
                     VampireAI vampireAI = new VampireAI();
                     Bot bot = new Bot(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
-                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjectSolidType.VAMPIRE,
+                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjectType.VAMPIRE,
                             vampireAI);
                     vampireAI.setOwner(bot);
-                    gameObjectSolids.add(bot);
+                    gameObjectList.add(bot);
                 } else if (tileObjectName.equals("banditsword")) {
                     MeleeAI meleeAI = new MeleeAI();
                     Bot bot = new Bot(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
-                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjectSolidType.BANDIT,
+                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjectType.BANDIT,
                             meleeAI);
                     meleeAI.setOwner(bot);
-                    gameObjectSolids.add(bot);
+                    gameObjectList.add(bot);
                 } else if (tileObjectName.equals("skeletsword")) {
                     MeleeAI meleeAI = new MeleeAI();
                     Bot bot = new Bot(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
-                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjectSolidType.SKELETON,
+                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjectType.SKELETON,
                             meleeAI);
                     meleeAI.setOwner(bot);
-                    gameObjectSolids.add(bot);
+                    gameObjectList.add(bot);
                 } else if (tileObjectName.equals("banditarcher")) {
                     RangedAI rangedAI = new RangedAI();
                     Bot bot = new Bot(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
-                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjectSolidType.BANDITARCHER,
+                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjectType.BANDITARCHER,
                             rangedAI);
                     rangedAI.setOwner(bot);
-                    gameObjectSolids.add(bot);
+                    gameObjectList.add(bot);
                 } else if (tileObjectName.equals("skeletonmage")) {
                     RangedAI rangedAI = new RangedAI();
                     Bot bot = new Bot(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
-                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjectSolidType.SKELETONMAGE,
+                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjectType.SKELETONMAGE,
                             rangedAI);
                     rangedAI.setOwner(bot);
-                    gameObjectSolids.add(bot);
+                    gameObjectList.add(bot);
                 }
             }
         }
 
-        lootList.add(new Loot(hero.getX() + 40, hero.getY() - 70, Math.PI / 4, ItemDB.getInstance().getItem("Sword"), 1));
+        gameObjectList.add(new Loot(hero.getX() + 40, hero.getY() - 70, Math.PI / 4, ItemDB.getInstance().getItem("Sword"), 1));
     }
 
     // Singleton pattern method
@@ -141,62 +136,41 @@ public class World {
     }
 
     public void update(int delta) {
-        for (Loot loot : lootToAddList) {
-            lootList.add(loot);
-        }
-        for (Loot loot : lootToDeleteList) {
-            lootList.remove(loot);
-        }
-        lootToAddList.clear();
-        lootToAddList.clear();
-
-        for (GameObjectSolid gameObjectSolid : gameObjectToAddList) {
-            gameObjectSolids.add(gameObjectSolid);
-        }
-        for (GameObjectSolid gameObjectSolid : gameObjectToDeleteList) {
-            gameObjectSolids.remove(gameObjectSolid);
+        for (GameObject gameObject : gameObjectToAddList) {
+            gameObjectList.add(gameObject);
         }
         gameObjectToAddList.clear();
+        for (GameObject gameObject : gameObjectToDeleteList) {
+            gameObjectList.remove(gameObject);
+        }
         gameObjectToDeleteList.clear();
 
-        for (GameObjectSolid gameObjectSolid : gameObjectSolids) {
-            Vector2f v = new Vector2f((float)(hero.getX() - gameObjectSolid.getX()), (float)(hero.getY() - gameObjectSolid.getY()));
-            if (v.length() < 1000) {
-                gameObjectSolid.update(delta);
+        for (GameObject gameObject : gameObjectList) {
+            Vector2f v = new Vector2f((float)(hero.getX() - gameObject.getX()), (float)(hero.getY() - gameObject.getY()));
+            if (v.length() < UPDATE_RADIUS) {
+                gameObject.update(delta);
             }
         }
     }
 
-    public List<GameObjectSolid> getGameObjectSolids() {
-        return gameObjectSolids;
+    public List<GameObject> getGameObjectList() {
+        return gameObjectList;
     }
 
     public Hero getHero() {
         return hero;
     }
 
-    public List<Loot> getLootList() {
-        return lootList;
-    }
-
     public MadTiledMap getTiledMap() {
         return tiledMap;
     }
 
-    public List<GameObjectSolid> getGameObjectToDeleteList() {
+    public List<GameObject> getGameObjectToDeleteList() {
         return gameObjectToDeleteList;
     }
 
-    public List<GameObjectSolid> getGameObjectToAddList() {
+    public List<GameObject> getGameObjectToAddList() {
         return gameObjectToAddList;
-    }
-
-    public List<Loot> getLootToDeleteList() {
-        return lootToDeleteList;
-    }
-
-    public List<Loot> getLootToAddList() {
-        return lootToAddList;
     }
 
 }

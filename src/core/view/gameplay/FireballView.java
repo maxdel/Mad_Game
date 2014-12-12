@@ -1,13 +1,13 @@
 package core.view.gameplay;
 
+import core.model.gameplay.gameobjects.GameObject;
 import core.resourcemanager.ResourceManager;
-import core.model.gameplay.gameobjects.GameObjectSolid;
 
-public class FireballView extends GameObjectView {
+public class FireballView extends GameObjectSolidView {
 
-    public FireballView(GameObjectSolid gameObjectSolid, ResourceManager resourceManager) {
-        super(gameObjectSolid, resourceManager);
-        animation = resourceManager.getAnimation("fireball");
+    public FireballView(GameObject fireball) {
+        super(fireball);
+        animation = ResourceManager.getInstance().getAnimation("fireball");
     }
 
 }

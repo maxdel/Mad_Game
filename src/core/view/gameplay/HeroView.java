@@ -1,19 +1,19 @@
 package core.view.gameplay;
 
-import core.model.gameplay.items.Bow;
-import core.model.gameplay.skills.Skill;
 import org.newdawn.slick.*;
 
-import core.resourcemanager.ResourceManager;
-import core.model.gameplay.gameobjects.GameObjectSolid;
+import core.model.gameplay.gameobjects.GameObject;
+import core.model.gameplay.items.Bow;
+import core.model.gameplay.skills.Skill;
 import core.model.gameplay.gameobjects.Hero;
 import core.model.gameplay.gameobjects.GameObjectState;
+import core.resourcemanager.ResourceManager;
 
 /**
  * Provides functions for the definition of actors, as well as actor
  * operations, such as `receive`, `react`, `reply`, etc.
  */
-public class HeroView extends GameObjectView {
+public class HeroView extends UnitView {
 
     private GameObjectState previousState;
     private Animation animationWalk;
@@ -23,8 +23,8 @@ public class HeroView extends GameObjectView {
     private Animation animationWalkBow;
     private Animation animationBowShot;
 
-    public HeroView(GameObjectSolid hero, ResourceManager resourceManager) throws SlickException {
-        super(hero, resourceManager);
+    public HeroView(GameObject hero) throws SlickException {
+        super(hero);
         animation = ResourceManager.getInstance().getAnimation("hero_walk");
         animationWalkSword = ResourceManager.getInstance().getAnimation("hero_walk_sword");
         animationWalkBow = ResourceManager.getInstance().getAnimation("hero_walk_bow");
@@ -35,9 +35,8 @@ public class HeroView extends GameObjectView {
     }
 
     @Override
-    public void render(Graphics g, double viewX, double viewY, float viewDegreeAngle,
-                       double viewCenterX, double viewCenterY, Hero hero1) throws SlickException {
-        Hero hero = getHero();
+    public void render(Graphics g, Camera camera) throws SlickException {
+        Hero hero = (Hero) gameObject;
         if (hero.getCurrentState() != previousState) {
             switch (hero.getCurrentState()) {
                 case MOVE:
@@ -129,16 +128,16 @@ public class HeroView extends GameObjectView {
 
         previousState = hero.getCurrentState();
 
-        rotate(g, viewX, viewY, viewDegreeAngle, viewCenterX, viewCenterY, true);
-        draw(viewX, viewY);
+        rotate(g, camera, true);
+        draw(camera);
         // draw mask
         //drawMask(g, viewX, viewY);
 
-        rotate(g, viewX, viewY, viewDegreeAngle, viewCenterX, viewCenterY, false);
+        rotate(g, camera, false);
 
         if (hero.getInventory().isItemDressed(Bow.class)) {
             Image aim = ResourceManager.getInstance().getImage("Bow_aim");
-            aim.draw((float)viewCenterX - aim.getWidth() / 2, (float)viewCenterY - 250);
+            aim.draw((float) camera.getCenterX() - aim.getWidth() / 2, (float) camera.getCenterY() - 250);
         }
         // For debug
         drawHealthbar(g, 90, 100, 120, 6, hero.getAttribute().getHP().getCurrent(),
@@ -174,10 +173,6 @@ public class HeroView extends GameObjectView {
         /*g.drawString("Kills to next skill: " + (hero.level * 3 - hero.kills), 10, 30);
         g.drawString("Current level: " + hero.level , 10, 50);
         hero.level = hero.kills / 3 + 1;*/
-    }
-
-    private Hero getHero() {
-        return (Hero) gameObjectSolid;
     }
 
 }
