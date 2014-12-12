@@ -1,8 +1,6 @@
 package core.view.gameplay;
 
 import core.model.gameplay.items.Bow;
-import core.model.gameplay.skills.AreaDamage;
-import core.model.gameplay.skills.BulletShot;
 import core.model.gameplay.skills.Skill;
 import org.newdawn.slick.*;
 
@@ -19,20 +17,20 @@ public class HeroView extends GameObjectView {
 
     private GameObjectState previousState;
     private Animation animationWalk;
-    private Animation animationSwordWalk;
-    private Animation animationSwordAttackStrong;
+    private Animation animationWalkSword;
+    private Animation animationStrongSwordAttack;
     private Animation animationSwordAttack;
-    private Animation animationBowWalk;
-    private Animation animationBowAttack;
+    private Animation animationWalkBow;
+    private Animation animationBowShot;
 
     public HeroView(GameObjectSolid hero, ResourceManager resourceManager) throws SlickException {
         super(hero, resourceManager);
         animation = ResourceManager.getInstance().getAnimation("hero_walk");
-        animationSwordWalk = ResourceManager.getInstance().getAnimation("hero_walk_sword");
-        animationBowWalk = ResourceManager.getInstance().getAnimation("hero_walk_bow");
+        animationWalkSword = ResourceManager.getInstance().getAnimation("hero_walk_sword");
+        animationWalkBow = ResourceManager.getInstance().getAnimation("hero_walk_bow");
         animationSwordAttack = ResourceManager.getInstance().getAnimation("hero_skill_sword_attack");
-        animationSwordAttackStrong = ResourceManager.getInstance().getAnimation("hero_skill_strong_sword_attack");
-        animationBowAttack = ResourceManager.getInstance().getAnimation("hero_skill_bow_shot");
+        animationStrongSwordAttack = ResourceManager.getInstance().getAnimation("hero_skill_strong_sword_attack");
+        animationBowShot = ResourceManager.getInstance().getAnimation("hero_skill_bow_shot");
         animationWalk = animation;
     }
 
@@ -45,10 +43,10 @@ public class HeroView extends GameObjectView {
                 case MOVE:
                     //TODO: bad code
                     if (hero.getInventory().getDressedWeaponType().equals("Sword")) {
-                        animation = animationSwordWalk;
+                        animation = animationWalkSword;
                         animation.setSpeed((float) (hero.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("hero_walk_sword")));
                     } else if (hero.getInventory().getDressedWeaponType().equals("Bow")) {
-                        animation = animationBowWalk;
+                        animation = animationWalkBow;
                         animation.setSpeed((float) (hero.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("hero_walk_bow")));
                     } else {
                         animation = animationWalk;
@@ -58,9 +56,9 @@ public class HeroView extends GameObjectView {
                     break;
                 case STAND:
                     if (hero.getInventory().getDressedWeaponType().equals("Sword")) {
-                        animation = animationSwordWalk;
+                        animation = animationWalkSword;
                     } else if (hero.getInventory().getDressedWeaponType().equals("Bow")) {
-                        animation = animationBowWalk;
+                        animation = animationWalkBow;
                     } else {
                     animation = animationWalk;
                     }
@@ -69,9 +67,9 @@ public class HeroView extends GameObjectView {
                     break;
                 case ITEM:
                     if (hero.getInventory().getDressedWeaponType().equals("Sword")) {
-                        animation = animationSwordWalk;
+                        animation = animationWalkSword;
                     } else if (hero.getInventory().getDressedWeaponType().equals("Bow")) {
-                        animation = animationBowWalk;
+                        animation = animationWalkBow;
                     } else {
                         animation = animationWalk;
                     }
@@ -97,7 +95,7 @@ public class HeroView extends GameObjectView {
                         case STRONG_SWORD_ATTACK:
                             music = new Music("res/sounds/Swoosh01.wav");
                             music.play();
-                            animation = animationSwordAttackStrong;
+                            animation = animationStrongSwordAttack;
                             animation.restart();
                             hero.getCastingSkill().getCastTime();
                             for (int i = 0; i < animation.getFrameCount(); ++i) {
@@ -107,7 +105,7 @@ public class HeroView extends GameObjectView {
                         case FIREBALL:
                             music = new Music("res/sounds/fireball.wav");
                             music.play();
-                            animation = animationBowAttack;
+                            animation = animationBowShot;
                             animation.restart();
                             hero.getCastingSkill().getCastTime();
                             for (int i = 0; i < animation.getFrameCount(); ++i) {
@@ -117,7 +115,7 @@ public class HeroView extends GameObjectView {
                         case BOW_SHOT:
                             music = new Music("res/sounds/Bowshot.wav");
                             music.play();
-                            animation = animationBowAttack;
+                            animation = animationBowShot;
                             animation.restart();
                             hero.getCastingSkill().getCastTime();
                             for (int i = 0; i < animation.getFrameCount(); ++i) {

@@ -11,7 +11,7 @@ public class SkeletonMageView extends GameObjectView {
 
     public SkeletonMageView(GameObjectSolid enemy, ResourceManager resourceManager) throws SlickException {
         super(enemy, resourceManager);
-        animation = resourceManager.getAnimation("skeletonMage");
+        animation = resourceManager.getAnimation("skeleton_mage");
     }
 
     @Override

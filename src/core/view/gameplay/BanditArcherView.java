@@ -11,7 +11,7 @@ public class BanditArcherView extends GameObjectView {
 
     public BanditArcherView(GameObjectSolid enemy, ResourceManager resourceManager) throws SlickException {
         super(enemy, resourceManager);
-        animation = resourceManager.getAnimation("banditArcher");
+        animation = resourceManager.getAnimation("bandit_archer");
     }
 
     @Override

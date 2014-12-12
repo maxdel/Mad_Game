@@ -16,7 +16,7 @@ public class BanditView extends GameObjectView {
     public BanditView(GameObjectSolid enemy, ResourceManager resourceManager) throws SlickException {
         super(enemy, resourceManager);
         animation = resourceManager.getAnimation("bandit");
-        animationWalkSword = resourceManager.getAnimation("banditwalksword");
+        animationWalkSword = resourceManager.getAnimation("bandit_walk_sword");
     }
 
     @Override
@@ -27,7 +27,7 @@ public class BanditView extends GameObjectView {
             switch (bandit.getCurrentState()) {
                 case MOVE:
                     animation = animationWalkSword;
-                    animation.setSpeed((float) (bandit.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("banditwalksword")));
+                    animation.setSpeed((float) (bandit.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("bandit_walk_sword")));
                     animation.start();
                     break;
                 case STAND:
