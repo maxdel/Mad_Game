@@ -254,8 +254,8 @@ public abstract class Unit extends GameObjectSolid {
         lengthDirY = MathAdv.lengthDirY(direction, length);
 
         if (CollisionManager.getInstance().isPlaceFreeAdv(this, getX() + lengthDirX, getY() + lengthDirY)) {
-            setX(getX() + lengthDirX);
-            setY(getY() + lengthDirY);
+            changeX(lengthDirX);
+            changeY(lengthDirY);
         } else {
             double stepAngle = 10 * Math.PI / 180;
             double altDirection = direction;
@@ -264,8 +264,8 @@ public abstract class Unit extends GameObjectSolid {
                 lengthDirX = MathAdv.lengthDirX(altDirection, length * Math.cos(altDirection - direction));
                 lengthDirY = MathAdv.lengthDirY(altDirection, length * Math.cos(altDirection - direction));
                 if (CollisionManager.getInstance().isPlaceFreeAdv(this, getX() + lengthDirX, getY() + lengthDirY)) {
-                    setX(getX() + lengthDirX);
-                    setY(getY() + lengthDirY);
+                    changeX(lengthDirX);
+                    changeY(lengthDirY);
                     break;
                 }
             }
@@ -296,6 +296,13 @@ public abstract class Unit extends GameObjectSolid {
     }
 
     // Getters and setters
+
+    @Override
+    public void setDirection(double direction) {
+        if (currentState == GameObjectState.STAND || currentState == GameObjectState.MOVE) {
+            super.setDirection(direction);
+        }
+    }
 
     public Attribute getAttribute() {
         return attribute;

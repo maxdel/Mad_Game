@@ -2,7 +2,6 @@ package core.view.gameplay;
 
 import core.model.gameplay.gameobjects.Bot;
 import core.model.gameplay.gameobjects.Hero;
-import core.model.gameplay.gameobjects.Skeleton;
 import org.newdawn.slick.*;
 
 import core.resourcemanager.ResourceManager;
