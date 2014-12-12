@@ -19,7 +19,6 @@ import core.resourcemanager.ResourceManager;
 * */
 public class GamePlayView {
 
-    private List<GameObjectSolid> gameObjectSolids;
     private List<GameObjectView> gameObjectViews;
     private List<Loot> lootList;
     private List<LootView> lootViewList;
@@ -30,7 +29,6 @@ public class GamePlayView {
 
     public GamePlayView(GameContainer gc, List<GameObjectSolid> gameObjectSolids, Hero hero, List<Loot> lootList,
                         MadTiledMap tiledMap) throws SlickException {
-        this.gameObjectSolids = gameObjectSolids;
         this.hero = hero;
         this.lootList = lootList;
         this.inventoryView = new InventoryView(hero.getInventory());
