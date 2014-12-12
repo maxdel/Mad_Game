@@ -2,9 +2,9 @@ package core.model.gameplay.gameobjects;
 
 import java.util.List;
 
-import core.MathAdv;
 import org.newdawn.slick.geom.Vector2f;
 
+import core.MathAdv;
 import core.model.gameplay.items.LootRecord;
 import core.resourcemanager.ResourceManager;
 import core.model.Timer;
@@ -43,7 +43,7 @@ public abstract class Unit extends GameObjectSolid {
     private Timer endSkillTimer;
 
     public Unit(double x, double y, double direction, GameObjectSolidType type) {
-        super(x, y, direction, type); //TODO : TERRIBLE
+        super(x, y, direction, type);
 
         this.attribute = ResourceManager.getInstance().getUnitInfo(type).getAttribute();
         this.currentState = GameObjectState.STAND;

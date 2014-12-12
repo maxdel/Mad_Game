@@ -1,11 +1,6 @@
 package core.model.gameplay.gameobjects;
 
 import core.model.gameplay.gameobjects.ai.BotAI;
-import core.model.gameplay.items.Inventory;
-import core.model.gameplay.items.LootRecord;
-import core.model.gameplay.skills.Skill;
-
-import java.util.List;
 
 public class Bot extends Unit {
 
