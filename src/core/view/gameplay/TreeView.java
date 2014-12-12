@@ -1,12 +1,12 @@
 package core.view.gameplay;
 
-import core.model.gameplay.gameobjects.Hero;
+import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
+import core.model.gameplay.gameobjects.Hero;
 import core.resourcemanager.ResourceManager;
 import core.model.gameplay.gameobjects.GameObjectSolid;
-import org.newdawn.slick.geom.Vector2f;
 
 public class TreeView extends GameObjectView {
 
