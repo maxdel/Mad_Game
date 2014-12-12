@@ -8,10 +8,6 @@ import org.newdawn.slick.geom.Vector2f;
 
 public class AreaDamage extends Skill {
 
-    public enum Kinds implements SkillKinds {
-        SWORD_ATTACK, STRONG_SWORD_ATTACK, STAFF_ATTACK
-    }
-
     private double pAttack;
     private double mAttack;
 
@@ -20,7 +16,7 @@ public class AreaDamage extends Skill {
 
     public AreaDamage(Unit owner, String name, String description, int castTime, int postCastTime,
                       int cooldownTime, String requiredItem, double requiredHP, double requiredMP,
-                      double pAttack, double mAttack, double radius, double angle, SkillKinds kind) {
+                      double pAttack, double mAttack, double radius, double angle, SkillKind kind) {
         super(owner, name, description, castTime, postCastTime, cooldownTime, requiredItem, requiredHP, requiredMP, kind);
         this.pAttack = pAttack;
         this.mAttack = mAttack;

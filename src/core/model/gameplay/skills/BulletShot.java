@@ -8,17 +8,13 @@ import core.model.gameplay.items.Staff;
 
 public class BulletShot extends Skill {
 
-    public enum Kinds implements SkillKinds {
-        BOW_SHOT, FIREBALL
-    }
-
     private double bulletSpeed;
     private double pAttack;
     private double mAttack;
 
     public BulletShot(Unit owner, String name, String description, int castTime, int postCastTime, int cooldownTime,
                       String requiredItem, double requiredHP, double requiredMP, double bulletSpeed,
-                      double pAttack, double mAttack, SkillKinds kind) {
+                      double pAttack, double mAttack, SkillKind kind) {
         super(owner, name, description, castTime, postCastTime, cooldownTime, requiredItem, requiredHP, requiredMP, kind);
         this.bulletSpeed = bulletSpeed;
         this.pAttack = pAttack;
@@ -45,8 +41,4 @@ public class BulletShot extends Skill {
         return bulletSpeed;
     }
 
-    @Override
-    public BulletShot.Kinds getKind() {
-        return (BulletShot.Kinds) super.getKind();
-    }
 }
