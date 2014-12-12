@@ -32,7 +32,7 @@ public class SkillInfo {
                     Double.parseDouble(map.get("bulletSpeed")), Double.parseDouble(map.get("pAttack")),
                     Double.parseDouble(map.get("mAttack")));
         } else if (type.equals("AreaSkill")) {
-            skill = new DamageAOE(owner, name, description, Integer.parseInt(map.get("castTime")),
+            skill = new AreaDamage(owner, name, description, Integer.parseInt(map.get("castTime")),
                     Integer.parseInt(map.get("postApplyTime")),
                     Integer.parseInt(map.get("cooldownTime")), map.get("requiredItem"),
                     Double.parseDouble(map.get("requiredHP")), Double.parseDouble(map.get("requiredMP")),

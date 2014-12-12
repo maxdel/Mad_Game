@@ -24,6 +24,7 @@ public class Timer {
             }
             if (value == 0) {
                 active = false;
+
             }
             return value == 0;
         } else {

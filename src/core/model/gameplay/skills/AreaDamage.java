@@ -6,7 +6,7 @@ import core.model.gameplay.gameobjects.GameObjectSolid;
 import core.model.gameplay.gameobjects.Unit;
 import org.newdawn.slick.geom.Vector2f;
 
-public class DamageAOE extends Skill {
+public class AreaDamage extends Skill {
 
     private double pAttack;
     private double mAttack;
@@ -14,9 +14,9 @@ public class DamageAOE extends Skill {
     private double radius;
     private double angle;
 
-    public DamageAOE(Unit owner, String name, String description, int castTime, int postCastTime,
-                     int cooldownTime, String requiredItem, double requiredHP, double requiredMP,
-                     double pAttack, double mAttack, double radius, double angle) {
+    public AreaDamage(Unit owner, String name, String description, int castTime, int postCastTime,
+                      int cooldownTime, String requiredItem, double requiredHP, double requiredMP,
+                      double pAttack, double mAttack, double radius, double angle) {
         super(owner, name, description, castTime, postCastTime, cooldownTime, requiredItem, requiredHP, requiredMP);
         this.pAttack = pAttack;
         this.mAttack = mAttack;
@@ -24,6 +24,9 @@ public class DamageAOE extends Skill {
         this.angle = angle;
     }
 
+    /**
+     *  Detect the solid object's, that fall under the area of effect and applies the effect
+     */
     @Override
     public void apply() {
         for (GameObjectSolid gameObjectSolid : World.getInstance().getGameObjectSolids()) {
@@ -48,6 +51,10 @@ public class DamageAOE extends Skill {
         }
     }
 
+    /**
+     * Applies magic damage to the target
+     * @param target
+     */
     private void applyMagicDamage(Unit target) {
         double mDamage = mAttack + owner.getAttribute().getMAttack() - target.getAttribute().getMArmor();
         if (mDamage <= 1) {
@@ -56,6 +63,10 @@ public class DamageAOE extends Skill {
         target.getAttribute().getHP().damage(mDamage);
     }
 
+    /**
+     * Applies physical damage to the target
+     * @param target
+     */
     private void applyPhysDamage(Unit target) {
         double pDamage = pAttack + owner.getAttribute().getPAttack() - target.getAttribute().getPArmor();
         if (pDamage <= 1) {

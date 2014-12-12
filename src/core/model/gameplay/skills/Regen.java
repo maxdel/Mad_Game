@@ -2,9 +2,6 @@ package core.model.gameplay.skills;
 
 import core.model.gameplay.gameobjects.Unit;
 
-/**
- * Created by Max on 12/12/2014.
- */
 public class Regen extends Skill {
 
     private int HPdelta;
@@ -16,6 +13,9 @@ public class Regen extends Skill {
         this.HPdelta = HPdelta;
     }
 
+    /**
+     * Increases the owner's health
+     */
     @Override
     public void apply() {
         owner.getAttribute().getHP().heal(HPdelta);

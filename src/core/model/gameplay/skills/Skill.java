@@ -47,6 +47,11 @@ public abstract class Skill {
     }
 
     /**
+     * Applies skill to owner
+     */
+    public abstract void apply();
+
+    /**
      * Activates cooldown timer with skill cooldown time
      */
     public void activateCooldownTimer() {
@@ -90,20 +95,14 @@ public abstract class Skill {
     }
 
     /**
-     * Applies skill to owner
-     */
-    public abstract void apply();
-
-    /**
      * Changes primary cooldown time of unit on @param deltaCooldownTime value
-     * @param deltaCooldownTime
+     * @param deltaCooldownTime is passed time in milliseconds
      */
     public void changeCooldownTime(int deltaCooldownTime) {
         cooldownTime += deltaCooldownTime;
     }
 
-    /* Getters and setters */
-
+    /* Getters and setters region */
     public String getName() {
         return name;
     }

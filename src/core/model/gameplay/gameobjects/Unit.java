@@ -62,7 +62,7 @@ public abstract class Unit extends GameObjectSolid {
 
     /**
      * Updates unit according to passed time
-     * @param delta passed time in milliseconds
+     * @param delta is passed time in milliseconds
      */
     @Override
     public void update(int delta) {
@@ -307,8 +307,7 @@ public abstract class Unit extends GameObjectSolid {
         }
     }
 
-    // Getters and setters
-
+    /* Getters and setters region */
     @Override
     public void setDirection(double direction) {
         if (currentState == GameObjectState.STAND || currentState == GameObjectState.MOVE) {

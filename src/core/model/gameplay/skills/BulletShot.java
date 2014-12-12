@@ -1,6 +1,5 @@
 package core.model.gameplay.skills;
 
-import core.model.Timer;
 import core.model.gameplay.World;
 import core.model.gameplay.gameobjects.GameObjectSolidType;
 import core.model.gameplay.gameobjects.Unit;
@@ -11,7 +10,6 @@ public class BulletShot extends Skill {
     private double bulletSpeed;
     private double pAttack;
     private double mAttack;
-    private Timer cooldownTimer = new Timer();
 
     public BulletShot(Unit owner, String name, String description, int castTime, int postCastTime, int cooldownTime, String requiredItem,
                       double requiredHP, double requiredMP, double bulletSpeed, double pAttack, double mAttack) {
@@ -21,23 +19,10 @@ public class BulletShot extends Skill {
         this.mAttack = mAttack;
     }
 
-    // @Override
-    public boolean startCast() {
-        if (canStartCast(true)) {
-            if ((requiredItem == ItemDB.getInstance().getItem("Bow")
-                    && owner.getInventory().isItemExists(ItemDB.getInstance().getItem("Arrow")))
-                    || requiredItem == ItemDB.getInstance().getItem("Staff")) {
-                decreasePointsCost();
-                // runCast();
-                cooldownTimer.activate(castTime);
-
-                return true;
-            }
-        }
-
-        return false;
-    }
-
+    /**
+     * Detect the type of bullet to create and creates this bullet.
+     * After this the bullet lives her life
+     */
     @Override
     public void apply() {
         if (requiredItem == ItemDB.getInstance().getItem("Bow")) {

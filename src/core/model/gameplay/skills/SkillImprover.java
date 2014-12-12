@@ -1,11 +1,12 @@
 package core.model.gameplay.skills;
 
+import core.model.Timer;
 import core.model.gameplay.gameobjects.Unit;
 
 public class SkillImprover extends Skill{
 
     private int workTime;
-    private int currentWorkTime;
+    private Timer timerWorkTime;
     private String skillToBuff;
     private int castTimeDelta;
     private int cooldownTimeDelta;
@@ -15,42 +16,44 @@ public class SkillImprover extends Skill{
                          int workTime, String skillToBuff, int castTimeDelta, int cooldownTimeDelta) {
         super(owner, name, description, castTime, postCastTime, cooldownTime, requiredItem, requiredHP, requiredMP);
         this.workTime = workTime;
-        this.currentWorkTime = 0;
         this.skillToBuff = skillToBuff;
         this.castTimeDelta = castTimeDelta;
         this.cooldownTimeDelta = cooldownTimeDelta;
+
+        timerWorkTime = new Timer();
     }
 
-
-    private void updateWorkTime(int delta) {
-        if (currentWorkTime > 0) {
-            currentWorkTime -= delta;
-            if (currentWorkTime <= 0) {
-                currentWorkTime = 0;
-                dispel();
-            }
-        }
-    }
-
+    /**
+     * Updates improver skill. It includes updates improver skill working time
+     * @param delta passed time in milliseconds
+     */
     @Override
     public void update(int delta) {
         super.update(delta);
-        updateWorkTime(delta);
+
+        if (timerWorkTime.update(delta)) {
+            dispel();
+        }
     }
 
-
+    /**
+     * Decrease the cast time and cooldown time of the skill
+     */
     @Override
     public void apply() {
         for (Skill skill : owner.getSkillList()) {
             if (skill.getName().equals(skillToBuff)) {
                 skill.setCastTime(skill.getCastTime() - castTimeDelta);
                 skill.changeCooldownTime(-cooldownTimeDelta);
-                currentWorkTime = workTime;
+                timerWorkTime.activate(workTime);
                 break;
             }
         }
     }
 
+    /**
+     * Sets the cast time and cooldown time to their primary values
+     */
     private void dispel() {
         for (Skill skill : owner.getSkillList()) {
             if (skill.getName().equals(skillToBuff)) {
