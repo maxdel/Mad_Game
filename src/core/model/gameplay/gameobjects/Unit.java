@@ -18,6 +18,7 @@ public class Unit extends GameObjectSolid {
 
     protected List<Skill> skillList;
     protected Skill castingSkill;
+    protected int castTimeCounter;
 
     protected int useItemCounter;
     protected final int USE_ITEM_TIME = 400;
@@ -33,11 +34,38 @@ public class Unit extends GameObjectSolid {
         skillList = new ArrayList<Skill>();
     }
 
+    private void decreaseCastTime(int delta) {
+        castTimeCounter -= delta;
+        if (castTimeCounter < 0) {
+            castTimeCounter = 0;
+        }
+    }
+
     @Override
     public void update(int delta) {
         updateUsingItem(delta);
-        updateCastingSkill(delta);
-        updateSkills(delta);
+
+        //updateCastingSkill(delta);
+        //updateSkills(delta);
+        for (Skill skill : skillList) {
+            skill.updateCD(delta);
+        }
+
+        boolean isCastingFinish = false;
+        if (castTimeCounter > 0) {
+            decreaseCastTime(delta);
+            if (castTimeCounter == 0) {
+                isCastingFinish = true;
+            }
+        }
+
+        if (isCastingFinish) {
+            setCurrentState(GameObjectState.STAND);
+            castingSkill.runCD();
+            castingSkill.apply();
+            castingSkill = null;
+        }
+
         motionInCollisionProcessing(delta);
         updateDeath();
     }
@@ -60,8 +88,14 @@ public class Unit extends GameObjectSolid {
     }
 
     public void startCastSkill(int skillIndex) {
-        if (skillList.get(skillIndex) != null && skillList.get(skillIndex).startCast()) {
-            castingSkill = skillList.get(skillIndex);
+        Skill skillToCast = skillList.get(skillIndex);
+        if (skillToCast != null && skillToCast.canStartCast(true)) {
+            skillToCast.decreasePointsCost();
+    //        skillToCast.runCast();
+            skillToCast.runCD();
+
+            castingSkill = skillToCast;
+            castTimeCounter = skillToCast.getCastTime();
             setCurrentState(GameObjectState.CAST);
             getAttribute().setCurrentSpeed(0);
         }
@@ -120,8 +154,9 @@ public class Unit extends GameObjectSolid {
         }
     }
 
-    private void updateCastingSkill(int delta) {
+   /* private void updateCastingSkill(int delta) {
         if (castingSkill != null && castingSkill.isCastingСontinues()) {
+
             castingSkill.tickCastingTime(delta);
 
             if (castingSkill.isTimeToApply()) {
@@ -134,19 +169,19 @@ public class Unit extends GameObjectSolid {
             }
         }
     }
-
-    private void stopCasting() {
+*/
+   /* private void stopCasting() {
         setCurrentState(GameObjectState.STAND);
-        castingSkill.stopCasting();
+  //      castingSkill.stopCasting();
         castingSkill.setAlreadyApplied(false);
         castingSkill = null;
-    }
-
+    }*/
+/*
     private void updateSkills(int delta) {
         for (Skill skill : skillList) {
             skill.update(delta);
         }
-    }
+    }*/
 
     protected double lengthDirX(double direction, double length) {
         return Math.cos(direction) * length;

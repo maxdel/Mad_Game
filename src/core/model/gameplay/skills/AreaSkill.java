@@ -72,13 +72,13 @@ public class AreaSkill extends Skill {
         return Math.sin(direction) * length;
     }
 
-    public int getCurrentCastTime() {
-        return currentCastTime;
-    }
+   // public int getCurrentCastTime() {
+     //   return currentCastTime;
+    //}
 
-    public void setCurrentCastTime(int currentCastTime) {
-        this.currentCastTime = currentCastTime;
-    }
+//    public void setCurrentCastTime(int currentCastTime) {
+  //      this.currentCastTime = currentCastTime;
+    //}
 
     public double getRadius() {
         return radius;
