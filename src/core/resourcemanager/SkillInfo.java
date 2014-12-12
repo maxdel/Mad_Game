@@ -13,9 +13,9 @@ public class SkillInfo {
     private String type;
     private Image image;
     private Map<String, String> map;
-    SkillKinds kind;
+    SkillKind kind;
 
-    public SkillInfo(String name, String description, String type, Image image, Map<String, String> map, SkillKinds kind) {
+    public SkillInfo(String name, String description, String type, Image image, Map<String, String> map, SkillKind kind) {
         this.name = name;
         this.description = description;
         this.type = type;
@@ -46,7 +46,7 @@ public class SkillInfo {
                     Integer.parseInt(map.get("cooldownTime")), map.get("requiredItemType"),
                     Double.parseDouble(map.get("requiredHP")), Double.parseDouble(map.get("requiredMP")),
                     Integer.parseInt(map.get("workTime")),
-                    ResourceManager.getInstance().getSkillKind(type, map.get("skillToBuff")),
+                    SkillKind.valueOf(map.get("skillToBuff")),
                     Integer.parseInt(map.get("castTimeDelta")), Integer.parseInt(map.get("cooldownTimeDelta")), kind);
         } else if (type.equals("Regen")) {
             skill = new Regen(owner, name, description, Integer.parseInt(map.get("castTime")),

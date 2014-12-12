@@ -5,20 +5,16 @@ import core.model.gameplay.gameobjects.Unit;
 
 public class SkillImprover extends Skill{
 
-    public enum Kinds implements SkillKinds {
-        WIND_BOW
-    }
-
     private int workTime;
     private Timer timerWorkTime;
-    private SkillKinds skillToBuff;
+    private SkillKind skillToBuff;
     private int castTimeDelta;
     private int cooldownTimeDelta;
 
     public SkillImprover(Unit owner, String name, String description, int castTime, int postCastTime,
                          int cooldownTime, String requiredItem, double requiredHP, double requiredMP,
-                         int workTime, SkillKinds skillToBuff, int castTimeDelta, int cooldownTimeDelta,
-                         SkillKinds kind) {
+                         int workTime, SkillKind skillToBuff, int castTimeDelta, int cooldownTimeDelta,
+                         SkillKind kind) {
         super(owner, name, description, castTime, postCastTime, cooldownTime, requiredItem, requiredHP, requiredMP, kind);
         this.workTime = workTime;
         this.skillToBuff = skillToBuff;

@@ -7,7 +7,7 @@ import core.model.gameplay.gameobjects.Unit;
 
 public abstract class Skill {
 
-    protected SkillKinds kind;
+    protected SkillKind kind;
 
     protected Unit owner;
 
@@ -26,7 +26,7 @@ public abstract class Skill {
     protected double requiredMP;
 
     public Skill(Unit owner, String name, String description, int castTime, int postApplyTime,
-                 int cooldownTime, String requiredItem, double requiredHP, double requiredMP, SkillKinds kind) {
+                 int cooldownTime, String requiredItem, double requiredHP, double requiredMP, SkillKind kind) {
         this.owner = owner;
         this.name = name;
         this.description = description;
@@ -125,7 +125,7 @@ public abstract class Skill {
         return preApplyTime;
     }
 
-    public SkillKinds getKind() {
+    public SkillKind getKind() {
         return kind;
     }
 }

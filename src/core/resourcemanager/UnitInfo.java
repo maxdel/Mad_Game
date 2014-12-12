@@ -1,14 +1,12 @@
 package core.resourcemanager;
 
 import core.model.gameplay.gameobjects.Attribute;
-import core.model.gameplay.gameobjects.Bot;
 import core.model.gameplay.gameobjects.GameObjectSolidType;
 import core.model.gameplay.gameobjects.Unit;
 import core.model.gameplay.items.Inventory;
-import core.model.gameplay.items.Item;
 import core.model.gameplay.items.LootRecord;
 import core.model.gameplay.skills.Skill;
-import core.model.gameplay.skills.SkillKinds;
+import core.model.gameplay.skills.SkillKind;
 import javafx.util.Pair;
 import org.newdawn.slick.geom.Shape;
 
@@ -26,12 +24,12 @@ public class UnitInfo {
     private double pArmor;
     private double mArmor;
     private List<Pair<String, Integer>> itemRecordList;
-    private List<SkillKinds> skillList;
+    private List<SkillKind> skillList;
     private List<Pair<String, Double>> lootList;
 
     public UnitInfo(GameObjectSolidType type, String mask, double maximumHP, double maximumMP, double maximumSpeed,
                     double pAttack, double mAttack, double pArmor, double mArmor,
-                    List<Pair<String, Integer>> itemRecordList, List<SkillKinds> skillList,
+                    List<Pair<String, Integer>> itemRecordList, List<SkillKind> skillList,
                     List<Pair<String, Double>> lootList) {
         this.type = type;
         this.mask = mask;
@@ -66,7 +64,7 @@ public class UnitInfo {
 
     public List<Skill> getSkilLList(Unit owner) {
         ArrayList<Skill> skillArrayList = new ArrayList<Skill>();
-        for (SkillKinds skillKind : skillList) {
+        for (SkillKind skillKind : skillList) {
             skillArrayList.add(ResourceManager.getInstance().getSkill(owner, skillKind));
         }
         return skillArrayList;

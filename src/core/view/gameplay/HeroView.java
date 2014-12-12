@@ -4,7 +4,6 @@ import core.model.gameplay.items.Bow;
 import core.model.gameplay.skills.AreaDamage;
 import core.model.gameplay.skills.BulletShot;
 import core.model.gameplay.skills.Skill;
-import core.model.gameplay.skills.SkillKinds;
 import org.newdawn.slick.*;
 
 import core.resourcemanager.ResourceManager;
@@ -82,59 +81,54 @@ public class HeroView extends GameObjectView {
                 case SKILL:
                     Music music = null;
                     Skill castingSkill = hero.getCastingSkill();
-                    if (castingSkill.getClass() == AreaDamage.class) {
-                        switch ((AreaDamage.Kinds) castingSkill.getKind()) {
-                            case SWORD_ATTACK:
-                                music = new Music("res/Swoosh01.wav");
-                                music.play();
-                                animation = animationSwordAttack;
-                                animation.restart();
-                                hero.getCastingSkill().getCastTime();
-                                for (int i = 0; i < animation.getFrameCount(); ++i) {
-                                    animation.setDuration(i, hero.getCastingSkill().getCastTime() / animation.getFrameCount());
-                                }
-                                break;
-                            case STAFF_ATTACK:
-                                break;
-                            case STRONG_SWORD_ATTACK:
-                                music = new Music("res/Swoosh01.wav");
-                                music.play();
-                                animation = animationSwordAttackStrong;
-                                animation.restart();
-                                hero.getCastingSkill().getCastTime();
-                                for (int i = 0; i < animation.getFrameCount(); ++i) {
-                                    animation.setDuration(i, hero.getCastingSkill().getCastTime() / animation.getFrameCount());
-                                }
-                                break;
-                        }
-                    } else if (castingSkill.getClass() == BulletShot.class) {
-                        switch ((BulletShot.Kinds) castingSkill.getKind()) {
-                            case FIREBALL:
-                                music = new Music("res/fireball.wav");
-                                music.play();
-                                animation = animationBowAttack;
-                                animation.restart();
-                                hero.getCastingSkill().getCastTime();
-                                for (int i = 0; i < animation.getFrameCount(); ++i) {
-                                    animation.setDuration(i, hero.getCastingSkill().getCastTime() / animation.getFrameCount());
-                                }
-                                break;
-                            case BOW_SHOT:
-                                music = new Music("res/Bowshot.wav");
-                                music.play();
-                                animation = animationBowAttack;
-                                animation.restart();
-                                hero.getCastingSkill().getCastTime();
-                                for (int i = 0; i < animation.getFrameCount(); ++i) {
-                                    animation.setDuration(i, hero.getCastingSkill().getCastTime() / animation.getFrameCount());
-                                }
-                                break;
-                        }
+                    switch (castingSkill.getKind()) {
+                        case SWORD_ATTACK:
+                            music = new Music("res/Swoosh01.wav");
+                            music.play();
+                            animation = animationSwordAttack;
+                            animation.restart();
+                            hero.getCastingSkill().getCastTime();
+                            for (int i = 0; i < animation.getFrameCount(); ++i) {
+                                animation.setDuration(i, hero.getCastingSkill().getCastTime() / animation.getFrameCount());
+                            }
+                            break;
+                        case STAFF_ATTACK:
+                            break;
+                        case STRONG_SWORD_ATTACK:
+                            music = new Music("res/Swoosh01.wav");
+                            music.play();
+                            animation = animationSwordAttackStrong;
+                            animation.restart();
+                            hero.getCastingSkill().getCastTime();
+                            for (int i = 0; i < animation.getFrameCount(); ++i) {
+                                animation.setDuration(i, hero.getCastingSkill().getCastTime() / animation.getFrameCount());
+                            }
+                            break;
+                        case FIREBALL:
+                            music = new Music("res/fireball.wav");
+                            music.play();
+                            animation = animationBowAttack;
+                            animation.restart();
+                            hero.getCastingSkill().getCastTime();
+                            for (int i = 0; i < animation.getFrameCount(); ++i) {
+                                animation.setDuration(i, hero.getCastingSkill().getCastTime() / animation.getFrameCount());
+                            }
+                            break;
+                        case BOW_SHOT:
+                            music = new Music("res/Bowshot.wav");
+                            music.play();
+                            animation = animationBowAttack;
+                            animation.restart();
+                            hero.getCastingSkill().getCastTime();
+                            for (int i = 0; i < animation.getFrameCount(); ++i) {
+                                animation.setDuration(i, hero.getCastingSkill().getCastTime() / animation.getFrameCount());
+                            }
+                            break;
                     }
                     animation.start();
-                    break;
-            }
+                }
         }
+
         previousState = hero.getCurrentState();
 
         rotate(g, viewX, viewY, viewDegreeAngle, viewCenterX, viewCenterY, true);
