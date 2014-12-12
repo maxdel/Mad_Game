@@ -63,7 +63,7 @@ public class HeroView extends GameObjectView {
                         animation = animationBowWalk;
                     } else {
                     animation = animationWalk;
-                }
+                    }
                     animation.stop();
                     animation.setCurrentFrame(0);
                     break;

@@ -50,8 +50,7 @@ public class UnitInfo {
     }
 
     public Attribute getAttribute() {
-        Attribute attribute = new Attribute(maximumHP, maximumMP, maximumSpeed, pAttack, mAttack, pArmor, mArmor);
-        return attribute;
+        return new Attribute(maximumHP, maximumMP, maximumSpeed, pAttack, mAttack, pArmor, mArmor);
     }
 
     public Inventory getInventory(Unit owner) {
