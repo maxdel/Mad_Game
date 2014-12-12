@@ -2,12 +2,11 @@ package core.model.gameplay.skills;
 
 import core.MathAdv;
 import core.model.gameplay.World;
-import core.model.gameplay.gameobjects.Unit;
 import core.model.gameplay.gameobjects.GameObjectSolid;
-
+import core.model.gameplay.gameobjects.Unit;
 import org.newdawn.slick.geom.Vector2f;
 
-public class AreaSkill extends Skill {
+public class DamageAOE extends Skill {
 
     private double pAttack;
     private double mAttack;
@@ -15,7 +14,7 @@ public class AreaSkill extends Skill {
     private double radius;
     private double angle;
 
-    public AreaSkill(Unit owner, String name, String description, int castTime, int postCastTime,
+    public DamageAOE(Unit owner, String name, String description, int castTime, int postCastTime,
                      int cooldownTime, String requiredItem, double requiredHP, double requiredMP,
                      double pAttack, double mAttack, double radius, double angle) {
         super(owner, name, description, castTime, postCastTime, cooldownTime, requiredItem, requiredHP, requiredMP);
@@ -64,4 +63,5 @@ public class AreaSkill extends Skill {
         }
         target.getAttribute().getHP().damage(pDamage);
     }
+
 }

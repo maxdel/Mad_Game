@@ -3,7 +3,7 @@ package core.model.gameplay.gameobjects.ai;
 import core.model.Timer;
 import core.model.gameplay.World;
 import core.model.gameplay.gameobjects.Bot;
-import core.model.gameplay.skills.BulletSkill;
+import core.model.gameplay.skills.BulletShot;
 import org.newdawn.slick.geom.Point;
 import org.newdawn.slick.geom.Vector2f;
 
@@ -73,7 +73,7 @@ public class RangedAI extends BotAI {
         double angleToTarget = v.getTheta() / 180 * Math.PI;
         double targetSpeed = World.getInstance().getHero().getAttribute().getCurrentSpeed();
         double targetDirection = World.getInstance().getHero().getDirection() + World.getInstance().getHero().getRelativeDirection();
-        double bulletSpeed = ((BulletSkill) owner.getSkillList().get(skillIndex)).getBulletSpeed();
+        double bulletSpeed = ((BulletShot) owner.getSkillList().get(skillIndex)).getBulletSpeed();
 
         if (targetSpeed > 0) {
             double alphaAngle = (Math.PI - targetDirection) + angleToTarget;

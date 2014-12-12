@@ -11,8 +11,7 @@ public class Timer {
     }
 
     public Timer(int value) {
-        this.value = value;
-        this.active = true;
+        activate(value);
     }
 
     public boolean update(int delta) {
@@ -30,6 +29,10 @@ public class Timer {
         } else {
             return false;
         }
+    }
+
+    public boolean isActive() {
+        return active;
     }
 
     public void activate(int time) {

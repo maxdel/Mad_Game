@@ -1,8 +1,10 @@
 package core.model.gameplay.skills;
 
+import core.model.Timer;
 import core.model.gameplay.items.Item;
 import core.model.gameplay.items.ItemDB;
 import core.model.gameplay.gameobjects.Unit;
+
 
 public abstract class Skill {
 
@@ -11,8 +13,10 @@ public abstract class Skill {
     protected String name;
     protected String description;
     protected int castTime;
+
+
     protected int cooldownTime;
-    protected int currentCooldownTime;
+    protected Timer timerCooldown = new Timer();
 
     protected int preApplyTime;
 
@@ -28,7 +32,6 @@ public abstract class Skill {
         this.description = description;
         this.castTime = castTime;
         this.cooldownTime = cooldownTime;
-        this.currentCooldownTime = 0;
         this.requiredItem = ItemDB.getInstance().getItem(requiredItem);
         this.requiredHP = requiredHP;
         this.requiredMP = requiredMP;
@@ -36,21 +39,11 @@ public abstract class Skill {
     }
 
     public void update(int delta) {
-        updateCD(delta);
+        timerCooldown.update(delta);
     }
 
-    private void updateCD(int delta) {
-        if (currentCooldownTime > 0) {
-            currentCooldownTime -= delta;
-            if (currentCooldownTime < 0) {
-                currentCooldownTime = 0;
-            }
-        }
-    }
-
-
-    public void runCD() {
-        currentCooldownTime = cooldownTime;
+    public void activateCooldownTimer() {
+        timerCooldown.activate(cooldownTime);
     }
 
     public void decreasePointsCost() {
@@ -74,7 +67,7 @@ public abstract class Skill {
 
         if (owner.getAttribute().getMP().getCurrent() < requiredMP
                 || owner.getAttribute().getHP().getCurrent() < requiredHP
-                || currentCooldownTime > 0) {
+                || timerCooldown.isActive()) {
             return false;
         }
 
@@ -94,14 +87,6 @@ public abstract class Skill {
         this.castTime = castTime;
     }
 
-    public int getCooldownTime() {
-        return cooldownTime;
-    }
-
-    public void setCooldownTime(int cooldownTime) {
-        this.cooldownTime = cooldownTime;
-    }
-
     public void setOwner(Unit owner) {
         this.owner = owner;
     }
@@ -110,5 +95,7 @@ public abstract class Skill {
         return preApplyTime;
     }
 
-
+    public void changeCooldownTime(int deltaCooldownTime) {
+        cooldownTime += deltaCooldownTime;
+    }
 }

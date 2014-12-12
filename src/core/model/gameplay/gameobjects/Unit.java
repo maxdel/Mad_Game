@@ -249,7 +249,7 @@ public abstract class Unit extends GameObjectSolid {
      * Finishes casting skill and bring unit to STAND state
      */
     private void endCastSkill() {
-        castingSkill.runCD();
+        castingSkill.activateCooldownTimer();
         castingSkill = null;
         currentState = GameObjectState.STAND;
     }
