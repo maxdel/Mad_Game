@@ -5,9 +5,10 @@ import java.util.Iterator;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
-import core.ResourceManager;
-import core.model.gameplay.inventory.Inventory;
-import core.model.gameplay.inventory.ItemRecord;
+import core.resourcemanager.ResourceManager;
+import core.model.gameplay.items.Inventory;
+import core.model.gameplay.items.ItemRecord;
+import org.newdawn.slick.TrueTypeFont;
 
 public class InventoryView {
 
@@ -25,6 +26,8 @@ public class InventoryView {
     private final int itemWidth = 32;
     private final int itemHeight = 32;
     private final int spacing = 4;
+    private TrueTypeFont fontItem;
+    private TrueTypeFont fontDescription;
 
     public InventoryView(Inventory inventory) {
         this.inventory = inventory;
@@ -34,21 +37,24 @@ public class InventoryView {
         x = 0;
         y = 0;
         scroll = 0;
+        fontItem = ResourceManager.getInstance().getFont("itemfont");
+        fontDescription = ResourceManager.getInstance().getFont("descfont");
     }
 
     public void render(Graphics g, int viewWidth, int viewHeight) {
         int maximumWidthIndex = (width - 2 * padding - spacing) / (itemWidth + spacing) - 1;
-        if (inventory.getItemRecords().size() - 1 < (activeItemY + scroll) * (maximumWidthIndex + 1) + activeItemX) {
+        if (inventory.getExistedItems().size() - 1 < (activeItemY + scroll) * (maximumWidthIndex + 1) + activeItemX) {
             selectLeft();
         }
 
         if (isActive) {
-            g.setColor(Color.gray);
+            g.setColor(Color.lightGray);
 
             x = viewWidth - width - margin;
             y = viewHeight - height - margin;
-            g.drawRoundRect(x, y, width, height, 5);
-            Iterator<ItemRecord> it = inventory.getItemRecords().iterator();
+            g.fillRoundRect(x, y, width, height, 5);
+            g.setColor(Color.gray);
+            Iterator<ItemRecord> it = inventory.getExistedItems().iterator();
             for (int i = 0; i < scroll; ++i) {
                 for (int j = 0; j < (width - 2 * padding - spacing) / (itemWidth + spacing); ++j) {
                     if (it.hasNext()) {
@@ -62,17 +68,23 @@ public class InventoryView {
                         ItemRecord itemRecord = it.next();
                         g.drawImage(ResourceManager.getInstance().getItemImage(itemRecord.getName()),
                                 x + padding + i * (itemWidth + spacing), y + padding + j * (itemHeight + spacing));
+                        if (itemRecord.isMarked()) {
+                            g.drawImage(ResourceManager.getInstance().getImage("Dressed item frame"),
+                                    x + padding + i * (itemWidth + spacing), y + padding + j * (itemHeight + spacing));
+                        }
                         if (i == activeItemX && j == activeItemY) {
                             g.drawImage(ResourceManager.getInstance().getImage("Selected item frame"),
                                     x + padding + i * (itemWidth + spacing), y + padding + j * (itemHeight + spacing));
-                            g.drawString("Name: " + itemRecord.getName() + "\nDescription: " + itemRecord.getDescription(),
-                                    x, y - 48);
+                            g.setColor(Color.black);
+                            fontDescription.drawString(x, y - 42, "Name: " + itemRecord.getName(), Color.black);
+                            fontDescription.drawString(x, y - 24, "Description: " + itemRecord.getDescription(), Color.black);
+                            g.setColor(Color.gray);
                         } else {
                             g.drawRect(x + padding + i * (itemWidth + spacing), y + padding + j * (itemHeight + spacing),
                                     itemWidth, itemHeight);
                         }
-                        g.drawString(String.valueOf(itemRecord.getNumber()), x + padding + i * (itemWidth + spacing) + 22,
-                                y + padding + j * (itemHeight + spacing) + 16);
+                        fontItem.drawString(x + padding + i * (itemWidth + spacing) + 30 - fontItem.getWidth(String.valueOf(itemRecord.getNumber())),
+                                y + padding + j * (itemHeight + spacing) + 16, String.valueOf(itemRecord.getNumber()), Color.black);
                     }
                 }
             }
@@ -89,17 +101,17 @@ public class InventoryView {
         int maximumWidthIndex = (width - 2 * padding - spacing) / (itemWidth + spacing) - 1;
         int maximumHeightIndex = (height - 2 * padding - spacing) / (itemHeight + spacing) - 1;
         if (activeItemX < maximumWidthIndex &&
-                activeItemY * (maximumWidthIndex + 1) + (activeItemX + 1) < inventory.getItemRecords().size() -
+                activeItemY * (maximumWidthIndex + 1) + (activeItemX + 1) < inventory.getExistedItems().size() -
                         scroll * (maximumWidthIndex + 1)) {
             activeItemX++;
             return (activeItemY + scroll) * (maximumWidthIndex + 1) + activeItemX;
         } else if (activeItemY < maximumHeightIndex &&
-                (activeItemY + 1) * (maximumWidthIndex + 1)  < inventory.getItemRecords().size() -
+                (activeItemY + 1) * (maximumWidthIndex + 1)  < inventory.getExistedItems().size() -
                         scroll * (maximumWidthIndex + 1)) {
             activeItemX = 0;
             activeItemY++;
             return (activeItemY + scroll) * (maximumWidthIndex + 1) + activeItemX;
-        } else if ((activeItemY + 1) * (maximumWidthIndex + 1)  < inventory.getItemRecords().size() -
+        } else if ((activeItemY + 1) * (maximumWidthIndex + 1)  < inventory.getExistedItems().size() -
                 scroll * (maximumWidthIndex + 1)) {
             scroll++;
             activeItemX = 0;
@@ -112,24 +124,24 @@ public class InventoryView {
         int maximumWidthIndex = (width - 2 * padding - spacing) / (itemWidth + spacing) - 1;
         int maximumHeightIndex = (height - 2 * padding - spacing) / (itemHeight + spacing) - 1;
         if (activeItemY < maximumHeightIndex &&
-                (activeItemY + 1) * (maximumWidthIndex + 1) + activeItemX < inventory.getItemRecords().size() -
+                (activeItemY + 1) * (maximumWidthIndex + 1) + activeItemX < inventory.getExistedItems().size() -
                         scroll * (maximumWidthIndex + 1)) {
             activeItemY++;
             return (activeItemY + scroll) * (maximumWidthIndex + 1) + activeItemX;
         } else if (activeItemY < maximumHeightIndex &&
-                (activeItemY + 1) * (maximumWidthIndex + 1) < inventory.getItemRecords().size() -
+                (activeItemY + 1) * (maximumWidthIndex + 1) < inventory.getExistedItems().size() -
                         scroll * (maximumWidthIndex + 1)) {
-            activeItemX = inventory.getItemRecords().size() -
+            activeItemX = inventory.getExistedItems().size() -
                     scroll * (maximumWidthIndex + 1) - 1 - (activeItemY + 1) * (maximumWidthIndex + 1);
             activeItemY++;
             return (activeItemY + scroll) * (maximumWidthIndex + 1) + activeItemX;
-        } else if ((activeItemY + 1) * (maximumWidthIndex + 1) + activeItemX < inventory.getItemRecords().size() -
+        } else if ((activeItemY + 1) * (maximumWidthIndex + 1) + activeItemX < inventory.getExistedItems().size() -
                 scroll * (maximumWidthIndex + 1)) {
             scroll++;
             return (activeItemY + scroll) * (maximumWidthIndex + 1) + activeItemX;
-        } else if ((activeItemY + 1) * (maximumWidthIndex + 1) < inventory.getItemRecords().size() -
+        } else if ((activeItemY + 1) * (maximumWidthIndex + 1) < inventory.getExistedItems().size() -
                 scroll * (maximumWidthIndex + 1)) {
-            activeItemX = inventory.getItemRecords().size() -
+            activeItemX = inventory.getExistedItems().size() -
                     scroll * (maximumWidthIndex + 1) - 1 - (activeItemY + 1) * (maximumWidthIndex + 1);
             scroll++;
             return (activeItemY + scroll) * (maximumWidthIndex + 1) + activeItemX;

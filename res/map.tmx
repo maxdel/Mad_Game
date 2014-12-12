@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="64" height="64" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="tiles" tilewidth="32" tileheight="32">
+  <image source="tiles.png" width="128" height="128"/>
+  <tile id="4">
+   <properties>
+    <property name="name" value="tree"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="name" value="stonewall"/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="name" value="banditsword"/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="name" value="banditarcher"/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="name" value="skeletsword"/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="name" value="skeletmage"/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="name" value="vampire"/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="name" value="hero"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="Tiles" width="64" height="64">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3TMQ6AMAzF0ELvf2cmBiQEZWicFA+e+1+k9tZaNzMzMzMzMzMzW7A9wQbKfUZvodx/8t+5K/tHtz+5K/pHLSPuav4vppX8s9wV/LPtWf0R7gz+SCfpp42kn/aRftpG+WkT6ac9pJ+2kH7aQfnp/ZSf3k366c2Un95K+umdlJ/eR/mj3t8S+iPtZxn8xPv0DTL8cfoGGfIG1xvMjrbSN6Cdb356h379+vXr169fv379+vXbWh1BzSzGAEAAAA==
+  </data>
+ </layer>
+ <layer name="Obstacles" width="64" height="64">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2aSQ7DMAhFs2nuf+SuIkVVPQCfyfCkrOrpmRjHVu/ruu7ij4RZfWnb2rS/nX/EuWh/fX9UntnhQyyv7c8pZ0n74/1H7bV/PDjfRju/j/qKBif+q/JIf2o+p7YX3V8bS/+InOAvWSMzf+p50fI7DwUy/pm8H9ofN+6I/qvcgPan5gz0/k7l9PivQN4VZvbn1PmtW8V/1EZVfyTW+VDqbz1edH/R4m/Naf4e978ZGM1LFf8RaH+NfKiZYzXjr/1e7cwL4vzDmf8s60pjnNQ2Pc+AaH+tuGvNkcb5PzrvuezzT85xP8zWxc6aiexvkRcj+1uQ1R/1bmT1R5Ftv0YTOf6cu+kdH2r5k2n/9m//ukjvPxD7nOf8R4h/+8vqSvZxa/9/68Xz/wfZ4y9tJ8L9f1R/7bz/HoMXJ73/3L7b35cK/rN8UcF/NQbPvtvflwj+lZ8vTtbMnABAAAA=
+  </data>
+ </layer>
+ <layer name="Objects" width="64" height="64">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3YOQ7DMAwEQLc5///clAmQBMoBiNR6plVhyrLJtbcN5jpXFxDgMFg/TqliXzy3c1Tf5+rrwzujvj8ycy5UvEfmHjOdqgsA4nTuK51re+XXTNDxO+Df/AeVVusd9KUXwrq6z4KO+e9Taf/B0vZDDjkEcnTPJaxFdnl2qS4AHnyb4WQ+gLVcqwsIlphzzfl8znhNzo1uEmcgcLeXuaOX5bsB+NdgjQBAAAA=
+  </data>
+ </layer>
+ <objectgroup name="Слой объектов 1">
+  <object name="wall" gid="6" x="1594.24" y="817.502" width="32" height="32" rotation="530.431"/>
+  <object name="wall" gid="6" x="1552.19" y="899.027" width="32" height="32" rotation="802.289"/>
+  <object name="wall" gid="6" x="1566.93" y="853.4" width="32" height="32" rotation="473.102"/>
+  <object name="wall" gid="6" x="1462.29" y="977.008" width="32" height="32" rotation="473.102"/>
+  <object name="wall" gid="6" x="1489.65" y="1030.97" width="32" height="32" rotation="698.102"/>
+  <object name="wall" gid="6" x="1521.15" y="1002.11" width="32" height="32" rotation="473.102"/>
+  <object name="wall" gid="6" x="1550.59" y="1014.67" width="32" height="32" rotation="473.102"/>
+  <object name="wall" gid="6" x="1449.73" y="1006.44" width="32" height="32" rotation="473.102"/>
+  <object name="wall" gid="6" x="1483.5" y="1090.42" width="32" height="32" rotation="473.102"/>
+  <object name="wall" gid="6" x="1500.37" y="1132.4" width="32" height="32" rotation="563.102"/>
+  <object name="wall" gid="6" x="1496.04" y="1060.99" width="32" height="32" rotation="473.102"/>
+  <object name="wall" gid="6" x="1508.59" y="1031.55" width="32" height="32" rotation="473.102"/>
+  <object name="wall" gid="6" x="1697.4" y="1022.27" width="32" height="32" rotation="519.687"/>
+  <object name="wall" gid="6" x="1798.03" y="1024.86" width="32" height="32" rotation="472.457"/>
+  <object name="wall" gid="6" x="989.38" y="1529.69" width="32" height="32" rotation="609.498"/>
+  <object name="wall" gid="6" x="1878.07" y="1093.29" width="32" height="32" rotation="563.827"/>
+ </objectgroup>
+</map>

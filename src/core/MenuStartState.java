@@ -1,5 +1,6 @@
 package core;
 
+import core.resourcemanager.ResourceManager;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Graphics;

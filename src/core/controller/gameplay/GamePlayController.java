@@ -8,7 +8,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 import core.GameState;
-import core.model.gameplay.Hero;
+import core.model.gameplay.gameobjects.Hero;
 import core.model.gameplay.World;
 
 import core.view.gameplay.GamePlayView;
@@ -23,7 +23,8 @@ public class GamePlayController {
     private int mouseX, mouseY;
     private int oldMouseX, oldMouseY;
     private String controlMode;
-    private final double ROTATE_SPEED = 1.0/288;
+    private boolean combatMode;
+    private final double ROTATE_SPEED = 1f/288;
 
     public GamePlayController(World world, GamePlayView gamePlayView) throws SlickException {
         hero = world.getHero();
@@ -32,13 +33,14 @@ public class GamePlayController {
         mouseX = -1;
         mouseY = -1;
         controlMode = "Hero";
+        combatMode = false;
         this.gamePlayView = gamePlayView;
     }
 
     public void update(GameContainer gc, StateBasedGame game) throws SlickException {
         Input input = gc.getInput();
 
-        if (controlMode == "Hero") {
+        if (controlMode.equals("Hero")) {
             // Enter pause menu
             if (input.isKeyPressed(Input.KEY_ESCAPE)) {
                 game.enterState(GameState.MENUPAUSE.getValue());
@@ -57,6 +59,7 @@ public class GamePlayController {
                         gc.getHeight() - input.getMouseY());
                 mouseX = input.getMouseX();
             }
+
             if (input.getMouseX() < gc.getWidth() / 2 - 1 / ROTATE_SPEED) {
                 Mouse.setCursorPosition((int) (input.getMouseX() + (1.0 / ROTATE_SPEED)),
                         gc.getHeight() - input.getMouseY());
@@ -82,18 +85,39 @@ public class GamePlayController {
 
             direction *= Math.PI / 180;
             if (direction >= 0) {
-                if (input.isKeyDown(Input.KEY_LSHIFT)) {
-                    hero.run(direction);
-                } else {
-                    hero.walk(direction);
-                }
+                hero.move(direction);
             } else {
                 hero.stand();
             }
 
             // Pick loot
-            if (input.isMousePressed(input.MOUSE_LEFT_BUTTON)) {
-                hero.startPickItem();
+            if (input.isMouseButtonDown(input.MOUSE_LEFT_BUTTON)) {
+                if (combatMode) {
+                    hero.startCastSkill(0);
+                    hero.startCastSkill(1);
+                    hero.startCastSkill(2);
+                } else {
+                    hero.startPickItem();
+                }
+            }
+
+            // Use skill
+            if (input.isKeyDown(input.KEY_1)) {
+                hero.startCastSkill(0);
+                hero.startCastSkill(1);
+                hero.startCastSkill(2);
+            }
+            if (input.isKeyDown(input.KEY_2)) {
+                hero.startCastSkill(3);
+            }
+            if (input.isKeyDown(input.KEY_3)) {
+                hero.startCastSkill(4);
+            }
+            if (input.isKeyDown(input.KEY_4)) {
+                hero.startCastSkill(5);
+            }
+            if (input.isKeyDown(input.KEY_5)) {
+                hero.startCastSkill(6);
             }
 
             // Change full-screen mode
@@ -105,6 +129,11 @@ public class GamePlayController {
                 }
             }
 
+            // Swtich combat mode
+            if (input.isKeyPressed(Input.KEY_CAPITAL)) {
+                combatMode = !combatMode;
+            }
+
             // Switch controller mode
             if (input.isKeyPressed(Input.KEY_TAB)) {
                 controlMode = "Inventory";
@@ -112,7 +141,7 @@ public class GamePlayController {
                 input.enableKeyRepeat();
                 hero.stand();
             }
-        } else if (controlMode == "Inventory") {
+        } else if (controlMode.equals("Inventory")) {
             if (input.isKeyPressed(Input.KEY_ESCAPE) || input.isKeyPressed(Input.KEY_TAB)) {
                 controlMode = "Hero";
                 gamePlayView.getInventoryView().setActive(false);

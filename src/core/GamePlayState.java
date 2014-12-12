@@ -1,5 +1,6 @@
 package core;
 
+import core.resourcemanager.ResourceManager;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -40,7 +41,7 @@ public class GamePlayState extends BasicGameState {
 
     @Override
     public void init(GameContainer gc, StateBasedGame game) throws SlickException {
-
+        gc.setMouseCursor("res/emptyImage.png", 0, 0);
     }
 
     @Override
@@ -58,8 +59,8 @@ public class GamePlayState extends BasicGameState {
     public void enter(GameContainer gc, StateBasedGame game) throws SlickException {
         ResourceManager.getInstance().load(STATE_ID);
 
-        world = World.getInstance(false);
-        gamePlayView = new GamePlayView(gc, world.getGameObjects(), world.getHero(), world.getLootList(), ResourceManager.getInstance());
+        world = World.getInstance();
+        gamePlayView = new GamePlayView(gc, world.getGameObjectSolids(), world.getHero(), world.getLootList(), world.getTiledMap());
         gamePlayController = new GamePlayController(world, gamePlayView);
     }
 

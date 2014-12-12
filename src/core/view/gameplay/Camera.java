@@ -7,6 +7,8 @@ public class Camera {
     private double direction;
     private int width;
     private int height;
+    private double centerX;
+    private double centerY;
 
     public Camera(double x, double y, double direction, int width, int height) {
         this.x = x;
@@ -14,10 +16,32 @@ public class Camera {
         this.direction = direction;
         this.width = width;
         this.height = height;
+        centerX = 0;
+        centerY = 0;
     }
 
     public Camera(int width, int height) {
         this(0, 0, 0, width, height);
+    }
+
+    public void update(final int width, final int height, final double x, final double y, final double direction) {
+        setWidth(width);
+        setHeight(height);
+
+        // smooth change of direction
+        double resultDirection = direction + Math.PI / 2;
+        if (resultDirection > getDirection() && resultDirection - 0.005 > getDirection()) {
+            resultDirection = getDirection() + (resultDirection - getDirection()) / 2;
+        }
+        if (resultDirection < getDirection() && resultDirection + 0.005 < getDirection()) {
+            resultDirection = getDirection() - (getDirection() - resultDirection) / 2;
+        }
+
+        setDirection(resultDirection);
+        centerX = getWidth() / 2;
+        centerY = 2 * getHeight() / 3;
+        setX(x - centerX);
+        setY(y - centerY);
     }
 
     public double getX() {
@@ -67,22 +91,12 @@ public class Camera {
         this.height = height;
     }
 
-    public void update(final int width, final int height, final double x, final double y, final double direction) {
-        setWidth(width);
-        setHeight(height);
+    public double getCenterX() {
+        return centerX;
+    }
 
-        // smooth change of direction
-        double resultDirection = direction + Math.PI / 2;
-        if (resultDirection > getDirection() && resultDirection - 0.005 > getDirection()) {
-            resultDirection = getDirection() + (resultDirection - getDirection()) / 2;
-        }
-        if (resultDirection < getDirection() && resultDirection + 0.005 < getDirection()) {
-            resultDirection = getDirection() - (getDirection() - resultDirection) / 2;
-        }
-
-        setDirection(resultDirection);
-        setX(x - getWidth() / 2);
-        setY(y - getHeight() / 2);
+    public double getCenterY() {
+        return centerY;
     }
 
 }
