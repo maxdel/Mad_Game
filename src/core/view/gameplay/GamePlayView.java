@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import core.model.gameplay.items.Loot;
-import core.model.gameplay.gameobjects.*;
-import core.resourcemanager.MadTiledMap;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
+import core.model.gameplay.gameobjects.*;
+import core.model.gameplay.items.Loot;
+import core.resourcemanager.MadTiledMap;
 import core.resourcemanager.ResourceManager;
 
 /*
@@ -24,22 +24,19 @@ public class GamePlayView {
     private List<LootView> lootViewList;
     private Hero hero;
     private Camera camera;
-    private ResourceManager resourceManager;
     private InventoryView inventoryView;
-    private MadTiledMap tiledMap;
     private TileView tileView;
 
     public GamePlayView(GameContainer gc, List<GameObjectSolid> gameObjectSolids, Hero hero, List<Loot> lootList,
-                        ResourceManager resourceManager, MadTiledMap tiledMap) throws SlickException {
-        this.resourceManager = resourceManager;
+                        MadTiledMap tiledMap) throws SlickException {
         this.gameObjectSolids = gameObjectSolids;
         this.hero = hero;
         this.lootList = lootList;
-        inventoryView = new InventoryView(hero.getInventory());
-        this.tiledMap = tiledMap;
-        tileView = new TileView(tiledMap, hero);
+        this.inventoryView = new InventoryView(hero.getInventory());
+        this.tileView = new TileView(tiledMap);
 
-        gameObjectViews = new ArrayList<GameObjectView>();
+        this.gameObjectViews = new ArrayList<GameObjectView>();
+        ResourceManager resourceManager = ResourceManager.getInstance();
         for (GameObjectSolid gameObjectSolid : gameObjectSolids) {
             if (gameObjectSolid.getType() == GameObjectSolidType.WALL) {
                 gameObjectViews.add(new WallView(gameObjectSolid, resourceManager));
@@ -60,18 +57,18 @@ public class GamePlayView {
             }
         }
 
-        lootViewList = new ArrayList<LootView>();
+        this.lootViewList = new ArrayList<LootView>();
         for (Loot loot : lootList) {
             lootViewList.add(new LootView(loot));
         }
 
-        camera = new Camera(gc.getWidth(), gc.getHeight());
+        this.camera = new Camera(gc.getWidth(), gc.getHeight());
     }
 
     public void render(GameContainer gc, Graphics g) throws SlickException {
         camera.update(gc.getWidth(), gc.getHeight(), hero.getX(), hero.getY(), hero.getDirection());
 
-        tileView.render(gc, g, camera);
+        tileView.render(g, camera);
 
         updateViews();
         updateLootViewList();
@@ -105,6 +102,7 @@ public class GamePlayView {
         }
 
         // looking for new gameObjects
+        ResourceManager resourceManager = ResourceManager.getInstance();
         for (GameObjectSolid gameObjectSolid : gameObjectSolids) {
             boolean found = false;
             for (GameObjectView gameObjectView : gameObjectViews) {

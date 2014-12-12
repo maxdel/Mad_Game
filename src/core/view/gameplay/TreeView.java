@@ -24,7 +24,6 @@ public class TreeView extends GameObjectView {
             return;
         }
 
-
         rotate(g, viewX, viewY, viewDegreeAngle, viewCenterX, viewCenterY, true);
         draw(viewX, viewY);
 
