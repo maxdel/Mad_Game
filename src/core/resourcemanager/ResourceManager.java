@@ -353,8 +353,8 @@ public class ResourceManager {
     }
 
 
-    public Skill getSkill(Unit owner, SkillKind skillKind) {
-        return skillInfos.get(skillKind).getSkill(owner);
+    public Skill getSkill(SkillKind skillKind) {
+        return skillInfos.get(skillKind).getSkill();
     }
 
 

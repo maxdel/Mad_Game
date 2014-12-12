@@ -14,10 +14,10 @@ public class AreaDamage extends Skill {
     private double radius;
     private double angle;
 
-    public AreaDamage(Unit owner, String name, String description, int castTime, int postCastTime,
+    public AreaDamage(String name, String description, int castTime, int postCastTime,
                       int cooldownTime, String requiredItem, double requiredHP, double requiredMP,
                       double pAttack, double mAttack, double radius, double angle, SkillKind kind) {
-        super(owner, name, description, castTime, postCastTime, cooldownTime, requiredItem, requiredHP, requiredMP, kind);
+        super(name, description, castTime, postCastTime, cooldownTime, requiredItem, requiredHP, requiredMP, kind);
         this.pAttack = pAttack;
         this.mAttack = mAttack;
         this.radius = radius;
@@ -28,7 +28,7 @@ public class AreaDamage extends Skill {
      *  Detect the solid object's, that fall under the area of effect and applies the effect
      */
     @Override
-    public void apply() {
+    public void apply(Unit owner) {
         for (GameObjectSolid gameObjectSolid : World.getInstance().getGameObjectSolids()) {
             if (gameObjectSolid instanceof Unit && gameObjectSolid != owner) {
                 Unit target = (Unit) gameObjectSolid;
@@ -41,10 +41,10 @@ public class AreaDamage extends Skill {
                 if (v2.length() - target.getMask().getBoundingCircleRadius() <= radius &&
                         Math.abs(angleBetweenObjects) < angle / 2) {
                     if (pAttack > 0) {
-                        applyPhysDamage(target);
+                        applyPhysDamage(owner, target);
                     }
                     if (mAttack > 0) {
-                        applyMagicDamage(target);
+                        applyMagicDamage(owner, target);
                     }
                 }
             }
@@ -55,7 +55,7 @@ public class AreaDamage extends Skill {
      * Applies magic damage to the target
      * @param target
      */
-    private void applyMagicDamage(Unit target) {
+    private void applyMagicDamage(Unit owner, Unit target) {
         double mDamage = mAttack + owner.getAttribute().getMAttack() - target.getAttribute().getMArmor();
         if (mDamage <= 1) {
             mDamage = 1;
@@ -67,7 +67,7 @@ public class AreaDamage extends Skill {
      * Applies physical damage to the target
      * @param target
      */
-    private void applyPhysDamage(Unit target) {
+    private void applyPhysDamage(Unit owner, Unit target) {
         double pDamage = pAttack + owner.getAttribute().getPAttack() - target.getAttribute().getPArmor();
         if (pDamage <= 1) {
             pDamage = 1;

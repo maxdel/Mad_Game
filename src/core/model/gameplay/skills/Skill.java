@@ -5,11 +5,11 @@ import core.model.gameplay.items.Item;
 import core.model.gameplay.items.ItemDB;
 import core.model.gameplay.gameobjects.Unit;
 
+import java.security.acl.Owner;
+
 public abstract class Skill {
 
     protected SkillKind kind;
-
-    protected Unit owner;
 
     protected String name;
     protected String description;
@@ -25,9 +25,8 @@ public abstract class Skill {
     protected double requiredHP;
     protected double requiredMP;
 
-    public Skill(Unit owner, String name, String description, int castTime, int postApplyTime,
+    public Skill(String name, String description, int castTime, int postApplyTime,
                  int cooldownTime, String requiredItem, double requiredHP, double requiredMP, SkillKind kind) {
-        this.owner = owner;
         this.name = name;
         this.description = description;
         this.castTime = castTime;
@@ -50,9 +49,35 @@ public abstract class Skill {
     }
 
     /**
-     * Applies skill to owner
+     * Just description of actions, that this skill can do
      */
-    public abstract void apply();
+    public abstract void apply(Unit owner);
+
+    /**
+     * Type of function, that Owner will call
+     * @param <O> means Owner, which will do action using this skill
+     */
+    @FunctionalInterface
+    public interface ISkillAction<O> {
+        void realized(O owner);
+    }
+
+    /**
+     * Returns actions, that owner will apply using this skill
+     * @return apply function
+     */
+    public ISkillAction<Unit> getToApplyAction() {
+        return this::apply;
+    }
+
+
+    /**
+     * Returns actions, that owner will apply using this skill
+     * @return apply function
+     */
+    public ISkillAction<Unit> getStealSkillCostAction() {
+        return this::stealSkillCost;
+    }
 
     /**
      * Activates cooldown timer with skill cooldown time
@@ -65,36 +90,9 @@ public abstract class Skill {
      * Skills have the health and magic points cost, that will still from unit,
      * when unit successfully uses skill
      */
-    public void decreasePointsCost() {
+    public void stealSkillCost(Unit owner) {
         owner.getAttribute().getMP().damage(requiredMP);
         owner.getAttribute().getHP().damage(requiredHP);
-    }
-
-    /**
-     * Returns true if the skill can casting with current owner conditions
-     * @param reqItemIsNecessary shows if owner must be wearing some item
-     * @return true if an owner can start this skill
-     */
-    public boolean canStartCast(boolean reqItemIsNecessary) {
-        if (reqItemIsNecessary) {
-            if (requiredItem != null && !owner.getInventory().isItemDressed(requiredItem.getClass())) {
-                return false;
-            }
-        }
-
-        if (!reqItemIsNecessary) {
-            if (!owner.getInventory().isItemDressed(requiredItem.getClass()) && requiredItem != null) {
-                return false;
-            }
-        }
-
-        if (owner.getAttribute().getMP().getCurrent() < requiredMP
-                || owner.getAttribute().getHP().getCurrent() < requiredHP
-                || timerCooldown.isActive()) {
-            return false;
-        }
-
-        return true;
     }
 
     /**
@@ -106,10 +104,7 @@ public abstract class Skill {
     }
 
     /* Getters and setters region */
-  /*  public String getName() {
-        return name;
-    }
-*/    public int getCastTime() {
+    public int getCastTime() {
         return castTime;
     }
 
@@ -117,8 +112,16 @@ public abstract class Skill {
         this.castTime = castTime;
     }
 
-    public void setOwner(Unit owner) {
-        this.owner = owner;
+    public Item getRequiredItem() {
+        return requiredItem;
+    }
+
+    public double getRequiredHP() {
+        return requiredHP;
+    }
+
+    public double getRequiredMP() {
+        return requiredMP;
     }
 
     public int getPreApplyTime() {
@@ -127,5 +130,9 @@ public abstract class Skill {
 
     public SkillKind getKind() {
         return kind;
+    }
+
+    public Timer getTimerCooldown() {
+        return timerCooldown;
     }
 }

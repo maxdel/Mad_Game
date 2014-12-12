@@ -6,11 +6,11 @@ public class Regen extends Skill {
 
     private int HPdelta;
 
-    public Regen(Unit owner, String name, String description, int castTime, int postCastTime,
+    public Regen(String name, String description, int castTime, int postCastTime,
                  int cooldownTime, String requiredItem,
                  double requiredHP, double requiredMP, int HPdelta,
                  SkillKind regenKind) {
-        super(owner, name, description, castTime, postCastTime, cooldownTime, requiredItem, requiredHP, requiredMP, regenKind);
+        super(name, description, castTime, postCastTime, cooldownTime, requiredItem, requiredHP, requiredMP, regenKind);
         this.HPdelta = HPdelta;
     }
 
@@ -18,7 +18,7 @@ public class Regen extends Skill {
      * Increases the owner's health
      */
     @Override
-    public void apply() {
+    public void apply(Unit owner) {
         owner.getAttribute().getHP().heal(HPdelta);
     }
 

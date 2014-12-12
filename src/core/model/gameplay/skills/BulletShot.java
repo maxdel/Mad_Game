@@ -6,16 +6,18 @@ import core.model.gameplay.gameobjects.Unit;
 import core.model.gameplay.items.Bow;
 import core.model.gameplay.items.Staff;
 
+import java.security.acl.Owner;
+
 public class BulletShot extends Skill {
 
     private double bulletSpeed;
     private double pAttack;
     private double mAttack;
 
-    public BulletShot(Unit owner, String name, String description, int castTime, int postCastTime, int cooldownTime,
+    public BulletShot(String name, String description, int castTime, int postCastTime, int cooldownTime,
                       String requiredItem, double requiredHP, double requiredMP, double bulletSpeed,
                       double pAttack, double mAttack, SkillKind kind) {
-        super(owner, name, description, castTime, postCastTime, cooldownTime, requiredItem, requiredHP, requiredMP, kind);
+        super(name, description, castTime, postCastTime, cooldownTime, requiredItem, requiredHP, requiredMP, kind);
         this.bulletSpeed = bulletSpeed;
         this.pAttack = pAttack;
         this.mAttack = mAttack;
@@ -26,7 +28,7 @@ public class BulletShot extends Skill {
      * After this the bullet lives her life
      */
     @Override
-    public void apply() {
+    public void apply(Unit owner) {
         if (requiredItem.getClass() == Bow.class) {
             World.getInstance().getToAddList().add(new core.model.gameplay.gameobjects.Bullet(owner, owner.getX(), owner.getY(), owner.getDirection(),
                     bulletSpeed, pAttack, mAttack, GameObjectSolidType.ARROW));

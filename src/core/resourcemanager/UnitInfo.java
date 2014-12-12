@@ -61,10 +61,10 @@ public class UnitInfo {
         return inventory;
     }
 
-    public List<Skill> getSkilLList(Unit owner) {
+    public List<Skill> getSkilLList() {
         ArrayList<Skill> skillArrayList = new ArrayList<Skill>();
         for (SkillKind skillKind : skillList) {
-            skillArrayList.add(ResourceManager.getInstance().getSkill(owner, skillKind));
+            skillArrayList.add(ResourceManager.getInstance().getSkill(skillKind));
         }
         return skillArrayList;
     }

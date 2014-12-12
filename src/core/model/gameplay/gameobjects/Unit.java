@@ -23,6 +23,9 @@ public abstract class Unit extends GameObjectSolid {
     private List<LootRecord> lootRecordList;
     private Inventory inventory;
 
+    private Skill.ISkillAction<Unit> skillApplyAction;
+    private Skill.ISkillAction<Unit> stealSkillCostAction;
+
     private ItemRecord itemToUse;
     private ItemRecord itemToDrop;
     private Loot itemToPick;
@@ -50,7 +53,7 @@ public abstract class Unit extends GameObjectSolid {
 
         this.lootRecordList = ResourceManager.getInstance().getUnitInfo(type).getLootRecordList();
         this.inventory = ResourceManager.getInstance().getUnitInfo(type).getInventory(this);
-        this.skillList = ResourceManager.getInstance().getUnitInfo(type).getSkilLList(this);
+        this.skillList = ResourceManager.getInstance().getUnitInfo(type).getSkilLList();
 
         this.useItemTimer = new Timer();
         this.dropItemTimer = new Timer();
@@ -81,7 +84,7 @@ public abstract class Unit extends GameObjectSolid {
 
         /* Update actions with current skill */
         if (preApplyCastingTimer.update(delta)) {
-            castingSkill.apply();
+            skillApplyAction.realized(this);
         }
 
         if (castingTimer.update(delta)) {
@@ -231,16 +234,18 @@ public abstract class Unit extends GameObjectSolid {
     public void startCastSkill(int skillIndex) {
         Skill skillToCast = skillList.get(skillIndex);
         if (((currentState == GameObjectState.STAND || currentState == GameObjectState.MOVE)) &&
-                skillToCast != null && skillToCast.canStartCast(true) ) {
+                skillToCast != null && canStartCast(skillToCast, true) ) {
             stand();
             currentState = GameObjectState.SKILL;
 
             castingSkill = skillToCast;
+            skillApplyAction = castingSkill.getToApplyAction();
+            stealSkillCostAction = castingSkill.getStealSkillCostAction();
 
             preApplyCastingTimer.activate(castingSkill.getPreApplyTime());
             castingTimer.activate(castingSkill.getCastTime());
 
-            castingSkill.decreasePointsCost();
+            stealSkillCostAction.realized(this);
           }
     }
 
@@ -305,6 +310,38 @@ public abstract class Unit extends GameObjectSolid {
                 World.getInstance().getLootList().add(loot);
             }
         }
+    }
+
+
+    /** MUST BU REFACTORED
+     * Returns true if the skill can casting with current owner conditions
+     *
+     * @param skillToCast is a skill, that probably will cast
+     * @param reqItemIsNecessary shows if owner must be wearing some item
+     * @return true if an owner can start casting skill
+     */
+    public boolean canStartCast(Skill skillToCast, boolean reqItemIsNecessary) {
+        if (reqItemIsNecessary) {
+            if (skillToCast.getRequiredItem() != null &&
+                    !inventory.isItemDressed(skillToCast.getRequiredItem().getClass())) {
+                return false;
+            }
+        }
+
+        if (!reqItemIsNecessary) {
+            if (!inventory.isItemDressed(skillToCast.getRequiredItem()) &&
+                    skillToCast.getRequiredItem() != null) {
+                return false;
+            }
+        }
+
+        if (attribute.getMP().getCurrent() < skillToCast.getRequiredMP()
+                || attribute.getHP().getCurrent() < skillToCast.getRequiredHP()
+                || skillToCast.getTimerCooldown().isActive()) {
+            return false;
+        }
+
+        return true;
     }
 
     /* Getters and setters region */

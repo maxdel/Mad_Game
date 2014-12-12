@@ -24,24 +24,24 @@ public class SkillInfo {
         this.kind = kind;
     }
 
-    public Skill getSkill(Unit owner) {
+    public Skill getSkill() {
         Skill skill = null;
         if (type.equals("BulletShot")) {
-            skill = new BulletShot(owner, name, description, Integer.parseInt(map.get("castTime")),
+            skill = new BulletShot(name, description, Integer.parseInt(map.get("castTime")),
                     Integer.parseInt(map.get("postApplyTime")),
                     Integer.parseInt(map.get("cooldownTime")), map.get("requiredItemType"),
                     Double.parseDouble(map.get("requiredHP")), Double.parseDouble(map.get("requiredMP")),
                     Double.parseDouble(map.get("bulletSpeed")), Double.parseDouble(map.get("pAttack")),
                     Double.parseDouble(map.get("mAttack")), kind);
         } else if (type.equals("AreaDamage")) {
-            skill = new AreaDamage(owner, name, description, Integer.parseInt(map.get("castTime")),
+            skill = new AreaDamage(name, description, Integer.parseInt(map.get("castTime")),
                     Integer.parseInt(map.get("postApplyTime")),
                     Integer.parseInt(map.get("cooldownTime")), map.get("requiredItemType"),
                     Double.parseDouble(map.get("requiredHP")), Double.parseDouble(map.get("requiredMP")),
                     Double.parseDouble(map.get("pAttack")), Double.parseDouble(map.get("mAttack")),
                     Double.parseDouble(map.get("radius")), Double.parseDouble(map.get("angle")) * Math.PI / 180, kind);
         } else if (type.equals("ImproverSkill")) {
-            skill = new SkillImprover(owner, name, description, Integer.parseInt(map.get("castTime")),
+            skill = new SkillImprover(name, description, Integer.parseInt(map.get("castTime")),
                     Integer.parseInt(map.get("postApplyTime")),
                     Integer.parseInt(map.get("cooldownTime")), map.get("requiredItemType"),
                     Double.parseDouble(map.get("requiredHP")), Double.parseDouble(map.get("requiredMP")),
@@ -49,7 +49,7 @@ public class SkillInfo {
                     SkillKind.valueOf(map.get("skillToBuff")),
                     Integer.parseInt(map.get("castTimeDelta")), Integer.parseInt(map.get("cooldownTimeDelta")), kind);
         } else if (type.equals("Regen")) {
-            skill = new Regen(owner, name, description, Integer.parseInt(map.get("castTime")),
+            skill = new Regen(name, description, Integer.parseInt(map.get("castTime")),
                     Integer.parseInt(map.get("postApplyTime")),
                     Integer.parseInt(map.get("cooldownTime")), map.get("requiredItemType"),
                     Double.parseDouble(map.get("requiredHP")), Double.parseDouble(map.get("requiredMP")),
