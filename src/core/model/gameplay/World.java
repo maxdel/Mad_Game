@@ -1,5 +1,11 @@
 package core.model.gameplay;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Vector2f;
+
 import core.MathAdv;
 import core.model.gameplay.gameobjects.ai.MeleeAI;
 import core.model.gameplay.gameobjects.ai.RangedAI;
@@ -8,12 +14,6 @@ import core.model.gameplay.items.ItemDB;
 import core.model.gameplay.items.Loot;
 import core.model.gameplay.gameobjects.*;
 import core.resourcemanager.MadTiledMap;
-import core.resourcemanager.ResourceManager;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Vector2f;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Main model class, that imitates game world.
@@ -24,20 +24,22 @@ public class World {
     private static World instance;
 
     private List<GameObjectSolid> gameObjectSolids;
-    private List<GameObjectSolid> toDeleteList;
-    private List<GameObjectSolid> toAddList;
+    private List<GameObjectSolid> gameObjectToDeleteList;
+    private List<GameObjectSolid> gameObjectToAddList;
     private Hero hero;
     private List<Loot> lootList;
-    private CollisionManager collisionManager;
+    private List<Loot> lootToAddList;
+    private List<Loot> lootToDeleteList;
 
     private MadTiledMap tiledMap;
 
     private World() {
-        gameObjectSolids = new ArrayList<GameObjectSolid>();
-        toDeleteList = new ArrayList<GameObjectSolid>();
-        toAddList = new ArrayList<GameObjectSolid>();
-        lootList = new ArrayList<Loot>();
-        collisionManager = CollisionManager.getInstance();
+        gameObjectSolids = new ArrayList<>();
+        gameObjectToDeleteList = new ArrayList<>();
+        gameObjectToAddList = new ArrayList<>();
+        lootList = new ArrayList<>();
+        lootToAddList = new ArrayList<>();
+        lootToDeleteList = new ArrayList<>();
 
         try {
             tiledMap = new MadTiledMap("/res/map.tmx");
@@ -139,15 +141,23 @@ public class World {
     }
 
     public void update(int delta) {
-        for (GameObjectSolid gameObjectSolid : toAddList) {
+        for (Loot loot : lootToAddList) {
+            lootList.add(loot);
+        }
+        for (Loot loot : lootToDeleteList) {
+            lootList.remove(loot);
+        }
+        lootToAddList.clear();
+        lootToAddList.clear();
+
+        for (GameObjectSolid gameObjectSolid : gameObjectToAddList) {
             gameObjectSolids.add(gameObjectSolid);
         }
-        toAddList.clear();
-
-        for (GameObjectSolid gameObjectSolid : toDeleteList) {
+        for (GameObjectSolid gameObjectSolid : gameObjectToDeleteList) {
             gameObjectSolids.remove(gameObjectSolid);
         }
-        toDeleteList.clear();
+        gameObjectToAddList.clear();
+        gameObjectToDeleteList.clear();
 
         for (GameObjectSolid gameObjectSolid : gameObjectSolids) {
             Vector2f v = new Vector2f((float)(hero.getX() - gameObjectSolid.getX()), (float)(hero.getY() - gameObjectSolid.getY()));
@@ -173,12 +183,20 @@ public class World {
         return tiledMap;
     }
 
-    public List<GameObjectSolid> getToDeleteList() {
-        return toDeleteList;
+    public List<GameObjectSolid> getGameObjectToDeleteList() {
+        return gameObjectToDeleteList;
     }
 
-    public List<GameObjectSolid> getToAddList() {
-        return toAddList;
+    public List<GameObjectSolid> getGameObjectToAddList() {
+        return gameObjectToAddList;
+    }
+
+    public List<Loot> getLootToDeleteList() {
+        return lootToDeleteList;
+    }
+
+    public List<Loot> getLootToAddList() {
+        return lootToAddList;
     }
 
 }

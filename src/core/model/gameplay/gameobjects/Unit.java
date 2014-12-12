@@ -220,7 +220,7 @@ public abstract class Unit extends GameObjectSolid {
     private void pickItem() {
         if (itemToPick != null) {
             inventory.addItem(itemToPick.getItem().getName(), itemToPick.getNumber());
-            World.getInstance().getLootList().remove(itemToPick);
+            World.getInstance().getLootToDeleteList().add(itemToPick);
             itemToPick = null;
         }
         currentState = GameObjectState.STAND;
@@ -303,11 +303,11 @@ public abstract class Unit extends GameObjectSolid {
      * Actions to do on delete event
      */
     protected void onDelete() {
-        World.getInstance().getToDeleteList().add(this);
+        World.getInstance().getGameObjectToDeleteList().add(this);
         for (LootRecord lootRecord : lootRecordList) {
             Loot loot = lootRecord.generateLoot(getX() - 10 + Math.random() * 20, getY() - 10 + Math.random() * 20);
             if (loot != null) {
-                World.getInstance().getLootList().add(loot);
+                World.getInstance().getLootToAddList().add(loot);
             }
         }
     }

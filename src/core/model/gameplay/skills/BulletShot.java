@@ -6,8 +6,6 @@ import core.model.gameplay.gameobjects.Unit;
 import core.model.gameplay.items.Bow;
 import core.model.gameplay.items.Staff;
 
-import java.security.acl.Owner;
-
 public class BulletShot extends Skill {
 
     private double bulletSpeed;
@@ -30,11 +28,11 @@ public class BulletShot extends Skill {
     @Override
     protected void apply(Unit owner) {
         if (requiredItem.getClass() == Bow.class) {
-            World.getInstance().getToAddList().add(new core.model.gameplay.gameobjects.Bullet(owner, owner.getX(), owner.getY(), owner.getDirection(),
+            World.getInstance().getGameObjectToAddList().add(new core.model.gameplay.gameobjects.Bullet(owner, owner.getX(), owner.getY(), owner.getDirection(),
                     bulletSpeed, pAttack, mAttack, GameObjectSolidType.ARROW));
             owner.getInventory().deleteItem("Arrow", 1);
         } else if (requiredItem.getClass() == Staff.class) {
-            World.getInstance().getToAddList().add(new core.model.gameplay.gameobjects.Bullet(owner, owner.getX(), owner.getY(), owner.getDirection(),
+            World.getInstance().getGameObjectToAddList().add(new core.model.gameplay.gameobjects.Bullet(owner, owner.getX(), owner.getY(), owner.getDirection(),
                     bulletSpeed, pAttack, mAttack, GameObjectSolidType.FIREBALL));
         }
     }

@@ -61,12 +61,12 @@ public class Bullet extends GameObjectSolid {
                         otherMoving.getAttribute().getHP().damage(mDamage);
                     }
                 }
-                World.getInstance().getToDeleteList().add(this);
+                World.getInstance().getGameObjectToDeleteList().add(this);
             }
         }
 
         if (currentDistance >= maximumDistance) {
-            World.getInstance().getToDeleteList().add(this);
+            World.getInstance().getGameObjectToDeleteList().add(this);
         }
     }
 
