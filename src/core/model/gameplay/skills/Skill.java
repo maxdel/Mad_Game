@@ -55,7 +55,6 @@ public abstract class Skill {
 
     /**
      * Type of function, that Owner will call
-     * @param <O> means Owner, which will do action using this skill
      */
     @FunctionalInterface
     public interface ISkillAction {

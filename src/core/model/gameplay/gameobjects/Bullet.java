@@ -34,14 +34,14 @@ public class Bullet extends GameObjectSolid {
         lengthDirY = MathAdv.lengthDirY(direction, length);
 
         if (CollisionManager.getInstance().isPlaceFreeAdv(this, getX() + lengthDirX, getY() + lengthDirY)) {
-            setX(getX() + lengthDirX);
-            setY(getY() + lengthDirY);
+            changeX(lengthDirX);
+            changeY(lengthDirY);
             currentDistance += length;
         } else {
             GameObjectSolid other = CollisionManager.getInstance().collidesWith(this, getX() + lengthDirX, getY() + lengthDirY);
             if (other == owner) {
-                setX(getX() + lengthDirX);
-                setY(getY() + lengthDirY);
+                changeX(lengthDirX);
+                changeY(lengthDirY);
                 currentDistance += length;
             } else {
                 if (other instanceof Unit) {
