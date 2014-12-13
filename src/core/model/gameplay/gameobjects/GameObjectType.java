@@ -1,7 +1,8 @@
 package core.model.gameplay.gameobjects;
 
-public enum GameObjectSolidType {
+public enum GameObjectType {
 
+    LOOT,
     WALL, TREE,
     ARROW, FIREBALL,
     BANDIT, BANDITARCHER, SKELETON, SKELETONMAGE, VAMPIRE,

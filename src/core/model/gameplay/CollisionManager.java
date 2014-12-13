@@ -1,5 +1,7 @@
 package core.model.gameplay;
 
+import core.MathAdv;
+import core.model.gameplay.gameobjects.GameObject;
 import core.model.gameplay.gameobjects.GameObjectSolid;
 
 import org.newdawn.slick.geom.*;
@@ -23,12 +25,18 @@ public class CollisionManager {
      * For debug purposes
      */
     public void update() {
-        for (GameObjectSolid pivotObject: World.getInstance(false).getGameObjectSolids()) {
-            for (GameObjectSolid currentGameObjectSolid : World.getInstance(false).getGameObjectSolids()) {
-                if (pivotObject != currentGameObjectSolid && isCollides(pivotObject,
-                        pivotObject.getX(), pivotObject.getY(), currentGameObjectSolid)) {
-                    System.out.println("Collision: " + String.valueOf(pivotObject.getType()) +
-                    " vs " + String.valueOf(currentGameObjectSolid.getType()));
+        for (GameObject pivotObject: World.getInstance().getGameObjectList()) {
+            if (pivotObject instanceof GameObjectSolid) {
+                GameObjectSolid pivotObjectSolid = (GameObjectSolid) pivotObject;
+                for (GameObject currentGameObject : World.getInstance().getGameObjectList()) {
+                    if (currentGameObject instanceof GameObjectSolid) {
+                        GameObjectSolid gameObjectSolid = (GameObjectSolid) currentGameObject;
+                        if (pivotObject != currentGameObject && isCollides(pivotObjectSolid,
+                                pivotObject.getX(), pivotObject.getY(), gameObjectSolid)) {
+                            System.out.println("Collision: " + String.valueOf(pivotObject.getType()) +
+                                    " vs " + String.valueOf(currentGameObject.getType()));
+                        }
+                    }
                 }
             }
         }
@@ -39,11 +47,14 @@ public class CollisionManager {
      */
     public boolean isCollidesWith(GameObjectSolid gameObjectSolid, Class otherClass, double x, double y) {
         boolean isCollidesWith = false;
-        for (GameObjectSolid currentGameObjectSolid : World.getInstance(false).getGameObjectSolids()) {
-            if (gameObjectSolid != currentGameObjectSolid && otherClass == currentGameObjectSolid.getClass()
-                    && isCollides(gameObjectSolid, x, y, currentGameObjectSolid)) {
-                isCollidesWith = true;
-                break;
+        for (GameObject currentGameObject : World.getInstance().getGameObjectList()) {
+            if (currentGameObject instanceof GameObjectSolid) {
+                GameObjectSolid currentGameObjectSolid = (GameObjectSolid) currentGameObject;
+                if (gameObjectSolid != currentGameObject && otherClass == currentGameObject.getClass()
+                        && isCollides(gameObjectSolid, x, y, currentGameObjectSolid)) {
+                    isCollidesWith = true;
+                    break;
+                }
             }
         }
         return isCollidesWith;
@@ -55,10 +66,13 @@ public class CollisionManager {
      */
     public boolean isPlaceFree(GameObjectSolid gameObjectSolid, double x, double y) {
         boolean isCollides = false;
-        for (GameObjectSolid currentGameObjectSolid : World.getInstance(false).getGameObjectSolids()) {
-            if (gameObjectSolid != currentGameObjectSolid && isCollides(gameObjectSolid, x, y, currentGameObjectSolid)) {
-                isCollides = true;
-                break;
+        for (GameObject currentGameObject : World.getInstance().getGameObjectList()) {
+            if (currentGameObject instanceof GameObjectSolid) {
+                GameObjectSolid currentGameObjectSolid = (GameObjectSolid) currentGameObject;
+                if (gameObjectSolid != currentGameObjectSolid && isCollides(gameObjectSolid, x, y, currentGameObjectSolid)) {
+                    isCollides = true;
+                    break;
+                }
             }
         }
         return !isCollides;
@@ -66,14 +80,17 @@ public class CollisionManager {
 
     public boolean isPlaceFreeAdv(GameObjectSolid gameObjectSolid, double x, double y) {
         boolean isCollides = false;
-        Vector2f v = new Vector2f();
-        for (GameObjectSolid currentGameObjectSolid : World.getInstance(false).getGameObjectSolids()) {
-            v.set((float)(currentGameObjectSolid.getX() - x), (float)(currentGameObjectSolid.getY() - y));
-            if (gameObjectSolid != currentGameObjectSolid && v.length() < gameObjectSolid.getMask().getBoundingCircleRadius() +
-                    currentGameObjectSolid.getMask().getBoundingCircleRadius() &&
-                    isCollides(gameObjectSolid, x, y, currentGameObjectSolid)) {
-                isCollides = true;
-                break;
+        for (GameObject currentGameObject : World.getInstance().getGameObjectList()) {
+            if (currentGameObject instanceof GameObjectSolid) {
+                GameObjectSolid currentGameObjectSolid = (GameObjectSolid) currentGameObject;
+                double distanceToObject = MathAdv.getDistance(x, y, currentGameObjectSolid.getX(), currentGameObjectSolid.getY());
+                double freeDistance = gameObjectSolid.getMask().getBoundingCircleRadius() +
+                        currentGameObjectSolid.getMask().getBoundingCircleRadius();
+                if (gameObjectSolid != currentGameObjectSolid && distanceToObject < freeDistance &&
+                        isCollides(gameObjectSolid, x, y, currentGameObjectSolid)) {
+                    isCollides = true;
+                    break;
+                }
             }
         }
         return !isCollides;
@@ -84,14 +101,17 @@ public class CollisionManager {
      */
     public GameObjectSolid collidesWith(GameObjectSolid gameObjectSolid, double x, double y) {
         GameObjectSolid other = null;
-        Vector2f v = new Vector2f();
-        for (GameObjectSolid currentGameObjectSolid : World.getInstance(false).getGameObjectSolids()) {
-            v.set((float)(currentGameObjectSolid.getX() - x), (float)(currentGameObjectSolid.getY() - y));
-            if (v.length() < gameObjectSolid.getMask().getBoundingCircleRadius() +
-                    currentGameObjectSolid.getMask().getBoundingCircleRadius() &&
-                    gameObjectSolid != currentGameObjectSolid && isCollides(gameObjectSolid, x, y, currentGameObjectSolid)) {
-                other = currentGameObjectSolid;
-                break;
+        for (GameObject currentGameObject : World.getInstance(false).getGameObjectList()) {
+            if (currentGameObject instanceof GameObjectSolid) {
+                GameObjectSolid currentGameObjectSolid = (GameObjectSolid) currentGameObject;
+                double distanceToObject = MathAdv.getDistance(x, y, currentGameObjectSolid.getX(), currentGameObjectSolid.getY());
+                double freeDistance = gameObjectSolid.getMask().getBoundingCircleRadius() +
+                        currentGameObjectSolid.getMask().getBoundingCircleRadius();
+                if (gameObjectSolid != currentGameObjectSolid && distanceToObject < freeDistance &&
+                        isCollides(gameObjectSolid, x, y, currentGameObjectSolid)) {
+                    other = currentGameObjectSolid;
+                    break;
+                }
             }
         }
         return other;

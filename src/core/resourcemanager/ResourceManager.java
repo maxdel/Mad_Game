@@ -10,8 +10,7 @@ import java.util.List;
 import core.GameState;
 import core.model.gameplay.items.Item;
 import core.model.gameplay.skills.*;
-import core.model.gameplay.gameobjects.GameObjectSolidType;
-import core.model.gameplay.gameobjects.Unit;
+import core.model.gameplay.gameobjects.GameObjectType;
 import javafx.util.Pair;
 import org.newdawn.slick.*;
 import org.newdawn.slick.Image;
@@ -28,21 +27,21 @@ public class ResourceManager {
     private final String xmlFilePath = "res/resources.xml";
 
     private Map<String, AnimationInfo> animationInfos;
-    private Map<GameObjectSolidType, MaskInfo> maskInfos;
+    private Map<GameObjectType, MaskInfo> maskInfos;
     private Map<String, FontInfo> fontInfos;
     private Map<String, ItemInfo> itemInfos;
     private Map<SkillKind, SkillInfo> skillInfos;
     private Map<String, Image> imageInfos;
-    private Map<GameObjectSolidType, UnitInfo> unitInfos;
+    private Map<GameObjectType, UnitInfo> unitInfos;
 
     private ResourceManager() {
         animationInfos = new HashMap<String, AnimationInfo>();
-        maskInfos = new HashMap<GameObjectSolidType, MaskInfo>();
+        maskInfos = new HashMap<GameObjectType, MaskInfo>();
         fontInfos = new HashMap<String, FontInfo>();
         itemInfos = new HashMap<String, ItemInfo>();
         skillInfos = new HashMap<SkillKind, SkillInfo>();
         imageInfos = new HashMap<String, Image>();
-        unitInfos = new HashMap<GameObjectSolidType, UnitInfo>();
+        unitInfos = new HashMap<GameObjectType, UnitInfo>();
     }
 
     public static ResourceManager getInstance() {
@@ -155,7 +154,7 @@ public class ResourceManager {
         for (int i = 0; i < maskList.size(); ++i) {
             XMLElement maskElement = maskList.get(i);
 
-            GameObjectSolidType type = GameObjectSolidType.valueOf(maskElement.getAttribute("name").toUpperCase());
+            GameObjectType type = GameObjectType.valueOf(maskElement.getAttribute("name").toUpperCase());
             String shape = maskElement.getAttribute("shape");
             int width = maskElement.getIntAttribute("width");
             int height = maskElement.getIntAttribute("height");
@@ -304,8 +303,8 @@ public class ResourceManager {
                 dropList.add(pair);
             }
 
-            unitInfos.put(GameObjectSolidType.valueOf(unitName.toUpperCase()),
-                    new UnitInfo(GameObjectSolidType.valueOf(unitName.toUpperCase()), maskName, maximumHP, maximumMP,
+            unitInfos.put(GameObjectType.valueOf(unitName.toUpperCase()),
+                    new UnitInfo(GameObjectType.valueOf(unitName.toUpperCase()), maskName, maximumHP, maximumMP,
                             maximumSpeed, pAttack, mAttack, pArmor, mArmor, itemsList, skillKindListList, dropList));
         }
     }
@@ -323,7 +322,7 @@ public class ResourceManager {
         return animationInfos.get(name).getSpeedCoef();
     }
 
-    public Shape getMask(GameObjectSolidType type) {
+    public Shape getMask(GameObjectType type) {
         return maskInfos.get(type).getMask();
     }
 
@@ -358,7 +357,7 @@ public class ResourceManager {
     }
 
 
-    public UnitInfo getUnitInfo(GameObjectSolidType type) {
+    public UnitInfo getUnitInfo(GameObjectType type) {
         return unitInfos.get(type);
     }
 }

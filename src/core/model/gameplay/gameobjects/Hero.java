@@ -6,7 +6,7 @@ package core.model.gameplay.gameobjects;
 public class Hero extends Unit {
 
     public Hero(double x, double y, double direction) {
-        super(x, y, direction, GameObjectSolidType.HERO);
+        super(x, y, direction, GameObjectType.HERO);
     }
 
 }

@@ -1,14 +1,13 @@
 package core.view.gameplay;
 
+import core.resourcemanager.TiledMapAdv;
 import org.newdawn.slick.Graphics;
-
-import core.resourcemanager.MadTiledMap;
 
 public class TileView {
 
-    private MadTiledMap tiledMap;
+    private TiledMapAdv tiledMap;
 
-    public TileView(MadTiledMap tiledMap) {
+    public TileView(TiledMapAdv tiledMap) {
         this.tiledMap = tiledMap;
     }
 

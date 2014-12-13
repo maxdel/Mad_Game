@@ -1,7 +1,7 @@
 package core.resourcemanager;
 
 import core.model.gameplay.gameobjects.Attribute;
-import core.model.gameplay.gameobjects.GameObjectSolidType;
+import core.model.gameplay.gameobjects.GameObjectType;
 import core.model.gameplay.gameobjects.Unit;
 import core.model.gameplay.items.Inventory;
 import core.model.gameplay.items.LootRecord;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UnitInfo {
-    private GameObjectSolidType type;
+    private GameObjectType type;
     private String mask;
     private double maximumHP;
     private double maximumMP;
@@ -27,7 +27,7 @@ public class UnitInfo {
     private List<SkillKind> skillList;
     private List<Pair<String, Double>> lootList;
 
-    public UnitInfo(GameObjectSolidType type, String mask, double maximumHP, double maximumMP, double maximumSpeed,
+    public UnitInfo(GameObjectType type, String mask, double maximumHP, double maximumMP, double maximumSpeed,
                     double pAttack, double mAttack, double pArmor, double mArmor,
                     List<Pair<String, Integer>> itemRecordList, List<SkillKind> skillList,
                     List<Pair<String, Double>> lootList) {
@@ -46,7 +46,7 @@ public class UnitInfo {
     }
 
     public Shape getMask() {
-        return ResourceManager.getInstance().getMask(GameObjectSolidType.valueOf(mask.toUpperCase()));
+        return ResourceManager.getInstance().getMask(GameObjectType.valueOf(mask.toUpperCase()));
     }
 
     public Attribute getAttribute() {

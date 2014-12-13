@@ -14,7 +14,7 @@ public class Bullet extends GameObjectSolid {
     private double currentDistance;
 
     public Bullet(Unit owner, double x, double y, double direction, double speed, double pAttack,
-                    double mAttack, GameObjectSolidType type) {
+                    double mAttack, GameObjectType type) {
         super(x, y, direction, type);
         this.owner = owner;
         this.speed = speed;
@@ -61,12 +61,12 @@ public class Bullet extends GameObjectSolid {
                         otherMoving.getAttribute().getHP().damage(mDamage);
                     }
                 }
-                World.getInstance().getToDeleteList().add(this);
+                World.getInstance().getGameObjectToDeleteList().add(this);
             }
         }
 
         if (currentDistance >= maximumDistance) {
-            World.getInstance().getToDeleteList().add(this);
+            World.getInstance().getGameObjectToDeleteList().add(this);
         }
     }
 
