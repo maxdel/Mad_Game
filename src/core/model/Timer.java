@@ -41,4 +41,8 @@ public class Timer {
         active = true;
     }
 
+    public int getValue() {
+        return value;
+    }
+
 }

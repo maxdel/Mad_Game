@@ -57,7 +57,7 @@
                     castTime="300" postApplyTime="200" cooldownTime="1000" requiredItemType="Bow" requiredHP="0" requiredMP="0"
                     pAttack="15" mAttack="0" bulletSpeed="0.5"/>
             <skill name="Sword_attack" description="Sword!!!" path="/res/skills/sword attack.png" type="AreaDamage"
-                   castTime="200" postApplyTime="100" cooldownTime="1000" requiredItemType="Sword" requiredHP="0" requiredMP="0"
+                   castTime="400" postApplyTime="100" cooldownTime="1000" requiredItemType="Sword" requiredHP="0" requiredMP="0"
                    pAttack="15" mAttack="0" radius="55" angle="90"/>
             <skill name="Fireball" description="Fireball!!!" path="/res/skills/fireball.png" type="BulletShot"
                    castTime="200" postApplyTime="100" cooldownTime="1000" requiredItemType="Staff" requiredHP="0" requiredMP="5"

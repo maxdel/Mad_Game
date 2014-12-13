@@ -1,5 +1,6 @@
 package core.view.gameplay.unit;
 
+import core.model.gameplay.gameobjects.GameObjectState;
 import core.view.gameplay.Camera;
 import core.view.gameplay.gameobjectsolid.GameObjectSolidView;
 import org.newdawn.slick.Color;
@@ -13,18 +14,6 @@ public abstract class UnitView extends GameObjectSolidView {
 
     public UnitView(GameObject unit) {
         super(unit);
-    }
-
-    protected void drawHealthbar(Graphics g, int x, int y, int width, int height, double current, double maximum,
-                                 Color color) {
-        Color tempColor = g.getColor();
-        g.setColor(Color.white);
-        g.fillRect(x - width / 2, y - height / 2, width, height);
-        g.setColor(color);
-        g.fillRect(x - width / 2, y - height / 2, width * (float)(current / maximum), height);
-        g.setColor(Color.darkGray);
-        g.drawRect(x - width / 2, y - height / 2, width, height);
-        g.setColor(tempColor);
     }
 
     @Override
@@ -47,11 +36,58 @@ public abstract class UnitView extends GameObjectSolidView {
         drawHealthbar(g, (int) (unit.getX() - camera.getX()), (int) (unit.getY() - camera.getY()) - 38, 60, 6,
                 unit.getAttribute().getMP().getCurrent(),
                 unit.getAttribute().getMP().getMaximum(), Color.blue);
+        drawSkillProcessBar(g, (int) (unit.getX() - camera.getX()), (int) (unit.getY() - camera.getY()) + 38, 150, 4,
+                Color.magenta, Color.cyan);
         g.rotate((float) (gameObject.getX() - camera.getX()),
                 (float) (gameObject.getY() - camera.getY()),
                 - (float) (camera.getDirectionDegrees() - unit.getDirection() / Math.PI * 180));
 
         rotate(g, camera, false);
+    }
+
+    protected void drawHealthbar(Graphics g, int x, int y, int width, int height, double current, double maximum,
+                                 Color color) {
+        Color tempColor = g.getColor();
+        g.setColor(Color.white);
+        g.fillRect(x - width / 2, y - height / 2, width, height);
+        g.setColor(color);
+        g.fillRect(x - width / 2, y - height / 2, width * (float) (current / maximum), height);
+        g.setColor(Color.darkGray);
+        g.drawRect(x - width / 2, y - height / 2, width, height);
+        g.setColor(tempColor);
+    }
+
+    protected void drawSkillProcessBar(Graphics g, int x, int y, int width, int height, Color preCastColor,
+                                          Color postCastColor) {
+        Unit unit = (Unit) gameObject;
+
+        if (unit.getCurrentState() == GameObjectState.SKILL) {
+            int castTime = unit.getCastingSkill().getCastTime();
+            int preCastTime = unit.getCastingSkill().getPreApplyTime();
+            int postCastTime = castTime - preCastTime;
+            int currentCastTime = unit.getCastingSkill().getCastTime() - unit.getCurrentSkillCastingTime();
+
+            int preWidth = width * preCastTime / castTime;
+            int postWidth = width * postCastTime / castTime;
+            int preX = - postWidth / 2;
+            int postX = preWidth / 2;
+
+            int currentPreCastTime;
+            if (currentCastTime > preCastTime) {
+                currentPreCastTime = preCastTime;
+            } else {
+                currentPreCastTime = currentCastTime;
+            }
+            drawHealthbar(g, x + preX, y, preWidth, height, currentPreCastTime, preCastTime, preCastColor);
+
+            int currentPostCastTime;
+            if (currentCastTime - preCastTime < 0) {
+                currentPostCastTime = 0;
+            } else {
+                currentPostCastTime = currentCastTime - preCastTime;
+            }
+            drawHealthbar(g, x + postX, y, postWidth, height, currentPostCastTime, postCastTime, postCastColor);
+        }
     }
     
 }

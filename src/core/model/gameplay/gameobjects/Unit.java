@@ -390,4 +390,8 @@ public abstract class Unit extends GameObjectSolid {
         return itemToPick;
     }
 
+    public int getCurrentSkillCastingTime() {
+        return castingTimer.getValue();
+    }
+
 }
