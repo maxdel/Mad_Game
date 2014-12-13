@@ -16,7 +16,7 @@ import org.newdawn.slick.SlickException;
 
 import core.model.gameplay.World;
 import core.model.gameplay.gameobjects.*;
-import core.resourcemanager.TiledMapAdv;
+import core.resourcemanager.tilemapadv.TiledMapAdv;
 
 /*
 * Renders game play game state

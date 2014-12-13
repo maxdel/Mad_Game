@@ -1,6 +1,6 @@
 package core.view.gameplay;
 
-import core.resourcemanager.TiledMapAdv;
+import core.resourcemanager.tilemapadv.TiledMapAdv;
 import org.newdawn.slick.Graphics;
 
 public class TileView {

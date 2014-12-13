@@ -2,18 +2,16 @@ package core.resourcemanager;
 
 import org.newdawn.slick.TrueTypeFont;
 
-import java.awt.*;
-
 public class FontInfo {
-    private Font font;
+
     private TrueTypeFont ttf;
 
-    public FontInfo(Font font, TrueTypeFont ttf) {
-        this.font = font;
+    public FontInfo(TrueTypeFont ttf) {
         this.ttf = ttf;
     }
 
     public TrueTypeFont getFont() {
         return ttf;
     }
+
 }

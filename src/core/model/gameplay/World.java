@@ -3,7 +3,7 @@ package core.model.gameplay;
 import java.util.ArrayList;
 import java.util.List;
 
-import core.resourcemanager.TiledMapAdv;
+import core.resourcemanager.tilemapadv.TiledMapAdv;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 

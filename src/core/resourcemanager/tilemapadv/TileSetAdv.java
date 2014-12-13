@@ -1,4 +1,4 @@
-package core.resourcemanager;
+package core.resourcemanager.tilemapadv;
 
 import java.io.InputStream;
 import java.util.HashMap;

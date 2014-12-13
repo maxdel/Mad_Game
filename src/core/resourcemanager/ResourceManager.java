@@ -243,7 +243,7 @@ public class ResourceManager {
             Font font = new Font(fontName, fontStyle, size);
             TrueTypeFont ttf = new TrueTypeFont(font, true);
 
-            fontInfos.put(name, new FontInfo(font, ttf));
+            fontInfos.put(name, new FontInfo(ttf));
         }
     }
 

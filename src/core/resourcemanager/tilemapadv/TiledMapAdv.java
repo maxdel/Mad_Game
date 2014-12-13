@@ -1,4 +1,4 @@
-package core.resourcemanager;
+package core.resourcemanager.tilemapadv;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
