@@ -1,4 +1,4 @@
-package core.view.gameplay;
+package core.view.gameplay.unit;
 
 import org.newdawn.slick.SlickException;
 

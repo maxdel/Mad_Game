@@ -1,9 +1,9 @@
-package core.view.gameplay;
+package core.view.gameplay.unit;
 
+import core.view.gameplay.Camera;
 import org.newdawn.slick.*;
 
 import core.model.gameplay.gameobjects.GameObject;
-import core.model.gameplay.items.Bow;
 import core.model.gameplay.skills.Skill;
 import core.model.gameplay.gameobjects.Hero;
 import core.model.gameplay.gameobjects.GameObjectState;

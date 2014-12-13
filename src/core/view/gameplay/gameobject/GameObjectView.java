@@ -1,5 +1,6 @@
-package core.view.gameplay;
+package core.view.gameplay.gameobject;
 
+import core.view.gameplay.Camera;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -47,6 +48,10 @@ public abstract class GameObjectView {
     public void draw(Camera camera) {
         animation.draw((float) (gameObject.getX() - camera.getX() - animation.getWidth() / 2),
                 (float) (gameObject.getY() - camera.getY() - animation.getHeight() / 2));
+    }
+
+    public GameObject getGameObject() {
+        return gameObject;
     }
     
 }

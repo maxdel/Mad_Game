@@ -1,7 +1,8 @@
-package core.view.gameplay;
+package core.view.gameplay.gameobjectsolid;
 
 import core.model.gameplay.gameobjects.GameObject;
 import core.model.gameplay.gameobjects.GameObjectSolid;
+import core.view.gameplay.gameobject.GameObjectView;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Shape;
 

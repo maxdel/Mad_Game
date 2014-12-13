@@ -1,5 +1,7 @@
-package core.view.gameplay;
+package core.view.gameplay.unit;
 
+import core.view.gameplay.Camera;
+import core.view.gameplay.gameobjectsolid.GameObjectSolidView;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;

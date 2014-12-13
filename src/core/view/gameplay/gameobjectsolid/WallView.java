@@ -1,9 +1,8 @@
-package core.view.gameplay;
+package core.view.gameplay.gameobjectsolid;
 
 import core.model.gameplay.gameobjects.GameObject;
 import org.newdawn.slick.SlickException;
 
-import core.model.gameplay.gameobjects.Obstacle;
 import core.resourcemanager.ResourceManager;
 
 public class WallView extends GameObjectSolidView {

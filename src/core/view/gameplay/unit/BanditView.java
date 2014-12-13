@@ -1,5 +1,6 @@
-package core.view.gameplay;
+package core.view.gameplay.unit;
 
+import core.view.gameplay.Camera;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;

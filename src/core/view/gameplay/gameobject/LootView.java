@@ -1,5 +1,6 @@
-package core.view.gameplay;
+package core.view.gameplay.gameobject;
 
+import core.view.gameplay.Camera;
 import org.newdawn.slick.*;
 
 import core.model.gameplay.gameobjects.GameObject;
@@ -11,7 +12,7 @@ public class LootView extends GameObjectView {
 
     TrueTypeFont ttf;
 
-    protected LootView(GameObject loot) {
+    public LootView(GameObject loot) {
         super(loot);
         animation = new Animation((SpriteSheet) ResourceManager.getInstance().getItemImage(((Loot) loot).getItem().getName()), 1);
         ttf = ResourceManager.getInstance().getFont("lootfont");

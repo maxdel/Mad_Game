@@ -3,6 +3,13 @@ package core.view.gameplay;
 import java.util.ArrayList;
 import java.util.List;
 
+import core.view.gameplay.gameobject.GameObjectView;
+import core.view.gameplay.gameobject.LootView;
+import core.view.gameplay.gameobjectsolid.ArrowView;
+import core.view.gameplay.gameobjectsolid.FireballView;
+import core.view.gameplay.gameobjectsolid.TreeView;
+import core.view.gameplay.gameobjectsolid.WallView;
+import core.view.gameplay.unit.*;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -105,7 +112,7 @@ public class GamePlayView {
         }
         /* Delete not required views */
         World.getInstance().getGameObjectToDeleteList().forEach(gameObject ->
-                gameObjectViewList.removeIf(gameObjectView -> gameObjectView.gameObject == gameObject));
+                gameObjectViewList.removeIf(gameObjectView -> gameObjectView.getGameObject() == gameObject));
     }
 
     public InventoryView getInventoryView() {
