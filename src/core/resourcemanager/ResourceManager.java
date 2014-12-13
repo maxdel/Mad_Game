@@ -28,12 +28,14 @@ public class ResourceManager {
     private final String xmlFilePath = "res/resources.xml";
 
     private Map<String, AnimationInfo> animationInfos;
-    private Map<GameObjectType, MaskInfo> maskInfos;
+    private Map<String, MaskInfo> maskInfos;
     private Map<String, FontInfo> fontInfos;
     private Map<String, ItemInfo> itemInfos;
     private Map<SkillKind, SkillInfo> skillInfos;
     private Map<String, Image> imageInfos;
     private Map<GameObjectType, UnitInfo> unitInfos;
+    private Map<GameObjectType, ObstacleInfo> obstacleInfos;
+    private Map<GameObjectType, ObstacleInfo> bulletInfos;
 
     private ResourceManager() {
         animationInfos = new HashMap<>();
@@ -43,6 +45,8 @@ public class ResourceManager {
         skillInfos = new HashMap<>();
         imageInfos = new HashMap<>();
         unitInfos = new HashMap<>();
+        obstacleInfos = new HashMap<>();
+        bulletInfos = new HashMap<>();
     }
 
     public static ResourceManager getInstance() {
@@ -92,6 +96,8 @@ public class ResourceManager {
         loadImages(gameplayElement);
         loadFonts(gameplayElement);
         loadUnits(gameplayElement);
+        loadObstacles(gameplayElement);
+        loadBullets(gameplayElement);
 
         in.close();
     }
@@ -155,13 +161,13 @@ public class ResourceManager {
         for (int i = 0; i < maskList.size(); ++i) {
             XMLElement maskElement = maskList.get(i);
 
-            GameObjectType type = GameObjectType.valueOf(maskElement.getAttribute("name").toUpperCase());
+            String name = maskElement.getAttribute("name");
             String shape = maskElement.getAttribute("shape");
             int width = maskElement.getIntAttribute("width");
             int height = maskElement.getIntAttribute("height");
             int radius = maskElement.getIntAttribute("radius");
 
-            maskInfos.put(type, new MaskInfo(shape, width, height, radius));
+            maskInfos.put(name, new MaskInfo(shape, width, height, radius));
         }
     }
 
@@ -291,7 +297,7 @@ public class ResourceManager {
                 skillKindListList.add(skillKind);
             }
 
-            List<Pair<String, Double>> dropList = new ArrayList<Pair<String, Double>>();
+            List<Pair<String, Double>> dropList = new ArrayList<>();
             XMLElement lootListElement = unitElement.getChildrenByName("lootList").get(0);
             XMLElementList lootList = lootListElement.getChildrenByName("loot");
             for (int j = 0; j < lootList.size(); ++j) {
@@ -300,13 +306,43 @@ public class ResourceManager {
                 String itemName = drop.getAttribute("name");
                 Double probability = Double.valueOf(drop.getAttribute("probability"));
 
-                Pair<String, Double> pair = new Pair<String, Double>(itemName, probability);
+                Pair<String, Double> pair = new Pair<>(itemName, probability);
                 dropList.add(pair);
             }
 
             unitInfos.put(GameObjectType.valueOf(unitName.toUpperCase()),
                     new UnitInfo(GameObjectType.valueOf(unitName.toUpperCase()), maskName, maximumHP, maximumMP,
                             maximumSpeed, pAttack, mAttack, pArmor, mArmor, itemsList, skillKindListList, dropList));
+        }
+    }
+
+    private void loadObstacles(XMLElement gameStateElement) throws SlickXMLException {
+        XMLElement obstaclesElement = gameStateElement.getChildrenByName("obstacles").get(0);
+        XMLElementList obstacleList = obstaclesElement.getChildrenByName("obstacle");
+        for (int i = 0; i < obstacleList.size(); ++i) {
+            XMLElement obstacleElement = obstacleList.get(i);
+
+            String obstacleName = obstacleElement.getAttribute("name");
+            String maskName = obstacleElement.getAttribute("mask");
+
+            ObstacleInfo obstacleInfo = new ObstacleInfo(maskName);
+
+            obstacleInfos.put(GameObjectType.valueOf(obstacleName.toUpperCase()), obstacleInfo);
+        }
+    }
+
+    private void loadBullets(XMLElement gameStateElement) throws SlickXMLException {
+        XMLElement bulletsElement = gameStateElement.getChildrenByName("bullets").get(0);
+        XMLElementList bulletList = bulletsElement.getChildrenByName("bullet");
+        for (int i = 0; i < bulletList.size(); ++i) {
+            XMLElement bulletElement = bulletList.get(i);
+
+            String bulletName = bulletElement.getAttribute("name");
+            String maskName = bulletElement.getAttribute("mask");
+
+            ObstacleInfo obstacleInfo = new ObstacleInfo(maskName);
+
+            bulletInfos.put(GameObjectType.valueOf(bulletName.toUpperCase()), obstacleInfo);
         }
     }
 
@@ -323,8 +359,8 @@ public class ResourceManager {
         return animationInfos.get(name).getSpeedCoef();
     }
 
-    public Shape getMask(GameObjectType type) {
-        return maskInfos.get(type).getMask();
+    protected Shape getMask(String name) {
+        return maskInfos.get(name).getMask();
     }
 
     public TrueTypeFont getFont(String name) {
@@ -340,8 +376,8 @@ public class ResourceManager {
     }
 
     public List<Item> getItems() {
-        List<ItemInfo> itemInfoList = new ArrayList<ItemInfo>(itemInfos.values());
-        List<Item> itemList = new ArrayList<Item>();
+        List<ItemInfo> itemInfoList = new ArrayList<>(itemInfos.values());
+        List<Item> itemList = new ArrayList<>();
         for (ItemInfo itemInfo : itemInfoList) {
             itemList.add(itemInfo.getItem());
         }
@@ -358,6 +394,14 @@ public class ResourceManager {
 
     public UnitInfo getUnitInfo(GameObjectType type) {
         return unitInfos.get(type);
+    }
+
+    public ObstacleInfo getObstacleInfo(GameObjectType type) {
+        return obstacleInfos.get(type);
+    }
+
+    public ObstacleInfo getBulletInfo(GameObjectType type) {
+        return bulletInfos.get(type);
     }
 
 }

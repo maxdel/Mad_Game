@@ -46,7 +46,7 @@ public class UnitInfo {
     }
 
     public Shape getMask() {
-        return ResourceManager.getInstance().getMask(GameObjectType.valueOf(mask.toUpperCase()));
+        return ResourceManager.getInstance().getMask(mask);
     }
 
     public Attribute getAttribute() {

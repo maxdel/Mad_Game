@@ -48,6 +48,8 @@ public abstract class Unit extends GameObjectSolid {
     public Unit(double x, double y, double direction, GameObjectType type) {
         super(x, y, direction, type);
 
+        this.mask = ResourceManager.getInstance().getUnitInfo(type).getMask();
+
         this.attribute = ResourceManager.getInstance().getUnitInfo(type).getAttribute();
         this.currentState = GameObjectState.STAND;
 

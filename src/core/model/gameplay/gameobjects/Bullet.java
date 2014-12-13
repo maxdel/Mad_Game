@@ -3,6 +3,7 @@ package core.model.gameplay.gameobjects;
 import core.MathAdv;
 import core.model.gameplay.CollisionManager;
 import core.model.gameplay.World;
+import core.resourcemanager.ResourceManager;
 
 public class Bullet extends GameObjectSolid {
 
@@ -16,12 +17,14 @@ public class Bullet extends GameObjectSolid {
     public Bullet(Unit owner, double x, double y, double direction, double speed, double pAttack,
                     double mAttack, GameObjectType type) {
         super(x, y, direction, type);
+
+        this.mask = ResourceManager.getInstance().getBulletInfo(type).getMask();
+
         this.owner = owner;
         this.speed = speed;
         this.pAttack = pAttack;
         this.mAttack = mAttack;
-        currentDistance = 0;
-
+        this.currentDistance = 0;
     }
 
     @Override

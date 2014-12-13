@@ -171,6 +171,14 @@
                 </lootList>
             </unit>
         </units>
+        <obstacles>
+            <obstacle name="wall" mask="wall" />
+            <obstacle name="tree" mask="tree" />
+        </obstacles>
+        <bullets>
+            <bullet name="fireball" mask="fireball" />
+            <bullet name="arrow" mask="arrow" />
+        </bullets>
     </gameplay>
 
     <menustart>
