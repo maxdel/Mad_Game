@@ -60,7 +60,7 @@ public class GamePlayState extends BasicGameState {
         ResourceManager.getInstance().load(STATE_ID);
 
         world = World.getInstance();
-        gamePlayView = new GamePlayView(gc, world.getGameObjectSolids(), world.getHero(), world.getLootList(), world.getTiledMap());
+        gamePlayView = new GamePlayView(gc, world.getGameObjectList(), world.getTiledMap());
         gamePlayController = new GamePlayController(world, gamePlayView);
     }
 

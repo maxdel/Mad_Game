@@ -2,6 +2,7 @@ package core.model.gameplay.skills;
 
 import core.MathAdv;
 import core.model.gameplay.World;
+import core.model.gameplay.gameobjects.GameObject;
 import core.model.gameplay.gameobjects.GameObjectSolid;
 import core.model.gameplay.gameobjects.Unit;
 import org.newdawn.slick.geom.Vector2f;
@@ -29,9 +30,9 @@ public class AreaDamage extends Skill {
      */
     @Override
     protected void apply(Unit owner) {
-        for (GameObjectSolid gameObjectSolid : World.getInstance().getGameObjectSolids()) {
-            if (gameObjectSolid instanceof Unit && gameObjectSolid != owner) {
-                Unit target = (Unit) gameObjectSolid;
+        for (GameObject gameObject : World.getInstance().getGameObjectList()) {
+            if (gameObject instanceof Unit && gameObject != owner) {
+                Unit target = (Unit) gameObject;
 
                 Vector2f v1 = new Vector2f((float) MathAdv.lengthDirX(owner.getDirection(), angle),
                         (float)MathAdv.lengthDirY(owner.getDirection(), angle));

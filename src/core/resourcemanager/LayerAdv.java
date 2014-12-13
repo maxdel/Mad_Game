@@ -10,9 +10,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public class MadLayer {
+public class LayerAdv {
     private static byte[] baseCodes = new byte[256];
-    private final MadTiledMap map;
+    private final TiledMapAdv map;
     public int index;
     public String name;
     public int[][][] data;
@@ -20,7 +20,7 @@ public class MadLayer {
     public int height;
     public Properties props;
 
-    public MadLayer(MadTiledMap map, Element element) throws SlickException {
+    public LayerAdv(TiledMapAdv map, Element element) throws SlickException {
         this.map = map;
         this.name = element.getAttribute("name");
         this.width = Integer.parseInt(element.getAttribute("width"));
@@ -63,7 +63,7 @@ public class MadLayer {
                             this.data[x][y][1] = 0;
                             this.data[x][y][2] = 0;
                         } else {
-                            MadTileSet set = map.findMadTileSet(var21);
+                            TileSetAdv set = map.findMadTileSet(var21);
                             if(set != null) {
                                 this.data[x][y][0] = set.index;
                                 this.data[x][y][1] = var21 - set.firstGID;
@@ -93,7 +93,7 @@ public class MadLayer {
             this.data[x][y][1] = 0;
             this.data[x][y][2] = 0;
         } else {
-            MadTileSet set = this.map.findMadTileSet(tile);
+            TileSetAdv set = this.map.findMadTileSet(tile);
             this.data[x][y][0] = set.index;
             this.data[x][y][1] = tile - set.firstGID;
             this.data[x][y][2] = tile;
@@ -103,7 +103,7 @@ public class MadLayer {
 
     public void render(int x, int y, int sx, int sy, int width, int ty, boolean lineByLine, int mapTileWidth, int mapTileHeight) {
         for(int tileset = 0; tileset < this.map.getMadTileSetCount(); ++tileset) {
-            MadTileSet set = null;
+            TileSetAdv set = null;
 
             for(int tx = 0; tx < width; ++tx) {
                 if(sx + tx >= 0 && sy + ty >= 0 && sx + tx < this.width && sy + ty < this.height && this.data[sx + tx][sy + ty][0] == tileset) {

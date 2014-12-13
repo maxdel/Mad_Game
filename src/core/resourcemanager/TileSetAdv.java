@@ -15,8 +15,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-public class MadTileSet {
-    private final MadTiledMap map;
+public class TileSetAdv {
+    private final TiledMapAdv map;
     public int index;
     public String name;
     public int firstGID;
@@ -30,7 +30,7 @@ public class MadTileSet {
     protected int tileSpacing = 0;
     protected int tileMargin = 0;
 
-    public MadTileSet(MadTiledMap map, Element element, boolean loadImage) throws SlickException {
+    public TileSetAdv(TiledMapAdv map, Element element, boolean loadImage) throws SlickException {
         this.map = map;
         this.name = element.getAttribute("name");
         this.firstGID = Integer.parseInt(element.getAttribute("firstgid"));
@@ -99,7 +99,7 @@ public class MadTileSet {
             }
 
         } else {
-            throw new SlickException("MadTiledMap requires that the map be created with tilesets that use a single image.  Check the WiKi for more complete information.");
+            throw new SlickException("TiledMapAdv requires that the map be created with tilesets that use a single image.  Check the WiKi for more complete information.");
         }
     }
 
