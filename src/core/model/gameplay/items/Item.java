@@ -50,4 +50,5 @@ public class Item {
     public void setItemOperation(ItemOperation itemOperation) {
         this.itemOperation = itemOperation;
     }
+
 }

@@ -1,9 +1,10 @@
 package core.resourcemanager;
 
-import core.model.gameplay.items.*;
-import org.newdawn.slick.Image;
-
 import java.util.Map;
+
+import core.model.gameplay.items.*;
+
+import org.newdawn.slick.Image;
 
 public class ItemInfo {
 
@@ -43,4 +44,5 @@ public class ItemInfo {
     public Item getItem() {
         return item;
     }
+
 }
