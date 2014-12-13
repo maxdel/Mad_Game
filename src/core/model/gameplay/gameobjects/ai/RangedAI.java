@@ -65,7 +65,7 @@ public class RangedAI extends BotAI {
         } else {
             owner.getInventory().useItem(owner.getInventory().addItem("Staff"));
         }
-        owner.startCastSkill(0);
+        owner.startCastSkill(SkillKind.BOW_SHOT);
     }
 
     private double getPredictedDirection(int skillIndex) {

@@ -2,6 +2,7 @@ package core.model.gameplay.gameobjects;
 
 import java.util.List;
 
+import core.model.gameplay.skills.SkillKind;
 import org.newdawn.slick.geom.Vector2f;
 
 import core.MathAdv;
@@ -227,12 +228,11 @@ public abstract class Unit extends GameObjectSolid {
     }
 
     /**
-     * TODO: Change parameter from int to ENUM
-     * Tries to start casting skill @param skillIndex
-     * @param skillIndex bad param :(
+     * Tries to start casting skill @param skillKind
+     * @param skillKind is a concrete skill
      */
-    public void startCastSkill(int skillIndex) {
-        Skill skillToCast = skillList.get(skillIndex);
+    public void startCastSkill(SkillKind skillKind) {
+        Skill skillToCast = getSkillByKind(skillKind);
         if (((currentState == GameObjectState.STAND || currentState == GameObjectState.MOVE)) &&
                 skillToCast != null && canStartCast(skillToCast, true) ) {
             stand();
@@ -247,6 +247,15 @@ public abstract class Unit extends GameObjectSolid {
 
             stealSkillCostAction.realized(this);
           }
+    }
+
+    private Skill getSkillByKind(SkillKind skillKind) {
+        for (Skill skill : skillList) {
+            if (skill.getKind() == skillKind) {
+                return skill;
+            }
+        }
+        return null;
     }
 
     /**

@@ -1,5 +1,6 @@
 package core.controller.gameplay;
 
+import core.model.gameplay.skills.SkillKind;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
@@ -93,9 +94,9 @@ public class GamePlayController {
             // Pick loot
             if (input.isMouseButtonDown(input.MOUSE_LEFT_BUTTON)) {
                 if (combatMode) {
-                    hero.startCastSkill(0);
-                    hero.startCastSkill(1);
-                    hero.startCastSkill(2);
+                    hero.startCastSkill(SkillKind.SWORD_ATTACK);
+                    hero.startCastSkill(SkillKind.BOW_SHOT);
+                    hero.startCastSkill(SkillKind.FIREBALL);
                 } else {
                     hero.startPickItem();
                 }
@@ -103,21 +104,21 @@ public class GamePlayController {
 
             // Use skill
             if (input.isKeyDown(input.KEY_1)) {
-                hero.startCastSkill(0);
-                hero.startCastSkill(1);
-                hero.startCastSkill(2);
+                hero.startCastSkill(SkillKind.SWORD_ATTACK);
+                hero.startCastSkill(SkillKind.BOW_SHOT);
+                hero.startCastSkill(SkillKind.FIREBALL);
             }
             if (input.isKeyDown(input.KEY_2)) {
-                hero.startCastSkill(3);
+                hero.startCastSkill(SkillKind.STRONG_SWORD_ATTACK);
             }
             if (input.isKeyDown(input.KEY_3)) {
-                hero.startCastSkill(4);
+                hero.startCastSkill(SkillKind.WIND_BOW);
             }
             if (input.isKeyDown(input.KEY_4)) {
-                hero.startCastSkill(5);
+                hero.startCastSkill(SkillKind.HEAL);
             }
             if (input.isKeyDown(input.KEY_5)) {
-                hero.startCastSkill(6);
+                hero.startCastSkill(SkillKind.STAFF_ATTACK);
             }
 
             // Change full-screen mode

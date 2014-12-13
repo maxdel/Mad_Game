@@ -5,6 +5,7 @@ import core.model.gameplay.World;
 
 import core.model.gameplay.gameobjects.Bot;
 import core.model.gameplay.skills.BulletShot;
+import core.model.gameplay.skills.SkillKind;
 import org.newdawn.slick.geom.Point;
 import org.newdawn.slick.geom.Vector2f;
 
@@ -68,14 +69,14 @@ public class VampireAI extends BotAI {
         owner.stand();
         owner.setDirection(getPredictedDirection(1));
         owner.getInventory().useItem(owner.getInventory().addItem("Staff"));
-        owner.startCastSkill(1);
+        owner.startCastSkill(SkillKind.FIREBALL);
     }
 
     private void attackHeroWithSword() {
         owner.stand();
         owner.setDirection(getPredictedDirection(1));
         owner.getInventory().useItem(owner.getInventory().addItem("Sword"));
-        owner.startCastSkill(0);
+        owner.startCastSkill(SkillKind.SWORD_ATTACK);
     }
 
     private double getPredictedDirection(int skillIndex) {
