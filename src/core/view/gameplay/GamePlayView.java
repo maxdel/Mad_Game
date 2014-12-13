@@ -1,94 +1,122 @@
 package core.view.gameplay;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-import core.view.ResourceManager;
-import org.newdawn.slick.*;
+import core.view.gameplay.gameobject.GameObjectView;
+import core.view.gameplay.gameobject.LootView;
+import core.view.gameplay.gameobjectsolid.ArrowView;
+import core.view.gameplay.gameobjectsolid.FireballView;
+import core.view.gameplay.gameobjectsolid.TreeView;
+import core.view.gameplay.gameobjectsolid.WallView;
+import core.view.gameplay.unit.*;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.SlickException;
 
-import core.model.gameplay.Enemy;
-import core.model.gameplay.GameObject;
-import core.model.gameplay.Hero;
-import core.model.gameplay.Wall;
+import core.model.gameplay.World;
+import core.model.gameplay.gameobjects.*;
+import core.resourcemanager.tilemapadv.TiledMapAdv;
 
 /*
 * Renders game play game state
 * */
 public class GamePlayView {
 
-    private List<GameObject> gameObjects;
-    private List<GameObjectView> gameObjectViews;
-    private Hero hero;
+    private List<GameObjectView> gameObjectViewList;
     private Camera camera;
-    private ResourceManager resourceManager;
+    private InventoryView inventoryView;
+    private TileView tileView;
 
-    public GamePlayView(GameContainer gc, List<GameObject> gameObjects, Hero hero, ResourceManager resourceManager)
-            throws SlickException {
-        this.resourceManager = resourceManager;
+    public GamePlayView(GameContainer gc, List<GameObject> gameObjectList, TiledMapAdv tiledMap) throws SlickException {
+        this.inventoryView = new InventoryView(World.getInstance().getHero().getInventory());
+        this.tileView = new TileView(tiledMap);
 
-        this.gameObjects = gameObjects;
-
-        this.hero = hero;
-
-        gameObjectViews = new ArrayList<GameObjectView>();
-        for (GameObject gameObject : gameObjects) {
-            if (gameObject.getClass() == Wall.class) {
-                gameObjectViews.add(new WallView(gameObject, resourceManager));
-            } else if (gameObject.getClass() == Enemy.class) {
-                gameObjectViews.add(new EnemyView(gameObject, resourceManager));
-            } else if (gameObject.getClass() == Hero.class) {
-                gameObjectViews.add(new HeroView(gameObject, resourceManager));
+        this.gameObjectViewList = new ArrayList<>();
+        for (GameObject gameObject : gameObjectList) {
+            switch (gameObject.getType()) {
+                case WALL:
+                    gameObjectViewList.add(new WallView(gameObject));
+                    break;
+                case TREE:
+                    gameObjectViewList.add(new TreeView(gameObject));
+                    break;
+                case HERO:
+                    gameObjectViewList.add(new HeroView(gameObject));
+                    break;
+                case BANDITARCHER:
+                    gameObjectViewList.add(new BanditArcherView(gameObject));
+                    break;
+                case BANDIT:
+                    gameObjectViewList.add(new BanditView(gameObject));
+                    break;
+                case VAMPIRE:
+                    gameObjectViewList.add(new VampireView(gameObject));
+                    break;
+                case SKELETON:
+                    gameObjectViewList.add(new SkeletonView(gameObject));
+                    break;
+                case SKELETONMAGE:
+                    gameObjectViewList.add(new SkeletonMageView(gameObject));
+                    break;
             }
         }
 
-        camera = new Camera(gc.getWidth(), gc.getHeight());
+        this.camera = new Camera(gc.getWidth(), gc.getHeight());
     }
 
     public void render(GameContainer gc, Graphics g) throws SlickException {
-        camera.update(hero.getX(), hero.getY(), hero.getDirection());
+        camera.update(gc.getWidth(), gc.getHeight(), World.getInstance().getHero().getX(),
+                World.getInstance().getHero().getY(), World.getInstance().getHero().getDirection());
+        updateGameObjectViewList();
 
-        updateViews();
-
-        for (GameObjectView gameObjectView : gameObjectViews) {
-            gameObjectView.render(g, camera.getX(), camera.getY(), camera.getDirectionAngle(), camera.getWidth(), camera.getHeight());
+        tileView.render(g, camera);
+        for (GameObjectView gameObjectView : gameObjectViewList) {
+            gameObjectView.render(g, camera);
         }
+        inventoryView.render(g, camera.getWidth(), camera.getHeight());
     }
 
-    private void updateViews() throws SlickException {
-        for (Iterator<GameObjectView> it = gameObjectViews.iterator(); it.hasNext();) {
-            GameObjectView gameObjectView = it.next();
-            boolean found = false;
-            for (GameObject gameObject : gameObjects) {
-                if (gameObjectView.gameObject == gameObject) {
-                    found = true;
+    private void updateGameObjectViewList() throws SlickException {
+        /* Add required views */
+        for (GameObject gameObject : World.getInstance().getGameObjectToAddList()) {
+            switch (gameObject.getType()) {
+                case LOOT:
+                    gameObjectViewList.add(new LootView(gameObject));
                     break;
-                }
-            }
-            if (!found) {
-                it.remove();
+                case WALL:
+                    gameObjectViewList.add(new WallView(gameObject));
+                    break;
+                case BANDIT:
+                    gameObjectViewList.add(new BanditView(gameObject));
+                    break;
+                case HERO:
+                    gameObjectViewList.add(new HeroView(gameObject));
+                    break;
+                case ARROW:
+                    gameObjectViewList.add(new ArrowView(gameObject));
+                    break;
+                case FIREBALL:
+                    gameObjectViewList.add(new FireballView(gameObject));
+                    break;
+                case BANDITARCHER:
+                    gameObjectViewList.add(new BanditArcherView(gameObject));
+                    break;
+                case SKELETON:
+                    gameObjectViewList.add(new SkeletonView(gameObject));
+                    break;
+                case SKELETONMAGE:
+                    gameObjectViewList.add(new SkeletonMageView(gameObject));
+                    break;
             }
         }
+        /* Delete not required views */
+        World.getInstance().getGameObjectToDeleteList().forEach(gameObject ->
+                gameObjectViewList.removeIf(gameObjectView -> gameObjectView.getGameObject() == gameObject));
+    }
 
-        // looking for new gameObjects
-        for (GameObject gameObject : gameObjects) {
-            boolean found = false;
-            for (GameObjectView gameObjectView : gameObjectViews) {
-                if (gameObject == gameObjectView.gameObject) {
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
-                if (gameObject.getClass() == Wall.class) {
-                    gameObjectViews.add(new WallView(gameObject, resourceManager));
-                } else if (gameObject.getClass() == Enemy.class) {
-                    gameObjectViews.add(new EnemyView(gameObject, resourceManager));
-                } else if (gameObject.getClass() == Hero.class) {
-                    gameObjectViews.add(new HeroView(gameObject, resourceManager));
-                }
-            }
-        }
+    public InventoryView getInventoryView() {
+        return inventoryView;
     }
 
 }

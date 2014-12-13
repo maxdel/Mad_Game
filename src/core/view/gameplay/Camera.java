@@ -7,6 +7,8 @@ public class Camera {
     private double direction;
     private int width;
     private int height;
+    private double centerX;
+    private double centerY;
 
     public Camera(double x, double y, double direction, int width, int height) {
         this.x = x;
@@ -14,10 +16,32 @@ public class Camera {
         this.direction = direction;
         this.width = width;
         this.height = height;
+        this.centerX = 0;
+        this.centerY = 0;
     }
 
     public Camera(int width, int height) {
         this(0, 0, 0, width, height);
+    }
+
+    public void update(int width, int height, double x, double y, double direction) {
+        this.width = width;
+        this.height = height;
+
+        // Smooth change of direction
+        double resultDirection = direction + Math.PI / 2;
+        if (resultDirection > this.direction && resultDirection - 0.005 > this.direction) {
+            resultDirection = this.direction + (resultDirection - this.direction) / 2;
+        }
+        if (resultDirection < this.direction && resultDirection + 0.005 < this.direction) {
+            resultDirection = this.direction - (this.direction - resultDirection) / 2;
+        }
+
+        this.direction = resultDirection;
+        centerX = this.width / 2;
+        centerY = 2 * this.height / 3;
+        setX(x - centerX);
+        setY(y - centerY);
     }
 
     public double getX() {
@@ -43,7 +67,7 @@ public class Camera {
     /*
     *  Returns camera direction angle in degrees.
     * */
-    public float getDirectionAngle() {
+    public float getDirectionDegrees() {
         return (float) (direction / Math.PI * 180);
     }
 
@@ -55,31 +79,16 @@ public class Camera {
         return width;
     }
 
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
     public int getHeight() {
         return height;
     }
 
-    public void setHeight(int height) {
-        this.height = height;
+    public double getCenterX() {
+        return centerX;
     }
 
-    public void update(final double x, final double y, final double direction) {
-        // smooth change of direction
-        double resultDirection = direction + Math.PI / 2;
-        if (resultDirection > getDirection() && resultDirection - 0.005 > getDirection()) {
-            resultDirection = getDirection() + (resultDirection - getDirection()) / 2;
-        }
-        if (resultDirection < getDirection() && resultDirection + 0.005 < getDirection()) {
-            resultDirection = getDirection() - (getDirection() - resultDirection) / 2;
-        }
-
-        setDirection(resultDirection);
-        setX(x - getWidth() / 2);
-        setY(y - getHeight() / 2);
+    public double getCenterY() {
+        return centerY;
     }
 
 }

@@ -1,6 +1,6 @@
 package core;
 
-import core.view.ResourceManager;
+import core.resourcemanager.ResourceManager;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -19,7 +19,6 @@ public class GamePlayState extends BasicGameState {
     private static GamePlayState instance;
 
     private final GameState STATE_ID = GameState.GAMEPLAY;
-
     private World world;
     private GamePlayView gamePlayView;
     private GamePlayController gamePlayController;
@@ -42,7 +41,7 @@ public class GamePlayState extends BasicGameState {
 
     @Override
     public void init(GameContainer gc, StateBasedGame game) throws SlickException {
-
+        gc.setMouseCursor("res/emptyImage.png", 0, 0);
     }
 
     @Override
@@ -53,24 +52,24 @@ public class GamePlayState extends BasicGameState {
     @Override
     public void update(GameContainer gc, StateBasedGame game, int delta) throws SlickException {
         gamePlayController.update(gc, game);
-
-        /* Flow of inner game world process*/
-        World.getInstance(false).update(delta);
+        world.update(delta);
     }
 
     @Override
     public void enter(GameContainer gc, StateBasedGame game) throws SlickException {
-        ResourceManager resourceManager = ResourceManager.getInstance();
-        resourceManager.load(STATE_ID);
-        world = World.getInstance(false);
-        gamePlayView = new GamePlayView(gc, world.getGameObjects(), world.getHero(), resourceManager);
+        ResourceManager.getInstance().load(STATE_ID);
+
+        world = World.getInstance();
+        gamePlayView = new GamePlayView(gc, world.getGameObjectList(), world.getTiledMap());
         gamePlayController = new GamePlayController(world, gamePlayView);
     }
 
     @Override
     public void leave(GameContainer gc, StateBasedGame game) throws SlickException {
         ResourceManager.getInstance().unload();
+
         World.deleteInstance();
+        world = null;
         gamePlayView = null;
         gamePlayController = null;
         System.gc();

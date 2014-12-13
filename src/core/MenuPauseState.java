@@ -1,14 +1,15 @@
 package core;
 
-import core.controller.menu.MenuPauseController;
-import core.model.menu.MenuPause;
-import core.view.ResourceManager;
-import core.view.menu.MenuView;
+import core.resourcemanager.ResourceManager;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+
+import core.controller.menu.MenuPauseController;
+import core.model.menu.MenuPause;
+import core.view.menu.MenuView;
 
 public class MenuPauseState extends BasicGameState {
 
@@ -51,8 +52,7 @@ public class MenuPauseState extends BasicGameState {
 
     @Override
     public void enter(GameContainer gc, StateBasedGame game) throws SlickException {
-        ResourceManager resourceManager = ResourceManager.getInstance();
-        resourceManager.load(STATE_ID);
+        ResourceManager.getInstance().load(STATE_ID);
 
         gc.getInput().clearKeyPressedRecord();
         menuPauseController = MenuPauseController.getInstance();
@@ -67,4 +67,5 @@ public class MenuPauseState extends BasicGameState {
         menuView = null;
         System.gc();
     }
+
 }

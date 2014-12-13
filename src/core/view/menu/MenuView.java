@@ -1,9 +1,10 @@
 package core.view.menu;
 
-import java.awt.Font;
+import core.resourcemanager.ResourceManager;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.TrueTypeFont;
 
 import core.model.menu.Menu;
-import org.newdawn.slick.*;
 
 /**
  * Renders start menu
@@ -13,7 +14,6 @@ public class MenuView {
     private Menu menu;
 
     private String[] playerChoices;
-    private Font menuItemFont;
     private TrueTypeFont menuItemTTF;
 
     public MenuView(Menu menu) {
@@ -22,8 +22,7 @@ public class MenuView {
         playerChoices = new String[menu.getMenuTitles().size()];
         menu.getMenuTitles().toArray(playerChoices);
 
-        menuItemFont = new Font("Verdana", Font.BOLD, 40);
-        menuItemTTF = new TrueTypeFont(menuItemFont, true);
+        menuItemTTF = ResourceManager.getInstance().getFont("menufont");
     }
 
     public void render(GameContainer gc) {
