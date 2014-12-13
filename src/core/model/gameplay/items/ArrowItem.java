@@ -4,8 +4,8 @@ import java.util.Map;
 
 public class ArrowItem extends Item {
 
-    public ArrowItem(String name, String description, Map<String, Integer> values) {
-        super(name, description, values);
+    public ArrowItem( ItemInstanceKind instanceKind, String description, Map<String, Integer> values) {
+        super(instanceKind, description, values);
         setItemOperation(ItemOperation.EMPTY);
     }
 

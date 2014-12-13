@@ -6,8 +6,8 @@ import java.util.Map;
 
 public class Armor extends Item {
 
-    public Armor(String name, String description, Map<String, Integer> values) {
-        super(name, description, values);
+    public Armor(ItemInstanceKind instanceKind, String description, Map<String, Integer> values) {
+        super(instanceKind, description, values);
         setItemOperation(ItemOperation.DRESS);
     }
 

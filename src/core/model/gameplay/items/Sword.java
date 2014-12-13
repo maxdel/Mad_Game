@@ -4,8 +4,8 @@ import java.util.Map;
 
 public class Sword extends Weapon {
 
-    public Sword(String name, String description, Map<String, Integer> values) {
-        super(name, description, values);
+    public Sword(ItemInstanceKind instanceKind, String description, Map<String, Integer> values) {
+        super(instanceKind, description, values);
     }
 
 }

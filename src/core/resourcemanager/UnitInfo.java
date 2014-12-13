@@ -1,12 +1,13 @@
 package core.resourcemanager;
 
 import core.model.gameplay.gameobjects.Attribute;
-import core.model.gameplay.gameobjects.GameObjectType;
+import core.model.gameplay.gameobjects.GameObjInstanceKind;
 import core.model.gameplay.gameobjects.Unit;
 import core.model.gameplay.items.Inventory;
+import core.model.gameplay.items.ItemInstanceKind;
 import core.model.gameplay.items.LootRecord;
 import core.model.gameplay.skills.Skill;
-import core.model.gameplay.skills.SkillKind;
+import core.model.gameplay.skills.SkillInstanceKind;
 import javafx.util.Pair;
 import org.newdawn.slick.geom.Shape;
 
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UnitInfo {
-    private GameObjectType type;
+    private GameObjInstanceKind type;
     private String mask;
     private double maximumHP;
     private double maximumMP;
@@ -23,14 +24,14 @@ public class UnitInfo {
     private double mAttack;
     private double pArmor;
     private double mArmor;
-    private List<Pair<String, Integer>> itemRecordList;
-    private List<SkillKind> skillList;
-    private List<Pair<String, Double>> lootList;
+    private List<Pair<ItemInstanceKind, Integer>> itemRecordList;
+    private List<SkillInstanceKind> skillList;
+    private List<Pair<ItemInstanceKind, Double>> lootList;
 
-    public UnitInfo(GameObjectType type, String mask, double maximumHP, double maximumMP, double maximumSpeed,
+    public UnitInfo(GameObjInstanceKind type, String mask, double maximumHP, double maximumMP, double maximumSpeed,
                     double pAttack, double mAttack, double pArmor, double mArmor,
-                    List<Pair<String, Integer>> itemRecordList, List<SkillKind> skillList,
-                    List<Pair<String, Double>> lootList) {
+                    List<Pair<ItemInstanceKind, Integer>> itemRecordList, List<SkillInstanceKind> skillList,
+                    List<Pair<ItemInstanceKind, Double>> lootList) {
         this.type = type;
         this.mask = mask;
         this.maximumHP = maximumHP;
@@ -46,7 +47,7 @@ public class UnitInfo {
     }
 
     public Shape getMask() {
-        return ResourceManager.getInstance().getMask(GameObjectType.valueOf(mask.toUpperCase()));
+        return ResourceManager.getInstance().getMask(GameObjInstanceKind.valueOf(mask.toUpperCase()));
     }
 
     public Attribute getAttribute() {
@@ -55,7 +56,7 @@ public class UnitInfo {
 
     public Inventory getInventory(Unit owner) {
         Inventory inventory = new Inventory(owner);
-        for(Pair<String, Integer> pair : itemRecordList) {
+        for(Pair<ItemInstanceKind, Integer> pair : itemRecordList) {
             inventory.addItem(pair.getKey(), pair.getValue());
         }
         return inventory;
@@ -63,15 +64,15 @@ public class UnitInfo {
 
     public List<Skill> getSkilLList() {
         ArrayList<Skill> skillArrayList = new ArrayList<Skill>();
-        for (SkillKind skillKind : skillList) {
-            skillArrayList.add(ResourceManager.getInstance().getSkill(skillKind));
+        for (SkillInstanceKind skillInstanceKind : skillList) {
+            skillArrayList.add(ResourceManager.getInstance().getSkill(skillInstanceKind));
         }
         return skillArrayList;
     }
 
     public List<LootRecord> getLootRecordList() {
         List<LootRecord> lootRecordList = new ArrayList<LootRecord>();
-        for (Pair<String, Double> pair : lootList) {
+        for (Pair<ItemInstanceKind, Double> pair : lootList) {
             lootRecordList.add(new LootRecord(ResourceManager.getInstance().getItem(pair.getKey()), pair.getValue()));
         }
         return lootRecordList;

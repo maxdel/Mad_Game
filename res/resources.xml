@@ -91,8 +91,8 @@
                     <itemRecord name="Staff" number="1" />
                 </inventory>
                 <skillList>
-                    <skill name="Sword_attack" type="AreaDamage"/>
-                    <skill name="Fireball" type="BulletShot"/>
+                    <skill name="Sword_attack"/>
+                    <skill name="Fireball"/>
                 </skillList>
                 <lootList>
                     <loot name="Apple" probability="1" />
@@ -105,9 +105,9 @@
                     <itemRecord name="Staff" number="1" />
                 </inventory>
                 <skillList>
-                    <skill name="Sword_attack" type="AreaDamage"/>
-                    <skill name="Bow_shot" type="BulletShot"/>
-                    <skill name="Fireball" type="BulletShot"/>
+                    <skill name="Sword_attack"/>
+                    <skill name="Bow_shot"/>
+                    <skill name="Fireball"/>
                 </skillList>
                 <lootList>
                     <loot name="Apple" probability="1" />
@@ -119,7 +119,7 @@
                     <itemRecord name="Sword" number="1" />
                 </inventory>
                 <skillList>
-                    <skill name="Sword_attack" type="AreaDamage"/>
+                    <skill name="Sword_attack"/>
                 </skillList>
                 <lootList>
                     <loot name="Healing_flask" probability="1" />
@@ -131,7 +131,7 @@
                     <itemRecord name="Sword" number="1" />
                 </inventory>
                 <skillList>
-                    <skill name="Sword_attack" type="AreaDamage"/>
+                    <skill name="Sword_attack"/>
                 </skillList>
                 <lootList>
                     <loot name="Healing_flask" probability="1" />
@@ -144,8 +144,8 @@
                     <itemRecord name="Robe_of_magic" number="1" />
                 </inventory>
                 <skillList>
-                    <skill name="Staff_attack" type="AreaDamage"/>
-                    <skill name="Fireball" type="BulletShot"/>
+                    <skill name="Staff_attack"/>
+                    <skill name="Fireball"/>
                 </skillList>
                 <lootList>
                     <loot name="Healing_flask" probability="0.5" />
@@ -159,7 +159,7 @@
                     <itemRecord name="Light_armor" number="1" />
                 </inventory>
                 <skillList>
-                    <skill name="Bow_shot" type="BulletShot"/>
+                    <skill name="Bow_shot"/>
                 </skillList>
                 <lootList>
                     <loot name="Healing_flask" probability="0.8" />

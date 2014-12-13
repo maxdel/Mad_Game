@@ -16,7 +16,7 @@ public class LootView extends GameObjectView {
         super(loot);
         animation = new Animation();
         animation.addFrame(
-                ResourceManager.getInstance().getItemImage(((Loot) loot).getItem().getName()).getScaledCopy(0.5f), 1);
+                ResourceManager.getInstance().getItemImage(((Loot) loot).getItem().getInstanceKind()).getScaledCopy(0.5f), 1);
         ttf = ResourceManager.getInstance().getFont("lootfont");
     }
 
@@ -45,7 +45,7 @@ public class LootView extends GameObjectView {
             inViewY = centredX * Math.sin(-viewRagianAngle) + centredY * Math.cos(-viewRagianAngle) + camera.getCenterY();
 
             Loot loot = (Loot) gameObject;
-            String text = String.valueOf(loot.getItem().getName());
+            String text = String.valueOf(loot.getItem().getInstanceKind().toString());
             if (loot.getNumber() > 1) {
                 text = text + "(" + String.valueOf(loot.getNumber()) + ")";
             }

@@ -12,7 +12,7 @@ public class Loot extends GameObject {
     }
 
     public Loot(double x, double y, double direction, Item item, int number) {
-        super(x, y, direction, GameObjectType.LOOT);
+        super(x, y, direction, GameObjInstanceKind.LOOT);
         this.item = item;
         this.number = number;
     }

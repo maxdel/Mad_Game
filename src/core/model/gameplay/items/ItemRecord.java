@@ -6,16 +6,12 @@ public class ItemRecord {
     private int number;
     private boolean isMarked;
 
-    public ItemRecord(String name, int number) {
-        item = ItemDB.getInstance().getItem(name);
+    public ItemRecord(ItemInstanceKind instanceKind, int number) {
+        item = ItemDB.getInstance().getItem(instanceKind);
         this.number = number;
         this.isMarked = false;
     }
 
-
-    public String getName() {
-        return item.getName();
-    }
 
     public String getDescription() {
         return item.getDescription();

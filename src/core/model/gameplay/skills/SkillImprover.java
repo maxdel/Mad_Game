@@ -2,22 +2,23 @@ package core.model.gameplay.skills;
 
 import core.model.Timer;
 import core.model.gameplay.gameobjects.Unit;
+import core.model.gameplay.items.ItemInstanceKind;
 
 public class SkillImprover extends Skill {
 
     private int workTime;
     private Timer timerWorkTime;
-    private SkillKind skillToBuffKind;
+    private SkillInstanceKind skillToBuffKind;
     private int castTimeDelta;
     private int cooldownTimeDelta;
     private Skill buffingSkill;
 
 
     public SkillImprover(String name, String description, int castTime, int postCastTime,
-                         int cooldownTime, String requiredItem, double requiredHP, double requiredMP,
-                         int workTime, SkillKind skillToBuffKind, int castTimeDelta, int cooldownTimeDelta,
-                         SkillKind kind) {
-        super(name, description, castTime, postCastTime, cooldownTime, requiredItem, requiredHP, requiredMP, kind);
+                         int cooldownTime, ItemInstanceKind requiredItemKind, double requiredHP, double requiredMP,
+                         int workTime, SkillInstanceKind skillToBuffKind, int castTimeDelta, int cooldownTimeDelta,
+                         SkillInstanceKind kind) {
+        super(name, description, castTime, postCastTime, cooldownTime, requiredItemKind, requiredHP, requiredMP, kind);
         this.workTime = workTime;
         this.skillToBuffKind = skillToBuffKind;
         this.castTimeDelta = castTimeDelta;

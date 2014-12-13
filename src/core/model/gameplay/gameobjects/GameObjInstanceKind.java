@@ -1,6 +1,6 @@
 package core.model.gameplay.gameobjects;
 
-public enum GameObjectType {
+public enum GameObjInstanceKind {
 
     LOOT,
     WALL, TREE,

@@ -6,17 +6,21 @@ import java.util.Map;
 
 public class Item {
 
+    protected ItemInstanceKind instanceKind;
+
     private String name;
     private String description;
     private ItemOperation itemOperation;
 
     private Map<String, Integer> values;
 
-    public Item(String name, String description, Map<String, Integer> values) {
+    public Item(ItemInstanceKind instanceKind, String description, Map<String, Integer> values) {
         this.name = name;
         this.description = description;
         this.values = values;
         setItemOperation(ItemOperation.EMPTY);
+
+        this.instanceKind = instanceKind;
     }
 
     public void setBonuses(Unit target) {
@@ -27,10 +31,10 @@ public class Item {
         // pass
     }
 
-    public String getName() {
+   /*public String getName() {
         return name;
     }
-
+*/
     public String getDescription() {
         return description;
     }
@@ -50,5 +54,9 @@ public class Item {
 
     public void setItemOperation(ItemOperation itemOperation) {
         this.itemOperation = itemOperation;
+    }
+
+    public ItemInstanceKind getInstanceKind() {
+        return instanceKind;
     }
 }

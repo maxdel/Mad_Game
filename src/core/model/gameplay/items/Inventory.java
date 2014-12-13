@@ -48,20 +48,20 @@ public class Inventory {
         return selectedRecord;
     }
 
-    public ItemRecord addItem(String name) {
-        return addItem(name, 1);
+    public ItemRecord addItem(ItemInstanceKind instanceKind) {
+        return addItem(instanceKind, 1);
     }
 
-    public ItemRecord addItem(String name, int number) {
-        Item item = ItemDB.getInstance().getItem(name);
+    public ItemRecord addItem(ItemInstanceKind instanceKind, int number) {
+        Item item = ItemDB.getInstance().getItem(instanceKind);
         if (item != null && number > 0) {
             for (ItemRecord itemRecord : existedItems) {
-                if (itemRecord.getName().equals(name)) {
+                if (itemRecord.getItem().instanceKind == instanceKind) {
                     itemRecord.setNumber(itemRecord.getNumber() + number);
                     return itemRecord;
                 }
             }
-            ItemRecord itemRecord = new ItemRecord(name, number);
+            ItemRecord itemRecord = new ItemRecord(instanceKind, number);
             existedItems.add(itemRecord);
             if (existedItems.size() == 1) {
                 selectedRecord = existedItems.get(0);
@@ -71,18 +71,18 @@ public class Inventory {
         return null;
     }
 
-    public void deleteItem(String name) {
-        deleteItem(name, 1);
+    public void deleteItem(ItemInstanceKind instanceKind) {
+        deleteItem(instanceKind, 1);
     }
 
-    public void deleteItem(String name, int number) {
-        Item item = ItemDB.getInstance().getItem(name);
+    public void deleteItem(ItemInstanceKind instanceKind, int number) {
+        Item item = ItemDB.getInstance().getItem(instanceKind);
         if (item != null && number > 0) {
             int i = -1;
             for (Iterator<ItemRecord> it = existedItems.iterator(); it.hasNext();) {
                 i++;
                 ItemRecord itemRecord = it.next();
-                if (itemRecord.getName().equals(name)) {
+                if (itemRecord.getItem().instanceKind == instanceKind) {
                     if (itemRecord.getNumber() - number <= 0) {
                         undressItem(itemRecord);
                         it.remove();
@@ -117,7 +117,7 @@ public class Inventory {
             return true;
         } else if (itemRecord.getItem().getItemOperation() == ItemOperation.SPEND) {
             itemRecord.getItem().setBonuses(owner);
-            deleteItem(itemRecord.getName(), 1);
+            deleteItem(itemRecord.getItem().getInstanceKind(), 1);
             return true;
         } else if (itemRecord.getItem().getItemOperation() == ItemOperation.EMPTY) {
             // pass
@@ -168,7 +168,6 @@ public class Inventory {
         }
     }
 
-    // TODO: for terrible views only
     public String getDressedWeaponType() {
         for (Iterator<ItemRecord> it = dressedItems.iterator(); it.hasNext();) {
             ItemRecord itemRecord = it.next();

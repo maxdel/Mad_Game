@@ -9,8 +9,9 @@ import java.util.List;
 
 import core.GameState;
 import core.model.gameplay.items.Item;
+import core.model.gameplay.items.ItemInstanceKind;
 import core.model.gameplay.skills.*;
-import core.model.gameplay.gameobjects.GameObjectType;
+import core.model.gameplay.gameobjects.GameObjInstanceKind;
 import javafx.util.Pair;
 import org.newdawn.slick.*;
 import org.newdawn.slick.Image;
@@ -27,21 +28,21 @@ public class ResourceManager {
     private final String xmlFilePath = "res/resources.xml";
 
     private Map<String, AnimationInfo> animationInfos;
-    private Map<GameObjectType, MaskInfo> maskInfos;
+    private Map<GameObjInstanceKind, MaskInfo> maskInfos;
     private Map<String, FontInfo> fontInfos;
-    private Map<String, ItemInfo> itemInfos;
-    private Map<SkillKind, SkillInfo> skillInfos;
+    private Map<ItemInstanceKind, ItemInfo> itemInfos;
+    private Map<SkillInstanceKind, SkillInfo> skillInfos;
     private Map<String, Image> imageInfos;
-    private Map<GameObjectType, UnitInfo> unitInfos;
+    private Map<GameObjInstanceKind, UnitInfo> unitInfos;
 
     private ResourceManager() {
         animationInfos = new HashMap<String, AnimationInfo>();
-        maskInfos = new HashMap<GameObjectType, MaskInfo>();
+        maskInfos = new HashMap<GameObjInstanceKind, MaskInfo>();
         fontInfos = new HashMap<String, FontInfo>();
-        itemInfos = new HashMap<String, ItemInfo>();
-        skillInfos = new HashMap<SkillKind, SkillInfo>();
+        itemInfos = new HashMap<ItemInstanceKind, ItemInfo>();
+        skillInfos = new HashMap<SkillInstanceKind, SkillInfo>();
         imageInfos = new HashMap<String, Image>();
-        unitInfos = new HashMap<GameObjectType, UnitInfo>();
+        unitInfos = new HashMap<GameObjInstanceKind, UnitInfo>();
     }
 
     public static ResourceManager getInstance() {
@@ -154,7 +155,7 @@ public class ResourceManager {
         for (int i = 0; i < maskList.size(); ++i) {
             XMLElement maskElement = maskList.get(i);
 
-            GameObjectType type = GameObjectType.valueOf(maskElement.getAttribute("name").toUpperCase());
+            GameObjInstanceKind type = GameObjInstanceKind.valueOf(maskElement.getAttribute("name").toUpperCase());
             String shape = maskElement.getAttribute("shape");
             int width = maskElement.getIntAttribute("width");
             int height = maskElement.getIntAttribute("height");
@@ -171,6 +172,7 @@ public class ResourceManager {
             XMLElement itemElement = itemList.get(i);
 
             String name = itemElement.getAttribute("name");
+            ItemInstanceKind instanceKind = ItemInstanceKind.valueOf(name.toUpperCase());
             String description = itemElement.getAttribute("description");
             String path = itemElement.getAttribute("path");
             String type = itemElement.getAttribute("type");
@@ -184,7 +186,7 @@ public class ResourceManager {
                     map.put(nameList.get(j), Integer.valueOf(itemElement.getAttribute(nameList.get(j))));
                 }
             }
-            itemInfos.put(name, new ItemInfo(name, description, new Image(path), type, map));
+            itemInfos.put(instanceKind, new ItemInfo(name, description, new Image(path), type, map));
         }
     }
 
@@ -210,8 +212,8 @@ public class ResourceManager {
             }
 
 
-            SkillKind skillKind = SkillKind.valueOf(name.toUpperCase());
-            skillInfos.put(skillKind, new SkillInfo(name, description, type, new Image(path), map, skillKind));
+            SkillInstanceKind skillInstanceKind = SkillInstanceKind.valueOf(name.toUpperCase());
+            skillInfos.put(skillInstanceKind, new SkillInfo(name, description, type, new Image(path), map, skillInstanceKind));
         }
     }
 
@@ -265,20 +267,21 @@ public class ResourceManager {
             double pArmor = Double.parseDouble(attributeElement.getAttribute("pArmor"));
             double mArmor = Double.parseDouble(attributeElement.getAttribute("mArmor"));
 
-            List<Pair<String, Integer>> itemsList = new ArrayList<Pair<String, Integer>>();
+            List<Pair<ItemInstanceKind, Integer>> itemsList = new ArrayList<Pair<ItemInstanceKind, Integer>>();
             XMLElement inventoryElement = unitElement.getChildrenByName("inventory").get(0);
             XMLElementList itemRecordList = inventoryElement.getChildrenByName("itemRecord");
             for (int j = 0; j < itemRecordList.size(); ++j) {
                 XMLElement itemRecord = itemRecordList.get(j);
 
                 String itemName = itemRecord.getAttribute("name");
+                ItemInstanceKind instanceKind = ItemInstanceKind.valueOf(itemName.toUpperCase());
                 Integer itemNumber = Integer.valueOf(itemRecord.getAttribute("number"));
 
-                Pair<String, Integer> pair = new Pair<String, Integer>(itemName, itemNumber);
+                Pair<ItemInstanceKind, Integer> pair = new Pair<ItemInstanceKind, Integer>(instanceKind, itemNumber);
                 itemsList.add(pair);
             }
 
-            List<SkillKind> skillKindListList = new ArrayList<SkillKind>();
+            List<SkillInstanceKind> skillInstanceKindListList = new ArrayList<SkillInstanceKind>();
             XMLElement skillListElement = unitElement.getChildrenByName("skillList").get(0);
             XMLElementList skillList = skillListElement.getChildrenByName("skill");
             for (int j = 0; j < skillList.size(); ++j) {
@@ -286,26 +289,27 @@ public class ResourceManager {
 
                 String skillName = skill.getAttribute("name");
 
-                SkillKind skillKind = SkillKind.valueOf(skillName.toUpperCase());
-                skillKindListList.add(skillKind);
+                SkillInstanceKind skillInstanceKind = SkillInstanceKind.valueOf(skillName.toUpperCase());
+                skillInstanceKindListList.add(skillInstanceKind);
             }
 
-            List<Pair<String, Double>> dropList = new ArrayList<Pair<String, Double>>();
+            List<Pair<ItemInstanceKind, Double>> dropList = new ArrayList<Pair<ItemInstanceKind, Double>>();
             XMLElement lootListElement = unitElement.getChildrenByName("lootList").get(0);
             XMLElementList lootList = lootListElement.getChildrenByName("loot");
             for (int j = 0; j < lootList.size(); ++j) {
                 XMLElement drop = lootList.get(j);
 
                 String itemName = drop.getAttribute("name");
+                ItemInstanceKind instanceKind = ItemInstanceKind.valueOf(itemName.toUpperCase());
                 Double probability = Double.valueOf(drop.getAttribute("probability"));
 
-                Pair<String, Double> pair = new Pair<String, Double>(itemName, probability);
+                Pair<ItemInstanceKind, Double> pair = new Pair<ItemInstanceKind, Double>(instanceKind, probability);
                 dropList.add(pair);
             }
 
-            unitInfos.put(GameObjectType.valueOf(unitName.toUpperCase()),
-                    new UnitInfo(GameObjectType.valueOf(unitName.toUpperCase()), maskName, maximumHP, maximumMP,
-                            maximumSpeed, pAttack, mAttack, pArmor, mArmor, itemsList, skillKindListList, dropList));
+            unitInfos.put(GameObjInstanceKind.valueOf(unitName.toUpperCase()),
+                    new UnitInfo(GameObjInstanceKind.valueOf(unitName.toUpperCase()), maskName, maximumHP, maximumMP,
+                            maximumSpeed, pAttack, mAttack, pArmor, mArmor, itemsList, skillInstanceKindListList, dropList));
         }
     }
 
@@ -322,7 +326,7 @@ public class ResourceManager {
         return animationInfos.get(name).getSpeedCoef();
     }
 
-    public Shape getMask(GameObjectType type) {
+    public Shape getMask(GameObjInstanceKind type) {
         return maskInfos.get(type).getMask();
     }
 
@@ -330,8 +334,8 @@ public class ResourceManager {
         return fontInfos.get(name).getFont();
     }
 
-    public Image getItemImage(String name) {
-        return itemInfos.get(name).getImage();
+    public Image getItemImage(ItemInstanceKind instanceKind) {
+        return itemInfos.get(instanceKind).getImage();
     }
 
     public String getItemDescription(String name) {
@@ -347,17 +351,17 @@ public class ResourceManager {
         return itemList;
     }
 
-    public Item getItem(String itemName) {
-        return itemInfos.get(itemName).getItem();
+    public Item getItem(ItemInstanceKind instanceKind) {
+        return itemInfos.get(instanceKind).getItem();
     }
 
 
-    public Skill getSkill(SkillKind skillKind) {
-        return skillInfos.get(skillKind).getSkill();
+    public Skill getSkill(SkillInstanceKind skillInstanceKind) {
+        return skillInfos.get(skillInstanceKind).getSkill();
     }
 
 
-    public UnitInfo getUnitInfo(GameObjectType type) {
+    public UnitInfo getUnitInfo(GameObjInstanceKind type) {
         return unitInfos.get(type);
     }
 }

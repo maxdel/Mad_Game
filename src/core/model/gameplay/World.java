@@ -3,6 +3,7 @@ package core.model.gameplay;
 import java.util.ArrayList;
 import java.util.List;
 
+import core.model.gameplay.items.ItemInstanceKind;
 import core.resourcemanager.TiledMapAdv;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
@@ -53,7 +54,7 @@ public class World {
                     gameObjectList.add(new Obstacle(
                             tiledMap.getObjectX(i, j) + MathAdv.lengthDirX(-Math.PI / 4 + rotation, length),
                             tiledMap.getObjectY(i, j) + MathAdv.lengthDirY(-Math.PI / 4 + rotation, length),
-                                    rotation, GameObjectType.WALL)
+                                    rotation, GameObjInstanceKind.WALL)
                     );
                 }
             }
@@ -66,11 +67,11 @@ public class World {
                 if (tileObstacleName.equals("stonewall")) {
                     gameObjectList.add(new Obstacle(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
                             tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0,
-                            GameObjectType.WALL));
+                            GameObjInstanceKind.WALL));
                 } else if (tileObstacleName.equals("tree")) {
                     gameObjectList.add(new Obstacle(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
                             tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0,
-                            GameObjectType.TREE));
+                            GameObjInstanceKind.TREE));
                 }
                 // Objects
                 String tileObjectName = tiledMap.getTileProperty(tiledMap.getTileId(i, j, 2), "name", "error");
@@ -81,35 +82,35 @@ public class World {
                 } else if (tileObjectName.equals("vampire")) {
                     VampireAI vampireAI = new VampireAI();
                     Bot bot = new Bot(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
-                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjectType.VAMPIRE,
+                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjInstanceKind.VAMPIRE,
                             vampireAI);
                     vampireAI.setOwner(bot);
                     gameObjectList.add(bot);
                 } else if (tileObjectName.equals("banditsword")) {
                     MeleeAI meleeAI = new MeleeAI();
                     Bot bot = new Bot(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
-                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjectType.BANDIT,
+                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjInstanceKind.BANDIT,
                             meleeAI);
                     meleeAI.setOwner(bot);
                     gameObjectList.add(bot);
                 } else if (tileObjectName.equals("skeletsword")) {
                     MeleeAI meleeAI = new MeleeAI();
                     Bot bot = new Bot(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
-                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjectType.SKELETON,
+                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjInstanceKind.SKELETON,
                             meleeAI);
                     meleeAI.setOwner(bot);
                     gameObjectList.add(bot);
                 } else if (tileObjectName.equals("banditarcher")) {
                     RangedAI rangedAI = new RangedAI();
                     Bot bot = new Bot(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
-                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjectType.BANDITARCHER,
+                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjInstanceKind.BANDITARCHER,
                             rangedAI);
                     rangedAI.setOwner(bot);
                     gameObjectList.add(bot);
                 } else if (tileObjectName.equals("skeletonmage")) {
                     RangedAI rangedAI = new RangedAI();
                     Bot bot = new Bot(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
-                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjectType.SKELETONMAGE,
+                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjInstanceKind.SKELETONMAGE,
                             rangedAI);
                     rangedAI.setOwner(bot);
                     gameObjectList.add(bot);
@@ -117,7 +118,8 @@ public class World {
             }
         }
 
-        gameObjectList.add(new Loot(hero.getX() + 40, hero.getY() - 70, Math.PI / 4, ItemDB.getInstance().getItem("Sword"), 1));
+        gameObjectList.add(new Loot(hero.getX() + 40, hero.getY() - 70, Math.PI / 4,
+                ItemDB.getInstance().getItem(ItemInstanceKind.SWORD), 1));
     }
 
     // Singleton pattern method

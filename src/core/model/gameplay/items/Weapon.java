@@ -6,8 +6,8 @@ import java.util.Map;
 
 public class Weapon extends Item {
 
-    public Weapon(String name, String description, Map<String, Integer> values) {
-        super(name, description, values);
+    public Weapon(ItemInstanceKind instanceKind, String description, Map<String, Integer> values) {
+        super(instanceKind, description, values);
         setItemOperation(ItemOperation.DRESS);
     }
 

@@ -6,8 +6,8 @@ import java.util.Map;
 
 public class Reagent extends Item {
 
-    public Reagent(String name, String description, Map<String, Integer> values) {
-        super(name, description, values);
+    public Reagent(ItemInstanceKind instanceKind, String description, Map<String, Integer> values) {
+        super(instanceKind, description, values);
         setItemOperation(ItemOperation.SPEND);
     }
 
