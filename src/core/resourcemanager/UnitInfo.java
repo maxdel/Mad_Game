@@ -1,5 +1,11 @@
 package core.resourcemanager;
 
+import java.util.ArrayList;
+import javafx.util.Pair;
+import java.util.List;
+
+import org.newdawn.slick.geom.Shape;
+
 import core.model.gameplay.gameobjects.Attribute;
 import core.model.gameplay.gameobjects.GameObjectType;
 import core.model.gameplay.gameobjects.Unit;
@@ -7,14 +13,8 @@ import core.model.gameplay.items.Inventory;
 import core.model.gameplay.items.LootRecord;
 import core.model.gameplay.skills.Skill;
 import core.model.gameplay.skills.SkillKind;
-import javafx.util.Pair;
-import org.newdawn.slick.geom.Shape;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class UnitInfo {
-    private GameObjectType type;
     private String mask;
     private double maximumHP;
     private double maximumMP;
@@ -27,11 +27,10 @@ public class UnitInfo {
     private List<SkillKind> skillList;
     private List<Pair<String, Double>> lootList;
 
-    public UnitInfo(GameObjectType type, String mask, double maximumHP, double maximumMP, double maximumSpeed,
+    public UnitInfo(String mask, double maximumHP, double maximumMP, double maximumSpeed,
                     double pAttack, double mAttack, double pArmor, double mArmor,
                     List<Pair<String, Integer>> itemRecordList, List<SkillKind> skillList,
                     List<Pair<String, Double>> lootList) {
-        this.type = type;
         this.mask = mask;
         this.maximumHP = maximumHP;
         this.maximumMP = maximumMP;
@@ -62,7 +61,7 @@ public class UnitInfo {
     }
 
     public List<Skill> getSkilLList() {
-        ArrayList<Skill> skillArrayList = new ArrayList<Skill>();
+        ArrayList<Skill> skillArrayList = new ArrayList<>();
         for (SkillKind skillKind : skillList) {
             skillArrayList.add(ResourceManager.getInstance().getSkill(skillKind));
         }
@@ -70,7 +69,7 @@ public class UnitInfo {
     }
 
     public List<LootRecord> getLootRecordList() {
-        List<LootRecord> lootRecordList = new ArrayList<LootRecord>();
+        List<LootRecord> lootRecordList = new ArrayList<>();
         for (Pair<String, Double> pair : lootList) {
             lootRecordList.add(new LootRecord(ResourceManager.getInstance().getItem(pair.getKey()), pair.getValue()));
         }

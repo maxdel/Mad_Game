@@ -311,7 +311,7 @@ public class ResourceManager {
             }
 
             unitInfos.put(GameObjectType.valueOf(unitName.toUpperCase()),
-                    new UnitInfo(GameObjectType.valueOf(unitName.toUpperCase()), maskName, maximumHP, maximumMP,
+                    new UnitInfo(maskName, maximumHP, maximumMP,
                             maximumSpeed, pAttack, mAttack, pArmor, mArmor, itemsList, skillKindListList, dropList));
         }
     }
