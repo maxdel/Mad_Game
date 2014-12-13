@@ -3,9 +3,7 @@ package core.model.gameplay.skills;
 import core.model.gameplay.World;
 import core.model.gameplay.gameobjects.GameObjInstanceKind;
 import core.model.gameplay.gameobjects.Unit;
-import core.model.gameplay.items.Bow;
-import core.model.gameplay.items.ItemInstanceKind;
-import core.model.gameplay.items.Staff;
+import core.model.gameplay.items.*;
 
 public class BulletShot extends Skill {
 

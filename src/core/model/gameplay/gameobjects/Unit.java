@@ -2,16 +2,14 @@ package core.model.gameplay.gameobjects;
 
 import java.util.List;
 
+import core.model.gameplay.items.*;
 import core.model.gameplay.skills.SkillInstanceKind;
 import org.newdawn.slick.geom.Vector2f;
 
 import core.MathAdv;
-import core.model.gameplay.items.LootRecord;
 import core.resourcemanager.ResourceManager;
 import core.model.Timer;
 import core.model.gameplay.*;
-import core.model.gameplay.items.Inventory;
-import core.model.gameplay.items.ItemRecord;
 import core.model.gameplay.skills.Skill;
 
 public abstract class Unit extends GameObjectSolid {
@@ -344,10 +342,17 @@ public abstract class Unit extends GameObjectSolid {
             return false;
         }
 
+        if (skillToCast.getRequiredItem().getClass() == Bow.class) {
+            if (!inventory.isItemClassExists(ArrowItem.class)) {
+                return false;
+            }
+        }
+
         if (attribute.getMP().getCurrent() < skillToCast.getRequiredMP() ||
                 attribute.getHP().getCurrent() < skillToCast.getRequiredHP()) {
             return false;
         }
+
 
         return true;
     }

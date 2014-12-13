@@ -15,31 +15,18 @@ public class Inventory {
 
     public Inventory(Unit owner) {
         this.owner = owner;
-        existedItems = new ArrayList<ItemRecord>();
-        dressedItems = new ArrayList<ItemRecord>();
+        existedItems = new ArrayList<>();
+        dressedItems = new ArrayList<>();
         selectedRecord = null;
 
-/*
-        addItem("Sword");
-        addItem("Strong sword");
-        addItem("Bow");
-        addItem("Strong bow");
-        addItem("Staff");
-        addItem("Strong staff");
-        addItem("Apple");
-        addItem("Apple");
-        addItem("Arrow");
-        addItem("Arrow", 100);
-        addItem("Arrow");
-        deleteItem("Apple");
-        addItem("Healing flask", 5);
-        addItem("Mana flask", 5);
-        addItem("Light armor");
-        addItem("Heavy armor");
-        addItem("Robe of magic");
-*/
+        addItem(ItemInstanceKind.ARROW);
+        addItem(ItemInstanceKind.BOW);
     }
 
+    /**
+     *
+     * @return
+     */
     public List<ItemRecord> getExistedItems() {
         return existedItems;
     }
@@ -201,7 +188,7 @@ public class Inventory {
         }
         return false;
     }
-/*
+
 
     public boolean isItemExists(Item item) {
         for (Iterator<ItemRecord> it = existedItems.iterator(); it.hasNext();) {
@@ -213,7 +200,7 @@ public class Inventory {
         return false;
     }
 
-    public boolean isItemExists(Class itemClass) {
+    public boolean isItemClassExists(Class itemClass) {
         for (Iterator<ItemRecord> it = existedItems.iterator(); it.hasNext();) {
             ItemRecord itemRecord = it.next();
             if (itemRecord.getItem().getClass() == itemClass) {
@@ -222,6 +209,5 @@ public class Inventory {
         }
         return false;
     }
-*/
 
 }
