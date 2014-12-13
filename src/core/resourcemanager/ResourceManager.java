@@ -181,8 +181,8 @@ public class ResourceManager {
             String description = itemElement.getAttribute("description");
             String path = itemElement.getAttribute("path");
             String type = itemElement.getAttribute("type");
-            ArrayList<String> nameList = new ArrayList<String>(Arrays.asList(itemElement.getAttributeNames()));
-            Map<String, Integer> map = new HashMap<String, Integer>();
+            ArrayList<String> nameList = new ArrayList<>(Arrays.asList(itemElement.getAttributeNames()));
+            Map<String, Integer> map = new HashMap<>();
             for (int j = 0; j < nameList.size(); ++j) {
                 if (!nameList.get(j).equals("name") &&
                         !nameList.get(j).equals("description") &&
@@ -205,8 +205,8 @@ public class ResourceManager {
             String description = skillElement.getAttribute("description");
             String path = skillElement.getAttribute("path");
             String type = skillElement.getAttribute("type");
-            ArrayList<String> nameList = new ArrayList<String>(Arrays.asList(skillElement.getAttributeNames()));
-            Map<String, String> map = new HashMap<String, String>();
+            ArrayList<String> nameList = new ArrayList<>(Arrays.asList(skillElement.getAttributeNames()));
+            Map<String, String> map = new HashMap<>();
             for (int j = 0; j < nameList.size(); ++j) {
                 if (!nameList.get(j).equals("name") &&
                         !nameList.get(j).equals("description") &&
@@ -272,7 +272,7 @@ public class ResourceManager {
             double pArmor = Double.parseDouble(attributeElement.getAttribute("pArmor"));
             double mArmor = Double.parseDouble(attributeElement.getAttribute("mArmor"));
 
-            List<Pair<String, Integer>> itemsList = new ArrayList<Pair<String, Integer>>();
+            List<Pair<String, Integer>> itemsList = new ArrayList<>();
             XMLElement inventoryElement = unitElement.getChildrenByName("inventory").get(0);
             XMLElementList itemRecordList = inventoryElement.getChildrenByName("itemRecord");
             for (int j = 0; j < itemRecordList.size(); ++j) {
@@ -281,11 +281,11 @@ public class ResourceManager {
                 String itemName = itemRecord.getAttribute("name");
                 Integer itemNumber = Integer.valueOf(itemRecord.getAttribute("number"));
 
-                Pair<String, Integer> pair = new Pair<String, Integer>(itemName, itemNumber);
+                Pair<String, Integer> pair = new Pair<>(itemName, itemNumber);
                 itemsList.add(pair);
             }
 
-            List<SkillKind> skillKindListList = new ArrayList<SkillKind>();
+            List<SkillKind> skillKindListList = new ArrayList<>();
             XMLElement skillListElement = unitElement.getChildrenByName("skillList").get(0);
             XMLElementList skillList = skillListElement.getChildrenByName("skill");
             for (int j = 0; j < skillList.size(); ++j) {

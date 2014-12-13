@@ -2,17 +2,17 @@ package core.model.gameplay.gameobjects;
 
 import java.util.List;
 
-import core.model.gameplay.skills.SkillKind;
 import org.newdawn.slick.geom.Vector2f;
 
 import core.MathAdv;
+import core.model.gameplay.skills.SkillKind;
 import core.model.gameplay.items.LootRecord;
-import core.resourcemanager.ResourceManager;
 import core.model.Timer;
 import core.model.gameplay.*;
 import core.model.gameplay.items.Inventory;
 import core.model.gameplay.items.ItemRecord;
 import core.model.gameplay.skills.Skill;
+import core.resourcemanager.ResourceManager;
 
 public abstract class Unit extends GameObjectSolid {
 
