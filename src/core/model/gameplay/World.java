@@ -3,6 +3,7 @@ package core.model.gameplay;
 import java.util.ArrayList;
 import java.util.List;
 
+import core.resourcemanager.TiledMapAdv;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 
@@ -13,7 +14,6 @@ import core.model.gameplay.gameobjects.ai.VampireAI;
 import core.model.gameplay.items.ItemDB;
 import core.model.gameplay.gameobjects.Loot;
 import core.model.gameplay.gameobjects.*;
-import core.resourcemanager.MadTiledMap;
 
 /**
  * Main model class, that imitates game world.
@@ -27,7 +27,7 @@ public class World {
     private List<GameObject> gameObjectToDeleteList;
     private List<GameObject> gameObjectToAddList;
     private Hero hero;
-    private MadTiledMap tiledMap;
+    private TiledMapAdv tiledMap;
 
     private final int UPDATE_RADIUS = 1000;
 
@@ -37,7 +37,7 @@ public class World {
         gameObjectToAddList = new ArrayList<>();
 
         try {
-            tiledMap = new MadTiledMap("/res/map.tmx");
+            tiledMap = new TiledMapAdv("/res/map.tmx");
         } catch (SlickException e) {
             e.printStackTrace();
         }
@@ -161,7 +161,7 @@ public class World {
         return hero;
     }
 
-    public MadTiledMap getTiledMap() {
+    public TiledMapAdv getTiledMap() {
         return tiledMap;
     }
 

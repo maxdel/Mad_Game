@@ -9,7 +9,7 @@ import org.newdawn.slick.SlickException;
 
 import core.model.gameplay.World;
 import core.model.gameplay.gameobjects.*;
-import core.resourcemanager.MadTiledMap;
+import core.resourcemanager.TiledMapAdv;
 
 /*
 * Renders game play game state
@@ -21,7 +21,7 @@ public class GamePlayView {
     private InventoryView inventoryView;
     private TileView tileView;
 
-    public GamePlayView(GameContainer gc, List<GameObject> gameObjectList, MadTiledMap tiledMap) throws SlickException {
+    public GamePlayView(GameContainer gc, List<GameObject> gameObjectList, TiledMapAdv tiledMap) throws SlickException {
         this.inventoryView = new InventoryView(World.getInstance().getHero().getInventory());
         this.tileView = new TileView(tiledMap);
 

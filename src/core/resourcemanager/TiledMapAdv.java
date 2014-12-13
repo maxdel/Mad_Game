@@ -19,7 +19,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Properties;
 
-public class MadTiledMap  {
+public class TiledMapAdv {
     private static boolean headless;
     protected int width;
     protected int height;
@@ -39,11 +39,11 @@ public class MadTiledMap  {
         headless = h;
     }
 
-    public MadTiledMap(String ref) throws SlickException {
+    public TiledMapAdv(String ref) throws SlickException {
         this(ref, true);
     }
 
-    public MadTiledMap(String ref, boolean loadMadTileSets) throws SlickException {
+    public TiledMapAdv(String ref, boolean loadMadTileSets) throws SlickException {
         this.tileSets = new ArrayList();
         this.layers = new ArrayList();
         this.objectGroups = new ArrayList();
@@ -53,7 +53,7 @@ public class MadTiledMap  {
         this.load(ResourceLoader.getResourceAsStream(ref), ref.substring(0, ref.lastIndexOf("/")));
     }
 
-    public MadTiledMap(String ref, String tileSetsLocation) throws SlickException {
+    public TiledMapAdv(String ref, String tileSetsLocation) throws SlickException {
         this.tileSets = new ArrayList();
         this.layers = new ArrayList();
         this.objectGroups = new ArrayList();
@@ -61,7 +61,7 @@ public class MadTiledMap  {
         this.load(ResourceLoader.getResourceAsStream(ref), tileSetsLocation);
     }
 
-    public MadTiledMap(InputStream in) throws SlickException {
+    public TiledMapAdv(InputStream in) throws SlickException {
         this.tileSets = new ArrayList();
         this.layers = new ArrayList();
         this.objectGroups = new ArrayList();
@@ -69,7 +69,7 @@ public class MadTiledMap  {
         this.load(in, "");
     }
 
-    public MadTiledMap(InputStream in, String tileSetsLocation) throws SlickException {
+    public TiledMapAdv(InputStream in, String tileSetsLocation) throws SlickException {
         this.tileSets = new ArrayList();
         this.layers = new ArrayList();
         this.objectGroups = new ArrayList();
@@ -85,7 +85,7 @@ public class MadTiledMap  {
         boolean idx = false;
 
         for(int i = 0; i < this.layers.size(); ++i) {
-            MadLayer layer = (MadLayer)this.layers.get(i);
+            LayerAdv layer = (LayerAdv)this.layers.get(i);
             if(layer.name.equals(name)) {
                 return i;
             }
@@ -95,10 +95,10 @@ public class MadTiledMap  {
     }
 
     public Image getTileImage(int x, int y, int layerIndex) {
-        MadLayer layer = (MadLayer)this.layers.get(layerIndex);
+        LayerAdv layer = (LayerAdv)this.layers.get(layerIndex);
         int tileSetIndex = layer.data[x][y][0];
         if(tileSetIndex >= 0 && tileSetIndex < this.tileSets.size()) {
-            MadTileSet tileSet = (MadTileSet)this.tileSets.get(tileSetIndex);
+            TileSetAdv tileSet = (TileSetAdv)this.tileSets.get(tileSetIndex);
             int sheetX = tileSet.getTileX(layer.data[x][y][1]);
             int sheetY = tileSet.getTileY(layer.data[x][y][1]);
             return tileSet.tiles.getSprite(sheetX, sheetY);
@@ -124,12 +124,12 @@ public class MadTiledMap  {
     }
 
     public int getTileId(int x, int y, int layerIndex) {
-        MadLayer layer = (MadLayer)this.layers.get(layerIndex);
+        LayerAdv layer = (LayerAdv)this.layers.get(layerIndex);
         return layer.getTileID(x, y);
     }
 
     public void setTileId(int x, int y, int layerIndex, int tileid) {
-        MadLayer layer = (MadLayer)this.layers.get(layerIndex);
+        LayerAdv layer = (LayerAdv)this.layers.get(layerIndex);
         layer.setTileID(x, y, tileid);
     }
 
@@ -138,7 +138,7 @@ public class MadTiledMap  {
     }
 
     public String getMadLayerProperty(int layerIndex, String propertyName, String def) {
-        MadLayer layer = (MadLayer)this.layers.get(layerIndex);
+        LayerAdv layer = (LayerAdv)this.layers.get(layerIndex);
         return layer != null && layer.props != null?layer.props.getProperty(propertyName, def):def;
     }
 
@@ -146,7 +146,7 @@ public class MadTiledMap  {
         if(tileID == 0) {
             return def;
         } else {
-            MadTileSet set = this.findMadTileSet(tileID);
+            TileSetAdv set = this.findMadTileSet(tileID);
             Properties props = set.getProperties(tileID);
             return props == null?def:props.getProperty(propertyName, def);
         }
@@ -165,7 +165,7 @@ public class MadTiledMap  {
     }
 
     public void render(int x, int y, int sx, int sy, int width, int height, int l, boolean lineByLine) {
-        MadLayer layer = (MadLayer)this.layers.get(l);
+        LayerAdv layer = (LayerAdv)this.layers.get(l);
         switch(this.orientation) {
             case 1:
                 for(int ty = 0; ty < height; ++ty) {
@@ -184,19 +184,19 @@ public class MadTiledMap  {
             case 1:
                 for(int ty = 0; ty < height; ++ty) {
                     for(int i = 0; i < this.layers.size(); ++i) {
-                        MadLayer layer = (MadLayer)this.layers.get(i);
+                        LayerAdv layer = (LayerAdv)this.layers.get(i);
                         layer.render(x, y, sx, sy, width, ty, lineByLine, this.tileWidth, this.tileHeight);
                     }
                 }
 
                 return;
             case 2:
-                this.renderIsometricMap(x, y, sx, sy, width, height, (MadLayer)null, lineByLine);
+                this.renderIsometricMap(x, y, sx, sy, width, height, (LayerAdv)null, lineByLine);
         }
 
     }
 
-    protected void renderIsometricMap(int x, int y, int sx, int sy, int width, int height, MadLayer layer, boolean lineByLine) {
+    protected void renderIsometricMap(int x, int y, int sx, int sy, int width, int height, LayerAdv layer, boolean lineByLine) {
         ArrayList drawMadLayers = this.layers;
         if(layer != null) {
             drawMadLayers = new ArrayList();
@@ -225,8 +225,8 @@ public class MadTiledMap  {
 
             for(int burner = 0; burner <= var24; ++burner) {
                 for(int layerIdx = 0; layerIdx < drawMadLayers.size(); ++layerIdx) {
-                    MadLayer currentMadLayer = (MadLayer)drawMadLayers.get(layerIdx);
-                    currentMadLayer.render(currentLineX, initialLineY, currentTileX, currentTileY, 1, 0, lineByLine, this.tileWidth, this.tileHeight);
+                    LayerAdv currentLayerAdv = (LayerAdv)drawMadLayers.get(layerIdx);
+                    currentLayerAdv.render(currentLineX, initialLineY, currentTileX, currentTileY, 1, 0, lineByLine, this.tileWidth, this.tileHeight);
                 }
 
                 currentLineX += this.tileWidth;
@@ -308,12 +308,12 @@ public class MadTiledMap  {
 
             if(this.loadMadTileSets) {
                 layerNodes = null;
-                MadTileSet var15 = null;
+                TileSetAdv var15 = null;
                 NodeList var16 = docElement.getElementsByTagName("tileset");
 
                 for(int var19 = 0; var19 < var16.getLength(); ++var19) {
                     Element var21 = (Element)var16.item(var19);
-                    MadTileSet var14 = new MadTileSet(this, var21, !headless);
+                    TileSetAdv var14 = new TileSetAdv(this, var21, !headless);
                     var14.index = var19;
                     if(var15 != null) {
                         var15.setLimit(var14.firstGID - 1);
@@ -328,7 +328,7 @@ public class MadTiledMap  {
 
             for(objectGroupNodes = 0; objectGroupNodes < layerNodes.getLength(); ++objectGroupNodes) {
                 i = (Element)layerNodes.item(objectGroupNodes);
-                MadLayer var20 = new MadLayer(this, i);
+                LayerAdv var20 = new LayerAdv(this, i);
                 var20.index = objectGroupNodes;
                 this.layers.add(var20);
             }
@@ -337,7 +337,7 @@ public class MadTiledMap  {
 
             for(int var18 = 0; var18 < var17.getLength(); ++var18) {
                 Element var22 = (Element)var17.item(var18);
-                MadTiledMap.ObjectGroup var23 = new MadTiledMap.ObjectGroup(var22);
+                TiledMapAdv.ObjectGroup var23 = new TiledMapAdv.ObjectGroup(var22);
                 var23.index = var18;
                 this.objectGroups.add(var23);
             }
@@ -352,13 +352,13 @@ public class MadTiledMap  {
         return this.tileSets.size();
     }
 
-    public MadTileSet getMadTileSet(int index) {
-        return (MadTileSet)this.tileSets.get(index);
+    public TileSetAdv getMadTileSet(int index) {
+        return (TileSetAdv)this.tileSets.get(index);
     }
 
-    public MadTileSet getMadTileSetByGID(int gid) {
+    public TileSetAdv getMadTileSetByGID(int gid) {
         for(int i = 0; i < this.tileSets.size(); ++i) {
-            MadTileSet set = (MadTileSet)this.tileSets.get(i);
+            TileSetAdv set = (TileSetAdv)this.tileSets.get(i);
             if(set.contains(gid)) {
                 return set;
             }
@@ -367,9 +367,9 @@ public class MadTiledMap  {
         return null;
     }
 
-    public MadTileSet findMadTileSet(int gid) {
+    public TileSetAdv findMadTileSet(int gid) {
         for(int i = 0; i < this.tileSets.size(); ++i) {
-            MadTileSet set = (MadTileSet)this.tileSets.get(i);
+            TileSetAdv set = (TileSetAdv)this.tileSets.get(i);
             if(set.contains(gid)) {
                 return set;
             }
@@ -387,7 +387,7 @@ public class MadTiledMap  {
 
     public int getObjectCount(int groupID) {
         if(groupID >= 0 && groupID < this.objectGroups.size()) {
-            MadTiledMap.ObjectGroup grp = (MadTiledMap.ObjectGroup)this.objectGroups.get(groupID);
+            TiledMapAdv.ObjectGroup grp = (TiledMapAdv.ObjectGroup)this.objectGroups.get(groupID);
             return grp.objects.size();
         } else {
             return -1;
@@ -396,9 +396,9 @@ public class MadTiledMap  {
 
     public String getObjectName(int groupID, int objectID) {
         if(groupID >= 0 && groupID < this.objectGroups.size()) {
-            MadTiledMap.ObjectGroup grp = (MadTiledMap.ObjectGroup)this.objectGroups.get(groupID);
+            TiledMapAdv.ObjectGroup grp = (TiledMapAdv.ObjectGroup)this.objectGroups.get(groupID);
             if(objectID >= 0 && objectID < grp.objects.size()) {
-                MadTiledMap.GroupObject object = (MadTiledMap.GroupObject)grp.objects.get(objectID);
+                TiledMapAdv.GroupObject object = (TiledMapAdv.GroupObject)grp.objects.get(objectID);
                 return object.name;
             }
         }
@@ -408,9 +408,9 @@ public class MadTiledMap  {
 
     public String getObjectType(int groupID, int objectID) {
         if(groupID >= 0 && groupID < this.objectGroups.size()) {
-            MadTiledMap.ObjectGroup grp = (MadTiledMap.ObjectGroup)this.objectGroups.get(groupID);
+            TiledMapAdv.ObjectGroup grp = (TiledMapAdv.ObjectGroup)this.objectGroups.get(groupID);
             if(objectID >= 0 && objectID < grp.objects.size()) {
-                MadTiledMap.GroupObject object = (MadTiledMap.GroupObject)grp.objects.get(objectID);
+                TiledMapAdv.GroupObject object = (TiledMapAdv.GroupObject)grp.objects.get(objectID);
                 return object.type;
             }
         }
@@ -420,9 +420,9 @@ public class MadTiledMap  {
 
     public double getObjectX(int groupID, int objectID) {
         if(groupID >= 0 && groupID < this.objectGroups.size()) {
-            MadTiledMap.ObjectGroup grp = (MadTiledMap.ObjectGroup)this.objectGroups.get(groupID);
+            TiledMapAdv.ObjectGroup grp = (TiledMapAdv.ObjectGroup)this.objectGroups.get(groupID);
             if(objectID >= 0 && objectID < grp.objects.size()) {
-                MadTiledMap.GroupObject object = (MadTiledMap.GroupObject)grp.objects.get(objectID);
+                TiledMapAdv.GroupObject object = (TiledMapAdv.GroupObject)grp.objects.get(objectID);
                 return object.x;
             }
         }
@@ -432,9 +432,9 @@ public class MadTiledMap  {
 
     public double getObjectY(int groupID, int objectID) {
         if(groupID >= 0 && groupID < this.objectGroups.size()) {
-            MadTiledMap.ObjectGroup grp = (MadTiledMap.ObjectGroup)this.objectGroups.get(groupID);
+            TiledMapAdv.ObjectGroup grp = (TiledMapAdv.ObjectGroup)this.objectGroups.get(groupID);
             if(objectID >= 0 && objectID < grp.objects.size()) {
-                MadTiledMap.GroupObject object = (MadTiledMap.GroupObject)grp.objects.get(objectID);
+                TiledMapAdv.GroupObject object = (TiledMapAdv.GroupObject)grp.objects.get(objectID);
                 return object.y;
             }
         }
@@ -444,9 +444,9 @@ public class MadTiledMap  {
 
     public int getObjectWidth(int groupID, int objectID) {
         if(groupID >= 0 && groupID < this.objectGroups.size()) {
-            MadTiledMap.ObjectGroup grp = (MadTiledMap.ObjectGroup)this.objectGroups.get(groupID);
+            TiledMapAdv.ObjectGroup grp = (TiledMapAdv.ObjectGroup)this.objectGroups.get(groupID);
             if(objectID >= 0 && objectID < grp.objects.size()) {
-                MadTiledMap.GroupObject object = (MadTiledMap.GroupObject)grp.objects.get(objectID);
+                TiledMapAdv.GroupObject object = (TiledMapAdv.GroupObject)grp.objects.get(objectID);
                 return object.width;
             }
         }
@@ -456,9 +456,9 @@ public class MadTiledMap  {
 
     public int getObjectHeight(int groupID, int objectID) {
         if(groupID >= 0 && groupID < this.objectGroups.size()) {
-            MadTiledMap.ObjectGroup grp = (MadTiledMap.ObjectGroup)this.objectGroups.get(groupID);
+            TiledMapAdv.ObjectGroup grp = (TiledMapAdv.ObjectGroup)this.objectGroups.get(groupID);
             if(objectID >= 0 && objectID < grp.objects.size()) {
-                MadTiledMap.GroupObject object = (MadTiledMap.GroupObject)grp.objects.get(objectID);
+                TiledMapAdv.GroupObject object = (TiledMapAdv.GroupObject)grp.objects.get(objectID);
                 return object.height;
             }
         }
@@ -468,9 +468,9 @@ public class MadTiledMap  {
 
     public double getObjectRotation(int groupID, int objectID) {
         if(groupID >= 0 && groupID < this.objectGroups.size()) {
-            MadTiledMap.ObjectGroup grp = (MadTiledMap.ObjectGroup)this.objectGroups.get(groupID);
+            TiledMapAdv.ObjectGroup grp = (TiledMapAdv.ObjectGroup)this.objectGroups.get(groupID);
             if(objectID >= 0 && objectID < grp.objects.size()) {
-                MadTiledMap.GroupObject object = (MadTiledMap.GroupObject)grp.objects.get(objectID);
+                TiledMapAdv.GroupObject object = (TiledMapAdv.GroupObject)grp.objects.get(objectID);
                 return object.rotation;
             }
         }
@@ -480,9 +480,9 @@ public class MadTiledMap  {
 
     public String getObjectImage(int groupID, int objectID) {
         if(groupID >= 0 && groupID < this.objectGroups.size()) {
-            MadTiledMap.ObjectGroup grp = (MadTiledMap.ObjectGroup)this.objectGroups.get(groupID);
+            TiledMapAdv.ObjectGroup grp = (TiledMapAdv.ObjectGroup)this.objectGroups.get(groupID);
             if(objectID >= 0 && objectID < grp.objects.size()) {
-                MadTiledMap.GroupObject object = (MadTiledMap.GroupObject)grp.objects.get(objectID);
+                TiledMapAdv.GroupObject object = (TiledMapAdv.GroupObject)grp.objects.get(objectID);
                 if(object == null) {
                     return null;
                 }
@@ -496,9 +496,9 @@ public class MadTiledMap  {
 
     public String getObjectProperty(int groupID, int objectID, String propertyName, String def) {
         if(groupID >= 0 && groupID < this.objectGroups.size()) {
-            MadTiledMap.ObjectGroup grp = (MadTiledMap.ObjectGroup)this.objectGroups.get(groupID);
+            TiledMapAdv.ObjectGroup grp = (TiledMapAdv.ObjectGroup)this.objectGroups.get(groupID);
             if(objectID >= 0 && objectID < grp.objects.size()) {
-                MadTiledMap.GroupObject object = (MadTiledMap.GroupObject)grp.objects.get(objectID);
+                TiledMapAdv.GroupObject object = (TiledMapAdv.GroupObject)grp.objects.get(objectID);
                 if(object == null) {
                     return def;
                 }
@@ -592,7 +592,7 @@ public class MadTiledMap  {
 
             for(i = 0; i < objectNodes.getLength(); ++i) {
                 objElement = (Element)objectNodes.item(i);
-                MadTiledMap.GroupObject var9 = MadTiledMap.this.new GroupObject(objElement);
+                TiledMapAdv.GroupObject var9 = TiledMapAdv.this.new GroupObject(objElement);
                 var9.index = i;
                 this.objects.add(var9);
             }
