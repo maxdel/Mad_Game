@@ -236,7 +236,7 @@ public abstract class Unit extends GameObjectSolid {
     public void startCastSkill(SkillKind skillKind) {
         Skill skillToCast = getSkillByKind(skillKind);
         if (((currentState == GameObjectState.STAND || currentState == GameObjectState.MOVE)) &&
-                skillToCast != null && canStartCast(skillToCast, true) ) {
+                skillToCast != null && canStartCast(skillToCast) ) {
             stand();
             currentState = GameObjectState.SKILL;
 
@@ -328,11 +328,10 @@ public abstract class Unit extends GameObjectSolid {
      * Returns true if the skill can casting with current owner conditions
      *
      * @param skillToCast is a skill, that probably will cast
-     * @param reqItemIsNecessary shows if owner must be wearing some item
      * @return true if an owner can start casting skill
      */
-    public boolean canStartCast(Skill skillToCast, boolean reqItemIsNecessary) {
-        if (reqItemIsNecessary && skillToCast.getRequiredItem() != null &&
+    public boolean canStartCast(Skill skillToCast) {
+        if (skillToCast.getRequiredItem() != null &&
                 !inventory.isItemClassDressed(skillToCast.getRequiredItem().getClass())) {
             return false;
         }
