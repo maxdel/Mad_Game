@@ -60,7 +60,7 @@ public abstract class Skill {
     }
 
     /**
-     * Returns actions, that owner will apply using this skill
+     * Returns action, that owner will apply using this skill
      * @return apply function
      */
     public ISkillAction getToApplyAction() {
@@ -69,7 +69,7 @@ public abstract class Skill {
 
 
     /**
-     * Returns actions, that owner will apply using this skill
+     * Returns action, where owner's health or/and magic points will decreased
      * @return apply function
      */
     public ISkillAction getStealSkillCostAction() {
@@ -77,7 +77,7 @@ public abstract class Skill {
     }
 
     /**
-     * Activates cooldown timer with skill cooldown time
+     * Activates cooldown timer using skill cooldown time
      */
     public void activateCooldownTimer() {
         timerCooldown.activate(cooldownTime);
@@ -100,13 +100,17 @@ public abstract class Skill {
         cooldownTime += deltaCooldownTime;
     }
 
+    /**
+     * Changes primary cast time of unit on @param deltaCastTime value
+     * @param deltaCastTime is passed time in milliseconds
+     */
+    public void changeCastTime(int deltaCastTime) {
+        castTime += deltaCastTime;
+    }
+
     /* Getters and setters region */
     public int getCastTime() {
         return castTime;
-    }
-
-    public void setCastTime(int castTime) {
-        this.castTime = castTime;
     }
 
     public Item getRequiredItem() {

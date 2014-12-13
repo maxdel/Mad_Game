@@ -7,17 +7,19 @@ public class SkillImprover extends Skill {
 
     private int workTime;
     private Timer timerWorkTime;
-    private SkillKind skillToBuff;
+    private SkillKind skillToBuffKind;
     private int castTimeDelta;
     private int cooldownTimeDelta;
+    private Skill buffingSkill;
+
 
     public SkillImprover(String name, String description, int castTime, int postCastTime,
                          int cooldownTime, String requiredItem, double requiredHP, double requiredMP,
-                         int workTime, SkillKind skillToBuff, int castTimeDelta, int cooldownTimeDelta,
+                         int workTime, SkillKind skillToBuffKind, int castTimeDelta, int cooldownTimeDelta,
                          SkillKind kind) {
         super(name, description, castTime, postCastTime, cooldownTime, requiredItem, requiredHP, requiredMP, kind);
         this.workTime = workTime;
-        this.skillToBuff = skillToBuff;
+        this.skillToBuffKind = skillToBuffKind;
         this.castTimeDelta = castTimeDelta;
         this.cooldownTimeDelta = cooldownTimeDelta;
 
@@ -43,27 +45,22 @@ public class SkillImprover extends Skill {
     @Override
     protected void apply(Unit owner) {
         for (Skill skill : owner.getSkillList()) {
-      /*      if (skill.getClass() == getKind().equals(skillToBuff)) {
-                skill.setCastTime(skill.getCastTime() - castTimeDelta);
-                skill.changeCooldownTime(-cooldownTimeDelta);
+            if (skill.getKind() == skillToBuffKind) {
+                buffingSkill = skill;
+                buffingSkill.changeCastTime(-castTimeDelta);
+                buffingSkill.changeCooldownTime(-cooldownTimeDelta);
                 timerWorkTime.activate(workTime);
                 break;
             }
-      */  }
+        }
     }
 
     /**
-     * Sets the cast time and cooldown time to their primary values
+     * Sets the cast time and cooldown time of buffing skill to their primary values
      */
     private void dispel() {
-        /*for (Skill skill : owner.getSkillList()) {
-            if (skill.getName().equals(skillToBuff)) {
-                skill.setCastTime(skill.getCastTime() + castTimeDelta);
-                skill.changeCooldownTime(cooldownTimeDelta);
-                break;
-            }
-        }*/
+        buffingSkill.changeCastTime(castTimeDelta);
+        buffingSkill.changeCooldownTime(cooldownTimeDelta);
     }
-
 
 }

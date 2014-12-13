@@ -39,6 +39,7 @@ public class BulletShot extends Skill {
         }
     }
 
+    /* Getters and setters region */
     public double getBulletSpeed() {
         return bulletSpeed;
     }
