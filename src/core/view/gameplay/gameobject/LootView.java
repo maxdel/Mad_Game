@@ -14,7 +14,9 @@ public class LootView extends GameObjectView {
 
     public LootView(GameObject loot) {
         super(loot);
-        animation = new Animation((SpriteSheet) ResourceManager.getInstance().getItemImage(((Loot) loot).getItem().getName()), 1);
+        animation = new Animation();
+        animation.addFrame(
+                ResourceManager.getInstance().getItemImage(((Loot) loot).getItem().getName()).getScaledCopy(0.5f), 1);
         ttf = ResourceManager.getInstance().getFont("lootfont");
     }
 
