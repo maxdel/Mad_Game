@@ -1,10 +1,10 @@
 package core.resourcemanager;
 
 import core.model.gameplay.skills.*;
-import core.model.gameplay.gameobjects.Unit;
-import org.newdawn.slick.Image;
 
 import java.util.Map;
+
+import org.newdawn.slick.Image;
 
 public class SkillInfo {
 
@@ -67,4 +67,5 @@ public class SkillInfo {
     public Image getImage() {
         return image;
     }
+
 }
