@@ -2,15 +2,14 @@ package core.model.gameplay.gameobjects;
 
 import java.util.List;
 
+import core.model.gameplay.items.*;
+import core.model.gameplay.skills.SkillInstanceKind;
 import org.newdawn.slick.geom.Vector2f;
 
 import core.MathAdv;
-import core.model.gameplay.skills.SkillKind;
-import core.model.gameplay.items.LootRecord;
+import core.resourcemanager.ResourceManager;
 import core.model.Timer;
 import core.model.gameplay.*;
-import core.model.gameplay.items.Inventory;
-import core.model.gameplay.items.ItemRecord;
 import core.model.gameplay.skills.Skill;
 import core.resourcemanager.ResourceManager;
 
@@ -45,7 +44,7 @@ public abstract class Unit extends GameObjectSolid {
     private Timer preApplyCastingTimer;
     private Timer castingTimer;
 
-    public Unit(double x, double y, double direction, GameObjectType type) {
+    public Unit(double x, double y, double direction, GameObjInstanceKind type) {
         super(x, y, direction, type);
 
         this.mask = ResourceManager.getInstance().getUnitInfo(type).getMask();
@@ -181,7 +180,7 @@ public abstract class Unit extends GameObjectSolid {
                 getY() + MathAdv.lengthDirY(getDirection(), LOOT_RANGE),
                 itemToDrop.getItem());
         World.getInstance().getGameObjectList().add(loot);
-        inventory.deleteItem(inventory.getSelectedRecord().getName());
+        inventory.deleteItem(inventory.getSelectedRecord().getItem().getInstanceKind());
         currentState = GameObjectState.STAND;
     }
 
@@ -223,7 +222,7 @@ public abstract class Unit extends GameObjectSolid {
      */
     private void pickItem() {
         if (itemToPick != null) {
-            inventory.addItem(itemToPick.getItem().getName(), itemToPick.getNumber());
+            inventory.addItem(itemToPick.getItem().getInstanceKind(), itemToPick.getNumber());
             World.getInstance().getGameObjectToDeleteList().add(itemToPick);
             itemToPick = null;
         }
@@ -232,10 +231,10 @@ public abstract class Unit extends GameObjectSolid {
 
     /**
      * Tries to start casting skill @param skillKind
-     * @param skillKind is a concrete skill
+     * @param skillInstanceKind is a concrete skill
      */
-    public void startCastSkill(SkillKind skillKind) {
-        Skill skillToCast = getSkillByKind(skillKind);
+    public void startCastSkill(SkillInstanceKind skillInstanceKind) {
+        Skill skillToCast = getSkillByKind(skillInstanceKind);
         if (((currentState == GameObjectState.STAND || currentState == GameObjectState.MOVE)) &&
                 skillToCast != null && canStartCast(skillToCast) ) {
             stand();
@@ -252,9 +251,9 @@ public abstract class Unit extends GameObjectSolid {
           }
     }
 
-    private Skill getSkillByKind(SkillKind skillKind) {
+    private Skill getSkillByKind(SkillInstanceKind skillInstanceKind) {
         for (Skill skill : skillList) {
-            if (skill.getKind() == skillKind) {
+            if (skill.getKind() == skillInstanceKind) {
                 return skill;
             }
         }
@@ -341,16 +340,16 @@ public abstract class Unit extends GameObjectSolid {
             return false;
         }
 
+        if (skillToCast.getRequiredItem() != null && skillToCast.getRequiredItem().getClass() == Bow.class) {
+            if (!inventory.isItemClassExists(ArrowItem.class)) {
+                return false;
+            }
+        }
+
         if (attribute.getMP().getCurrent() < skillToCast.getRequiredMP() ||
                 attribute.getHP().getCurrent() < skillToCast.getRequiredHP()) {
             return false;
         }
-
-
-        // TODO: check for arrow in inventory before use 'Bow shot'
-        /*if (skillToCast.getKind() == SkillKind.BOW_SHOT && !inventory.isItemExists(ARROW)) {
-            return false;
-        }*/
 
         return true;
     }

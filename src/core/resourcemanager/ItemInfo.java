@@ -12,25 +12,22 @@ public class ItemInfo {
     private Image image;
 
     public ItemInfo(String name, String description, Image image, String type, Map map) {
+        ItemInstanceKind instanceKind = ItemInstanceKind.valueOf(name.toUpperCase());
         if (type.equals("Sword")) {
-            item = new Sword(name, description, map);
+            item = new Sword(instanceKind, description, map);
         } else if (type.equals("Bow")) {
-            item = new Bow(name, description, map);
+            item = new Bow(instanceKind, description, map);
         } else if (type.equals("Staff")) {
-            item = new Staff(name, description, map);
+            item = new Staff(instanceKind, description, map);
         } else if (type.equals("Reagent")) {
-            item = new Reagent(name, description, map);
+            item = new Reagent(instanceKind, description, map);
         } else if (type.equals("Armor")) {
-            item = new Armor(name, description, map);
+            item = new Armor(instanceKind, description, map);
         } else if (type.equals("Arrow")) {
-            item = new ArrowItem(name, description, map);
+            item = new ArrowItem(instanceKind, description, map);
         }
 
         this.image = image;
-    }
-
-    public String getName() {
-        return item.getName();
     }
 
     public String getDescription() {

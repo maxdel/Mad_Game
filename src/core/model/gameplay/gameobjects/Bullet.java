@@ -15,7 +15,7 @@ public class Bullet extends GameObjectSolid {
     private double currentDistance;
 
     public Bullet(Unit owner, double x, double y, double direction, double speed, double pAttack,
-                    double mAttack, GameObjectType type) {
+                    double mAttack, GameObjInstanceKind type) {
         super(x, y, direction, type);
 
         this.mask = ResourceManager.getInstance().getBulletInfo(type).getMask();

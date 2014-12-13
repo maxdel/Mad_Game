@@ -3,8 +3,9 @@ package core.model.gameplay.gameobjects.ai;
 import core.model.Timer;
 import core.model.gameplay.World;
 import core.model.gameplay.gameobjects.Bot;
+import core.model.gameplay.items.ItemInstanceKind;
 import core.model.gameplay.skills.BulletShot;
-import core.model.gameplay.skills.SkillKind;
+import core.model.gameplay.skills.SkillInstanceKind;
 import org.newdawn.slick.geom.Point;
 import org.newdawn.slick.geom.Vector2f;
 
@@ -60,12 +61,12 @@ public class RangedAI extends BotAI {
     private void attackHeroWithRangedSkill() {
         owner.stand();
         owner.setDirection(getPredictedDirection(0));
-        if (owner.getSkillList().get(0).getKind() == SkillKind.BOW_SHOT) {
-            owner.getInventory().useItem(owner.getInventory().addItem("Strong_bow"));
+        if (owner.getSkillList().get(0).getKind() == SkillInstanceKind.BOW_SHOT) {
+            owner.getInventory().useItem(owner.getInventory().addItem(ItemInstanceKind.STRONG_BOW));
         } else {
-            owner.getInventory().useItem(owner.getInventory().addItem("Staff"));
+            owner.getInventory().useItem(owner.getInventory().addItem(ItemInstanceKind.STAFF));
         }
-        owner.startCastSkill(SkillKind.BOW_SHOT);
+        owner.startCastSkill(SkillInstanceKind.BOW_SHOT);
     }
 
     private double getPredictedDirection(int skillIndex) {

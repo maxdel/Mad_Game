@@ -15,53 +15,39 @@ public class Inventory {
 
     public Inventory(Unit owner) {
         this.owner = owner;
-        existedItems = new ArrayList<ItemRecord>();
-        dressedItems = new ArrayList<ItemRecord>();
+        existedItems = new ArrayList<>();
+        dressedItems = new ArrayList<>();
         selectedRecord = null;
 
-/*
-        addItem("Sword");
-        addItem("Strong sword");
-        addItem("Bow");
-        addItem("Strong bow");
-        addItem("Staff");
-        addItem("Strong staff");
-        addItem("Apple");
-        addItem("Apple");
-        addItem("Arrow");
-        addItem("Arrow", 100);
-        addItem("Arrow");
-        deleteItem("Apple");
-        addItem("Healing flask", 5);
-        addItem("Mana flask", 5);
-        addItem("Light armor");
-        addItem("Heavy armor");
-        addItem("Robe of magic");
-*/
+        addItem(ItemInstanceKind.ARROW);
+        addItem(ItemInstanceKind.BOW);
     }
 
-    public List<ItemRecord> getExistedItems() {
-        return existedItems;
+    /**
+     * Adds Item Record with one wanted item
+     * @param instanceKind is an concrete Item we want to add to inventory
+     * @return Item Record with one instance of wanted item
+     */
+    public ItemRecord addItem(ItemInstanceKind instanceKind) {
+        return addItem(instanceKind, 1);
     }
 
-    public ItemRecord getSelectedRecord() {
-        return selectedRecord;
-    }
-
-    public ItemRecord addItem(String name) {
-        return addItem(name, 1);
-    }
-
-    public ItemRecord addItem(String name, int number) {
-        Item item = ItemDB.getInstance().getItem(name);
+    /**
+     * Add to inventory Item Record with @param number of wanted items
+     * @param instanceKind is an concrete Item we want to add to inventory
+     * @param number is a number of items we want add
+     * @return Item Record with @param number of wanted items
+     */
+    public ItemRecord addItem(ItemInstanceKind instanceKind, int number) {
+        Item item = ItemDB.getInstance().getItem(instanceKind);
         if (item != null && number > 0) {
             for (ItemRecord itemRecord : existedItems) {
-                if (itemRecord.getName().equals(name)) {
+                if (itemRecord.getItem().instanceKind == instanceKind) {
                     itemRecord.setNumber(itemRecord.getNumber() + number);
                     return itemRecord;
                 }
             }
-            ItemRecord itemRecord = new ItemRecord(name, number);
+            ItemRecord itemRecord = new ItemRecord(instanceKind, number);
             existedItems.add(itemRecord);
             if (existedItems.size() == 1) {
                 selectedRecord = existedItems.get(0);
@@ -71,18 +57,27 @@ public class Inventory {
         return null;
     }
 
-    public void deleteItem(String name) {
-        deleteItem(name, 1);
+    /**
+     * Deletes one item from inventory
+     * @param instanceKind is an concrete Item we want to delete from inventory
+     */
+    public void deleteItem(ItemInstanceKind instanceKind) {
+        deleteItem(instanceKind, 1);
     }
 
-    public void deleteItem(String name, int number) {
-        Item item = ItemDB.getInstance().getItem(name);
+    /**
+     * Deletes @param number items from inventory
+     * @param instanceKind is an concrete Item we want to delete from inventory
+     * @param number is an number of items we want to delete
+     */
+    public void deleteItem(ItemInstanceKind instanceKind, int number) {
+        Item item = ItemDB.getInstance().getItem(instanceKind);
         if (item != null && number > 0) {
             int i = -1;
             for (Iterator<ItemRecord> it = existedItems.iterator(); it.hasNext();) {
                 i++;
                 ItemRecord itemRecord = it.next();
-                if (itemRecord.getName().equals(name)) {
+                if (itemRecord.getItem().instanceKind == instanceKind) {
                     if (itemRecord.getNumber() - number <= 0) {
                         undressItem(itemRecord);
                         it.remove();
@@ -106,25 +101,35 @@ public class Inventory {
         }
     }
 
-    public void setSelectedRecord(int index) {
-        selectedRecord = existedItems.get(index);
-    }
-
-
+    /**
+     * Does given operation with item:
+     * - DRESS if item is dressable;
+     * - SPEND if item is applicable;
+     * @param itemRecord  is an ItemRecord, from we want to use
+     * @return success of operation
+     */
     public boolean useItem(ItemRecord itemRecord) {
+        Item itm = itemRecord.getItem();
         if (itemRecord.getItem().getItemOperation() == ItemOperation.DRESS) {
             dressItem(itemRecord);
             return true;
-        } else if (itemRecord.getItem().getItemOperation() == ItemOperation.SPEND) {
-            itemRecord.getItem().setBonuses(owner);
-            deleteItem(itemRecord.getName(), 1);
+        } else if (itm.getItemOperation() == ItemOperation.SPEND) {
+            if (implementsInterface(itemRecord.getItem(), IBonusGiver.class)) {
+                ((IBonusGiver) itm).setBonuses(owner);
+            }
+            deleteItem(itm.getInstanceKind(), 1);
             return true;
-        } else if (itemRecord.getItem().getItemOperation() == ItemOperation.EMPTY) {
+        } else if (itm.getItemOperation() == ItemOperation.EMPTY) {
             // pass
         }
         return false;
     }
 
+    /**
+     * Finds item in dressed item list, thar we want undress
+     * @param itemToDress is an ItemRecord we want to undress
+     * @return ItemRecord from dressed items, that we will dress
+     */
     private ItemRecord findItemToUndress(ItemRecord itemToDress) {
         ItemRecord itemToUndress = null;
         for (ItemRecord currDressedItem : dressedItems) {
@@ -144,6 +149,10 @@ public class Inventory {
         return itemToUndress;
     }
 
+    /**
+     * Dresses @param itemToDress
+     * @param itemToDress is an ItemRecord we want to dress
+     */
     private void dressItem(ItemRecord itemToDress) {
         ItemRecord itemToUndress = findItemToUndress(itemToDress);
 
@@ -153,22 +162,33 @@ public class Inventory {
             return;
         }
 
-        itemToDress.getItem().setBonuses(owner);
+        if (itemToUndress != null && implementsInterface(itemToUndress, IBonusGiver.class)) {
+            ((IBonusGiver) itemToUndress).setBonuses(owner);
+        }
+
         dressedItems.add(itemToDress);
         itemToDress.setMarked(true);
     }
 
+    /**
+     * Undresses @param itemToUndress
+     * @param itemToUndress is an ItemRecord we want to undress
+     */
     private void undressItem(ItemRecord itemToUndress) {
+
         if (itemToUndress != null) {
 
-            itemToUndress.getItem().unsetBonuses(owner);
+            if (implementsInterface(itemToUndress, IBonusGiver.class)) {
+                ((IBonusGiver) itemToUndress).unsetBonuses(owner);
+            }
 
             dressedItems.remove(itemToUndress);
             itemToUndress.setMarked(false);
         }
     }
 
-    // TODO: for terrible views only
+
+    /* Getters and setters region */
     public String getDressedWeaponType() {
         for (Iterator<ItemRecord> it = dressedItems.iterator(); it.hasNext();) {
             ItemRecord itemRecord = it.next();
@@ -202,7 +222,6 @@ public class Inventory {
         }
         return false;
     }
-/*
 
     public boolean isItemExists(Item item) {
         for (Iterator<ItemRecord> it = existedItems.iterator(); it.hasNext();) {
@@ -214,7 +233,7 @@ public class Inventory {
         return false;
     }
 
-    public boolean isItemExists(Class itemClass) {
+    public boolean isItemClassExists(Class itemClass) {
         for (Iterator<ItemRecord> it = existedItems.iterator(); it.hasNext();) {
             ItemRecord itemRecord = it.next();
             if (itemRecord.getItem().getClass() == itemClass) {
@@ -223,6 +242,25 @@ public class Inventory {
         }
         return false;
     }
-*/
 
+    public List<ItemRecord> getExistedItems() {
+        return existedItems;
+    }
+
+    public ItemRecord getSelectedRecord() {
+        return selectedRecord;
+    }
+
+    public void setSelectedRecord(int index) {
+        selectedRecord = existedItems.get(index);
+    }
+
+    private static boolean implementsInterface(Object object, Class interf){
+        for (Class c : object.getClass().getInterfaces()) {
+            if (c.equals(interf)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

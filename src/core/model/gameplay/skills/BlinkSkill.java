@@ -3,13 +3,14 @@ package core.model.gameplay.skills;
 import core.MathAdv;
 import core.model.gameplay.CollisionManager;
 import core.model.gameplay.gameobjects.Unit;
+import core.model.gameplay.items.ItemInstanceKind;
 
 public class BlinkSkill extends Skill {
 
     private double distance;
 
     public BlinkSkill(String name, String description, int castTime, int postApplyTime, int cooldownTime,
-                      String requiredItem, double requiredHP, double requiredMP, double distance, SkillKind kind) {
+                      ItemInstanceKind requiredItem, double requiredHP, double requiredMP, double distance, SkillInstanceKind kind) {
         super(name, description, castTime, postApplyTime, cooldownTime, requiredItem, requiredHP, requiredMP, kind);
         this.distance = distance;
     }

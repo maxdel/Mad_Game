@@ -4,7 +4,9 @@ import core.model.gameplay.gameobjects.Unit;
 
 import java.util.Map;
 
-public class Item {
+abstract public class Item {
+
+    protected ItemInstanceKind instanceKind;
 
     private String name;
     private String description;
@@ -12,25 +14,16 @@ public class Item {
 
     private Map<String, Integer> values;
 
-    public Item(String name, String description, Map<String, Integer> values) {
+    public Item(ItemInstanceKind instanceKind, String description, Map<String, Integer> values) {
         this.name = name;
         this.description = description;
         this.values = values;
         setItemOperation(ItemOperation.EMPTY);
+
+        this.instanceKind = instanceKind;
     }
 
-    public void setBonuses(Unit target) {
-        // pass
-    }
-
-    public void unsetBonuses(Unit target) {
-        // pass
-    }
-
-    public String getName() {
-        return name;
-    }
-
+    /* Getters and setters region */
     public String getDescription() {
         return description;
     }
@@ -51,4 +44,11 @@ public class Item {
         this.itemOperation = itemOperation;
     }
 
+    public ItemInstanceKind getInstanceKind() {
+        return instanceKind;
+    }
+
+   /*public String getName() {
+        return name;
+    }*/
 }

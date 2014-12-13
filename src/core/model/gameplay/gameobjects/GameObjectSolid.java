@@ -10,7 +10,7 @@ public abstract class GameObjectSolid extends GameObject {
 
     protected Shape mask;
 
-    public GameObjectSolid(double x, double y, double direction, GameObjectType type) {
+    public GameObjectSolid(double x, double y, double direction, GameObjInstanceKind type) {
         super(x, y, direction, type);
         this.mask = null;
     }

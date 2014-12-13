@@ -2,7 +2,8 @@ package core.model.gameplay.gameobjects.ai;
 
 import core.model.Timer;
 import core.model.gameplay.gameobjects.Bot;
-import core.model.gameplay.skills.SkillKind;
+import core.model.gameplay.items.ItemInstanceKind;
+import core.model.gameplay.skills.SkillInstanceKind;
 import org.newdawn.slick.geom.Point;
 
 public class MeleeAI extends BotAI {
@@ -57,8 +58,8 @@ public class MeleeAI extends BotAI {
     private void attackHeroWithSword() {
         owner.stand();
         //owner.setDirection(getPredictedDirection(1));
-        owner.getInventory().useItem(owner.getInventory().addItem("Sword"));
-        owner.startCastSkill(SkillKind.SWORD_ATTACK);
+        owner.getInventory().useItem(owner.getInventory().addItem(ItemInstanceKind.SWORD));
+        owner.startCastSkill(SkillInstanceKind.SWORD_ATTACK);
     }
 
 }

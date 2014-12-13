@@ -3,8 +3,8 @@ package core.model.gameplay.skills;
 import core.MathAdv;
 import core.model.gameplay.World;
 import core.model.gameplay.gameobjects.GameObject;
-import core.model.gameplay.gameobjects.GameObjectSolid;
 import core.model.gameplay.gameobjects.Unit;
+import core.model.gameplay.items.ItemInstanceKind;
 import org.newdawn.slick.geom.Vector2f;
 
 public class AreaDamage extends Skill {
@@ -16,9 +16,9 @@ public class AreaDamage extends Skill {
     private double angle;
 
     public AreaDamage(String name, String description, int castTime, int postCastTime,
-                      int cooldownTime, String requiredItem, double requiredHP, double requiredMP,
-                      double pAttack, double mAttack, double radius, double angle, SkillKind kind) {
-        super(name, description, castTime, postCastTime, cooldownTime, requiredItem, requiredHP, requiredMP, kind);
+                      int cooldownTime, ItemInstanceKind requiredItemKind, double requiredHP, double requiredMP,
+                      double pAttack, double mAttack, double radius, double angle, SkillInstanceKind kind) {
+        super(name, description, castTime, postCastTime, cooldownTime, requiredItemKind, requiredHP, requiredMP, kind);
         this.pAttack = pAttack;
         this.mAttack = mAttack;
         this.radius = radius;

@@ -4,10 +4,11 @@ import core.model.Timer;
 import core.model.gameplay.items.Item;
 import core.model.gameplay.items.ItemDB;
 import core.model.gameplay.gameobjects.Unit;
+import core.model.gameplay.items.ItemInstanceKind;
 
 public abstract class Skill {
 
-    protected SkillKind kind;
+    protected SkillInstanceKind kind;
 
     protected String name;
     protected String description;
@@ -24,12 +25,12 @@ public abstract class Skill {
     protected double requiredMP;
 
     public Skill(String name, String description, int castTime, int postApplyTime,
-                 int cooldownTime, String requiredItem, double requiredHP, double requiredMP, SkillKind kind) {
+                 int cooldownTime, ItemInstanceKind requiredItemKind, double requiredHP, double requiredMP, SkillInstanceKind kind) {
         this.name = name;
         this.description = description;
         this.castTime = castTime;
         this.cooldownTime = cooldownTime;
-        this.requiredItem = ItemDB.getInstance().getItem(requiredItem);
+        this.requiredItem = ItemDB.getInstance().getItem(requiredItemKind);
         this.requiredHP = requiredHP;
         this.requiredMP = requiredMP;
         this.preApplyTime = castTime - postApplyTime;
@@ -129,7 +130,7 @@ public abstract class Skill {
         return preApplyTime;
     }
 
-    public SkillKind getKind() {
+    public SkillInstanceKind getKind() {
         return kind;
     }
 

@@ -1,6 +1,6 @@
 package core.controller.gameplay;
 
-import core.model.gameplay.skills.SkillKind;
+import core.model.gameplay.skills.SkillInstanceKind;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
@@ -94,9 +94,9 @@ public class GamePlayController {
             // Pick loot
             if (input.isMouseButtonDown(input.MOUSE_LEFT_BUTTON)) {
                 if (combatMode) {
-                    hero.startCastSkill(SkillKind.SWORD_ATTACK);
-                    hero.startCastSkill(SkillKind.BOW_SHOT);
-                    hero.startCastSkill(SkillKind.FIREBALL);
+                    hero.startCastSkill(SkillInstanceKind.SWORD_ATTACK);
+                    hero.startCastSkill(SkillInstanceKind.BOW_SHOT);
+                    hero.startCastSkill(SkillInstanceKind.FIREBALL);
                 } else {
                     hero.startPickItem();
                 }
@@ -104,24 +104,24 @@ public class GamePlayController {
 
             // Use skill
             if (input.isKeyDown(input.KEY_1)) {
-                hero.startCastSkill(SkillKind.SWORD_ATTACK);
-                hero.startCastSkill(SkillKind.BOW_SHOT);
-                hero.startCastSkill(SkillKind.FIREBALL);
+                hero.startCastSkill(SkillInstanceKind.SWORD_ATTACK);
+                hero.startCastSkill(SkillInstanceKind.BOW_SHOT);
+                hero.startCastSkill(SkillInstanceKind.FIREBALL);
             }
             if (input.isKeyDown(input.KEY_2)) {
-                hero.startCastSkill(SkillKind.STRONG_SWORD_ATTACK);
+                hero.startCastSkill(SkillInstanceKind.STRONG_SWORD_ATTACK);
             }
             if (input.isKeyDown(input.KEY_3)) {
-                hero.startCastSkill(SkillKind.WIND_BOW);
+                hero.startCastSkill(SkillInstanceKind.WIND_BOW);
             }
             if (input.isKeyDown(input.KEY_4)) {
-                hero.startCastSkill(SkillKind.HEAL);
+                hero.startCastSkill(SkillInstanceKind.HEAL);
             }
             if (input.isKeyDown(input.KEY_5)) {
-                hero.startCastSkill(SkillKind.STAFF_ATTACK);
+                hero.startCastSkill(SkillInstanceKind.STAFF_ATTACK);
             }
             if (input.isKeyDown(input.KEY_6)) {
-                hero.startCastSkill(SkillKind.BLINK);
+                hero.startCastSkill(SkillInstanceKind.BLINK);
             }
 
             // Change full-screen mode

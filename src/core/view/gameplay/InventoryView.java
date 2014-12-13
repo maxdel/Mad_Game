@@ -66,7 +66,7 @@ public class InventoryView {
                 for (int i = 0; i < (width - 2 * padding - spacing) / (itemWidth + spacing); ++i) {
                     if (it.hasNext()) {
                         ItemRecord itemRecord = it.next();
-                        g.drawImage(ResourceManager.getInstance().getItemImage(itemRecord.getName()),
+                        g.drawImage(ResourceManager.getInstance().getItemImage(itemRecord.getItem().getInstanceKind()),
                                 x + padding + i * (itemWidth + spacing), y + padding + j * (itemHeight + spacing));
                         if (itemRecord.isMarked()) {
                             g.drawImage(ResourceManager.getInstance().getImage("Dressed item frame"),
@@ -76,7 +76,7 @@ public class InventoryView {
                             g.drawImage(ResourceManager.getInstance().getImage("Selected item frame"),
                                     x + padding + i * (itemWidth + spacing), y + padding + j * (itemHeight + spacing));
                             g.setColor(Color.black);
-                            fontDescription.drawString(x, y - 42, "Name: " + itemRecord.getName(), Color.black);
+                            fontDescription.drawString(x, y - 42, "Name: " + itemRecord.getItem().getInstanceKind().toString(), Color.black);
                             fontDescription.drawString(x, y - 24, "Description: " + itemRecord.getDescription(), Color.black);
                             g.setColor(Color.gray);
                         } else {

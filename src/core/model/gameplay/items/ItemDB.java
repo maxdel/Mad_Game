@@ -20,9 +20,11 @@ public class ItemDB {
         }
         return instance;
     }
-    public Item getItem(String name) {
+
+    /* Getters and setters region*/
+    public Item getItem(ItemInstanceKind instanceKind) {
         for (Item item : items) {
-            if (item.getName().equals(name)) {
+            if (item.getInstanceKind() == instanceKind) {
                 return item;
             }
         }

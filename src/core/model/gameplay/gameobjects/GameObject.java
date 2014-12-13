@@ -5,9 +5,9 @@ public abstract class GameObject {
     private double x;
     private double y;
     private double direction;
-    private GameObjectType type;
+    private GameObjInstanceKind type;
 
-    public GameObject(double x, double y, double direction, GameObjectType type) {
+    public GameObject(double x, double y, double direction, GameObjInstanceKind type) {
         this.x = x;
         this.y = y;
         this.direction = direction;
@@ -28,7 +28,7 @@ public abstract class GameObject {
         return direction;
     }
 
-    public GameObjectType getType() {
+    public GameObjInstanceKind getType() {
         return type;
     }
 
