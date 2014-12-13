@@ -1,5 +1,7 @@
 package core.model.gameplay.items;
 
+import core.model.gameplay.gameobjects.Unit;
+
 import java.util.Map;
 
 public class ArrowItem extends Item {

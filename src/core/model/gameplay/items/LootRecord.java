@@ -12,6 +12,12 @@ public class LootRecord {
         this.probability = probability;
     }
 
+    /**
+     * Generates loot on give coordinates with same probability
+     * @param x coordinate
+     * @param y coordinate
+     * @return Loot instance, if lucky; else null
+     */
     public Loot generateLoot(double x, double y) {
         if (Math.random() < probability) {
             return new Loot(x, y, item);

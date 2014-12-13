@@ -4,7 +4,7 @@ import core.model.gameplay.gameobjects.Unit;
 
 import java.util.Map;
 
-public class Item {
+abstract public class Item {
 
     protected ItemInstanceKind instanceKind;
 
@@ -23,22 +23,10 @@ public class Item {
         this.instanceKind = instanceKind;
     }
 
-    public void setBonuses(Unit target) {
-        // pass
-    }
-
-    public void unsetBonuses(Unit target) {
-        // pass
-    }
-
-   /*public String getName() {
-        return name;
-    }
-*/
+    /* Getters and setters region */
     public String getDescription() {
         return description;
     }
-
 
     public int getParameter(String parameter) {
         return values.get(parameter);
@@ -59,4 +47,8 @@ public class Item {
     public ItemInstanceKind getInstanceKind() {
         return instanceKind;
     }
+
+   /*public String getName() {
+        return name;
+    }*/
 }

@@ -12,12 +12,11 @@ public class ItemRecord {
         this.isMarked = false;
     }
 
-
+    /* Getters and setters region */
     public String getDescription() {
         return item.getDescription();
     }
-
-
+    
     public int getParameter(String parameter) {
         return item.getParameter(parameter);
     }
