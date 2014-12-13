@@ -332,11 +332,8 @@ public abstract class Unit extends GameObjectSolid {
      * @return true if an owner can start casting skill
      */
     public boolean canStartCast(Skill skillToCast, boolean reqItemIsNecessary) {
-        if (reqItemIsNecessary && skillToCast.getRequiredItem() == null) {
-            return false;
-        }
-
-        if (reqItemIsNecessary && !inventory.isItemClassDressed(skillToCast.getRequiredItem().getClass())) {
+        if (reqItemIsNecessary && skillToCast.getRequiredItem() != null &&
+                !inventory.isItemClassDressed(skillToCast.getRequiredItem().getClass())) {
             return false;
         }
 

@@ -77,6 +77,9 @@
             <skill name="Staff_attack" description="Staff!!!" path="/res/skills/staff attack.png" type="AreaDamage"
                    castTime="200" postApplyTime="100" cooldownTime="1000" requiredItemType="Staff" requiredHP="0" requiredMP="0"
                    pAttack="5" mAttack="1" radius="50" angle="60"/>
+            <skill name="Blink" description="Easy blink" path="/res/skills/blink.png" type="BlinkSkill"
+                   castTime="200" postApplyTime="0" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="20"
+                   distance="200"/>
         </skills>
         <fonts>
             <font name="lootfont" fontName="verdana" size="10" isBold="false" />
@@ -108,6 +111,7 @@
                     <skill name="Sword_attack" type="AreaDamage"/>
                     <skill name="Bow_shot" type="BulletShot"/>
                     <skill name="Fireball" type="BulletShot"/>
+                    <skill name="Blink" type="BlinkSkill"/>
                 </skillList>
                 <lootList>
                     <loot name="Apple" probability="1" />

@@ -5,6 +5,7 @@ public enum SkillKind {
     SWORD_ATTACK, STRONG_SWORD_ATTACK, STAFF_ATTACK, // Area damage
     BOW_SHOT, FIREBALL, // BulletShot
     HEAL, // Regen
-    WIND_BOW // Skill improver
+    WIND_BOW, // Skill improver
+    BLINK // Blink skill
 
 }

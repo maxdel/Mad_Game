@@ -54,6 +54,12 @@ public class SkillInfo {
                     Integer.parseInt(map.get("cooldownTime")), map.get("requiredItemType"),
                     Double.parseDouble(map.get("requiredHP")), Double.parseDouble(map.get("requiredMP")),
                     Integer.parseInt(map.get("HPdelta")), kind);
+        } else if (type.equals("BlinkSkill")) {
+            skill = new BlinkSkill(name, description, Integer.parseInt(map.get("castTime")),
+                    Integer.parseInt(map.get("postApplyTime")),
+                    Integer.parseInt(map.get("cooldownTime")), map.get("requiredItemType"),
+                    Double.parseDouble(map.get("requiredHP")), Double.parseDouble(map.get("requiredMP")),
+                    Integer.parseInt(map.get("distance")), kind);
         }
         return skill;
     }

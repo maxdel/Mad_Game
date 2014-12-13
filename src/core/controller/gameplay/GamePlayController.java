@@ -120,6 +120,9 @@ public class GamePlayController {
             if (input.isKeyDown(input.KEY_5)) {
                 hero.startCastSkill(SkillKind.STAFF_ATTACK);
             }
+            if (input.isKeyDown(input.KEY_6)) {
+                hero.startCastSkill(SkillKind.BLINK);
+            }
 
             // Change full-screen mode
             if (input.isKeyDown(Input.KEY_LALT) && input.isKeyDown(Input.KEY_ENTER)) {

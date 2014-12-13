@@ -48,11 +48,11 @@ public abstract class GameObject {
         direction += directionDelta;
     }
 
-    protected void changeX(double xDelta) {
+    public void changeX(double xDelta) {
         x += xDelta;
     }
 
-    protected void changeY(double yDelta) {
+    public void changeY(double yDelta) {
         y += yDelta;
     }
 
