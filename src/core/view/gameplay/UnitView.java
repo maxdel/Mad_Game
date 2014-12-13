@@ -1,11 +1,11 @@
 package core.view.gameplay;
 
-import core.model.gameplay.gameobjects.Bot;
-import core.model.gameplay.gameobjects.GameObject;
-import core.model.gameplay.gameobjects.Unit;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+
+import core.model.gameplay.gameobjects.GameObject;
+import core.model.gameplay.gameobjects.Unit;
 
 public abstract class UnitView extends GameObjectSolidView {
 
@@ -39,10 +39,10 @@ public abstract class UnitView extends GameObjectSolidView {
         g.rotate((float) (gameObject.getX() - camera.getX()),
                 (float) (gameObject.getY() - camera.getY()),
                 (float) (camera.getDirectionDegrees() - unit.getDirection() / Math.PI * 180));
-        drawHealthbar(g, (int)(unit.getX() - camera.getX()), (int)(unit.getY() - camera.getY()) - 50, 60, 8,
+        drawHealthbar(g, (int)(unit.getX() - camera.getX()), (int)(unit.getY() - camera.getY()) - 46, 60, 6,
                 unit.getAttribute().getHP().getCurrent(),
                 unit.getAttribute().getHP().getMaximum(), Color.red);
-        drawHealthbar(g, (int) (unit.getX() - camera.getX()), (int) (unit.getY() - camera.getY()) - 38, 60, 8,
+        drawHealthbar(g, (int) (unit.getX() - camera.getX()), (int) (unit.getY() - camera.getY()) - 38, 60, 6,
                 unit.getAttribute().getMP().getCurrent(),
                 unit.getAttribute().getMP().getMaximum(), Color.blue);
         g.rotate((float) (gameObject.getX() - camera.getX()),
