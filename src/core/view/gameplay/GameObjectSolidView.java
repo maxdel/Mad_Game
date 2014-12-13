@@ -13,13 +13,13 @@ public abstract class GameObjectSolidView extends GameObjectView {
         super(gameObject);
     }
 
-    /*
+    /**
      * Draws mask around a game object
-     * */
-    protected void drawMask(Graphics g, double viewX, double viewY) {
+     */
+    protected void drawMask(Graphics g, double cameraX, double cameraY) {
         GameObjectSolid gameObjectSolid = (GameObjectSolid) gameObject;
         Shape mask = CollisionManager.getInstance().getUpdatedMask(gameObjectSolid.getMask(),
-                (float) (gameObjectSolid.getX() - viewX), (float) (gameObjectSolid.getY() - viewY),
+                (float) (gameObjectSolid.getX() - cameraX), (float) (gameObjectSolid.getY() - cameraY),
                 gameObjectSolid.getDirection());
         g.draw(mask);
     }

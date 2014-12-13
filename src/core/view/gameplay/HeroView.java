@@ -9,10 +9,6 @@ import core.model.gameplay.gameobjects.Hero;
 import core.model.gameplay.gameobjects.GameObjectState;
 import core.resourcemanager.ResourceManager;
 
-/**
- * Provides functions for the definition of actors, as well as actor
- * operations, such as `receive`, `react`, `reply`, etc.
- */
 public class HeroView extends UnitView {
 
     private GameObjectState previousState;
@@ -128,51 +124,7 @@ public class HeroView extends UnitView {
 
         previousState = hero.getCurrentState();
 
-        rotate(g, camera, true);
-        draw(camera);
-        // draw mask
-        //drawMask(g, viewX, viewY);
-
-        rotate(g, camera, false);
-
-        if (hero.getInventory().isItemDressed(Bow.class)) {
-            Image aim = ResourceManager.getInstance().getImage("Bow_aim");
-            aim.draw((float) camera.getCenterX() - aim.getWidth() / 2, (float) camera.getCenterY() - 250);
-        }
-        // For debug
-        drawHealthbar(g, 90, 100, 120, 6, hero.getAttribute().getHP().getCurrent(),
-                hero.getAttribute().getHP().getMaximum(), Color.red);
-        drawHealthbar(g, 90, 120, 120, 6, hero.getAttribute().getMP().getCurrent(),
-                hero.getAttribute().getMP().getMaximum(), Color.blue);
-        /*g.drawString("(" + String.valueOf((int) hero.getX()) + ";" + String.valueOf((int) hero.getY())
-                        + ") dir=" + String.valueOf((int) (hero.getDirection() / Math.PI * 180) % 360
-                        + " curSpd=" + String.valueOf(hero.getAttribute().getCurrentSpeed())),
-                (float) (hero.getX() - viewX),
-                (float) (hero.getY() - viewY));*/
-        /*g.drawString(String.valueOf((int) hero.getAttribute().getPAttack()) + "/" +
-                        String.valueOf((int) hero.getAttribute().getMAttack()),
-                (float) (gameObject.getX() - viewX),
-                (float) (gameObject.getY() - viewY - 80));
-        g.drawString(String.valueOf((int) hero.getAttribute().getPArmor()) + "/" +
-                        String.valueOf((int) hero.getAttribute().getMArmor()),
-                (float) (gameObject.getX() - viewX),
-                (float) (gameObject.getY() - viewY - 60));
-        g.drawString(String.valueOf((int) hero.getAttribute().getHP().getCurrent()) + "/" +
-                        String.valueOf((int) hero.getAttribute().getMaximumHP()),
-                (float) (gameObject.getX() - viewX),
-                (float) (gameObject.getY() - viewY - 40));
-        g.drawString(String.valueOf((int) hero.getAttribute().getMP().getCurrent()) + "/" +
-                        String.valueOf((int) hero.getAttribute().getMaximumMP()),
-                (float) (gameObject.getX() - viewX),
-                (float) (gameObject.getY() - viewY - 20));
-        g.drawString("(" + String.valueOf((int) gameObject.getX()) + ";" + String.valueOf((int) gameObject.getY())
-                        + ") dir=" + String.valueOf((int) (gameObject.getDirection() / Math.PI * 180) % 360),
-                (float) (gameObject.getX() - viewX),
-                (float) (gameObject.getY() - viewY));*/
-        // TODO for fun
-        /*g.drawString("Kills to next skill: " + (hero.level * 3 - hero.kills), 10, 30);
-        g.drawString("Current level: " + hero.level , 10, 50);
-        hero.level = hero.kills / 3 + 1;*/
+        super.render(g, camera);
     }
 
 }

@@ -40,7 +40,7 @@ public abstract class GameObjectView {
             g.rotate((float) (gameObject.getX() - camera.getX()),
                     (float) (gameObject.getY() - camera.getY()),
                     (float) - (gameObject.getDirection() / Math.PI * 180));
-            g.rotate((float)camera.getCenterX(), (float) camera.getCenterY(), camera.getDirectionDegrees());
+            g.rotate((float) camera.getCenterX(), (float) camera.getCenterY(), camera.getDirectionDegrees());
         }
     }
 

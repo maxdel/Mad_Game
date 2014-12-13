@@ -1,6 +1,5 @@
 package core.model.gameplay.gameobjects;
 
-import core.model.gameplay.gameobjects.GameObject;
 import core.model.gameplay.items.Item;
 
 public class Loot extends GameObject {
@@ -13,7 +12,7 @@ public class Loot extends GameObject {
     }
 
     public Loot(double x, double y, double direction, Item item, int number) {
-        super(x, y, direction);
+        super(x, y, direction, GameObjectType.LOOT);
         this.item = item;
         this.number = number;
     }
@@ -24,6 +23,11 @@ public class Loot extends GameObject {
 
     public int getNumber() {
         return number;
+    }
+
+    @Override
+    public void update(int delta) {
+
     }
 
 }

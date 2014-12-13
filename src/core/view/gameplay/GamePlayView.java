@@ -17,15 +17,12 @@ import core.resourcemanager.MadTiledMap;
 public class GamePlayView {
 
     private List<GameObjectView> gameObjectViewList;
-    private Hero hero;
     private Camera camera;
     private InventoryView inventoryView;
     private TileView tileView;
 
-    public GamePlayView(GameContainer gc, List<GameObject> gameObjectList, Hero hero,
-                        MadTiledMap tiledMap) throws SlickException {
-        this.hero = hero;
-        this.inventoryView = new InventoryView(hero.getInventory());
+    public GamePlayView(GameContainer gc, List<GameObject> gameObjectList, MadTiledMap tiledMap) throws SlickException {
+        this.inventoryView = new InventoryView(World.getInstance().getHero().getInventory());
         this.tileView = new TileView(tiledMap);
 
         this.gameObjectViewList = new ArrayList<>();
@@ -62,14 +59,14 @@ public class GamePlayView {
     }
 
     public void render(GameContainer gc, Graphics g) throws SlickException {
-        camera.update(gc.getWidth(), gc.getHeight(), hero.getX(), hero.getY(), hero.getDirection());
+        camera.update(gc.getWidth(), gc.getHeight(), World.getInstance().getHero().getX(),
+                World.getInstance().getHero().getY(), World.getInstance().getHero().getDirection());
         updateGameObjectViewList();
 
+        tileView.render(g, camera);
         for (GameObjectView gameObjectView : gameObjectViewList) {
             gameObjectView.render(g, camera);
         }
-
-        tileView.render(g, camera);
         inventoryView.render(g, camera.getWidth(), camera.getHeight());
     }
 
