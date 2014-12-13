@@ -3,17 +3,15 @@ package core.model.gameplay;
 import java.util.ArrayList;
 import java.util.List;
 
-import core.resourcemanager.tilemapadv.TiledMapAdv;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Vector2f;
 
 import core.MathAdv;
 import core.model.gameplay.gameobjects.ai.MeleeAI;
 import core.model.gameplay.gameobjects.ai.RangedAI;
 import core.model.gameplay.gameobjects.ai.VampireAI;
 import core.model.gameplay.items.ItemDB;
-import core.model.gameplay.gameobjects.Loot;
 import core.model.gameplay.gameobjects.*;
+import core.resourcemanager.tilemapadv.TiledMapAdv;
 
 /**
  * Main model class, that imitates game world.
@@ -146,8 +144,7 @@ public class World {
         gameObjectToDeleteList.clear();
 
         for (GameObject gameObject : gameObjectList) {
-            Vector2f v = new Vector2f((float)(hero.getX() - gameObject.getX()), (float)(hero.getY() - gameObject.getY()));
-            if (v.length() < UPDATE_RADIUS) {
+            if (MathAdv.getDistance(gameObject.getX(), gameObject.getY(), hero.getX(), hero.getY()) < UPDATE_RADIUS) {
                 gameObject.update(delta);
             }
         }

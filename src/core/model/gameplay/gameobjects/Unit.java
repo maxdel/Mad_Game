@@ -197,10 +197,9 @@ public abstract class Unit extends GameObjectSolid {
             for (GameObject gameObject : World.getInstance().getGameObjectList()) {
                 if (gameObject.getClass() == Loot.class) {
                     Loot loot = (Loot) gameObject;
-                    Vector2f distanceToLoot =
-                            new Vector2f((float) (loot.getX() - lookPointX), (float) (loot.getY() - lookPointY));
-                    if (distanceToLoot.length() < lookRadius) {
-                        lookRadius = distanceToLoot.length();
+                    double distanceToLoot = MathAdv.getDistance(lookPointX, lookPointY, loot.getX(), loot.getY());
+                    if (distanceToLoot < lookRadius) {
+                        lookRadius = distanceToLoot;
                         itemToPick = loot;
                     }
                 }

@@ -1,10 +1,10 @@
 package core.model.gameplay;
 
+import org.newdawn.slick.geom.*;
+
 import core.MathAdv;
 import core.model.gameplay.gameobjects.GameObject;
 import core.model.gameplay.gameobjects.GameObjectSolid;
-
-import org.newdawn.slick.geom.*;
 
 public class CollisionManager {
 
@@ -147,8 +147,7 @@ public class CollisionManager {
         Shape mask2 = getUpdatedMask(gameObjectSolid2.getMask(), gameObjectSolid2.getX(), gameObjectSolid2.getY(), gameObjectSolid2.getDirection());
 
         if (mask1 instanceof Circle && mask2 instanceof Circle) {
-            Vector2f v = new Vector2f(mask2.getX() - mask1.getX(), mask2.getY() - mask1.getY());
-            return v.length() < mask1.getBoundingCircleRadius() + mask2.getBoundingCircleRadius();
+            return MathAdv.getDistance(mask1.getX(), mask1.getY(), mask2.getX(), mask2.getY()) < mask1.getBoundingCircleRadius() + mask2.getBoundingCircleRadius();
         } else {
             return mask1.intersects(mask2);
         }
