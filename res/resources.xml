@@ -23,14 +23,11 @@
             <animation name="fireball" path="/res/bullets/fireball.png" isImage = "true" />
         </animations>
         <masks>
-            <mask name="hero" shape="circle" width="0" height="0" radius="20" />
-            <mask name="vampire" shape="circle" width="0" height="0" radius="20" />
-            <mask name="bandit" shape="circle" width="0" height="0" radius="20" />
-            <mask name="banditArcher" shape="circle" width="0" height="0" radius="20" />
-            <mask name="skeleton" shape="circle" width="0" height="0" radius="30" />
-            <mask name="skeletonMage" shape="circle" width="0" height="0" radius="30" />
+            <mask name="unit" shape="circle" width="0" height="0" radius="20" />
+
             <mask name="wall" shape="rectangle" width="32" height="32" radius="0"/>
             <mask name="tree" shape="circle" width="0" height="0" radius="32" />
+
             <mask name="arrow" shape="rectangle" width="20" height="3" radius="0" />
             <mask name="fireball" shape="circle" width="0" height="0" radius="5" />
         </masks>
@@ -87,7 +84,7 @@
             <font name="descfont" fontName="verdana" size="14" isBold="false" />
         </fonts>
         <units>
-            <unit name="vampire" mask="vampire">
+            <unit name="vampire" mask="unit">
                 <attribute hp="150" mp="150" maximumSpeed="0.12" pAttack="10" mAttack="15" pArmor="5" mArmor="7" />
                 <inventory>
                     <itemRecord name="Sword" number="1" />
@@ -101,7 +98,7 @@
                     <loot name="Apple" probability="1" />
                 </lootList>
             </unit>
-            <unit name="hero" mask="hero">
+            <unit name="hero" mask="unit">
                 <attribute hp="100" mp="100" maximumSpeed="0.12" pAttack="10" mAttack="15" pArmor="5" mArmor="7" />
                 <inventory>
                     <itemRecord name="Sword" number="1" />
@@ -117,7 +114,7 @@
                     <loot name="Apple" probability="1" />
                 </lootList>
             </unit>
-            <unit name="bandit" mask="bandit">
+            <unit name="bandit" mask="unit">
                 <attribute hp="100" mp="100" maximumSpeed="0.08" pAttack="10" mAttack="15" pArmor="5" mArmor="7" />
                 <inventory>
                     <itemRecord name="Sword" number="1" />
@@ -129,7 +126,7 @@
                     <loot name="Healing_flask" probability="1" />
                 </lootList>
             </unit>
-            <unit name="skeleton" mask="skeleton">
+            <unit name="skeleton" mask="unit">
                 <attribute hp="100" mp="100" maximumSpeed="0.3" pAttack="10" mAttack="15" pArmor="5" mArmor="7" />
                 <inventory>
                     <itemRecord name="Sword" number="1" />
@@ -141,7 +138,7 @@
                     <loot name="Healing_flask" probability="1" />
                 </lootList>
             </unit>
-            <unit name="skeletonmage" mask="skeletonMage">
+            <unit name="skeletonmage" mask="unit">
                 <attribute hp="100" mp="100" maximumSpeed="0.3" pAttack="10" mAttack="15" pArmor="5" mArmor="7" />
                 <inventory>
                     <itemRecord name="Strong_staff" number="1" />
@@ -156,7 +153,7 @@
                     <loot name="Mana_flask" probability="0.7" />
                 </lootList>
             </unit>
-            <unit name="banditArcher" mask="banditArcher">
+            <unit name="banditArcher" mask="unit">
                 <attribute hp="100" mp="100" maximumSpeed="0.3" pAttack="10" mAttack="15" pArmor="5" mArmor="7" />
                 <inventory>
                     <itemRecord name="Strong_bow" number="1" />
