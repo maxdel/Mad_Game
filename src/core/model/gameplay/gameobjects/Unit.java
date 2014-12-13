@@ -324,7 +324,7 @@ public abstract class Unit extends GameObjectSolid {
     }
 
 
-    /** MUST BU REFACTORED
+    /**
      * Returns true if the skill can casting with current owner conditions
      *
      * @param skillToCast is a skill, that probably will cast
@@ -332,23 +332,20 @@ public abstract class Unit extends GameObjectSolid {
      * @return true if an owner can start casting skill
      */
     public boolean canStartCast(Skill skillToCast, boolean reqItemIsNecessary) {
-        if (reqItemIsNecessary) {
-            if (skillToCast.getRequiredItem() != null &&
-                    !inventory.isItemDressed(skillToCast.getRequiredItem().getClass())) {
-                return false;
-            }
+        if (reqItemIsNecessary && skillToCast.getRequiredItem() == null) {
+            return false;
         }
 
-        if (!reqItemIsNecessary) {
-            if (!inventory.isItemDressed(skillToCast.getRequiredItem()) &&
-                    skillToCast.getRequiredItem() != null) {
-                return false;
-            }
+        if (reqItemIsNecessary && !inventory.isItemClassDressed(skillToCast.getRequiredItem().getClass())) {
+            return false;
         }
 
-        if (attribute.getMP().getCurrent() < skillToCast.getRequiredMP()
-                || attribute.getHP().getCurrent() < skillToCast.getRequiredHP()
-                || skillToCast.getTimerCooldown().isActive()) {
+        if (skillToCast.getTimerCooldown().isActive()) {
+            return false;
+        }
+
+        if (attribute.getMP().getCurrent() < skillToCast.getRequiredMP() ||
+                attribute.getHP().getCurrent() < skillToCast.getRequiredHP()) {
             return false;
         }
 
