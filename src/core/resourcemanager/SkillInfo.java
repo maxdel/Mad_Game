@@ -13,7 +13,7 @@ public class SkillInfo {
     private String type;
     private Image image;
     private Map<String, String> map;
-    SkillKind kind;
+    private SkillKind kind;
 
     public SkillInfo(String name, String description, String type, Image image, Map<String, String> map, SkillKind kind) {
         this.name = name;

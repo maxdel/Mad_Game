@@ -35,7 +35,6 @@ public class Item {
         return description;
     }
 
-
     public int getParameter(String parameter) {
         return values.get(parameter);
     }

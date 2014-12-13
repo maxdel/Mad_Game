@@ -6,12 +6,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 import java.util.List;
+import javafx.util.Pair;
 
 import core.GameState;
 import core.model.gameplay.items.Item;
 import core.model.gameplay.skills.*;
 import core.model.gameplay.gameobjects.GameObjectType;
-import javafx.util.Pair;
+
 import org.newdawn.slick.*;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Shape;
@@ -35,13 +36,13 @@ public class ResourceManager {
     private Map<GameObjectType, UnitInfo> unitInfos;
 
     private ResourceManager() {
-        animationInfos = new HashMap<String, AnimationInfo>();
-        maskInfos = new HashMap<GameObjectType, MaskInfo>();
-        fontInfos = new HashMap<String, FontInfo>();
-        itemInfos = new HashMap<String, ItemInfo>();
-        skillInfos = new HashMap<SkillKind, SkillInfo>();
-        imageInfos = new HashMap<String, Image>();
-        unitInfos = new HashMap<GameObjectType, UnitInfo>();
+        animationInfos = new HashMap<>();
+        maskInfos = new HashMap<>();
+        fontInfos = new HashMap<>();
+        itemInfos = new HashMap<>();
+        skillInfos = new HashMap<>();
+        imageInfos = new HashMap<>();
+        unitInfos = new HashMap<>();
     }
 
     public static ResourceManager getInstance() {
@@ -351,13 +352,12 @@ public class ResourceManager {
         return itemInfos.get(itemName).getItem();
     }
 
-
     public Skill getSkill(SkillKind skillKind) {
         return skillInfos.get(skillKind).getSkill();
     }
 
-
     public UnitInfo getUnitInfo(GameObjectType type) {
         return unitInfos.get(type);
     }
+
 }
