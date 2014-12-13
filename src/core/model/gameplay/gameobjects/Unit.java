@@ -347,6 +347,12 @@ public abstract class Unit extends GameObjectSolid {
             return false;
         }
 
+
+        // TODO: check for arrow in inventory before use 'Bow shot'
+        /*if (skillToCast.getKind() == SkillKind.BOW_SHOT && !inventory.isItemExists(ARROW)) {
+            return false;
+        }*/
+
         return true;
     }
 
