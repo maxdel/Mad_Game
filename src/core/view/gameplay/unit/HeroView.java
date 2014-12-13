@@ -76,8 +76,7 @@ public class HeroView extends UnitView {
                     Skill castingSkill = hero.getCastingSkill();
                     switch (castingSkill.getKind()) {
                         case SWORD_ATTACK:
-                            music = new Music("res/sounds/Swoosh01.wav");
-                            music.play();
+                            ResourceManager.getInstance().getSound("sword_attack").play();
                             animation = animationSwordAttack;
                             animation.restart();
                             hero.getCastingSkill().getCastTime();
@@ -88,8 +87,7 @@ public class HeroView extends UnitView {
                         case STAFF_ATTACK:
                             break;
                         case STRONG_SWORD_ATTACK:
-                            music = new Music("res/sounds/Swoosh01.wav");
-                            music.play();
+                            ResourceManager.getInstance().getSound("sword_attack").play();
                             animation = animationStrongSwordAttack;
                             animation.restart();
                             hero.getCastingSkill().getCastTime();
@@ -98,8 +96,7 @@ public class HeroView extends UnitView {
                             }
                             break;
                         case FIREBALL:
-                            music = new Music("res/sounds/fireball.wav");
-                            music.play();
+                            ResourceManager.getInstance().getSound("fireball").play();
                             animation = animationBowShot;
                             animation.restart();
                             hero.getCastingSkill().getCastTime();
@@ -108,8 +105,7 @@ public class HeroView extends UnitView {
                             }
                             break;
                         case BOW_SHOT:
-                            music = new Music("res/sounds/Bowshot.wav");
-                            music.play();
+                            ResourceManager.getInstance().getSound("bow_shot").play();
                             animation = animationBowShot;
                             animation.restart();
                             hero.getCastingSkill().getCastTime();

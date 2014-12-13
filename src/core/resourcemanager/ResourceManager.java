@@ -37,6 +37,7 @@ public class ResourceManager {
     private Map<GameObjInstanceKind, UnitInfo> unitInfos;
     private Map<GameObjInstanceKind, ObstacleInfo> obstacleInfos;
     private Map<GameObjInstanceKind, BulletInfo> bulletInfos;
+    private Map<String, SoundInfo> soundInfos;
 
     private ResourceManager() {
         animationInfos = new HashMap<>();
@@ -48,7 +49,7 @@ public class ResourceManager {
         unitInfos = new HashMap<>();
         obstacleInfos = new HashMap<>();
         bulletInfos = new HashMap<>();
-
+        soundInfos = new HashMap<>();
     }
 
 
@@ -101,6 +102,7 @@ public class ResourceManager {
         loadUnits(gameplayElement);
         loadObstacles(gameplayElement);
         loadBullets(gameplayElement);
+        loadSounds(gameplayElement);
 
         in.close();
     }
@@ -352,6 +354,19 @@ public class ResourceManager {
         }
     }
 
+    private void loadSounds(XMLElement gameStateElement) throws SlickException {
+        XMLElement soundsElement = gameStateElement.getChildrenByName("sounds").get(0);
+        XMLElementList soundList = soundsElement.getChildrenByName("sound");
+        for (int i = 0; i < soundList.size(); ++i) {
+            XMLElement soundElement = soundList.get(i);
+
+            String soundName = soundElement.getAttribute("name");
+            Sound sound = new Sound(soundElement.getAttribute("path"));
+
+            soundInfos.put(soundName, new SoundInfo(sound));
+        }
+    }
+
     // GETTERS
     public Image getImage(String name) {
         return imageInfos.get(name);
@@ -410,6 +425,10 @@ public class ResourceManager {
 
     public BulletInfo getBulletInfo(GameObjInstanceKind type) {
         return bulletInfos.get(type);
+    }
+
+    public Sound getSound(String name) {
+        return soundInfos.get(name).getSound();
     }
 
 }

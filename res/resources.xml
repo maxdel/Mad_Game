@@ -176,6 +176,12 @@
             <bullet name="fireball" mask="fireball" />
             <bullet name="arrow" mask="arrow" />
         </bullets>
+        <sounds>
+            <sound name="sword_attack" path="/res/sounds/sword_attack.wav" />
+            <sound name="bow_shot" path="/res/sounds/bow_shot.wav" />
+            <sound name="apple_bite" path="/res/sounds/apple_bite.wav" />
+            <sound name="fireball" path="/res/sounds/fireball.wav" />
+        </sounds>
     </gameplay>
 
     <menustart>
