@@ -35,7 +35,7 @@ public class ResourceManager {
     private Map<String, Image> imageInfos;
     private Map<GameObjectType, UnitInfo> unitInfos;
     private Map<GameObjectType, ObstacleInfo> obstacleInfos;
-    private Map<GameObjectType, ObstacleInfo> bulletInfos;
+    private Map<GameObjectType, BulletInfo> bulletInfos;
 
     private ResourceManager() {
         animationInfos = new HashMap<>();
@@ -340,9 +340,9 @@ public class ResourceManager {
             String bulletName = bulletElement.getAttribute("name");
             String maskName = bulletElement.getAttribute("mask");
 
-            ObstacleInfo obstacleInfo = new ObstacleInfo(maskName);
+            BulletInfo bulletInfo = new BulletInfo(maskName);
 
-            bulletInfos.put(GameObjectType.valueOf(bulletName.toUpperCase()), obstacleInfo);
+            bulletInfos.put(GameObjectType.valueOf(bulletName.toUpperCase()), bulletInfo);
         }
     }
 
@@ -400,7 +400,7 @@ public class ResourceManager {
         return obstacleInfos.get(type);
     }
 
-    public ObstacleInfo getBulletInfo(GameObjectType type) {
+    public BulletInfo getBulletInfo(GameObjectType type) {
         return bulletInfos.get(type);
     }
 
