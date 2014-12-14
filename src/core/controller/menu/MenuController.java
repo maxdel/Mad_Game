@@ -1,35 +1,32 @@
 package core.controller.menu;
 
+import core.model.menu.Menu;
 import main.Main;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
-import core.model.menu.MenuManager;
 import core.GamePlayState;
 import core.model.gameplay.World;
-import core.model.menu.MenuStart;
 
 /*
 * Provides functions to handle user menu navigate events
 * */
-public class MenuStartController {
+public class MenuController {
 
-    private static MenuStartController instance;
+    private static MenuController instance;
 
-    private MenuStart menuStart;
+    private Menu menu;
 
-    MenuManager menuManager;
 
-    private MenuStartController() {
-        menuStart = MenuStart.getInstance();
-        menuManager = new MenuManager(menuStart);
+    private MenuController() {
+        menu = Menu.getInstance();
     }
 
-    public static MenuStartController getInstance() {
+    public static MenuController getInstance() {
         if (instance == null) {
-            instance = new MenuStartController();
+            instance = new MenuController();
         }
         return instance;
     }
@@ -39,23 +36,26 @@ public class MenuStartController {
         Input input = gc.getInput();
 
         if (input.isKeyPressed(Input.KEY_S)) {
-            menuManager.stepDown();
+            menu.stepDown();
         }
 
         if (input.isKeyPressed(Input.KEY_W)) {
-            menuManager.stepUp();
+            menu.stepUp();
         }
 
         if (!Main.changeFullScreenMode(gc, input)) {
             if (input.isKeyPressed(Input.KEY_ENTER)) {
-                if (menuStart.getCurrentChoice() == menuStart.getMenuId("Start")) {
+                if (menu.getCurrentChoice() == menu.getMenuId(Menu.MenuElement.RESUME)) {
+                    World.getInstance();
+                    game.enterState(GamePlayState.getInstance().getID());
+                } else if (menu.getCurrentChoice() == menu.getMenuId(Menu.MenuElement.NEW_GAME)) {
                     World.getInstance(true); // creating new world
                     game.enterState(GamePlayState.getInstance().getID());
-                } else if (menuStart.getCurrentChoice() == menuStart.getMenuId("Load")) {
+                } else if (menu.getCurrentChoice() == menu.getMenuId(Menu.MenuElement.SETTING)) {
 
-                } else if (menuStart.getCurrentChoice() == menuStart.getMenuId("Help")) {
+                } else if (menu.getCurrentChoice() == menu.getMenuId(Menu.MenuElement.AUTHORS)) {
 
-                } else if (menuStart.getCurrentChoice() == menuStart.getMenuId("Exit")) {
+                } else if (menu.getCurrentChoice() == menu.getMenuId(Menu.MenuElement.EXIT)) {
                     gc.exit();
                 }
             }

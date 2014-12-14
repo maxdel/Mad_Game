@@ -6,10 +6,13 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.Image;
 
 import core.controller.gameplay.GamePlayController;
 import core.model.gameplay.World;
 import core.view.gameplay.GamePlayView;
+
+
 
 /*
 * Execute game play
@@ -67,6 +70,7 @@ public class GamePlayState extends BasicGameState {
 
     @Override
     public void leave(GameContainer gc, StateBasedGame game) throws SlickException {
+        gc.getInput().clearKeyPressedRecord();
         ResourceManager.getInstance().unload();
         world = null;
         gamePlayView = null;

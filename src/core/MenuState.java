@@ -1,31 +1,34 @@
 package core;
 
+import core.model.menu.Menu;
 import core.resourcemanager.ResourceManager;
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import core.controller.menu.MenuPauseController;
-import core.model.menu.MenuPause;
+import core.controller.menu.MenuController;
 import core.view.menu.MenuView;
 
-public class MenuPauseState extends BasicGameState {
+/*
+* Execute start menu
+* */
+public class MenuState extends BasicGameState {
 
-    private static MenuPauseState instance;
+    private static MenuState instance;
 
-    private final GameState STATE_ID = GameState.MENUPAUSE;
+    private final GameState STATE_ID = GameState.MENU;
 
-    private MenuPauseController menuPauseController;
+    private MenuController menuController;
     private MenuView menuView;
 
-    private MenuPauseState() {
+    private MenuState() {
     }
 
-    public static MenuPauseState getInstance() {
+    public static MenuState getInstance() {
         if (instance == null) {
-            instance = new MenuPauseState();
+            instance = new MenuState();
         }
         return instance;
     }
@@ -47,23 +50,23 @@ public class MenuPauseState extends BasicGameState {
 
     @Override
     public void update(GameContainer gc, StateBasedGame game, int delta) throws SlickException {
-        menuPauseController.update(gc, game);
+        menuController.update(gc, game);
     }
 
     @Override
     public void enter(GameContainer gc, StateBasedGame game) throws SlickException {
         ResourceManager.getInstance().load(STATE_ID);
 
-        gc.getInput().clearKeyPressedRecord();
-        menuPauseController = MenuPauseController.getInstance();
-        menuView = new MenuView(MenuPause.getInstance());
+        menuController = MenuController.getInstance();
+        menuView = new MenuView(Menu.getInstance());
     }
 
     @Override
     public void leave(GameContainer gc, StateBasedGame game) throws SlickException {
         ResourceManager.getInstance().unload();
+        gc.getInput().clearKeyPressedRecord();
 
-        menuPauseController = null;
+        menuController = null;
         menuView = null;
         System.gc();
     }

@@ -2,6 +2,7 @@ package core.view.menu;
 
 import core.resourcemanager.ResourceManager;
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.TrueTypeFont;
 
 import core.model.menu.Menu;
@@ -29,11 +30,11 @@ public class MenuView {
         for (int i = 0; i < menu.getNumberOfChoices(); i++) {
             if (i == menu.getCurrentChoice()) {
                 menuItemTTF.drawString(gc.getWidth() / 2 - menuItemTTF.getWidth(playerChoices[i]) / 2,
-                        i * 50 + 130, playerChoices[i], new org.newdawn.slick.Color(255, 153, 0));
+                        i * 50 + 130, playerChoices[i], new org.newdawn.slick.Color(102, 255, 0));
             }
             else {
                 menuItemTTF.drawString(gc.getWidth() / 2 - menuItemTTF.getWidth(playerChoices[i]) / 2,
-                        i * 50 + 130, playerChoices[i], new org.newdawn.slick.Color(200, 200, 200));
+                        i * 50 + 130, playerChoices[i], new org.newdawn.slick.Color(255, 255, 255));
             }
         }
     }

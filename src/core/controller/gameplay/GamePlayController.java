@@ -3,10 +3,7 @@ package core.controller.gameplay;
 import core.model.gameplay.skills.SkillInstanceKind;
 import main.Main;
 import org.lwjgl.input.Mouse;
-import org.newdawn.slick.AppGameContainer;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Input;
-import org.newdawn.slick.SlickException;
+import org.newdawn.slick.*;
 import org.newdawn.slick.state.StateBasedGame;
 
 import core.GameState;
@@ -45,7 +42,7 @@ public class GamePlayController {
         if (controlMode.equals("Hero")) {
             // Enter pause menu
             if (input.isKeyPressed(Input.KEY_ESCAPE)) {
-                game.enterState(GameState.MENUPAUSE.getValue());
+                game.enterState(GameState.MENU.getValue());
             }
 
             // Controls the direction of the hero
