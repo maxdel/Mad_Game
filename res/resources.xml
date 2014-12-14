@@ -70,7 +70,7 @@
                    HPdelta="20"/>
             <skill name="Wind_bow" description="WINDBOW!!!" path="/res/skills/wind bow.png" type="ImproverSkill"
                    castTime="200" postApplyTime="100" cooldownTime="10000" requiredItemType="" requiredHP="0" requiredMP="10"
-                   workTime="5000" skillToBuffKind="Bow shot" castTimeDelta="150" cooldownTimeDelta="950"/>
+                   workTime="5000" skillToBuff="Bow_shot" castTimeDelta="150" cooldownTimeDelta="950"/>
             <skill name="Strong_sword_attack" description="SSSSword!!!" path="/res/skills/strong sword attack.png" type="AreaDamage"
                    castTime="400" postApplyTime="100" cooldownTime="2000" requiredItemType="Sword" requiredHP="0" requiredMP="4"
                    pAttack="50" mAttack="5" radius="100" angle="60"/>
@@ -108,10 +108,12 @@
                     <itemRecord name="Staff" number="1" />
                 </inventory>
                 <skillList>
-                    <skill name="Sword_attack" type="AreaDamage"/>
-                    <skill name="Bow_shot" type="BulletShot"/>
-                    <skill name="Fireball" type="BulletShot"/>
-                    <skill name="Blink" type="BlinkSkill"/>
+                    <skill name="Sword_attack"/>
+                    <skill name="Bow_shot"/>
+                    <skill name="Fireball"/>
+                    <skill name="Blink"/>
+                    <skill name="Heal"/>
+                    <skill name="Wind_bow"/>
                 </skillList>
                 <lootList>
                     <loot name="Apple" probability="1" />

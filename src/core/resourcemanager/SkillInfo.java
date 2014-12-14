@@ -26,11 +26,20 @@ public class SkillInfo {
 
     public Skill getSkill() {
         Skill skill = null;
+
+        ItemInstanceKind reqItemInstanceKind;
+        try {
+            reqItemInstanceKind = ItemInstanceKind.valueOf(map.get("requiredItemType").toUpperCase());
+        }
+        catch (IllegalArgumentException e) {
+            reqItemInstanceKind = null;
+        }
+
         if (type.equals("BulletShot")) {
             skill = new BulletShot(name, description, Integer.parseInt(map.get("castTime")),
                     Integer.parseInt(map.get("postApplyTime")),
                     Integer.parseInt(map.get("cooldownTime")),
-                    ItemInstanceKind.valueOf(map.get("requiredItemType").toUpperCase()),
+                    reqItemInstanceKind,
                     Double.parseDouble(map.get("requiredHP")), Double.parseDouble(map.get("requiredMP")),
                     Double.parseDouble(map.get("bulletSpeed")), Double.parseDouble(map.get("pAttack")),
                     Double.parseDouble(map.get("mAttack")), kind);
@@ -38,7 +47,7 @@ public class SkillInfo {
             skill = new AreaDamage(name, description, Integer.parseInt(map.get("castTime")),
                     Integer.parseInt(map.get("postApplyTime")),
                     Integer.parseInt(map.get("cooldownTime")),
-                    ItemInstanceKind.valueOf(map.get("requiredItemType").toUpperCase()),
+                    reqItemInstanceKind,
                     Double.parseDouble(map.get("requiredHP")), Double.parseDouble(map.get("requiredMP")),
                     Double.parseDouble(map.get("pAttack")), Double.parseDouble(map.get("mAttack")),
                     Double.parseDouble(map.get("radius")), Double.parseDouble(map.get("angle")) * Math.PI / 180, kind);
@@ -46,34 +55,24 @@ public class SkillInfo {
             skill = new SkillImprover(name, description, Integer.parseInt(map.get("castTime")),
                     Integer.parseInt(map.get("postApplyTime")),
                     Integer.parseInt(map.get("cooldownTime")),
-                    ItemInstanceKind.valueOf(map.get("requiredItemType").toUpperCase()),
+                    reqItemInstanceKind,
                     Double.parseDouble(map.get("requiredHP")), Double.parseDouble(map.get("requiredMP")),
                     Integer.parseInt(map.get("workTime")),
-                    SkillInstanceKind.valueOf(map.get("skillToBuff")),
+                    SkillInstanceKind.valueOf(map.get("skillToBuff").toUpperCase()),
                     Integer.parseInt(map.get("castTimeDelta")), Integer.parseInt(map.get("cooldownTimeDelta")), kind);
         } else if (type.equals("Regen")) {
             skill = new Regen(name, description, Integer.parseInt(map.get("castTime")),
                     Integer.parseInt(map.get("postApplyTime")),
                     Integer.parseInt(map.get("cooldownTime")),
-                    ItemInstanceKind.valueOf(map.get("requiredItemType").toUpperCase()),
+                    reqItemInstanceKind,
                     Double.parseDouble(map.get("requiredHP")), Double.parseDouble(map.get("requiredMP")),
                     Integer.parseInt(map.get("HPdelta")), kind);
         } else if (type.equals("BlinkSkill")) {
-            try {
-                skill = new BlinkSkill(name, description, Integer.parseInt(map.get("castTime")),
-                        Integer.parseInt(map.get("postApplyTime")),
-                        Integer.parseInt(map.get("cooldownTime")), ItemInstanceKind.valueOf(map.get("requiredItemType")),
-                        Double.parseDouble(map.get("requiredHP")), Double.parseDouble(map.get("requiredMP")),
-                        Integer.parseInt(map.get("distance")), kind);
-            } catch (IllegalArgumentException e) {
-                skill = new BlinkSkill(name, description, Integer.parseInt(map.get("castTime")),
-                        Integer.parseInt(map.get("postApplyTime")),
-                        Integer.parseInt(map.get("cooldownTime")), null,
-                        Double.parseDouble(map.get("requiredHP")), Double.parseDouble(map.get("requiredMP")),
-                        Integer.parseInt(map.get("distance")), kind);
-
-            }
-
+            skill = new BlinkSkill(name, description, Integer.parseInt(map.get("castTime")),
+                    Integer.parseInt(map.get("postApplyTime")),
+                    Integer.parseInt(map.get("cooldownTime")), reqItemInstanceKind,
+                    Double.parseDouble(map.get("requiredHP")), Double.parseDouble(map.get("requiredMP")),
+                    Integer.parseInt(map.get("distance")), kind);
         }
         return skill;
     }
@@ -81,5 +80,6 @@ public class SkillInfo {
     public Image getImage() {
         return image;
     }
+
 
 }

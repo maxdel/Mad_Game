@@ -414,6 +414,9 @@ public class ResourceManager {
         return skillInfos.get(skillInstanceKind).getSkill();
     }
 
+    public Map<SkillInstanceKind, SkillInfo> getSkillInfos() {
+        return skillInfos;
+    }
 
     public UnitInfo getUnitInfo(GameObjInstanceKind type) {
         return unitInfos.get(type);
