@@ -1,8 +1,8 @@
-package core;
+package core.gamestates;
 
 public enum GameState {
 
-    GAMEPLAY(0), MENUSTART(1), MENUPAUSE(2);
+    GAMEPLAY(0), MENU(1), SETTINGS(2), AUTHORS(3);
 
     private int value;
 

@@ -1,14 +1,12 @@
-package core.controller.gameplay;
+package core.controller;
 
 import core.model.gameplay.skills.SkillInstanceKind;
+import main.Main;
 import org.lwjgl.input.Mouse;
-import org.newdawn.slick.AppGameContainer;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Input;
-import org.newdawn.slick.SlickException;
+import org.newdawn.slick.*;
 import org.newdawn.slick.state.StateBasedGame;
 
-import core.GameState;
+import core.gamestates.GameState;
 import core.model.gameplay.gameobjects.Hero;
 import core.model.gameplay.World;
 
@@ -41,10 +39,12 @@ public class GamePlayController {
     public void update(GameContainer gc, StateBasedGame game) throws SlickException {
         Input input = gc.getInput();
 
+        Main.changeFullScreenMode(gc, input);
+
         if (controlMode.equals("Hero")) {
             // Enter pause menu
             if (input.isKeyPressed(Input.KEY_ESCAPE)) {
-                game.enterState(GameState.MENUPAUSE.getValue());
+                game.enterState(GameState.MENU.getValue());
             }
 
             // Controls the direction of the hero
@@ -124,14 +124,6 @@ public class GamePlayController {
                 hero.startCastSkill(SkillInstanceKind.BLINK);
             }
 
-            // Change full-screen mode
-            if (input.isKeyDown(Input.KEY_LALT) && input.isKeyDown(Input.KEY_ENTER)) {
-                if (gc.isFullscreen()) {
-                    ((AppGameContainer) gc).setDisplayMode(640, 480, false);
-                } else {
-                    ((AppGameContainer) gc).setDisplayMode(gc.getScreenWidth(), gc.getScreenHeight(), true);
-                }
-            }
 
             // Swtich combat mode
             if (input.isKeyPressed(Input.KEY_CAPITAL)) {
@@ -187,7 +179,9 @@ public class GamePlayController {
             if (input.isMousePressed(input.MOUSE_LEFT_BUTTON)) {
                 hero.startUseItem();
             }
+
         }
     }
+
 
 }
