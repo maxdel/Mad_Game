@@ -179,7 +179,7 @@ public abstract class Unit extends GameObjectSolid {
         Loot loot = new Loot(getX() + MathAdv.lengthDirX(getDirection(), LOOT_RANGE),
                 getY() + MathAdv.lengthDirY(getDirection(), LOOT_RANGE),
                 itemToDrop.getItem());
-        World.getInstance().getGameObjectList().add(loot);
+        World.getInstance().getGameObjectToAddList().add(loot);
         inventory.deleteItem(inventory.getSelectedRecord().getItem().getInstanceKind());
         currentState = GameObjectState.STAND;
     }
