@@ -1,5 +1,6 @@
 package core.controller.menu;
 
+import main.Main;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
@@ -32,6 +33,7 @@ public class MenuPauseController {
 
     public void update(GameContainer gc, StateBasedGame game) throws SlickException {
         Input input = gc.getInput();
+
         if (input.isKeyPressed(Input.KEY_S)) {
             menuManager.stepDown();
         }
@@ -40,23 +42,24 @@ public class MenuPauseController {
             menuManager.stepUp();
         }
 
-        if (input.isKeyPressed(Input.KEY_ENTER)) {
-            if (menuPause.getCurrentChoice() == menuPause.getMenuId("Resume")) {
-                World.getInstance(); // resuming existing world
-                game.enterState(GamePlayState.getInstance().getID());
-            }
-            else if (menuPause.getCurrentChoice() == menuPause.getMenuId("Load")) {
+        if (!Main.changeFullScreenMode(gc, input)) {
+            if (input.isKeyPressed(Input.KEY_ENTER)) {
+                if (menuPause.getCurrentChoice() == menuPause.getMenuId("Resume")) {
+                    World.getInstance(); // resuming existing world
+                    game.enterState(GamePlayState.getInstance().getID());
+                } else if (menuPause.getCurrentChoice() == menuPause.getMenuId("Load")) {
 
-            }
-            else if (menuPause.getCurrentChoice() == menuPause.getMenuId("Help")) {
+                } else if (menuPause.getCurrentChoice() == menuPause.getMenuId("Help")) {
 
-            }
-            else if (menuPause.getCurrentChoice() == menuPause.getMenuId("Main menu")) {
-                game.enterState(MenuStartState.getInstance().getID());
-                World.deleteInstance();
+                } else if (menuPause.getCurrentChoice() == menuPause.getMenuId("Main menu")) {
+                    game.enterState(MenuStartState.getInstance().getID());
+                    World.deleteInstance();
+                }
             }
         }
+        else {
+            gc.getInput().clearKeyPressedRecord();
+        }
     }
-
 
 }

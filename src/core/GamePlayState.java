@@ -68,8 +68,6 @@ public class GamePlayState extends BasicGameState {
     @Override
     public void leave(GameContainer gc, StateBasedGame game) throws SlickException {
         ResourceManager.getInstance().unload();
-
-        World.deleteInstance();
         world = null;
         gamePlayView = null;
         gamePlayController = null;

@@ -1,5 +1,6 @@
 package core.controller.menu;
 
+import main.Main;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
@@ -36,6 +37,7 @@ public class MenuStartController {
 
     public void update(GameContainer gc, StateBasedGame game) throws SlickException {
         Input input = gc.getInput();
+
         if (input.isKeyPressed(Input.KEY_S)) {
             menuManager.stepDown();
         }
@@ -44,21 +46,24 @@ public class MenuStartController {
             menuManager.stepUp();
         }
 
-        if (input.isKeyPressed(Input.KEY_ENTER)) {
-            if (menuStart.getCurrentChoice() == menuStart.getMenuId("Start")) {
-                World.getInstance(true); // creating new world
-                game.enterState(GamePlayState.getInstance().getID());
-            }
-            else if (menuStart.getCurrentChoice() == menuStart.getMenuId("Load")) {
+        if (!Main.changeFullScreenMode(gc, input)) {
+            if (input.isKeyPressed(Input.KEY_ENTER)) {
+                if (menuStart.getCurrentChoice() == menuStart.getMenuId("Start")) {
+                    World.getInstance(true); // creating new world
+                    game.enterState(GamePlayState.getInstance().getID());
+                } else if (menuStart.getCurrentChoice() == menuStart.getMenuId("Load")) {
 
-            }
-            else if (menuStart.getCurrentChoice() == menuStart.getMenuId("Help")) {
+                } else if (menuStart.getCurrentChoice() == menuStart.getMenuId("Help")) {
 
+                } else if (menuStart.getCurrentChoice() == menuStart.getMenuId("Exit")) {
+                    gc.exit();
+                }
             }
-            else if (menuStart.getCurrentChoice() == menuStart.getMenuId("Exit")) {
-                gc.exit();
-            }
+        } else {
+            gc.getInput().clearKeyPressedRecord();
         }
+
+
     }
 
 }

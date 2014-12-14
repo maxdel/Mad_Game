@@ -1,6 +1,7 @@
 package core.controller.gameplay;
 
 import core.model.gameplay.skills.SkillInstanceKind;
+import main.Main;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
@@ -124,14 +125,6 @@ public class GamePlayController {
                 hero.startCastSkill(SkillInstanceKind.BLINK);
             }
 
-            // Change full-screen mode
-            if (input.isKeyDown(Input.KEY_LALT) && input.isKeyDown(Input.KEY_ENTER)) {
-                if (gc.isFullscreen()) {
-                    ((AppGameContainer) gc).setDisplayMode(640, 480, false);
-                } else {
-                    ((AppGameContainer) gc).setDisplayMode(gc.getScreenWidth(), gc.getScreenHeight(), true);
-                }
-            }
 
             // Swtich combat mode
             if (input.isKeyPressed(Input.KEY_CAPITAL)) {
@@ -187,7 +180,10 @@ public class GamePlayController {
             if (input.isMousePressed(input.MOUSE_LEFT_BUTTON)) {
                 hero.startUseItem();
             }
+
+            Main.changeFullScreenMode(gc, input);
         }
     }
+
 
 }
