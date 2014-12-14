@@ -31,6 +31,10 @@ public abstract class GameObjectView {
         }
     }
 
+    public void update(int delta) {
+
+    }
+
     public void rotate(Graphics g, Camera camera, boolean isFront) {
         if (isFront) {
             g.rotate((float) camera.getCenterX(), (float) camera.getCenterY(), - camera.getDirectionDegrees());
@@ -53,5 +57,5 @@ public abstract class GameObjectView {
     public GameObject getGameObject() {
         return gameObject;
     }
-    
+
 }

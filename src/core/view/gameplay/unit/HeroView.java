@@ -1,13 +1,15 @@
 package core.view.gameplay.unit;
 
+import core.model.gameplay.gameobjects.*;
 import core.view.gameplay.Camera;
+import core.view.gameplay.ParticleEffect;
 import org.newdawn.slick.*;
 
-import core.model.gameplay.gameobjects.GameObject;
 import core.model.gameplay.skills.Skill;
-import core.model.gameplay.gameobjects.Hero;
-import core.model.gameplay.gameobjects.GameObjectState;
 import core.resourcemanager.ResourceManager;
+import org.newdawn.slick.particles.ParticleIO;
+
+import java.io.IOException;
 
 public class HeroView extends UnitView {
 
@@ -33,6 +35,7 @@ public class HeroView extends UnitView {
     @Override
     public void render(Graphics g, Camera camera) throws SlickException {
         Hero hero = (Hero) gameObject;
+
         if (hero.getCurrentState() != previousState) {
             switch (hero.getCurrentState()) {
                 case MOVE:
@@ -72,7 +75,6 @@ public class HeroView extends UnitView {
                     animation.setSpeed((float) (hero.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("hero_walk")));
                     break;
                 case SKILL:
-                    Music music = null;
                     Skill castingSkill = hero.getCastingSkill();
                     switch (castingSkill.getKind()) {
                         case SWORD_ATTACK:

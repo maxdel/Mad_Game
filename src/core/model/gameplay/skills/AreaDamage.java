@@ -3,6 +3,7 @@ package core.model.gameplay.skills;
 import core.MathAdv;
 import core.model.gameplay.World;
 import core.model.gameplay.gameobjects.GameObject;
+import core.model.gameplay.gameobjects.GameObjectSolid;
 import core.model.gameplay.gameobjects.Unit;
 import core.model.gameplay.items.ItemInstanceKind;
 import org.newdawn.slick.geom.Vector2f;
@@ -34,13 +35,7 @@ public class AreaDamage extends Skill {
             if (gameObject instanceof Unit && gameObject != owner) {
                 Unit target = (Unit) gameObject;
 
-                Vector2f v1 = new Vector2f((float) MathAdv.lengthDirX(owner.getDirection(), angle),
-                        (float)MathAdv.lengthDirY(owner.getDirection(), angle));
-                Vector2f v2 = new Vector2f((float)(target.getX() - owner.getX()), (float)(target.getY() - owner.getY()));
-                double angleBetweenObjects = Math.acos(v1.dot(v2) / (v1.length() * v2.length()));
-
-                if (v2.length() - target.getMask().getBoundingCircleRadius() <= radius &&
-                        Math.abs(angleBetweenObjects) < angle / 2) {
+                if (isHitTheTarget(owner, target)) {
                     if (pAttack > 0) {
                         applyPhysDamage(owner, target);
                     }
@@ -49,6 +44,20 @@ public class AreaDamage extends Skill {
                     }
                 }
             }
+        }
+    }
+
+    public boolean isHitTheTarget(Unit owner, GameObjectSolid target) {
+            Vector2f v1 = new Vector2f((float) MathAdv.lengthDirX(owner.getDirection(), angle),
+            (float)MathAdv.lengthDirY(owner.getDirection(), angle));
+        Vector2f v2 = new Vector2f((float)(target.getX() - owner.getX()), (float)(target.getY() - owner.getY()));
+        double angleBetweenObjects = Math.acos(v1.dot(v2) / (v1.length() * v2.length()));
+
+        if (v2.length() - target.getMask().getBoundingCircleRadius() <= radius &&
+                Math.abs(angleBetweenObjects) < angle / 2) {
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -74,6 +83,10 @@ public class AreaDamage extends Skill {
             pDamage = 1;
         }
         target.getAttribute().getHP().damage(pDamage);
+    }
+
+    public double getRadius() {
+        return radius;
     }
 
 }

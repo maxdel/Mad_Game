@@ -3,6 +3,8 @@ package core.model.gameplay;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.newdawn.slick.SlickException;
+
 import core.MathAdv;
 import core.model.gameplay.gameobjects.ai.MeleeAI;
 import core.model.gameplay.gameobjects.ai.RangedAI;
@@ -11,7 +13,6 @@ import core.model.gameplay.items.ItemDB;
 import core.model.gameplay.gameobjects.*;
 import core.model.gameplay.items.ItemInstanceKind;
 import core.resourcemanager.tilemapadv.TiledMapAdv;
-import org.newdawn.slick.SlickException;
 
 /**
  * Main model class, that imitates game world.

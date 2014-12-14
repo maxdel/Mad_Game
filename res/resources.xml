@@ -36,6 +36,9 @@
             <image name="Dressed item frame" path = "/res/items/dressed item.png" />
             <image name="Selected loot" path = "/res/items/selected loot.png" />
             <image name="Bow aim" path = "/res/aim.png" />
+
+            <image name="particle_spark" path = "/res/particles/particle_spark.png" />
+            <image name="particle_leaf" path = "/res/particles/particle_leaf.png" />
         </images>
         <items>
             <item name="Healing_flask" description="+20 HP" path = "/res/items/healing flask.png" type="Reagent" heal="20" mana="0"/>
@@ -57,7 +60,7 @@
                     castTime="300" postApplyTime="200" cooldownTime="1000" requiredItemType="Bow" requiredHP="0" requiredMP="0"
                     pAttack="15" mAttack="0" bulletSpeed="0.5"/>
             <skill name="Sword_attack" description="Sword!!!" path="/res/skills/sword attack.png" type="AreaDamage"
-                   castTime="400" postApplyTime="100" cooldownTime="1000" requiredItemType="Sword" requiredHP="0" requiredMP="0"
+                   castTime="300" postApplyTime="150" cooldownTime="1000" requiredItemType="Sword" requiredHP="0" requiredMP="0"
                    pAttack="15" mAttack="0" radius="55" angle="90"/>
             <skill name="Fireball" description="Fireball!!!" path="/res/skills/fireball.png" type="BulletShot"
                    castTime="200" postApplyTime="100" cooldownTime="1000" requiredItemType="Staff" requiredHP="0" requiredMP="5"
@@ -178,6 +181,8 @@
         </bullets>
         <sounds>
             <sound name="sword_attack" path="/res/sounds/sword_attack.wav" />
+            <sound name="sword_stone" path="/res/sounds/sword_stone.wav" />
+            <sound name="sword_tree" path="/res/sounds/sword_tree.wav" />
             <sound name="bow_shot" path="/res/sounds/bow_shot.wav" />
             <sound name="apple_bite" path="/res/sounds/apple_bite.wav" />
             <sound name="fireball" path="/res/sounds/fireball.wav" />

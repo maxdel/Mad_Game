@@ -53,6 +53,7 @@ public class GamePlayState extends BasicGameState {
     public void update(GameContainer gc, StateBasedGame game, int delta) throws SlickException {
         gamePlayController.update(gc, game);
         world.update(delta);
+        gamePlayView.update(delta);
     }
 
     @Override

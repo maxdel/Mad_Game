@@ -3,6 +3,7 @@ package core.view.gameplay;
 import java.util.ArrayList;
 import java.util.List;
 
+import core.resourcemanager.ResourceManager;
 import core.view.gameplay.gameobject.GameObjectView;
 import core.view.gameplay.gameobject.LootView;
 import core.view.gameplay.gameobjectsolid.ArrowView;
@@ -75,6 +76,12 @@ public class GamePlayView {
             gameObjectView.render(g, camera);
         }
         inventoryView.render(g, camera.getWidth(), camera.getHeight());
+    }
+
+    public void update(int delta) {
+        for (GameObjectView gameObjectView : gameObjectViewList) {
+            gameObjectView.update(delta);
+        }
     }
 
     private void updateGameObjectViewList() throws SlickException {
