@@ -127,8 +127,8 @@ public abstract class UnitView extends GameObjectSolidView {
         if (unit.getCurrentState() == GameObjectState.SKILL) {
             if (unit.getCastingSkill().getKind() == SkillInstanceKind.SWORD_ATTACK) {
                 for (GameObject gameObject : World.getInstance().getGameObjectList()) {
-                    if (gameObject instanceof Obstacle) {
-                        Obstacle target = (Obstacle) gameObject;
+                    if (gameObject instanceof GameObjectSolid) {
+                        GameObjectSolid target = (GameObjectSolid) gameObject;
 
                         AreaDamage areaDamage = (AreaDamage) unit.getCastingSkill();
                         if (areaDamage.isHitTheTarget(unit, target)) {
@@ -151,6 +151,16 @@ public abstract class UnitView extends GameObjectSolidView {
                                         pe.reset();
                                         ResourceManager.getInstance().getSound("sword_tree").play();
                                         break;
+                                }
+                                if (target instanceof Unit && target != unit) {
+                                    Unit targetUnit = (Unit) target;
+                                    if (targetUnit.getCastingSkill() != null && targetUnit.getCastingSkill().getKind() == SkillInstanceKind.SWORD_ATTACK) {
+                                        pe = particleMap.get(ParticleType.SPARKS);
+                                        pe.setX(unit.getX() + MathAdv.lengthDirX(unit.getDirection(), areaDamage.getRadius()));
+                                        pe.setY(unit.getY() + MathAdv.lengthDirY(unit.getDirection(), areaDamage.getRadius()));
+                                        pe.reset();
+                                        ResourceManager.getInstance().getSound("sword_stone").play();
+                                    }
                                 }
                                 break;
                             }
