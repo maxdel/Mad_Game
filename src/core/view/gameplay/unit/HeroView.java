@@ -117,7 +117,7 @@ public class HeroView extends UnitView {
                             break;
                     }
                     animation.start();
-                }
+            }
         }
 
         previousState = hero.getCurrentState();

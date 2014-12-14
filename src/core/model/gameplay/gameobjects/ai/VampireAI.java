@@ -36,32 +36,32 @@ public class VampireAI extends BotAI {
         stateMap.put(VampireAIState.STAND, new AIState() {
             private Timer timer;
             public void enter()           { timer = new Timer(standTime);                                                                }
-            public void run()             { owner.stand();                                                                               }
+            public void run(int delta)             { owner.stand();                                                                               }
             public void update(int delta) { if (timer.update(delta))                  currentState = VampireAIState.WALK;
                                             if (getDistanceToHero() < pursueDistance) currentState = VampireAIState.PURSUE;              }
         });
         stateMap.put(VampireAIState.WALK, new AIState() {
             private Point target;
             public void enter()           { target = getRandomTarget();                                                                  }
-            public void run()             { followTarget(target);                                                                        }
+            public void run(int delta)             { followTarget(target);                                                                        }
             public void update(int delta) { if (getDistanceToHero() < pursueDistance) currentState = VampireAIState.PURSUE;
                                             if (getDistanceToTarget(target) < 2)      currentState = VampireAIState.STAND;               }
         });
         stateMap.put(VampireAIState.PURSUE, new AIState() {
             public void enter()           {                                                                                              }
-            public void run()             { followHero();                                                                                }
+            public void run(int delta)             { followHero();                                                                                }
             public void update(int delta) { if (getDistanceToHero() >= pursueDistance)       currentState = VampireAIState.STAND;
                                             if (getDistanceToHero() < rangedAttackDistance)  currentState = VampireAIState.RANGEDATTACK; }
         });
         stateMap.put(VampireAIState.RANGEDATTACK, new AIState() {
             public void enter()           {                                                                                              }
-            public void run()             { attackHeroWithFireball();                                                                    }
+            public void run(int delta)             { attackHeroWithFireball();                                                                    }
             public void update(int delta) { if (getDistanceToHero() >= rangedAttackDistance) currentState = VampireAIState.PURSUE;
                                             if (getDistanceToHero() < meleeAttackDistance)   currentState = VampireAIState.MELEEATTACK;  }
         });
         stateMap.put(VampireAIState.MELEEATTACK, new AIState() {
             public void enter()           {                                                                                              }
-            public void run()             { attackHeroWithSword();                                                                       }
+            public void run(int delta)             { attackHeroWithSword();                                                                       }
             public void update(int delta) { if (getDistanceToHero() >= meleeAttackDistance) currentState = VampireAIState.RANGEDATTACK;  }
         });
     }

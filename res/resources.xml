@@ -13,6 +13,7 @@
 
             <animation name="bandit" path="/res/bandit/bandit.png" isImage = "true" />
             <animation name="bandit_walk_sword" path="/res/bandit/bandit_walk_sword.png" isImage = "false" frameWidth="160" frameHeight="160" speedCoef="5" />
+            <animation name="bandit_skill_sword_attack" path="/res/bandit/bandit_skill_sword_attack.png" isImage = "false" frameWidth="160" frameHeight="160" speedCoef="0.07" />
 
             <animation name="bandit_archer" path="/res/banditarcher/banditArcher.png" isImage = "true" />
             <animation name="skeleton" path="/res/skeleton/skeleton.png" isImage = "true" />
@@ -61,7 +62,7 @@
                     pAttack="15" mAttack="0" bulletSpeed="0.5"/>
             <skill name="Sword_attack" description="Sword!!!" path="/res/skills/sword attack.png" type="AreaDamage"
                    castTime="300" postApplyTime="150" cooldownTime="1000" requiredItemType="Sword" requiredHP="0" requiredMP="0"
-                   pAttack="15" mAttack="0" radius="55" angle="90"/>
+                   pAttack="15" mAttack="0" radius="55" angle="45"/>
             <skill name="Fireball" description="Fireball!!!" path="/res/skills/fireball.png" type="BulletShot"
                    castTime="200" postApplyTime="100" cooldownTime="1000" requiredItemType="Staff" requiredHP="0" requiredMP="5"
                    pAttack="0" mAttack="20" bulletSpeed="0.4"/>
@@ -102,10 +103,11 @@
                 </lootList>
             </unit>
             <unit name="hero" mask="unit">
-                <attribute hp="100" mp="100" maximumSpeed="0.12" pAttack="10" mAttack="15" pArmor="5" mArmor="7" />
+                <attribute hp="100" mp="100" maximumSpeed="0.16" pAttack="10" mAttack="15" pArmor="5" mArmor="7" />
                 <inventory>
                     <itemRecord name="Sword" number="1" />
                     <itemRecord name="Staff" number="1" />
+                    <itemRecord name="Arrow" number="100" />
                 </inventory>
                 <skillList>
                     <skill name="Sword_attack"/>
@@ -120,7 +122,7 @@
                 </lootList>
             </unit>
             <unit name="bandit" mask="unit">
-                <attribute hp="100" mp="100" maximumSpeed="0.08" pAttack="10" mAttack="15" pArmor="5" mArmor="7" />
+                <attribute hp="100" mp="100" maximumSpeed="0.14" pAttack="10" mAttack="15" pArmor="5" mArmor="7" />
                 <inventory>
                     <itemRecord name="Sword" number="1" />
                 </inventory>
@@ -132,7 +134,7 @@
                 </lootList>
             </unit>
             <unit name="skeleton" mask="unit">
-                <attribute hp="100" mp="100" maximumSpeed="0.3" pAttack="10" mAttack="15" pArmor="5" mArmor="7" />
+                <attribute hp="100" mp="100" maximumSpeed="0.15" pAttack="10" mAttack="15" pArmor="5" mArmor="7" />
                 <inventory>
                     <itemRecord name="Sword" number="1" />
                 </inventory>
@@ -163,6 +165,7 @@
                 <inventory>
                     <itemRecord name="Strong_bow" number="1" />
                     <itemRecord name="Light_armor" number="1" />
+                    <itemRecord name="Arrow" number="1000" />
                 </inventory>
                 <skillList>
                     <skill name="Bow_shot"/>

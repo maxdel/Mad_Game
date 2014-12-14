@@ -45,4 +45,8 @@ public class Timer {
         return value;
     }
 
+    public boolean isTime() {
+        return value <= 0;
+    }
+
 }
