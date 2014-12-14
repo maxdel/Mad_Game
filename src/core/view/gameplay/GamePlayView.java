@@ -72,8 +72,16 @@ public class GamePlayView {
         updateGameObjectViewList();
 
         tileView.render(g, camera);
+        // Render order
         for (GameObjectView gameObjectView : gameObjectViewList) {
-            gameObjectView.render(g, camera);
+            if (gameObjectView instanceof UnitView) {
+                gameObjectView.render(g, camera);
+            }
+        }
+        for (GameObjectView gameObjectView : gameObjectViewList) {
+            if (!(gameObjectView instanceof UnitView)) {
+                gameObjectView.render(g, camera);
+            }
         }
         inventoryView.render(g, camera.getWidth(), camera.getHeight());
     }
