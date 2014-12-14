@@ -146,11 +146,12 @@ public class CollisionManager {
         Shape mask1 = getUpdatedMask(gameObjectSolid1.getMask(), x, y, gameObjectSolid1.getDirection());
         Shape mask2 = getUpdatedMask(gameObjectSolid2.getMask(), gameObjectSolid2.getX(), gameObjectSolid2.getY(), gameObjectSolid2.getDirection());
 
-        if (mask1 instanceof Circle && mask2 instanceof Circle) {
+        /*if (mask1 instanceof Circle && mask2 instanceof Circle) {
             return MathAdv.getDistance(mask1.getX(), mask1.getY(), mask2.getX(), mask2.getY()) < mask1.getBoundingCircleRadius() + mask2.getBoundingCircleRadius();
         } else {
             return mask1.intersects(mask2);
-        }
+        }*/
+        return mask1.intersects(mask2);
     }
 
 }
