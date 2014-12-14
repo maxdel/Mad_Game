@@ -3,7 +3,6 @@ package core.view.gameplay;
 import java.util.ArrayList;
 import java.util.List;
 
-import core.resourcemanager.ResourceManager;
 import core.view.gameplay.gameobject.GameObjectView;
 import core.view.gameplay.gameobject.LootView;
 import core.view.gameplay.gameobjectsolid.ArrowView;
@@ -28,6 +27,8 @@ public class GamePlayView {
     private Camera camera;
     private InventoryView inventoryView;
     private TileView tileView;
+
+    private List<Class> renderOrder;
 
     public GamePlayView(GameContainer gc, List<GameObject> gameObjectList, TiledMapAdv tiledMap) throws SlickException {
         this.inventoryView = new InventoryView(World.getInstance().getHero().getInventory());
@@ -64,6 +65,15 @@ public class GamePlayView {
         }
 
         this.camera = new Camera(gc.getWidth(), gc.getHeight());
+
+        this.renderOrder = new ArrayList<>();
+        renderOrder.add(LootView.class);
+        renderOrder.add(BanditView.class);
+        renderOrder.add(BanditArcherView.class);
+        renderOrder.add(SkeletonMageView.class);
+        renderOrder.add(SkeletonView.class);
+        renderOrder.add(HeroView.class);
+        renderOrder.add(VampireView.class);
     }
 
     public void render(GameContainer gc, Graphics g) throws SlickException {
@@ -72,14 +82,24 @@ public class GamePlayView {
         updateGameObjectViewList();
 
         tileView.render(g, camera);
+
         // Render order
-        for (GameObjectView gameObjectView : gameObjectViewList) {
-            if (gameObjectView instanceof UnitView) {
-                gameObjectView.render(g, camera);
+        for (Class currentClass : renderOrder) {
+            for (GameObjectView gameObjectView : gameObjectViewList) {
+                if (gameObjectView.getClass() == currentClass) {
+                    gameObjectView.render(g, camera);
+                }
             }
         }
         for (GameObjectView gameObjectView : gameObjectViewList) {
-            if (!(gameObjectView instanceof UnitView)) {
+            boolean isRendered = false;
+            for (Class currentClass : renderOrder) {
+                if (gameObjectView.getClass() == currentClass) {
+                    isRendered = true;
+                    break;
+                }
+            }
+            if (!isRendered) {
                 gameObjectView.render(g, camera);
             }
         }
