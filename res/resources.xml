@@ -162,6 +162,7 @@
                 <inventory>
                     <itemRecord name="Strong_bow" number="1" />
                     <itemRecord name="Light_armor" number="1" />
+                    <itemRecord name="Arrow" number="1000" />
                 </inventory>
                 <skillList>
                     <skill name="Bow_shot"/>
