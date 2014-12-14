@@ -34,7 +34,7 @@ public class RangedAI extends BotAI {
     protected void init() {
         final int standTime = 3000;
         final int pursueDistance = 400;
-        final int attackDistance = 220;
+        final int attackDistance = 50;
         currentState = RangedAIState.STAND;
         stateMap.put(RangedAIState.STAND, new AIState() {
             private Timer timer;
@@ -51,7 +51,7 @@ public class RangedAI extends BotAI {
                                             if (getDistanceToTarget(target) < 2)      currentState = RangedAIState.STAND;   }
         });
         stateMap.put(RangedAIState.PURSUE, new AIState() {
-            public void enter()           {                                                                                 }
+            public void enter()           { path = buildPath(World.getInstance().getHero());                                                                  }
             public void run(int delta)    { followHero();                                                                   }
             public void update(int delta) { if (getDistanceToHero() >= pursueDistance) currentState = RangedAIState.STAND;
                                             if (getDistanceToHero() < attackDistance)  currentState = RangedAIState.ATTACK; }
