@@ -5,7 +5,6 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
-import core.model.menu.MenuManager;
 import core.GamePlayState;
 import core.model.gameplay.World;
 import core.model.menu.MenuStart;
@@ -19,11 +18,9 @@ public class MenuStartController {
 
     private MenuStart menuStart;
 
-    MenuManager menuManager;
 
     private MenuStartController() {
         menuStart = MenuStart.getInstance();
-        menuManager = new MenuManager(menuStart);
     }
 
     public static MenuStartController getInstance() {
@@ -37,11 +34,11 @@ public class MenuStartController {
     public void update(GameContainer gc, StateBasedGame game) throws SlickException {
         Input input = gc.getInput();
         if (input.isKeyPressed(Input.KEY_S)) {
-            menuManager.stepDown();
+            menuStart.stepDown();
         }
 
         if (input.isKeyPressed(Input.KEY_W)) {
-            menuManager.stepUp();
+            menuStart.stepUp();
         }
 
         if (input.isKeyPressed(Input.KEY_ENTER)) {

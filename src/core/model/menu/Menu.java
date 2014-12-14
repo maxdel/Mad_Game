@@ -33,4 +33,19 @@ public abstract class Menu {
         return menuMap.keySet();
     }
 
+    public void stepUp() {
+        if (currentChoice == 0) {
+            currentChoice = getNumberOfChoices() - 1;
+        } else {
+            currentChoice -= 1;
+        }
+    }
+
+    public void stepDown() {
+        if (currentChoice == getNumberOfChoices() - 1) {
+            currentChoice = 0;
+        } else {
+            currentChoice += 1;
+        }
+    }
 }
