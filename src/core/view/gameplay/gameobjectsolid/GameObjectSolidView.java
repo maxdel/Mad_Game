@@ -20,7 +20,13 @@ public abstract class GameObjectSolidView extends GameObjectView {
     public void render(Graphics g, Camera camera) throws SlickException {
         super.render(g, camera);
         rotate(g, camera, true);
+        g.rotate((float) (gameObject.getX() - camera.getX()),
+                (float) (gameObject.getY() - camera.getY()),
+                -(float) (gameObject.getDirection() / Math.PI * 180));
         drawMask(g, camera.getX(), camera.getY());
+        g.rotate((float) (gameObject.getX() - camera.getX()),
+                (float) (gameObject.getY() - camera.getY()),
+                (float) (gameObject.getDirection() / Math.PI * 180));
         rotate(g, camera, false);
     }
 

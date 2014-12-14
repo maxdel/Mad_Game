@@ -107,6 +107,7 @@
                 <inventory>
                     <itemRecord name="Sword" number="1" />
                     <itemRecord name="Staff" number="1" />
+                    <itemRecord name="Arrow" number="100" />
                 </inventory>
                 <skillList>
                     <skill name="Sword_attack" type="AreaDamage"/>

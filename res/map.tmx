@@ -55,7 +55,7 @@
  </layer>
  <layer name="Objects" width="64" height="64">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3ZSw6DMAwFwGxpUe9/3F6AKrRFtmNmtlnE4mO/wBgQa88uoIFtsv4IqeJePLcxsq9z9v7wyazvz0TOhYz3yNwj0jO7AKCdyn2lcm1Hfs0EFc8B/+Y/yLRa76AuvRDWVX0WVMx/Z/kOBjHkEOijei4B4DrfZjiZDwD6Muf7c4+BK/jvBnEyZnd2XngF7aOX9fcGiiNPnwBAAAA=
+   H4sIAAAAAAAAC+3ZQRKCMAwFULaiw/2PywVwqghJGt/bsmgG2uQDywKxXtkFNPAYXF9Dqvgv9m2M7PucvT68M+r7I5FzIeMcmXtEemYXALRTua9Uru3I2UxQ8T3g1/wHmWbrHdSlF8K8qs+CivnvU76DQQw5BPqonksAuM63GU7mA4C+zPn+PGPgCv671aGvc4fsfbUFraOX9bcD/oh3xgBAAAA=
   </data>
  </layer>
  <objectgroup name="Слой объектов 1">
