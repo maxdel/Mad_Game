@@ -1,13 +1,15 @@
-package core.controller.menu;
+package core.controller;
 
-import core.model.menu.Menu;
+import core.gamestates.AuthorsState;
+import core.model.Authors;
+import core.model.Menu;
 import main.Main;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
-import core.GamePlayState;
+import core.gamestates.GamePlayState;
 import core.model.gameplay.World;
 
 /*
@@ -54,7 +56,7 @@ public class MenuController {
                 } else if (menu.getCurrentChoice() == menu.getMenuId(Menu.MenuElement.SETTING)) {
 
                 } else if (menu.getCurrentChoice() == menu.getMenuId(Menu.MenuElement.AUTHORS)) {
-
+                    game.enterState(AuthorsState.getInstance().getID());
                 } else if (menu.getCurrentChoice() == menu.getMenuId(Menu.MenuElement.EXIT)) {
                     gc.exit();
                 }

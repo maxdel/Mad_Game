@@ -8,7 +8,7 @@ import java.util.*;
 import java.util.List;
 import javafx.util.Pair;
 
-import core.GameState;
+import core.gamestates.GameState;
 import core.model.gameplay.items.Item;
 import core.model.gameplay.items.ItemInstanceKind;
 import core.model.gameplay.skills.*;

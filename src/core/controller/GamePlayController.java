@@ -1,4 +1,4 @@
-package core.controller.gameplay;
+package core.controller;
 
 import core.model.gameplay.skills.SkillInstanceKind;
 import main.Main;
@@ -6,7 +6,7 @@ import org.lwjgl.input.Mouse;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.StateBasedGame;
 
-import core.GameState;
+import core.gamestates.GameState;
 import core.model.gameplay.gameobjects.Hero;
 import core.model.gameplay.World;
 
@@ -38,6 +38,8 @@ public class GamePlayController {
 
     public void update(GameContainer gc, StateBasedGame game) throws SlickException {
         Input input = gc.getInput();
+
+        Main.changeFullScreenMode(gc, input);
 
         if (controlMode.equals("Hero")) {
             // Enter pause menu
@@ -178,7 +180,6 @@ public class GamePlayController {
                 hero.startUseItem();
             }
 
-            Main.changeFullScreenMode(gc, input);
         }
     }
 
