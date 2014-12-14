@@ -3,6 +3,7 @@ package core.view.gameplay;
 import java.util.ArrayList;
 import java.util.List;
 
+import core.resourcemanager.ResourceManager;
 import core.view.gameplay.gameobject.GameObjectView;
 import core.view.gameplay.gameobject.LootView;
 import core.view.gameplay.gameobjectsolid.ArrowView;
@@ -26,12 +27,17 @@ public class GamePlayView {
     private List<GameObjectView> gameObjectViewList;
     private Camera camera;
     private InventoryView inventoryView;
+    private SkillPanelView skillPanelView;
     private TileView tileView;
 
     private List<Class> renderOrder;
 
     public GamePlayView(GameContainer gc, List<GameObject> gameObjectList, TiledMapAdv tiledMap) throws SlickException {
         this.inventoryView = new InventoryView(World.getInstance().getHero().getInventory());
+
+        this.skillPanelView = new SkillPanelView(World.getInstance().getHero().getSkillList(),
+                ResourceManager.getInstance().getSkillInfos(), gc);
+
         this.tileView = new TileView(tiledMap);
 
         this.gameObjectViewList = new ArrayList<>();
@@ -104,6 +110,8 @@ public class GamePlayView {
             }
         }
         inventoryView.render(g, camera.getWidth(), camera.getHeight());
+
+        skillPanelView.render(g);
     }
 
     public void update(int delta) {
