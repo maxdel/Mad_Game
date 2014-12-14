@@ -1,4 +1,4 @@
 Mad_Game
 ========
 
-Just mad game.
+Simple top down RPG developed by two students of the KPI, Ukraine
