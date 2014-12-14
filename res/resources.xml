@@ -26,7 +26,7 @@
         <masks>
             <mask name="unit" shape="circle" width="0" height="0" radius="20" />
 
-            <mask name="wall" shape="rectangle" width="64" height="64" radius="0"/>
+            <mask name="wall" shape="rectangle" width="32" height="32" radius="0"/>
             <mask name="tree" shape="circle" width="0" height="0" radius="32" />
 
             <mask name="arrow" shape="rectangle" width="20" height="3" radius="0" />

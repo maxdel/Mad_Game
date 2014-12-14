@@ -22,6 +22,8 @@ public abstract class BotAI {
     private AStar aStar;
     private boolean usePath;
     private Point pathTarget;
+    private Point currentPoint;
+    private Point previousPoint;
 
     public BotAI() {
         this(null);
@@ -34,7 +36,6 @@ public abstract class BotAI {
         this.previousState = null;
         this.aStar = new AStar();
         this.usePath = false;
-        this.pathTarget = null;
         init();
     }
 
@@ -84,9 +85,11 @@ public abstract class BotAI {
         double direction = Math.atan2(target.getY() - owner.getY(), target.getX() - owner.getX());
         owner.setDirection(direction);
         owner.move();
-        if (MathAdv.getDistance(owner.getX(), owner.getY(), target.getX(), target.getY()) < 3) {
+        if (MathAdv.getDistance(owner.getX(), owner.getY(), target.getX(), target.getY()) < 3 &&
+                CollisionManager.getInstance().isPlaceFreeAdv(owner, target.getX(), target.getY())) {
             owner.setX(target.getX());
             owner.setY(target.getY());
+            //System.out.println("Ooops!");
         }
     }
 
@@ -94,24 +97,28 @@ public abstract class BotAI {
         if (isWayFree(World.getInstance().getHero())) {
             followTarget(new Point((float) World.getInstance().getHero().getX(), (float) World.getInstance().getHero().getY()));
             usePath = false;
-            System.out.println("Way free");
+            //System.out.println("Way free");
         } else {
-            if (MathAdv.getDistance(World.getInstance().getHero().getX(), World.getInstance().getHero().getY(),
-                    aStar.getGoalPoint().getX(), aStar.getGoalPoint().getY()) > aStar.getGridStep()) {
+            if (pathTarget == null || MathAdv.getDistance(World.getInstance().getHero().getX(), World.getInstance().getHero().getY(),
+                    pathTarget.getX(), pathTarget.getY()) > aStar.getGridStep()) {
                 buildPath(World.getInstance().getHero(), owner);
-                System.out.println("Rebuild path");
+                //System.out.println("Rebuild path");
             }
             Point nextPoint = aStar.getFirstReachablePoint(owner);
-            if (usePath && nextPoint != null) {
-                followTarget(nextPoint);
-                System.out.print("f");
-                if (MathAdv.getDistance(owner.getX(), owner.getY(), nextPoint.getX(), nextPoint.getY()) < 1) {
-                    aStar.removeFrom(nextPoint);
-                }
+            if (MathAdv.getDistance(owner.getX(), owner.getY(), nextPoint.getX(), nextPoint.getY()) < 1) {
+                aStar.removeFrom(nextPoint, true);
             } else {
-                System.out.println("Goal empty. Rebuild path");
+                aStar.removeFrom(nextPoint, false);
+            }
+            //System.out.println("FRP: " + nextPoint.getX() + ":" + nextPoint.getY());
+            if (usePath && nextPoint != null) {
+                //System.out.println("followTarget(nextPoint), path.size()=" + aStar.getPath().size());
+                followTarget(nextPoint);
+            } else {
+                //System.out.println("Goal empty. Rebuild path");
                 buildPath(World.getInstance().getHero(), owner);
             }
+            previousPoint = nextPoint;
         }
     }
 
@@ -153,4 +160,7 @@ public abstract class BotAI {
         this.owner = owner;
     }
 
+    public AStar getAStar() {
+        return aStar;
+    }
 }

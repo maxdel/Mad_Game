@@ -33,7 +33,6 @@ public class AStar {
         while (!openedSet.isEmpty()) {
             Cell x = getLowestFCell(openedSet);
             if (MathAdv.getDistance(x.x, x.y, goal.x, goal.y) <= GRID_STEP) {
-                System.out.println("RECONSTR x.f: " + x.f);
                 path = reconstructPath(start, x);
                 return true;
             }
@@ -155,20 +154,24 @@ public class AStar {
         }
     }
 
-    public void removeFrom(Point point) {
+    public void removeFrom(Point point, boolean includingThis) {
         boolean startRemove = false;
         for(Iterator<Cell> it = path.iterator(); it.hasNext();) {
             Cell currentCell = it.next();
             Point currentPoint = new Point(currentCell.x, currentCell.y);
-            if (startRemove == false && currentPoint.getX() == point.getX() && currentPoint.getY() == point.getY()) {
-                startRemove = true;
-            }
             if (startRemove) {
                 it.remove();
-                System.out.print("*");
+                //System.out.print("*");
+            }
+            if (startRemove == false && currentPoint.getX() == point.getX() && currentPoint.getY() == point.getY()) {
+                startRemove = true;
+                if (includingThis) {
+                    it.remove();
+                    //System.out.print("*");
+                }
             }
         }
-        System.out.println("|");
+        //System.out.println("|");
     }
 
     public Point getNextPoint() {
@@ -184,7 +187,7 @@ public class AStar {
             return null;
         } else {
             Point currentPoint = null;
-            Point previousPoint = new Point(path.get(0).x, path.get(0).y);
+            Point previousPoint = new Point(path.get(path.size() - 1).x, path.get(path.size() - 1).y);
             for (int i = path.size() - 1; i >= 0; i--) {
                 currentPoint = new Point(path.get(i).x, path.get(i).y);
                 if (!isWayFree(owner, currentPoint)) {
@@ -197,13 +200,13 @@ public class AStar {
     }
 
     private boolean isWayFree(Unit owner, Point target) {
-        int step = 5;
+        double step = 3;
         double currentDirection = Math.atan2(target.getY() - owner.getY(), target.getX() - owner.getX());
         for (int j = 0; j < MathAdv.getDistance(owner.getX(), owner.getY(), target.getX(), target.getY()) / step; ++j) {
             GameObjectSolid collisionObject = CollisionManager.getInstance().collidesWith(owner,
                     owner.getX() + MathAdv.lengthDirX(currentDirection, step * j),
                     owner.getY() + MathAdv.lengthDirY(currentDirection, step * j));
-            if (collisionObject != owner && collisionObject != null && !(collisionObject instanceof Bullet)) {
+            if (collisionObject != null && collisionObject != owner && !(collisionObject instanceof Bullet)) {
                 return false;
             }
         }
