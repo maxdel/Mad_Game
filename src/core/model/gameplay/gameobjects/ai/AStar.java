@@ -2,42 +2,23 @@ package core.model.gameplay.gameobjects.ai;
 
 import core.MathAdv;
 import core.model.gameplay.CollisionManager;
+import core.model.gameplay.gameobjects.Bullet;
+import core.model.gameplay.gameobjects.GameObjInstanceKind;
 import core.model.gameplay.gameobjects.GameObjectSolid;
 import core.model.gameplay.gameobjects.Unit;
 import org.newdawn.slick.geom.Point;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class AStar {
 
     private List<Cell> path;
-    private int GRID_STEP = 32;
+    private int GRID_STEP = 30;
 
     public AStar() {
         path = new ArrayList<>();
-    }
-
-    private class Cell {
-        public double f;
-        public double g;
-        public double h;
-        public int x;
-        public int y;
-        public Cell cameFrom;
-
-        public Cell(double f, double g, double h, double x, double y) {
-            this(f, g, h, x, y, null);
-        }
-
-        public Cell(double f, double g, double h, double x, double y, Cell cameFrom) {
-            this.f = f;
-            this.g = g;
-            this.h = h;
-            this.x = (int) x;
-            this.y = (int) y;
-            this.cameFrom = cameFrom;
-        }
     }
 
     protected boolean buildPath(GameObjectSolid target, Unit owner) {
@@ -135,10 +116,20 @@ public class AStar {
         }
     }
 
-    public void pop() {
-        if (path.size() > 0) {
-            path.remove(path.size() - 1);
+    public void removeFrom(Point point) {
+        boolean startRemove = false;
+        for(Iterator<Cell> it = path.iterator(); it.hasNext();) {
+            Cell currentCell = it.next();
+            Point currentPoint = new Point(currentCell.x, currentCell.y);
+            if (startRemove == false && currentPoint.getX() == point.getX() && currentPoint.getY() == point.getY()) {
+                startRemove = true;
+            }
+            if (startRemove) {
+                it.remove();
+                System.out.print("*");
+            }
         }
+        System.out.println("|");
     }
 
     public Point getNextPoint() {
@@ -149,4 +140,50 @@ public class AStar {
         }
     }
 
+    public Point getFirstReachablePoint(Unit owner) {
+        if (path.isEmpty()) {
+            return null;
+        } else {
+            Point currentPoint = null;
+            Point previousPoint = new Point(path.get(0).x, path.get(0).y);
+            for (int i = path.size() - 1; i >= 0; i--) {
+                currentPoint = new Point(path.get(i).x, path.get(i).y);
+                if (!isWayFree(owner, currentPoint)) {
+                    return previousPoint;
+                }
+                previousPoint = currentPoint;
+            }
+            return currentPoint;
+        }
+    }
+
+    private boolean isWayFree(Unit owner, Point target) {
+        int step = 5;
+        double currentDirection = Math.atan2(target.getY() - owner.getY(), target.getX() - owner.getX());
+        for (int j = 0; j < MathAdv.getDistance(owner.getX(), owner.getY(), target.getX(), target.getY()) / step; ++j) {
+            GameObjectSolid collisionObject = CollisionManager.getInstance().collidesWith(owner,
+                    owner.getX() + MathAdv.lengthDirX(currentDirection, step * j),
+                    owner.getY() + MathAdv.lengthDirY(currentDirection, step * j));
+            if (collisionObject != owner && collisionObject != null && !(collisionObject instanceof Bullet)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    protected Point getGoalPoint() {
+        if (path.isEmpty()) {
+            return null;
+        } else {
+            return new Point((float) path.get(0).x, (float) path.get(0).y);
+        }
+    }
+
+    protected int getGridStep() {
+        return GRID_STEP;
+    }
+
+    public List<Cell> getPath() {
+        return path;
+    }
 }

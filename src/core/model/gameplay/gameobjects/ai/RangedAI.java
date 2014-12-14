@@ -11,6 +11,7 @@ import core.model.gameplay.gameobjects.GameObjectSolid;
 import core.model.gameplay.items.ItemInstanceKind;
 import core.model.gameplay.skills.BulletShot;
 import core.model.gameplay.skills.SkillInstanceKind;
+
 import org.newdawn.slick.geom.Point;
 import org.newdawn.slick.geom.Vector2f;
 
@@ -51,7 +52,7 @@ public class RangedAI extends BotAI {
                                             if (getDistanceToTarget(target) < 2)      currentState = RangedAIState.STAND;   }
         });
         stateMap.put(RangedAIState.PURSUE, new AIState() {
-            public void enter()           { aStar.buildPath(World.getInstance().getHero(), owner);                          }
+            public void enter()           { buildPath(World.getInstance().getHero(), owner);                          }
             public void run(int delta)    { followHero();                                                                   }
             public void update(int delta) { if (getDistanceToHero() >= pursueDistance) currentState = RangedAIState.STAND;
                                             if (getDistanceToHero() < attackDistance)  currentState = RangedAIState.ATTACK; }

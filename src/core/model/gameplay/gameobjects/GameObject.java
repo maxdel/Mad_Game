@@ -32,11 +32,11 @@ public abstract class GameObject {
         return type;
     }
 
-    protected void setX(double x) {
+    public void setX(double x) {
         this.x = x;
     }
 
-    protected void setY(double y) {
+    public void setY(double y) {
         this.y = y;
     }
 

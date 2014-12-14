@@ -26,7 +26,7 @@
         <masks>
             <mask name="unit" shape="circle" width="0" height="0" radius="20" />
 
-            <mask name="wall" shape="rectangle" width="32" height="32" radius="0"/>
+            <mask name="wall" shape="rectangle" width="64" height="64" radius="0"/>
             <mask name="tree" shape="circle" width="0" height="0" radius="32" />
 
             <mask name="arrow" shape="rectangle" width="20" height="3" radius="0" />
@@ -159,7 +159,7 @@
                 </lootList>
             </unit>
             <unit name="banditArcher" mask="unit">
-                <attribute hp="100" mp="100" maximumSpeed="0.3" pAttack="10" mAttack="15" pArmor="5" mArmor="7" />
+                <attribute hp="100" mp="100" maximumSpeed="0.05" pAttack="10" mAttack="15" pArmor="5" mArmor="7" />
                 <inventory>
                     <itemRecord name="Strong_bow" number="1" />
                     <itemRecord name="Light_armor" number="1" />
