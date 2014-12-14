@@ -34,26 +34,26 @@ public class RangedAI extends BotAI {
         stateMap.put(RangedAIState.STAND, new AIState() {
             private Timer timer;
             public void enter()           { timer = new Timer(standTime);                                                  }
-            public void run()             { owner.stand();                                                                 }
+            public void run(int delta)             { owner.stand();                                                                 }
             public void update(int delta) { if (timer.update(delta))                  currentState = RangedAIState.WALK;
                                             if (getDistanceToHero() < pursueDistance) currentState = RangedAIState.PURSUE; }
         });
         stateMap.put(RangedAIState.WALK, new AIState() {
             private Point target;
             public void enter()           { target = getRandomTarget();                                                     }
-            public void run()             { followTarget(target);                                                           }
+            public void run(int delta)             { followTarget(target);                                                           }
             public void update(int delta) { if (getDistanceToHero() < pursueDistance) currentState = RangedAIState.PURSUE;
                                             if (getDistanceToTarget(target) < 2)      currentState = RangedAIState.STAND;   }
         });
         stateMap.put(RangedAIState.PURSUE, new AIState() {
             public void enter()           {                                                                                 }
-            public void run()             { followHero();                                                                   }
+            public void run(int delta)             { followHero();                                                                   }
             public void update(int delta) { if (getDistanceToHero() >= pursueDistance) currentState = RangedAIState.STAND;
                                             if (getDistanceToHero() < attackDistance)  currentState = RangedAIState.ATTACK; }
         });
         stateMap.put(RangedAIState.ATTACK, new AIState() {
             public void enter()           {                                                                                 }
-            public void run()             { attackHeroWithRangedSkill();                                                    }
+            public void run(int delta)             { attackHeroWithRangedSkill();                                                    }
             public void update(int delta) { if (getDistanceToHero() >= attackDistance) currentState = RangedAIState.PURSUE; }
         });
     }

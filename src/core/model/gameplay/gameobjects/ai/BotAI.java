@@ -22,7 +22,7 @@ public abstract class BotAI {
 
     public BotAI(Bot bot) {
         this.owner = bot;
-        stateMap = new HashMap<BotAIState, AIState>();
+        stateMap = new HashMap<>();
         init();
     }
 
@@ -35,7 +35,7 @@ public abstract class BotAI {
             stateMap.get(currentState).enter();
             previousState = currentState;
         }
-        stateMap.get(currentState).run();
+        stateMap.get(currentState).run(delta);
         stateMap.get(currentState).update(delta);
     }
 
@@ -70,7 +70,7 @@ public abstract class BotAI {
 
     protected void followTarget(Point target) {
         double direction = Math.atan2(target.getY() - owner.getY(), target.getX() - owner.getX());
-        owner.setDirection(direction); // TODO unwanted direct field changing
+        owner.setDirection(direction);
         owner.move();
     }
 

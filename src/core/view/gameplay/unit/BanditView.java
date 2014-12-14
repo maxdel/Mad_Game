@@ -1,30 +1,25 @@
 package core.view.gameplay.unit;
 
-import core.MathAdv;
-import core.model.gameplay.World;
-import core.model.gameplay.gameobjects.*;
-import core.model.gameplay.skills.AreaDamage;
-import core.model.gameplay.skills.SkillInstanceKind;
-import core.view.gameplay.Camera;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
+import core.view.gameplay.Camera;
+import core.model.gameplay.gameobjects.*;
+import core.model.gameplay.skills.Skill;
 import core.resourcemanager.ResourceManager;
-import org.newdawn.slick.particles.ParticleIO;
-import org.newdawn.slick.particles.ParticleSystem;
-
-import java.io.IOException;
 
 public class BanditView extends UnitView {
 
-    private Animation animationWalkSword;
     private GameObjectState previousState;
+    private Animation animationSwordAttack;
+    private Animation animationWalkSword;
 
     public BanditView(GameObject bandit) throws SlickException {
         super(bandit);
-        animation = ResourceManager.getInstance().getAnimation("bandit");
         animationWalkSword = ResourceManager.getInstance().getAnimation("bandit_walk_sword");
+        animationSwordAttack = ResourceManager.getInstance().getAnimation("bandit_skill_sword_attack");
+        animation = animationWalkSword;
     }
 
     @Override
@@ -40,14 +35,27 @@ public class BanditView extends UnitView {
                     break;
                 case STAND:
                     animation = animationWalkSword;
-                    animation.setCurrentFrame(0);
                     animation.stop();
+                    animation.setCurrentFrame(0);
                     break;
                 case ITEM:
                     break;
                 case SKILL:
-                    break;
+                    Skill castingSkill = bandit.getCastingSkill();
+                    switch (castingSkill.getKind()) {
+                        case SWORD_ATTACK:
+                            ResourceManager.getInstance().getSound("sword_attack").play();
+                            animation = animationSwordAttack;
+                            animation.restart();
+                            bandit.getCastingSkill().getCastTime();
+                            for (int i = 0; i < animation.getFrameCount(); ++i) {
+                                animation.setDuration(i, bandit.getCastingSkill().getCastTime() / animation.getFrameCount());
+                            }
+                            break;
+                    }
+                    animation.start();
             }
+
         }
         previousState = bandit.getCurrentState();
 
