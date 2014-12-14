@@ -67,6 +67,7 @@ public class GamePlayView {
         this.camera = new Camera(gc.getWidth(), gc.getHeight());
 
         this.renderOrder = new ArrayList<>();
+        renderOrder.add(WallView.class);
         renderOrder.add(LootView.class);
         renderOrder.add(BanditView.class);
         renderOrder.add(BanditArcherView.class);

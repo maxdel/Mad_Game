@@ -91,8 +91,6 @@ public abstract class BotAI {
     }
 
     protected void followHero() {
-        Point nextPoint = aStar.getFirstReachablePoint(owner);
-
         if (isWayFree(World.getInstance().getHero())) {
             followTarget(new Point((float) World.getInstance().getHero().getX(), (float) World.getInstance().getHero().getY()));
             usePath = false;
@@ -103,10 +101,11 @@ public abstract class BotAI {
                 buildPath(World.getInstance().getHero(), owner);
                 System.out.println("Rebuild path");
             }
+            Point nextPoint = aStar.getFirstReachablePoint(owner);
             if (usePath && nextPoint != null) {
                 followTarget(nextPoint);
                 System.out.print("f");
-                if (MathAdv.getDistance(owner.getX(), owner.getY(), nextPoint.getX(), nextPoint.getY()) < 2) {
+                if (MathAdv.getDistance(owner.getX(), owner.getY(), nextPoint.getX(), nextPoint.getY()) < 1) {
                     aStar.removeFrom(nextPoint);
                 }
             } else {

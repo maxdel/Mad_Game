@@ -33,6 +33,7 @@ public class AStar {
         while (!openedSet.isEmpty()) {
             Cell x = getLowestFCell(openedSet);
             if (MathAdv.getDistance(x.x, x.y, goal.x, goal.y) <= GRID_STEP) {
+                System.out.println("RECONSTR x.f: " + x.f);
                 path = reconstructPath(start, x);
                 return true;
             }
@@ -40,7 +41,7 @@ public class AStar {
             openedSet.remove(x);
             closedSet.add(x);
 
-            for (Cell y : neighborCells(x, GRID_STEP)) {
+            for (Cell y : neighborCells(owner, x, GRID_STEP)) {
                 if (contains(closedSet, y)) {
                     continue;
                 }
@@ -62,12 +63,21 @@ public class AStar {
                 if (tentativeIsBetter) {
                     y.cameFrom = x;
                     y.g = tentativeGScore;
-                    y.h = CollisionManager.getInstance().isPlaceFreeAdv(owner, y.x, y.y) ? MathAdv.getDistance(goal.x, goal.y, y.x, y.y) : 999;
+                    y.h = calculateH(owner, target, y.x, y.y, goal.x, goal.y);
                     y.f = y.g + y.h;
                 }
             }
         }
         return false;
+    }
+
+    private double calculateH(Unit owner, GameObjectSolid target, int x, int y, int goalX, int goalY) {
+        if (CollisionManager.getInstance().collidesWith(owner, x, y) == null ||
+                CollisionManager.getInstance().collidesWith(owner, x, y) == target) {
+            return MathAdv.getDistance(x, y, goalX, goalY);
+        } else {
+            return 1000;
+        }
     }
 
     private boolean contains(List<Cell> list, Cell cell) {
@@ -79,7 +89,36 @@ public class AStar {
         return false;
     }
 
-    private List<Cell> neighborCells(Cell cell, int step) {
+    /*private List<Cell> neighborCells(Unit owner, Cell cell, int step) {
+        List<Cell> list = new ArrayList<>();
+        if (CollisionManager.getInstance().isPlaceFreeAdv(owner, cell.x + step, cell.y)) {
+            list.add(new Cell(0, 0, 0, cell.x + step, cell.y));
+        }
+        if (CollisionManager.getInstance().isPlaceFreeAdv(owner, cell.x + step, cell.y + step)) {
+            list.add(new Cell(0, 0, 0, cell.x + step, cell.y + step));
+        }
+        if (CollisionManager.getInstance().isPlaceFreeAdv(owner, cell.x, cell.y + step)) {
+            list.add(new Cell(0, 0, 0, cell.x, cell.y + step));
+        }
+        if (CollisionManager.getInstance().isPlaceFreeAdv(owner, cell.x - step, cell.y + step)) {
+            list.add(new Cell(0, 0, 0, cell.x - step, cell.y + step));
+        }
+        if (CollisionManager.getInstance().isPlaceFreeAdv(owner, cell.x - step, cell.y)) {
+            list.add(new Cell(0, 0, 0, cell.x - step, cell.y));
+        }
+        if (CollisionManager.getInstance().isPlaceFreeAdv(owner, cell.x - step, cell.y - step)) {
+            list.add(new Cell(0, 0, 0, cell.x - step, cell.y - step));
+        }
+        if (CollisionManager.getInstance().isPlaceFreeAdv(owner, cell.x, cell.y - step)) {
+            list.add(new Cell(0, 0, 0, cell.x, cell.y - step));
+        }
+        if (CollisionManager.getInstance().isPlaceFreeAdv(owner, cell.x + step, cell.y - step)) {
+            list.add(new Cell(0, 0, 0, cell.x + step, cell.y - step));
+        }
+        return list;
+    }*/
+
+    private List<Cell> neighborCells(Unit owner, Cell cell, int step) {
         List<Cell> list = new ArrayList<>();
         list.add(new Cell(0, 0, 0, cell.x + step, cell.y));
         list.add(new Cell(0, 0, 0, cell.x + step, cell.y + step));

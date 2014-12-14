@@ -32,6 +32,9 @@ public class BanditArcherView extends UnitView {
                         (float) (previousCell.y - camera.getY()),
                         (float) (cell.x - camera.getX()),
                         (float) (cell.y - camera.getY()));
+                g.drawString(String.valueOf((int) cell.f), (float) (cell.x - camera.getX()), (float) (cell.y - camera.getY()));
+            } else {
+                g.drawString(String.valueOf((int) cell.f), (float) (cell.x - camera.getX()), (float) (cell.y - camera.getY()));
             }
             previousCell = cell;
         }
