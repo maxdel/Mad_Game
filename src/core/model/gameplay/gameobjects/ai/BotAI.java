@@ -17,10 +17,9 @@ public abstract class BotAI {
     protected BotAIState currentState;
     private BotAIState previousState;
     private AStar aStar;
-    private boolean isTargetVisible;
     private double lastTargetX;
     private double lastTargetY;
-    private Point nextPoint;
+    private boolean usePath;
 
     public BotAI() {
         this(null);
@@ -101,15 +100,41 @@ public abstract class BotAI {
     protected boolean followHero() {
         Unit hero = World.getInstance().getHero();
         if (seeTarget(hero)) {
-            isTargetVisible = true;
             lastTargetX = hero.getX();
             lastTargetY = hero.getY();
-            return followTarget(lastTargetX, lastTargetY);
-        } else {
-            if (isTargetVisible) {
-                isTargetVisible = false;
+            if (isDirectPathFree(hero)) {
+                usePath = false;
+                return followTarget(lastTargetX, lastTargetY);
+            } else {
+                if (!usePath) {
+                    aStar.buildPath(hero, owner, lastTargetX, lastTargetY);
+                    aStar.removeFrom(aStar.getFirstReachablePoint(owner), false);
+                    usePath = true;
+                }
+                boolean isFollowing = followTarget(aStar.getFirstReachablePoint(owner));
+                if (aStar.getPath().size() > 1) {
+                    return true;
+                } else {
+                    return isFollowing;
+                }
             }
-            return followTarget(lastTargetX, lastTargetY);
+        } else {
+            usePath = false;
+            if (aStar.getFirstReachablePoint(owner) == null) {
+                aStar.buildPath(hero, owner, lastTargetX, lastTargetY);
+                aStar.removeFrom(aStar.getFirstReachablePoint(owner), false);
+                usePath = true;
+            }
+            aStar.removeFrom(aStar.getFirstReachablePoint(owner), false);
+            boolean isFollowing = followTarget(aStar.getFirstReachablePoint(owner));
+            if (!isFollowing) {
+                aStar.removeFrom(aStar.getFirstReachablePoint(owner), true);
+            }
+            if (aStar.getPath().size() > 1) {
+                return true;
+            } else {
+                return isFollowing;
+            }
         }
     }
 
@@ -139,15 +164,17 @@ public abstract class BotAI {
 
     protected boolean seeTarget(GameObjectSolid target) {
         int step = 5;
-        Bullet dummy = new Bullet(owner, owner.getX(), owner.getY(), owner.getDirection(), 0, 0, 0, GameObjInstanceKind.ARROW);
+        double direction = Math.atan2(target.getY() - owner.getY(), target.getX() - owner.getX());
+        Bullet dummy = new Bullet(owner, owner.getX(), owner.getY(), direction, 0, 0, 0, GameObjInstanceKind.ARROW);
         for (int i = 0; i < MathAdv.getDistance(owner.getX(), owner.getY(), target.getX(), target.getY()) / step; ++i) {
             GameObjectSolid collisionObject = CollisionManager.getInstance().collidesWith(dummy,
-                    owner.getX() + MathAdv.lengthDirX(owner.getDirection(), step * i),
-                    owner.getY() + MathAdv.lengthDirY(owner.getDirection(), step * i));
+                    owner.getX() + MathAdv.lengthDirX(direction, step * i),
+                    owner.getY() + MathAdv.lengthDirY(direction, step * i));
             if (collisionObject != owner && collisionObject != null && collisionObject != target) {
                 return false;
             }
         }
+        System.out.println("See" + Math.random());
         return true;
     }
 
@@ -155,11 +182,11 @@ public abstract class BotAI {
         return MathAdv.getDistance(target.getX(), target.getY(), owner.getX(), owner.getY());
     }
 
-    protected void buildPath(GameObjectSolid target, Unit owner) {
+    /*protected void buildPath(GameObjectSolid target, Unit owner) {
         aStar.buildPath(target, owner);
         //usePath = true;
         //pathTarget = aStar.getGoalPoint();
-    }
+    }*/
 
     protected boolean isDirectPathFree(Unit target) {
         int step = 5;

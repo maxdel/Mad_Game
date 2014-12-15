@@ -42,13 +42,13 @@ public class RangedAI extends BotAI {
             public void enter()           { timer = new Timer(standTime);                                                  }
             public void run(int delta)    { owner.stand();                                                                 }
             public void update(int delta) { if (timer.update(delta))                  currentState = RangedAIState.WALK;
-                                            if (getDistanceToHero() < pursueDistance && isDirectPathFree(World.getInstance().getHero())) currentState = RangedAIState.PURSUE; }
+                                            if (getDistanceToHero() < pursueDistance && seeTarget(World.getInstance().getHero())) currentState = RangedAIState.PURSUE; }
         });
         stateMap.put(RangedAIState.WALK, new AIState() {
             private Point target;
             public void enter()           { target = getRandomTarget();                                                     }
             public void run(int delta)    { followTarget(target);                                                           }
-            public void update(int delta) { if (getDistanceToHero() < pursueDistance && isDirectPathFree(World.getInstance().getHero())) currentState = RangedAIState.PURSUE;
+            public void update(int delta) { if (getDistanceToHero() < pursueDistance && seeTarget(World.getInstance().getHero())) currentState = RangedAIState.PURSUE;
                                             if (getDistanceToTarget(target) < 2)      currentState = RangedAIState.STAND;   }
         });
         stateMap.put(RangedAIState.PURSUE, new AIState() {

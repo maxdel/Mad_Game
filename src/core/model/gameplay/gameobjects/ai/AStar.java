@@ -21,11 +21,11 @@ public class AStar {
         path = new ArrayList<>();
     }
 
-    protected boolean buildPath(GameObjectSolid target, Unit owner) {
+    protected boolean buildPath(GameObjectSolid target, Unit owner, double targetX, double targetY) {
         List<Cell> openedSet = new ArrayList<>();
         List<Cell> closedSet = new ArrayList<>();
         Cell start = new Cell(0, 0, 0, owner.getX(), owner.getY());
-        Cell goal = new Cell(0, 0, 0, target.getX(), target.getY());
+        Cell goal = new Cell(0, 0, 0, targetX, targetY);
         openedSet.add(start);
         start.g = 0;
         start.h = MathAdv.getDistance(goal.x, goal.y, start.x, start.y);
