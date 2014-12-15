@@ -3,7 +3,6 @@ package core.model.gameplay.gameobjects.ai;
 import core.MathAdv;
 import core.model.gameplay.CollisionManager;
 import core.model.gameplay.gameobjects.Bullet;
-import core.model.gameplay.gameobjects.GameObjInstanceKind;
 import core.model.gameplay.gameobjects.GameObjectSolid;
 import core.model.gameplay.gameobjects.Unit;
 import org.newdawn.slick.geom.Point;
@@ -16,6 +15,7 @@ public class AStar {
 
     private List<Cell> path;
     private int GRID_STEP = 30;
+    private int OBSTACLE_COST = 1000;
 
     public AStar() {
         path = new ArrayList<>();
@@ -33,14 +33,14 @@ public class AStar {
         while (!openedSet.isEmpty()) {
             Cell x = getLowestFCell(openedSet);
             if (MathAdv.getDistance(x.x, x.y, goal.x, goal.y) <= GRID_STEP) {
-                path = reconstructPath(start, x);
+                path = reconstructPath(x);
                 return true;
             }
 
             openedSet.remove(x);
             closedSet.add(x);
 
-            for (Cell y : neighborCells(owner, x, GRID_STEP)) {
+            for (Cell y : neighborCells(x, GRID_STEP)) {
                 if (contains(closedSet, y)) {
                     continue;
                 }
@@ -75,7 +75,7 @@ public class AStar {
                 CollisionManager.getInstance().collidesWith(owner, x, y) == target) {
             return MathAdv.getDistance(x, y, goalX, goalY);
         } else {
-            return 1000;
+            return OBSTACLE_COST;
         }
     }
 
@@ -88,36 +88,7 @@ public class AStar {
         return false;
     }
 
-    /*private List<Cell> neighborCells(Unit owner, Cell cell, int step) {
-        List<Cell> list = new ArrayList<>();
-        if (CollisionManager.getInstance().isPlaceFreeAdv(owner, cell.x + step, cell.y)) {
-            list.add(new Cell(0, 0, 0, cell.x + step, cell.y));
-        }
-        if (CollisionManager.getInstance().isPlaceFreeAdv(owner, cell.x + step, cell.y + step)) {
-            list.add(new Cell(0, 0, 0, cell.x + step, cell.y + step));
-        }
-        if (CollisionManager.getInstance().isPlaceFreeAdv(owner, cell.x, cell.y + step)) {
-            list.add(new Cell(0, 0, 0, cell.x, cell.y + step));
-        }
-        if (CollisionManager.getInstance().isPlaceFreeAdv(owner, cell.x - step, cell.y + step)) {
-            list.add(new Cell(0, 0, 0, cell.x - step, cell.y + step));
-        }
-        if (CollisionManager.getInstance().isPlaceFreeAdv(owner, cell.x - step, cell.y)) {
-            list.add(new Cell(0, 0, 0, cell.x - step, cell.y));
-        }
-        if (CollisionManager.getInstance().isPlaceFreeAdv(owner, cell.x - step, cell.y - step)) {
-            list.add(new Cell(0, 0, 0, cell.x - step, cell.y - step));
-        }
-        if (CollisionManager.getInstance().isPlaceFreeAdv(owner, cell.x, cell.y - step)) {
-            list.add(new Cell(0, 0, 0, cell.x, cell.y - step));
-        }
-        if (CollisionManager.getInstance().isPlaceFreeAdv(owner, cell.x + step, cell.y - step)) {
-            list.add(new Cell(0, 0, 0, cell.x + step, cell.y - step));
-        }
-        return list;
-    }*/
-
-    private List<Cell> neighborCells(Unit owner, Cell cell, int step) {
+    private List<Cell> neighborCells(Cell cell, int step) {
         List<Cell> list = new ArrayList<>();
         list.add(new Cell(0, 0, 0, cell.x + step, cell.y));
         list.add(new Cell(0, 0, 0, cell.x + step, cell.y + step));
@@ -130,7 +101,7 @@ public class AStar {
         return list;
     }
 
-    private List<Cell> reconstructPath(Cell first, Cell last) {
+    private List<Cell> reconstructPath(Cell last) {
         List<Cell> path = new ArrayList<>();
         Cell currentCell = last;
         while (currentCell != null) {
@@ -161,24 +132,13 @@ public class AStar {
             Point currentPoint = new Point(currentCell.x, currentCell.y);
             if (startRemove) {
                 it.remove();
-                //System.out.print("*");
             }
             if (startRemove == false && currentPoint.getX() == point.getX() && currentPoint.getY() == point.getY()) {
                 startRemove = true;
                 if (includingThis) {
                     it.remove();
-                    //System.out.print("*");
                 }
             }
-        }
-        //System.out.println("|");
-    }
-
-    public Point getNextPoint() {
-        if (path.size() > 0) {
-            return new Point((float) path.get(path.size() - 1).x, (float) path.get(path.size() - 1).y);
-        } else {
-            return null;
         }
     }
 
@@ -213,6 +173,8 @@ public class AStar {
         return true;
     }
 
+    // Getters
+
     protected Point getGoalPoint() {
         if (path.isEmpty()) {
             return null;
@@ -228,4 +190,5 @@ public class AStar {
     public List<Cell> getPath() {
         return path;
     }
+
 }

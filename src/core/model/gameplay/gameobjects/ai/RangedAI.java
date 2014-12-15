@@ -42,19 +42,20 @@ public class RangedAI extends BotAI {
             public void enter()           { timer = new Timer(standTime);                                                  }
             public void run(int delta)    { owner.stand();                                                                 }
             public void update(int delta) { if (timer.update(delta))                  currentState = RangedAIState.WALK;
-                                            if (getDistanceToHero() < pursueDistance) currentState = RangedAIState.PURSUE; }
+                                            if (getDistanceToHero() < pursueDistance && isDirectPathFree(World.getInstance().getHero())) currentState = RangedAIState.PURSUE; }
         });
         stateMap.put(RangedAIState.WALK, new AIState() {
             private Point target;
             public void enter()           { target = getRandomTarget();                                                     }
             public void run(int delta)    { followTarget(target);                                                           }
-            public void update(int delta) { if (getDistanceToHero() < pursueDistance) currentState = RangedAIState.PURSUE;
+            public void update(int delta) { if (getDistanceToHero() < pursueDistance && isDirectPathFree(World.getInstance().getHero())) currentState = RangedAIState.PURSUE;
                                             if (getDistanceToTarget(target) < 2)      currentState = RangedAIState.STAND;   }
         });
         stateMap.put(RangedAIState.PURSUE, new AIState() {
-            public void enter()           { buildPath(World.getInstance().getHero(), owner);                          }
-            public void run(int delta)    { followHero();                                                                   }
-            public void update(int delta) { if (getDistanceToHero() >= pursueDistance) currentState = RangedAIState.STAND;
+            private boolean isFollowing;
+            public void enter()           { isFollowing = true;                                                                  }
+            public void run(int delta)    { isFollowing = followHero();         }
+            public void update(int delta) { if (getDistanceToHero() >= pursueDistance || !isFollowing) currentState = RangedAIState.STAND;
                                             if (getDistanceToHero() < attackDistance)  currentState = RangedAIState.ATTACK; }
         });
         stateMap.put(RangedAIState.ATTACK, new AIState() {
@@ -92,20 +93,6 @@ public class RangedAI extends BotAI {
         } else {
             return angleToTarget;
         }
-    }
-
-    private boolean seeTarget(GameObjectSolid target) {
-        int step = 5;
-        Bullet dummy = new Bullet(owner, owner.getX(), owner.getY(), owner.getDirection(), 0, 0, 0, GameObjInstanceKind.ARROW);
-        for (int i = 0; i < MathAdv.getDistance(owner.getX(), owner.getY(), target.getX(), target.getY()) / step; ++i) {
-            GameObjectSolid collisionObject = CollisionManager.getInstance().collidesWith(dummy,
-                    owner.getX() + MathAdv.lengthDirX(owner.getDirection(), step * i),
-                    owner.getY() + MathAdv.lengthDirY(owner.getDirection(), step * i));
-            if (collisionObject != owner && collisionObject != null && collisionObject != target) {
-                return false;
-            }
-        }
-        return true;
     }
     
 }

@@ -50,12 +50,12 @@
  </layer>
  <layer name="Obstacles" width="64" height="64">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2Yyw6FIAxE3Vz//5NdmZgbUSgzfchMwq7SnhaKsG/bti8+WGLOjZD4/fgz5qKX3xq7+H36zKnfoD2bHz0HWuLH87dsxZ9PWv+5+Uf7+eh82fnZ8jqXT1/Z9AX+mT3yBf4ZiV/8qLje5ongf+sNaP7RNyb0+T4qz/pnFPKtsDK/5Zv/b1fhb82xKj9S3v1wlt87XrS/bPX31tf4We+/1dXKyyr8LaH5Gf2Q2WOZ9Wevq568IO4/lvxX2VeMOEfnjLwDovlZdWfliHH/z65rLnX/qRn3qad90bNnMvN79MXM/B6qyo9aG1X5Uap2XqOVuf6Wt2nrWFXiF7/419Xs+wfinIvMf4b6i7/P5s5u9hz35r/bL73+3+wq8Ldi6LGpwG99K0YIzc/u+9cYolRl/TN9iz9WVv+ofy8P/qdYVf9Y3+KPVQb+agPJcQANi1uaAEAAAA==
+   H4sIAAAAAAAAC+2Yyw6FIAxE3Vz//5NdmZgbUSgzfchMwg5pTwutsG/bti8+WGKujZD4/fgzxqKX3+q7+H3qzKnf4Hw2P3oNtMSP52/NFX8+af/n5h+t56PrzfBbek02efXl01Y2fYF/5ox8gX9G4hc/yq+3dSL432oDmn/0jQnd30flmf+MQr4VVua3fPP/7Sr8rTVW5UfKux7O8nv7i7aXLf/e+ho/6/23ulpxWYW/JTQ/ox4yaywz/+x91RMXxP3HEv8q54rh5+iakXdAND8r76wYMe7/2XWNpe4/Nf0+9XQues5MZn6PupiZ30NV+VF7oyo/StX6NVqZ8295m7aOVSV+8Yt/Xc2+fyD6XGT8M+Rf/H1z7ubN9nFv/rvz0mv/bV4F/pYPPXMq8FvfihFC87Pr/tWHKFXZ/0zb4o+V1T7q38uD/8lX5T/WtvhjlYG/2kByHFznHMkAQAAA
   </data>
  </layer>
  <layer name="Objects" width="64" height="64">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3aMQ6DMBAEQNoElP8/N0LpXGAhrJxZZhoKCuyzOa8QywLs3s11Zq/O/RFzuEMdRnvinFvV78FW9Nyd9f85qsPnb6Og1ev7Pen7O31+AGRbqwcQJCkTXM1/UElfYxS9EO5r9rOg8jv0VUmZF2Ymh0CO2XMJwBGZ5Jyz9VJfAMjlnM9njQGAnqfkBf8Q5PsCKQylsQBAAAA=
+   H4sIAAAAAAAAC+3aSw6AIAwFQLd+4v2P6w1Eo7HwnNm6sCJpXwjTBIxmbjxfPqmCZFV7aCt6L9fs1QX8WKvvt6TPhfTvAyDbWl1AkKRM8DT/QSV9jbfohTCu3mfByOfQSZkXeiaHQI7ecwnAGZnknrvrZX0BIJc5n88/BgBa/pIX3CHIdwBEkU63AEAAAA==
   </data>
  </layer>
  <objectgroup name="Слой объектов 1">
