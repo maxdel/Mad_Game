@@ -67,6 +67,12 @@ public class GamePlayView {
                 case SKELETONMAGE:
                     gameObjectViewList.add(new SkeletonMageView(gameObject));
                     break;
+                case FIREELEMENTAL:
+                    gameObjectViewList.add(new FireElementalView(gameObject));
+                    break;
+                case WATERELEMENTAL:
+                    gameObjectViewList.add(new WaterElementalView(gameObject));
+                    break;
             }
         }
 
@@ -151,6 +157,12 @@ public class GamePlayView {
                     break;
                 case SKELETONMAGE:
                     gameObjectViewList.add(new SkeletonMageView(gameObject));
+                    break;
+                case FIREELEMENTAL:
+                    gameObjectViewList.add(new FireElementalView(gameObject));
+                    break;
+                case WATERELEMENTAL:
+                    gameObjectViewList.add(new WaterElementalView(gameObject));
                     break;
             }
         }

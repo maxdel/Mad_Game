@@ -112,6 +112,20 @@ public class World {
                             rangedAI);
                     rangedAI.setOwner(bot);
                     gameObjectList.add(bot);
+                } else if (tileObjectName.equals("fireelemental")) {
+                    RangedAI rangedAI = new RangedAI();
+                    Bot bot = new Bot(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
+                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjInstanceKind.FIREELEMENTAL,
+                            rangedAI);
+                    rangedAI.setOwner(bot);
+                    gameObjectList.add(bot);
+                } else if (tileObjectName.equals("waterelemental")) {
+                    RangedAI rangedAI = new RangedAI();
+                    Bot bot = new Bot(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
+                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjInstanceKind.WATERELEMENTAL,
+                            rangedAI);
+                    rangedAI.setOwner(bot);
+                    gameObjectList.add(bot);
                 }
             }
         }

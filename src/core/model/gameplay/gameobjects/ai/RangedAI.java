@@ -69,10 +69,11 @@ public class RangedAI extends BotAI {
         if (seeTarget(World.getInstance().getHero())) {
             if (owner.getSkillList().get(0).getKind() == SkillInstanceKind.BOW_SHOT) {
                 owner.getInventory().useItem(owner.getInventory().addItem(ItemInstanceKind.STRONG_BOW));
+                owner.startCastSkill(SkillInstanceKind.BOW_SHOT);
             } else {
                 owner.getInventory().useItem(owner.getInventory().addItem(ItemInstanceKind.STAFF));
+                owner.startCastSkill(SkillInstanceKind.FIREBALL);
             }
-            owner.startCastSkill(SkillInstanceKind.BOW_SHOT);
         }
     }
 

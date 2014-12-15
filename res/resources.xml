@@ -11,6 +11,8 @@
 
             <animation name="vampire" path="/res/vampire/vampire.png" isImage = "true" />
 
+            <animation name="elemental" path="/res/fireelemental/elemental.png" isImage = "true" />
+
             <animation name="bandit" path="/res/bandit/bandit.png" isImage = "true" />
             <animation name="bandit_walk_sword" path="/res/bandit/bandit_walk_sword.png" isImage = "false" frameWidth="160" frameHeight="160" speedCoef="5" />
             <animation name="bandit_skill_sword_attack" path="/res/bandit/bandit_skill_sword_attack.png" isImage = "false" frameWidth="160" frameHeight="160" speedCoef="0.07" />
@@ -178,6 +180,30 @@
                 <lootList>
                     <loot name="Healing_flask" probability="0.8" />
                     <loot name="Strong_bow" probability="0.5" />
+                </lootList>
+            </unit>
+            <unit name="fireElemental" mask="unit">
+                <attribute hp="100" mp="200" maximumSpeed="0.3" pAttack="10" mAttack="15" pArmor="5" mArmor="7" />
+                <inventory>
+                    <itemRecord name="Strong_staff" number="1" />
+                </inventory>
+                <skillList>
+                    <skill name="Fireball"/>
+                </skillList>
+                <lootList>
+                    <loot name="Mana_flask" probability="0.8" />
+                </lootList>
+            </unit>
+            <unit name="waterElemental" mask="unit">
+                <attribute hp="100" mp="200" maximumSpeed="0.3" pAttack="10" mAttack="15" pArmor="5" mArmor="7" />
+                <inventory>
+                    <itemRecord name="Strong_staff" number="1" />
+                </inventory>
+                <skillList>
+                    <skill name="Fireball"/>
+                </skillList>
+                <lootList>
+                    <loot name="Mana_flask" probability="0.8" />
                 </lootList>
             </unit>
         </units>

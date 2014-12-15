@@ -42,6 +42,16 @@
     <property name="name" value="hero"/>
    </properties>
   </tile>
+  <tile id="14">
+   <properties>
+    <property name="name" value="fireelemental"/>
+   </properties>
+  </tile>
+  <tile id="15">
+   <properties>
+    <property name="name" value="waterelemental"/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="Tiles" width="64" height="64">
   <data encoding="base64" compression="gzip">
@@ -50,12 +60,12 @@
  </layer>
  <layer name="Obstacles" width="64" height="64">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2Yyw6FIAwF3Vz//5NdmZgbwbacU1roJK5EYKiUx3kcx7n5M0Lv+9G62ZS/n3/EsSh/vj8qz0j4Kcuz/S3lPCl/vH+rvvKPh2VvJHnfaisalvh/lUf6a/O5tr7o/mw8/SOygv/IHOn5a8+Lnvs8FMj4Z/K+KX9cvyP6f+UGtL82Z6DXdy2rx/8L5F1hZn/LN//f7uLfqmNXfyTe+XDU37u/6Paixd+b1fxn3P9moDUuu/i3QPsz8iEzxzLjz/6vJOOCOP9Yxj/LvGL0U1vnzDMg2p8Vd9YYMc7/0XmOZZ1/cvb7pjcvJHMmsr9HXozs70FWf9S/kdUfRbb1Gk3k+FvupiU+2vIrU/7lX/77Mnr/gVjnZo5/hPiXv6zMW7nRddzb/22+SNuX7Gu0ZI+/th5LvRqsd8UI0P7svP/swyyy/P/Mtst/Ltb2UXsvD/9eXyv+c9su/7lE8M/2ID0uu+HPmwBAAAA=
+   H4sIAAAAAAAAC+2Yyw6FIAxE3Vz//5NdmZgbUSgzfchMwg5pTwutsG/bti8+WGKujZD4/fgzxqKX3+q7+H3qzKnf4Hw2P3oNtMSP52/NFX8+af/n5h+t56PrzfBbek02efXl01Y2fYF/5ox8gX9G4hc/yq+3dSL432oDmn/0jQnd30flmf+MQr4VVua3fPP/7Sr8rTVW5UfKux7O8nv7i7aXLf/e+ho/6/23ulpxWYW/JTQ/ox4yaywz/+x91RMXxP3HEv8q54rh5+iakXdAND8r76wYMe7/2XWNpe4/Nf0+9XQues5MZn6PupiZ30NV+VF7oyo/StX6NVqZ8295m7aOVSV+8Yt/Xc2+fyD6XGT8M+Rf/H1z7ubN9nFv/rvz0mv/bV4F/pYPPXMq8FvfihFC87Pr/tWHKFXZ/0zb4o+V1T7q38uD/8lX5T/WtvhjlYG/2kByHFznHMkAQAAA
   </data>
  </layer>
  <layer name="Objects" width="64" height="64">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3ZSRKDMAwEQK4slf8/lw8kZbIgyUr3lYNV2EgDLAvEOrILaGAdXN9Cqvgvzm2M7PucvT68Mur7I5FzIeM5MveItGcXALRTua9Uru2ZTzNBxfeAb/MfZJqtd1CXXgjzqj4LKua/q3wHgxhyCPRRPZcA8DvvZjiZDwD6Muf7s8dE8m+mL3tbh77OHbLP1SNoHb2svxPKkOITAEAAAA==
+   H4sIAAAAAAAAC+3Yuw7DIBBEUdo8lPj/vzaFOysCIcPuzuie1i7WYA0jWgOg5jF4/gyZAljvnT0AUNQo90fczwX37wMAeHtlD2DEqRPc7X9AJnINq5CFgK7qZ4HyPbRT5wUqo4cAPnb2kuqdB4A+Osmc2fWaeZ/M34t/3Yf6XirfGe3GnRTUqOdRBrUMZI81HZ1n37ApEIHucFL/ryP2UX2Nrno5h/92rllmX4g886pn7id7AAM/Di06rABAAAA=
   </data>
  </layer>
  <objectgroup name="Слой объектов 1">
@@ -73,7 +83,6 @@
   <object name="wall" gid="6" x="1508.59" y="1031.55" width="32" height="32" rotation="473.102"/>
   <object name="wall" gid="6" x="1697.4" y="1022.27" width="32" height="32" rotation="519.687"/>
   <object name="wall" gid="6" x="1798.03" y="1024.86" width="32" height="32" rotation="472.457"/>
-  <object name="wall" gid="6" x="989.38" y="1529.69" width="32" height="32" rotation="609.498"/>
   <object name="wall" gid="6" x="1878.07" y="1093.29" width="32" height="32" rotation="563.827"/>
  </objectgroup>
 </map>
