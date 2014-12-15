@@ -163,7 +163,7 @@
                 </lootList>
             </unit>
             <unit name="banditArcher" mask="unit">
-                <attribute hp="100" mp="100" maximumSpeed="0.3" pAttack="10" mAttack="15" pArmor="5" mArmor="7" />
+                <attribute hp="100" mp="100" maximumSpeed="0.05" pAttack="10" mAttack="15" pArmor="5" mArmor="7" />
                 <inventory>
                     <itemRecord name="Strong_bow" number="1" />
                     <itemRecord name="Light_armor" number="1" />

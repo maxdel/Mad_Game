@@ -1,12 +1,15 @@
 package core.model.gameplay.gameobjects.ai;
 
 import core.MathAdv;
+import core.model.Timer;
 import core.model.gameplay.CollisionManager;
 import core.model.gameplay.World;
-import core.model.gameplay.gameobjects.Bot;
+import core.model.gameplay.gameobjects.*;
+import org.lwjgl.Sys;
 import org.newdawn.slick.geom.Point;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public abstract class BotAI {
@@ -15,6 +18,10 @@ public abstract class BotAI {
     protected Map<BotAIState, AIState> stateMap;
     protected BotAIState currentState;
     private BotAIState previousState;
+    private AStar aStar;
+    private double lastTargetX;
+    private double lastTargetY;
+    private boolean updatePathIfSeeTarget;
 
     public BotAI() {
         this(null);
@@ -22,7 +29,11 @@ public abstract class BotAI {
 
     public BotAI(Bot bot) {
         this.owner = bot;
-        stateMap = new HashMap<>();
+        this.stateMap = new HashMap<>();
+        this.currentState = null;
+        this.previousState = null;
+        this.aStar = new AStar();
+        this.updatePathIfSeeTarget = true;
         init();
     }
 
@@ -68,19 +79,104 @@ public abstract class BotAI {
         return target;
     }
 
-    protected void followTarget(Point target) {
+    protected boolean followTarget(double x, double y) {
+        return followTarget(new Point((float) x, (float) y));
+    }
+
+    protected boolean followTarget(Point target) {
         double direction = Math.atan2(target.getY() - owner.getY(), target.getX() - owner.getX());
         owner.setDirection(direction);
         owner.move();
+        if (MathAdv.getDistance(owner.getX(), owner.getY(), target.getX(), target.getY()) < 3 &&
+                CollisionManager.getInstance().isPlaceFreeAdv(owner, target.getX(), target.getY())) {
+            owner.setX(target.getX());
+            owner.setY(target.getY());
+            return false;
+        }
+        return true;
     }
 
-    protected void followHero() {
-        followTarget(new Point((float)World.getInstance().getHero().getX(),
-                (float)World.getInstance().getHero().getY()));
+    protected boolean followHero() {
+        Unit hero = World.getInstance().getHero();
+        if (seeTarget(hero)) {
+            lastTargetX = hero.getX();
+            lastTargetY = hero.getY();
+            if (isDirectPathFree(hero)) {
+                updatePathIfSeeTarget = true;
+                return followTarget(lastTargetX, lastTargetY);
+            } else {
+                if (updatePathIfSeeTarget) {
+                    aStar.buildPath(hero, owner, lastTargetX, lastTargetY);
+                    updatePathIfSeeTarget = false;
+                }
+                Point currentPoint = aStar.getFirstReachablePoint(owner);
+                aStar.removeFrom(currentPoint, false);
+                boolean isFollowing = followTarget(currentPoint);
+                if (!isFollowing) {
+                    aStar.removeFrom(currentPoint, true);
+                }
+                if (aStar.getPath().size() > 1) {
+                    return true;
+                } else {
+                    if (!isFollowing) {
+                        updatePathIfSeeTarget = true;
+                    }
+                    return isFollowing;
+                }
+            }
+        } else {
+            updatePathIfSeeTarget = true;
+            if (aStar.getPath().isEmpty()) {
+                return false;
+            }
+            aStar.removeFrom(aStar.getFirstReachablePoint(owner), false);
+            boolean isFollowing = followTarget(aStar.getFirstReachablePoint(owner));
+            if (!isFollowing) {
+                aStar.removeFrom(aStar.getFirstReachablePoint(owner), true);
+            }
+            if (aStar.getPath().size() > 1) {
+                return true;
+            } else {
+                return isFollowing;
+            }
+        }
+    }
+
+    protected boolean seeTarget(GameObjectSolid target) {
+        int step = 1;
+        double direction = Math.atan2(target.getY() - owner.getY(), target.getX() - owner.getX());
+        Bullet dummy = new Bullet(owner, owner.getX(), owner.getY(), direction, 0, 0, 0, GameObjInstanceKind.ARROW);
+        for (int i = 0; i < MathAdv.getDistance(owner.getX(), owner.getY(), target.getX(), target.getY()) / step; ++i) {
+            GameObjectSolid collisionObject = CollisionManager.getInstance().collidesWith(dummy,
+                    owner.getX() + MathAdv.lengthDirX(direction, step * i),
+                    owner.getY() + MathAdv.lengthDirY(direction, step * i));
+            if (collisionObject != owner && collisionObject != null && collisionObject != target && !(collisionObject instanceof Bullet)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     protected double getDistanceToTarget(Point target) {
         return MathAdv.getDistance(target.getX(), target.getY(), owner.getX(), owner.getY());
+    }
+
+    protected boolean isDirectPathFree(Unit target) {
+        int step = 5;
+        double currentDirection = Math.atan2(target.getY() - owner.getY(), target.getX() - owner.getX());
+        for (int j = 0; j < MathAdv.getDistance(owner.getX(), owner.getY(), target.getX(), target.getY()) / step; ++j) {
+            GameObjectSolid collisionObject = CollisionManager.getInstance().collidesWith(owner,
+                    owner.getX() + MathAdv.lengthDirX(currentDirection, step * j),
+                    owner.getY() + MathAdv.lengthDirY(currentDirection, step * j));
+            if (collisionObject != owner && collisionObject != null && !(collisionObject instanceof Bullet) && collisionObject != target) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public List<Cell> getPath() {
+        return aStar.getPath();
     }
 
     // Getters and setters
@@ -93,4 +189,7 @@ public abstract class BotAI {
         this.owner = owner;
     }
 
+    public AStar getAStar() {
+        return aStar;
+    }
 }
