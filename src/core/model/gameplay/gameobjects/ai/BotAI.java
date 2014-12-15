@@ -21,7 +21,6 @@ public abstract class BotAI {
     private double lastTargetX;
     private double lastTargetY;
     private boolean usePath;
-    private Timer rebuildTimer;
 
     public BotAI() {
         this(null);
@@ -33,7 +32,6 @@ public abstract class BotAI {
         this.currentState = null;
         this.previousState = null;
         this.aStar = new AStar();
-        rebuildTimer = new Timer();
         init();
     }
 
@@ -48,7 +46,6 @@ public abstract class BotAI {
         }
         stateMap.get(currentState).run(delta);
         stateMap.get(currentState).update(delta);
-        rebuildTimer.update(delta);
     }
 
     protected abstract void init();
@@ -111,17 +108,13 @@ public abstract class BotAI {
                 usePath = false;
                 return followTarget(lastTargetX, lastTargetY);
             } else {
-                if (!usePath/* && rebuildTimer.isTime()*/) {
+                if (!usePath) {
                     aStar.buildPath(hero, owner, lastTargetX, lastTargetY);
                     aStar.removeFrom(aStar.getFirstReachablePoint(owner), false);
                     usePath = true;
-                    System.out.print("********Fucking rebuild!");
-                    rebuildTimer.activate(100);
                 }
                 Point p = aStar.getFirstReachablePoint(owner);
                 boolean isFollowing = followTarget(p);
-                System.out.println("Follow:" + isFollowing);
-                System.out.println("Follow(X:Y):" + p.getX() + ":" + p.getY());
                 if (!isFollowing) {
                     aStar.removeFrom(p, true);
                 }
@@ -132,7 +125,6 @@ public abstract class BotAI {
                 }
             }
         } else {
-            System.out.println("Dont see" + Math.random());
             usePath = false;
             if (aStar.getFirstReachablePoint(owner) == null) {
                 aStar.buildPath(hero, owner, lastTargetX, lastTargetY);

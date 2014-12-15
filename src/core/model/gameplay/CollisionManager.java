@@ -117,25 +117,6 @@ public class CollisionManager {
         return other;
     }
 
-
-    public GameObjectSolid collidesWithAStar(GameObjectSolid gameObjectSolid, double x, double y) {
-        GameObjectSolid other = null;
-        for (GameObject currentGameObject : World.getInstance(false).getGameObjectList()) {
-            if (currentGameObject instanceof GameObjectSolid) {
-                GameObjectSolid currentGameObjectSolid = (GameObjectSolid) currentGameObject;
-                double distanceToObject = MathAdv.getDistance(x, y, currentGameObjectSolid.getX(), currentGameObjectSolid.getY());
-                double freeDistance = gameObjectSolid.getMask().getBoundingCircleRadius() +
-                        currentGameObjectSolid.getMask().getBoundingCircleRadius();
-                if (gameObjectSolid != currentGameObjectSolid && distanceToObject < freeDistance &&
-                        isCollidesAStar(gameObjectSolid, x, y, currentGameObjectSolid)) {
-                    other = currentGameObjectSolid;
-                    break;
-                }
-            }
-        }
-        return other;
-    }
-
     /*
     * Returns clone of gameObject.getMask() with changed x, y and transformed (rotated on @param direction)
     *
@@ -171,37 +152,6 @@ public class CollisionManager {
             return mask1.intersects(mask2);
         }*/
         return mask1.intersects(mask2);
-    }
-
-    public boolean isCollidesAStar(GameObjectSolid gameObjectSolid1, double x, double y, GameObjectSolid gameObjectSolid2) {
-        Shape mask1 = getUpdatedMaskAStar(gameObjectSolid1.getMask(), x, y, gameObjectSolid1.getDirection());
-        Shape mask2 = getUpdatedMask(gameObjectSolid2.getMask(), gameObjectSolid2.getX(), gameObjectSolid2.getY(), gameObjectSolid2.getDirection());
-
-        /*if (mask1 instanceof Circle && mask2 instanceof Circle) {
-            return MathAdv.getDistance(mask1.getX(), mask1.getY(), mask2.getX(), mask2.getY()) < mask1.getBoundingCircleRadius() + mask2.getBoundingCircleRadius();
-        } else {
-            return mask1.intersects(mask2);
-        }*/
-        return mask1.intersects(mask2);
-    }
-    public Shape getUpdatedMaskAStar(Shape mask, double dx, double dy, double direction) {
-        Shape updatedMask;
-
-        if (mask instanceof Circle) {
-            updatedMask = new Circle(mask.getCenterX() + (float) dx,
-                    mask.getCenterY() + (float) dy,
-                    mask.getBoundingCircleRadius() + 10);
-        } else if (mask instanceof Rectangle) {
-            updatedMask = new Rectangle(mask.getX() + (float) dx,
-                    mask.getY() + (float) dy,
-                    mask.getWidth(), mask.getHeight());
-            updatedMask = updatedMask.transform(Transform.createRotateTransform((float) (direction),
-                    updatedMask.getCenterX(), updatedMask.getCenterY()));
-        } else {
-            updatedMask = null;
-        }
-
-        return updatedMask;
     }
 
 }
