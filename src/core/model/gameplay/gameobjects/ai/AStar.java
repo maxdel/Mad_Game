@@ -32,9 +32,7 @@ public class AStar {
         start.f = start.g + start.h;
         while (!openedSet.isEmpty()) {
             Cell x = getLowestFCell(openedSet);
-            if (MathAdv.getDistance(x.x, x.y, goal.x, goal.y) <= GRID_STEP/* &&
-                    (CollisionManager.getInstance().collidesWith(owner, x.x, x.y) == null ||
-                    CollisionManager.getInstance().collidesWith(owner, x.x, x.y) == target)*/) {
+            if (MathAdv.getDistance(x.x, x.y, goal.x, goal.y) <= GRID_STEP) {
                 path = reconstructPath(x);
                 return true;
             }
@@ -73,8 +71,7 @@ public class AStar {
     }
 
     private double calculateH(Unit owner, GameObjectSolid target, int x, int y, int goalX, int goalY) {
-        if (CollisionManager.getInstance().collidesWith(owner, x, y) == null ||
-                CollisionManager.getInstance().collidesWith(owner, x, y) == target) {
+        if (CollisionManager.getInstance().collidesWithNot(owner, x, y, target) == null) {
             return MathAdv.getDistance(x, y, goalX, goalY);
         } else {
             return OBSTACLE_COST;

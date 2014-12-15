@@ -80,7 +80,7 @@ public class MeleeAI extends BotAI {
             private double currentRetreatDistance;
             public void enter()           { currentRetreatDistance = 0; }
             public void run(int delta)    { currentRetreatDistance += retreat(delta); }
-            public void update(int delta) { if (currentRetreatDistance >= retreatDistance && seeTarget(World.getInstance().getHero())) currentState = MeleeAIState.PURSUE; }
+            public void update(int delta) { if (currentRetreatDistance >= retreatDistance) currentState = MeleeAIState.PURSUE; }
         });
     }
 
