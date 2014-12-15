@@ -1,5 +1,6 @@
 package core.view.gameplay.unit;
 
+import core.model.gameplay.gameobjects.ai.Cell;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;

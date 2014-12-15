@@ -118,6 +118,27 @@ public class CollisionManager {
     }
 
     /*
+     * Returns the first GameObject object which collides with @param gameObject excluding @param excludedObject
+     */
+    public GameObjectSolid collidesWithNot(GameObjectSolid gameObjectSolid, double x, double y, GameObjectSolid excludedObject) {
+        GameObjectSolid other = null;
+        for (GameObject currentGameObject : World.getInstance(false).getGameObjectList()) {
+            if (currentGameObject instanceof GameObjectSolid) {
+                GameObjectSolid currentGameObjectSolid = (GameObjectSolid) currentGameObject;
+                double distanceToObject = MathAdv.getDistance(x, y, currentGameObjectSolid.getX(), currentGameObjectSolid.getY());
+                double freeDistance = gameObjectSolid.getMask().getBoundingCircleRadius() +
+                        currentGameObjectSolid.getMask().getBoundingCircleRadius();
+                if (gameObjectSolid != currentGameObjectSolid && excludedObject != currentGameObjectSolid &&
+                        distanceToObject < freeDistance && isCollides(gameObjectSolid, x, y, currentGameObjectSolid)) {
+                    other = currentGameObjectSolid;
+                    break;
+                }
+            }
+        }
+        return other;
+    }
+
+    /*
     * Returns clone of gameObject.getMask() with changed x, y and transformed (rotated on @param direction)
     *
     * Should be private(!) but used by View for debug purposes (drawMask)
