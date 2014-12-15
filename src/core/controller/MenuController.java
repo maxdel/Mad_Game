@@ -48,11 +48,11 @@ public class MenuController {
         if (!Main.changeFullScreenMode(gc, input)) {
             if (input.isKeyPressed(Input.KEY_ENTER)) {
                 if (menu.getCurrentChoice() == menu.getMenuId(Menu.MenuElement.RESUME)) {
-                    World.getInstance();
                     game.enterState(GamePlayState.getInstance().getID());
                 } else if (menu.getCurrentChoice() == menu.getMenuId(Menu.MenuElement.NEW_GAME)) {
                     World.getInstance(true); // creating new world
                     game.enterState(GamePlayState.getInstance().getID());
+                    gc.setPaused(false);
                 } else if (menu.getCurrentChoice() == menu.getMenuId(Menu.MenuElement.SETTING)) {
 
                 } else if (menu.getCurrentChoice() == menu.getMenuId(Menu.MenuElement.AUTHORS)) {

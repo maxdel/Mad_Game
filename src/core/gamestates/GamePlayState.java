@@ -3,6 +3,7 @@ package core.gamestates;
 import core.resourcemanager.ResourceManager;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -24,6 +25,8 @@ public class GamePlayState extends BasicGameState {
     private World world;
     private GamePlayView gamePlayView;
     private GamePlayController gamePlayController;
+
+
 
     private GamePlayState() {
 
@@ -48,14 +51,21 @@ public class GamePlayState extends BasicGameState {
 
     @Override
     public void render(GameContainer gc, StateBasedGame game, Graphics g) throws SlickException {
-        gamePlayView.render(gc, g);
+        if (gc.isPaused()) {
+            g.drawString("Pause", gc.getWidth() / 2 - 30, gc.getHeight() / 2 - 30);
+        } else {
+            gamePlayView.render(gc, g);
+        }
     }
 
     @Override
     public void update(GameContainer gc, StateBasedGame game, int delta) throws SlickException {
         gamePlayController.update(gc, game);
+
+
         world.update(delta);
         gamePlayView.update(delta);
+
     }
 
     @Override
@@ -65,11 +75,15 @@ public class GamePlayState extends BasicGameState {
         world = World.getInstance();
         gamePlayView = new GamePlayView(gc, world.getGameObjectList(), world.getTiledMap());
         gamePlayController = new GamePlayController(world, gamePlayView);
+        render(gc,game, gc.getGraphics());
+
+
     }
 
     @Override
     public void leave(GameContainer gc, StateBasedGame game) throws SlickException {
         gc.getInput().clearKeyPressedRecord();
+        gc.pause();
         ResourceManager.getInstance().unload();
         world = null;
         gamePlayView = null;

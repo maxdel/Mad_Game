@@ -135,6 +135,10 @@ public class World {
         instance = null;
     }
 
+    public static boolean isInstanceIsNull() {
+        return instance == null;
+    }
+
     public void update(int delta) {
         for (GameObject gameObject : gameObjectToAddList) {
             gameObjectList.add(gameObject);

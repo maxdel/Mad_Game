@@ -41,11 +41,23 @@ public class GamePlayController {
 
         Main.changeFullScreenMode(gc, input);
 
-        if (controlMode.equals("Hero")) {
-            // Enter pause menu
-            if (input.isKeyPressed(Input.KEY_ESCAPE)) {
-                game.enterState(GameState.MENU.getValue());
+        if (input.isKeyPressed(Input.KEY_ESCAPE)) {
+            game.enterState(GameState.MENU.getValue());
+        }
+
+        // Pause
+        if (gc.getInput().isKeyPressed(Input.KEY_P)) {
+            gc.setPaused(!gc.isPaused());
+            if (!gc.isPaused()) {
+                mouseX = input.getMouseX();
             }
+        }
+        if (gc.isPaused()) {
+            return;
+        }
+        //--
+
+        if (controlMode.equals("Hero")) {
 
             // Controls the direction of the hero
             oldMouseX = mouseX;
