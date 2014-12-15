@@ -27,6 +27,8 @@ public class ResourceManager {
 
     private final String xmlFilePath = "res/resources.xml";
 
+
+    private Image skillFakeImage;
     private Map<String, AnimationInfo> animationInfos;
     private Map<String, MaskInfo> maskInfos;
     private Map<String, FontInfo> fontInfos;
@@ -99,6 +101,7 @@ public class ResourceManager {
         loadObstacles(gameplayElement);
         loadBullets(gameplayElement);
         loadSounds(gameplayElement);
+        setSkillFakeImage(gameplayElement);
 
         in.close();
     }
@@ -428,5 +431,16 @@ public class ResourceManager {
 
     public Sound getSound(String name) {
         return soundInfos.get(name).getSound();
+    }
+
+    public Image getSkillFakeImage() {
+        return skillFakeImage;
+    }
+
+    private void setSkillFakeImage(XMLElement gameStateElement) throws SlickException {
+        XMLElement fakesEl = gameStateElement.getChildrenByName("skillFakes").get(0);
+        XMLElementList fakes = fakesEl.getChildrenByName("fake");
+        String path = fakes.get(0).getAttribute("path");
+        skillFakeImage = new Image(path);
     }
 }

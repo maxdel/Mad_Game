@@ -82,6 +82,9 @@
                    castTime="200" postApplyTime="0" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="20"
                    distance="200"/>
         </skills>
+        <skillFakes>
+            <fake path="/res/skills/fake.png"></fake>
+        </skillFakes>
         <fonts>
             <font name="lootfont" fontName="verdana" size="10" isBold="false" />
             <font name="itemfont" fontName="verdana" size="12" isBold="false" />
@@ -110,12 +113,14 @@
                     <itemRecord name="Arrow" number="100" />
                 </inventory>
                 <skillList>
-                    <skill name="Sword_attack"/>
-                    <skill name="Bow_shot"/>
-                    <skill name="Fireball"/>
-                    <skill name="Blink"/>
-                    <skill name="Heal"/>
+         <!--           <skill name="Heal"/>
+--> <!--                   <skill name="Sword_attack"/>
+                    <skill name="Strong_sword_attack"/>
+ -->                   <skill name="Bow_shot"/>
                     <skill name="Wind_bow"/>
+     <!--               <skill name="Staff_attack"/>
+     -->               <skill name="Fireball"/>
+                    <skill name="Blink"/>
                 </skillList>
                 <lootList>
                     <loot name="Apple" probability="1" />
