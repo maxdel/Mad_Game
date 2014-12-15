@@ -32,6 +32,7 @@ public class SkillPanelView {
     int IMAGE_SECTOR_DEGREES;
     int[] imgsPolarCoordinates;
 
+
     public SkillPanelView(List<Skill> skillsToDraw, Map<SkillInstanceKind, SkillInfo> skillInfos, GameContainer gc) {
         // filling imgs to draw
         imgsToDraw = new ArrayList<>();
@@ -96,5 +97,6 @@ public class SkillPanelView {
         resultPoint[Y] = PANEL_CENTER_Y + cartesianY;
         return resultPoint;
     }
+
 
 }

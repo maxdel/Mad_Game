@@ -56,7 +56,6 @@ public class MenuState extends BasicGameState {
     @Override
     public void enter(GameContainer gc, StateBasedGame game) throws SlickException {
         ResourceManager.getInstance().load(STATE_ID);
-
         menuController = MenuController.getInstance();
         menuView = new MenuView(Menu.getInstance());
     }

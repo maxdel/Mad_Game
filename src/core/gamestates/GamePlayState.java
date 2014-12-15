@@ -1,5 +1,6 @@
 package core.gamestates;
 
+import core.model.Menu;
 import core.resourcemanager.ResourceManager;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -53,6 +54,7 @@ public class GamePlayState extends BasicGameState {
     public void render(GameContainer gc, StateBasedGame game, Graphics g) throws SlickException {
         if (gc.isPaused()) {
             g.drawString("Pause", gc.getWidth() / 2 - 30, gc.getHeight() / 2 - 30);
+            g.drawString("(Press 'P' key to resume)", gc.getWidth() / 2 - 120, gc.getHeight() / 2);
         } else {
             gamePlayView.render(gc, g);
         }
@@ -88,6 +90,7 @@ public class GamePlayState extends BasicGameState {
         world = null;
         gamePlayView = null;
         gamePlayController = null;
+        Menu.getInstance().setCurrentChoice(0);
         System.gc();
     }
 }

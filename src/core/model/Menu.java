@@ -10,7 +10,7 @@ public class Menu {
 
     public enum MenuElement {
 
-        RESUME("Resume", 0), NEW_GAME("New game", 1), SETTING("Setting", 2), AUTHORS("Authors", 3), EXIT("Exit", 4);
+        RESUME("Back to game", 0), NEW_GAME("New game", 1), SETTING("Control", 2), AUTHORS("Authors", 3), EXIT("Exit", 4);
 
         private String name;
         private int value;
@@ -71,6 +71,10 @@ public class Menu {
 
     public int getNumberOfChoices() {
         return menuElements.size();
+    }
+
+    public void setCurrentChoice(int currentChoice) {
+        this.currentChoice = currentChoice;
     }
 
     public Set<String> getMenuTitles() {

@@ -4,6 +4,7 @@ import core.gamestates.AuthorsState;
 import core.model.Authors;
 import core.model.Menu;
 import main.Main;
+import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
@@ -44,7 +45,7 @@ public class MenuController {
         if (input.isKeyPressed(Input.KEY_W)) {
             menu.stepUp();
         }
-
+        
         if (!Main.changeFullScreenMode(gc, input)) {
             if (input.isKeyPressed(Input.KEY_ENTER)) {
                 if (menu.getCurrentChoice() == menu.getMenuId(Menu.MenuElement.RESUME)) {
