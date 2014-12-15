@@ -1,6 +1,7 @@
 package core.model.gameplay.gameobjects.ai;
 
 import core.MathAdv;
+import core.model.Timer;
 import core.model.gameplay.CollisionManager;
 import core.model.gameplay.World;
 import core.model.gameplay.gameobjects.*;
@@ -20,6 +21,7 @@ public abstract class BotAI {
     private double lastTargetX;
     private double lastTargetY;
     private boolean usePath;
+    private Timer rebuildTimer;
 
     public BotAI() {
         this(null);
@@ -31,6 +33,7 @@ public abstract class BotAI {
         this.currentState = null;
         this.previousState = null;
         this.aStar = new AStar();
+        rebuildTimer = new Timer();
         init();
     }
 
@@ -106,12 +109,20 @@ public abstract class BotAI {
                 usePath = false;
                 return followTarget(lastTargetX, lastTargetY);
             } else {
-                if (!usePath) {
+                if (!usePath && rebuildTimer.isTime()) {
                     aStar.buildPath(hero, owner, lastTargetX, lastTargetY);
                     aStar.removeFrom(aStar.getFirstReachablePoint(owner), false);
                     usePath = true;
+                    System.out.print("********Fucking rebuild!");
+                    rebuildTimer.activate(100);
                 }
-                boolean isFollowing = followTarget(aStar.getFirstReachablePoint(owner));
+                Point p = aStar.getFirstReachablePoint(owner);
+                boolean isFollowing = followTarget(p);
+                System.out.println("Follow:" + isFollowing);
+                System.out.println("Follow(X:Y):" + p.getX() + ":" + p.getY());
+                if (!isFollowing) {
+                    aStar.removeFrom(p, true);
+                }
                 if (aStar.getPath().size() > 1) {
                     return true;
                 } else {
@@ -138,39 +149,15 @@ public abstract class BotAI {
         }
     }
 
-    /*protected void followHero() {
-        if (isWayFree(World.getInstance().getHero())) {
-            followTarget(new Point((float) World.getInstance().getHero().getX(), (float) World.getInstance().getHero().getY()));
-            usePath = false;
-        } else {
-            if (pathTarget == null || MathAdv.getDistance(World.getInstance().getHero().getX(), World.getInstance().getHero().getY(),
-                    pathTarget.getX(), pathTarget.getY()) > aStar.getGridStep()) {
-                buildPath(World.getInstance().getHero(), owner);
-            }
-            Point nextPoint = aStar.getFirstReachablePoint(owner);
-            if (MathAdv.getDistance(owner.getX(), owner.getY(), nextPoint.getX(), nextPoint.getY()) < 1) {
-                aStar.removeFrom(nextPoint, true);
-            } else {
-                aStar.removeFrom(nextPoint, false);
-            }
-            if (usePath && nextPoint != null) {
-                followTarget(nextPoint);
-            } else {
-                buildPath(World.getInstance().getHero(), owner);
-            }
-            previousPoint = nextPoint;
-        }
-    }*/
-
     protected boolean seeTarget(GameObjectSolid target) {
-        int step = 5;
+        int step = 1;
         double direction = Math.atan2(target.getY() - owner.getY(), target.getX() - owner.getX());
         Bullet dummy = new Bullet(owner, owner.getX(), owner.getY(), direction, 0, 0, 0, GameObjInstanceKind.ARROW);
         for (int i = 0; i < MathAdv.getDistance(owner.getX(), owner.getY(), target.getX(), target.getY()) / step; ++i) {
             GameObjectSolid collisionObject = CollisionManager.getInstance().collidesWith(dummy,
                     owner.getX() + MathAdv.lengthDirX(direction, step * i),
                     owner.getY() + MathAdv.lengthDirY(direction, step * i));
-            if (collisionObject != owner && collisionObject != null && collisionObject != target) {
+            if (collisionObject != owner && collisionObject != null && collisionObject != target && !(collisionObject instanceof Bullet)) {
                 return false;
             }
         }
@@ -181,12 +168,6 @@ public abstract class BotAI {
     protected double getDistanceToTarget(Point target) {
         return MathAdv.getDistance(target.getX(), target.getY(), owner.getX(), owner.getY());
     }
-
-    /*protected void buildPath(GameObjectSolid target, Unit owner) {
-        aStar.buildPath(target, owner);
-        //usePath = true;
-        //pathTarget = aStar.getGoalPoint();
-    }*/
 
     protected boolean isDirectPathFree(Unit target) {
         int step = 5;

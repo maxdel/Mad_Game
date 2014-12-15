@@ -71,8 +71,8 @@ public class AStar {
     }
 
     private double calculateH(Unit owner, GameObjectSolid target, int x, int y, int goalX, int goalY) {
-        if (CollisionManager.getInstance().collidesWith(owner, x, y) == null ||
-                CollisionManager.getInstance().collidesWith(owner, x, y) == target) {
+        if (CollisionManager.getInstance().collidesWithAStar(owner, x, y) == null ||
+                CollisionManager.getInstance().collidesWithAStar(owner, x, y) == target) {
             return MathAdv.getDistance(x, y, goalX, goalY);
         } else {
             return OBSTACLE_COST;

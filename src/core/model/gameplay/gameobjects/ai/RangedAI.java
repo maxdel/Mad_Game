@@ -35,7 +35,7 @@ public class RangedAI extends BotAI {
     protected void init() {
         final int standTime = 3000;
         final int pursueDistance = 400;
-        final int attackDistance = 50;
+        final int attackDistance = 200;
         currentState = RangedAIState.STAND;
         stateMap.put(RangedAIState.STAND, new AIState() {
             private Timer timer;
@@ -56,26 +56,31 @@ public class RangedAI extends BotAI {
             public void enter()           { isFollowing = true;                                                                  }
             public void run(int delta)    { isFollowing = followHero();         }
             public void update(int delta) { if (getDistanceToHero() >= pursueDistance || !isFollowing) currentState = RangedAIState.STAND;
-                                            if (getDistanceToHero() < attackDistance)  currentState = RangedAIState.ATTACK; }
+                                            if (getDistanceToHero() < attackDistance && seeTarget(World.getInstance().getHero())) currentState = RangedAIState.ATTACK; }
         });
         stateMap.put(RangedAIState.ATTACK, new AIState() {
-            public void enter()           {                                                                                 }
-            public void run(int delta)    { attackHeroWithRangedSkill();                                                    }
-            public void update(int delta) { if (getDistanceToHero() >= attackDistance) currentState = RangedAIState.PURSUE; }
+            private boolean isAttacking;
+            public void enter()           { isAttacking = true;                                                             }
+            public void run(int delta)    { isAttacking = attackHeroWithRangedSkill();                                      }
+            public void update(int delta) { if (getDistanceToHero() >= attackDistance || !isAttacking) currentState = RangedAIState.PURSUE; }
         });
     }
 
-    private void attackHeroWithRangedSkill() {
+    private boolean attackHeroWithRangedSkill() {
         owner.stand();
         owner.setDirection(getPredictedDirection(0));
         if (seeTarget(World.getInstance().getHero())) {
             if (owner.getSkillList().get(0).getKind() == SkillInstanceKind.BOW_SHOT) {
                 owner.getInventory().useItem(owner.getInventory().addItem(ItemInstanceKind.STRONG_BOW));
+                owner.startCastSkill(SkillInstanceKind.BOW_SHOT);
             } else {
                 owner.getInventory().useItem(owner.getInventory().addItem(ItemInstanceKind.STAFF));
+                owner.startCastSkill(SkillInstanceKind.FIREBALL);
             }
-            owner.startCastSkill(SkillInstanceKind.BOW_SHOT);
+            return true;
         }
+        System.out.println("attackHero=" + false);
+        return false;
     }
 
     private double getPredictedDirection(int skillIndex) {
