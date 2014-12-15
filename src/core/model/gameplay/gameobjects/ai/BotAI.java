@@ -48,6 +48,7 @@ public abstract class BotAI {
         }
         stateMap.get(currentState).run(delta);
         stateMap.get(currentState).update(delta);
+        rebuildTimer.update(delta);
     }
 
     protected abstract void init();
@@ -103,13 +104,14 @@ public abstract class BotAI {
     protected boolean followHero() {
         Unit hero = World.getInstance().getHero();
         if (seeTarget(hero)) {
+            System.out.println("See" + Math.random());
             lastTargetX = hero.getX();
             lastTargetY = hero.getY();
             if (isDirectPathFree(hero)) {
                 usePath = false;
                 return followTarget(lastTargetX, lastTargetY);
             } else {
-                if (!usePath && rebuildTimer.isTime()) {
+                if (!usePath/* && rebuildTimer.isTime()*/) {
                     aStar.buildPath(hero, owner, lastTargetX, lastTargetY);
                     aStar.removeFrom(aStar.getFirstReachablePoint(owner), false);
                     usePath = true;
@@ -130,6 +132,7 @@ public abstract class BotAI {
                 }
             }
         } else {
+            System.out.println("Dont see" + Math.random());
             usePath = false;
             if (aStar.getFirstReachablePoint(owner) == null) {
                 aStar.buildPath(hero, owner, lastTargetX, lastTargetY);
@@ -161,7 +164,6 @@ public abstract class BotAI {
                 return false;
             }
         }
-        System.out.println("See" + Math.random());
         return true;
     }
 

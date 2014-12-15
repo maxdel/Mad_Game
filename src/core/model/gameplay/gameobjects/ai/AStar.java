@@ -108,6 +108,7 @@ public class AStar {
             path.add(currentCell);
             currentCell = currentCell.cameFrom;
         }
+        path.remove(path.size() - 1);
         return path;
     }
 
