@@ -40,20 +40,21 @@ public class MeleeAI extends BotAI {
             public void enter()           { timer = new Timer(standTime); }
             public void run(int delta)    { owner.stand(); }
             public void update(int delta) { timer.update(delta);
-                                            if (getDistanceToHero() < pursueDistance) { currentState = MeleeAIState.PURSUE; return; }
+                                            if (getDistanceToHero() < pursueDistance && seeTarget(World.getInstance().getHero())) { currentState = MeleeAIState.PURSUE; return; }
                                             if (timer.isTime()) currentState = MeleeAIState.WALK; }
         });
         stateMap.put(MeleeAIState.WALK, new AIState() {
             private Point target;
             public void enter()           { target = getRandomTarget(); }
             public void run(int delta)    { followTarget(target); }
-            public void update(int delta) { if (getDistanceToHero() < pursueDistance) { currentState = MeleeAIState.PURSUE; return; }
+            public void update(int delta) { if (getDistanceToHero() < pursueDistance && seeTarget(World.getInstance().getHero())) { currentState = MeleeAIState.PURSUE; return; }
                                             if (getDistanceToTarget(target) < 2) currentState = MeleeAIState.STAND; }
         });
         stateMap.put(MeleeAIState.PURSUE, new AIState() {
-            public void enter()           { }
-            public void run(int delta)    { followHero(); }
-            public void update(int delta) { if (getDistanceToHero() >= pursueDistance) { currentState = MeleeAIState.STAND; return; }
+            private boolean isFollowing;
+            public void enter()           { isFollowing = true; }
+            public void run(int delta)    { isFollowing = followHero(); }
+            public void update(int delta) { if (getDistanceToHero() >= pursueDistance || !isFollowing) { currentState = MeleeAIState.STAND; return; }
                                             if (getDistanceToHero() < attackDistance && Math.random() < attackProbability) { currentState = MeleeAIState.ATTACK; return; }
                                             if (getDistanceToHero() < attackDistance && Math.random() < strafeProbability) { currentState = MeleeAIState.STRAFE; return; }
                                             if (getDistanceToHero() < attackDistance)  currentState = MeleeAIState.RETREAT;  }
@@ -61,7 +62,7 @@ public class MeleeAI extends BotAI {
         stateMap.put(MeleeAIState.ATTACK, new AIState() {
             public void enter()           { }
             public void run(int delta)    { attackHeroWithSword(); }
-            public void update(int delta) { if (getDistanceToHero() >= attackDistance) { currentState = MeleeAIState.PURSUE; return; }
+            public void update(int delta) { if (getDistanceToHero() >= attackDistance && seeTarget(World.getInstance().getHero())) { currentState = MeleeAIState.PURSUE; return; }
                                             if (Math.random() < strafeProbability) { currentState = MeleeAIState.STRAFE; return; }
                                             currentState = MeleeAIState.RETREAT; }
         });
@@ -71,7 +72,7 @@ public class MeleeAI extends BotAI {
             public void enter()           { timer = new Timer(strafeTime); strafeDirection = Math.random() < 0.5; }
             public void run(int delta)    { strafe(strafeDirection); }
             public void update(int delta) { timer.update(delta);
-                                            if (timer.isTime() && getDistanceToHero() >= attackDistance) { currentState = MeleeAIState.PURSUE; return; }
+                                            if (timer.isTime() && getDistanceToHero() >= attackDistance && seeTarget(World.getInstance().getHero())) { currentState = MeleeAIState.PURSUE; return; }
                                             if (timer.isTime() && Math.random() < attackProbability) { currentState = MeleeAIState.ATTACK; return; }
                                             if (timer.isTime()) currentState = MeleeAIState.RETREAT; }
         });
@@ -79,7 +80,7 @@ public class MeleeAI extends BotAI {
             private double currentRetreatDistance;
             public void enter()           { currentRetreatDistance = 0; }
             public void run(int delta)    { currentRetreatDistance += retreat(delta); }
-            public void update(int delta) { if (currentRetreatDistance >= retreatDistance) currentState = MeleeAIState.PURSUE; }
+            public void update(int delta) { if (currentRetreatDistance >= retreatDistance && seeTarget(World.getInstance().getHero())) currentState = MeleeAIState.PURSUE; }
         });
     }
 

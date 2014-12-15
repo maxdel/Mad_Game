@@ -5,6 +5,7 @@ import core.model.Timer;
 import core.model.gameplay.CollisionManager;
 import core.model.gameplay.World;
 import core.model.gameplay.gameobjects.*;
+import org.lwjgl.Sys;
 import org.newdawn.slick.geom.Point;
 
 import java.util.HashMap;
@@ -20,7 +21,7 @@ public abstract class BotAI {
     private AStar aStar;
     private double lastTargetX;
     private double lastTargetY;
-    private boolean usePath;
+    private boolean updatePathIfSeeTarget;
 
     public BotAI() {
         this(null);
@@ -32,6 +33,7 @@ public abstract class BotAI {
         this.currentState = null;
         this.previousState = null;
         this.aStar = new AStar();
+        this.updatePathIfSeeTarget = true;
         init();
     }
 
@@ -81,10 +83,6 @@ public abstract class BotAI {
         return followTarget(new Point((float) x, (float) y));
     }
 
-    protected boolean followTarget(GameObjectSolid target) {
-        return followTarget(new Point((float) target.getX(), (float) target.getY()));
-    }
-
     protected boolean followTarget(Point target) {
         double direction = Math.atan2(target.getY() - owner.getY(), target.getX() - owner.getX());
         owner.setDirection(direction);
@@ -101,35 +99,35 @@ public abstract class BotAI {
     protected boolean followHero() {
         Unit hero = World.getInstance().getHero();
         if (seeTarget(hero)) {
-            System.out.println("See" + Math.random());
             lastTargetX = hero.getX();
             lastTargetY = hero.getY();
             if (isDirectPathFree(hero)) {
-                usePath = false;
+                updatePathIfSeeTarget = true;
                 return followTarget(lastTargetX, lastTargetY);
             } else {
-                if (!usePath) {
+                if (updatePathIfSeeTarget) {
                     aStar.buildPath(hero, owner, lastTargetX, lastTargetY);
-                    aStar.removeFrom(aStar.getFirstReachablePoint(owner), false);
-                    usePath = true;
+                    updatePathIfSeeTarget = false;
                 }
-                Point p = aStar.getFirstReachablePoint(owner);
-                boolean isFollowing = followTarget(p);
+                Point currentPoint = aStar.getFirstReachablePoint(owner);
+                aStar.removeFrom(currentPoint, false);
+                boolean isFollowing = followTarget(currentPoint);
                 if (!isFollowing) {
-                    aStar.removeFrom(p, true);
+                    aStar.removeFrom(currentPoint, true);
                 }
                 if (aStar.getPath().size() > 1) {
                     return true;
                 } else {
+                    if (!isFollowing) {
+                        updatePathIfSeeTarget = true;
+                    }
                     return isFollowing;
                 }
             }
         } else {
-            usePath = false;
-            if (aStar.getFirstReachablePoint(owner) == null) {
-                aStar.buildPath(hero, owner, lastTargetX, lastTargetY);
-                aStar.removeFrom(aStar.getFirstReachablePoint(owner), false);
-                usePath = true;
+            updatePathIfSeeTarget = true;
+            if (aStar.getPath().isEmpty()) {
+                return false;
             }
             aStar.removeFrom(aStar.getFirstReachablePoint(owner), false);
             boolean isFollowing = followTarget(aStar.getFirstReachablePoint(owner));

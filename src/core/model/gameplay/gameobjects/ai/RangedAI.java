@@ -1,13 +1,8 @@
 package core.model.gameplay.gameobjects.ai;
 
-import core.MathAdv;
 import core.model.Timer;
-import core.model.gameplay.CollisionManager;
 import core.model.gameplay.World;
 import core.model.gameplay.gameobjects.Bot;
-import core.model.gameplay.gameobjects.Bullet;
-import core.model.gameplay.gameobjects.GameObjInstanceKind;
-import core.model.gameplay.gameobjects.GameObjectSolid;
 import core.model.gameplay.items.ItemInstanceKind;
 import core.model.gameplay.skills.BulletShot;
 import core.model.gameplay.skills.SkillInstanceKind;

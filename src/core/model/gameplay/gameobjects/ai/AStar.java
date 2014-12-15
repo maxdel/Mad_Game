@@ -32,7 +32,9 @@ public class AStar {
         start.f = start.g + start.h;
         while (!openedSet.isEmpty()) {
             Cell x = getLowestFCell(openedSet);
-            if (MathAdv.getDistance(x.x, x.y, goal.x, goal.y) <= GRID_STEP) {
+            if (MathAdv.getDistance(x.x, x.y, goal.x, goal.y) <= GRID_STEP/* &&
+                    (CollisionManager.getInstance().collidesWith(owner, x.x, x.y) == null ||
+                    CollisionManager.getInstance().collidesWith(owner, x.x, x.y) == target)*/) {
                 path = reconstructPath(x);
                 return true;
             }
