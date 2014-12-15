@@ -8,12 +8,11 @@ import java.util.*;
 import java.util.List;
 import javafx.util.Pair;
 
-import core.GameState;
+import core.gamestates.GameState;
 import core.model.gameplay.items.Item;
 import core.model.gameplay.items.ItemInstanceKind;
 import core.model.gameplay.skills.*;
 import core.model.gameplay.gameobjects.GameObjInstanceKind;
-import javafx.util.Pair;
 import org.newdawn.slick.*;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Shape;
@@ -63,14 +62,11 @@ public class ResourceManager {
     public void load(GameState gameState) throws SlickException {
         try {
             switch (gameState) {
-                case MENUSTART:
+                case MENU:
                     loadMenuStart();
                     break;
                 case GAMEPLAY:
                     loadGamePlay();
-                    break;
-                case MENUPAUSE:
-                    loadMenuPause();
                     break;
             }
         } catch (IOException e) {
@@ -414,6 +410,9 @@ public class ResourceManager {
         return skillInfos.get(skillInstanceKind).getSkill();
     }
 
+    public Map<SkillInstanceKind, SkillInfo> getSkillInfos() {
+        return skillInfos;
+    }
 
     public UnitInfo getUnitInfo(GameObjInstanceKind type) {
         return unitInfos.get(type);
@@ -430,5 +429,4 @@ public class ResourceManager {
     public Sound getSound(String name) {
         return soundInfos.get(name).getSound();
     }
-
 }

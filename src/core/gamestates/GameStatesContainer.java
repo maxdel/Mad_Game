@@ -1,4 +1,4 @@
-package core;
+package core.gamestates;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
@@ -22,8 +22,8 @@ public class GameStatesContainer extends StateBasedGame {
     @Override
     public void initStatesList(GameContainer gc) throws SlickException {
         addState(GamePlayState.getInstance());
-        addState(MenuStartState.getInstance());
-        addState(MenuPauseState.getInstance());
+        addState(MenuState.getInstance());
+        addState(AuthorsState.getInstance());
     }
 
 }
