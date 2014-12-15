@@ -11,15 +11,15 @@ public class SkillInfo {
     private String name;
     private String description;
     private String type;
-    private Image image;
+    private Image imageMain;
     private Map<String, String> map;
     SkillInstanceKind kind;
 
-    public SkillInfo(String name, String description, String type, Image image, Map<String, String> map, SkillInstanceKind kind) {
+    public SkillInfo(String name, String description, String type, Image imageMain, Map<String, String> map, SkillInstanceKind kind) {
         this.name = name;
         this.description = description;
         this.type = type;
-        this.image = image;
+        this.imageMain = imageMain;
         this.map = map;
         this.kind = kind;
     }
@@ -77,8 +77,8 @@ public class SkillInfo {
         return skill;
     }
 
-    public Image getImage() {
-        return image;
+    public Image getImageMain() {
+        return imageMain;
     }
 
 

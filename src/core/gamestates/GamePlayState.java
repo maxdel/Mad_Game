@@ -63,11 +63,8 @@ public class GamePlayState extends BasicGameState {
     @Override
     public void update(GameContainer gc, StateBasedGame game, int delta) throws SlickException {
         gamePlayController.update(gc, game);
-
-
         world.update(delta);
         gamePlayView.update(delta);
-
     }
 
     @Override
@@ -78,8 +75,6 @@ public class GamePlayState extends BasicGameState {
         gamePlayView = new GamePlayView(gc, world.getGameObjectList(), world.getTiledMap());
         gamePlayController = new GamePlayController(world, gamePlayView);
         render(gc,game, gc.getGraphics());
-
-
     }
 
     @Override
