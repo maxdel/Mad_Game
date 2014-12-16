@@ -75,7 +75,7 @@ public class SkillPanelView {
 
             if (skillOnPanel.skill.getTimerCooldown().isActive()) {
                 skillOnPanel.render(g, Color.yellow);
-            } else if (World.getInstance().getHero().canStartCast(skillOnPanel.skill)) {
+            } else if (!World.getInstance().getHero().canStartCast(skillOnPanel.skill)) {
                 skillOnPanel.render(g, Color.red);
             } else if (castingSkill != null && castingSkill.getKind() == skillOnPanel.skill.getKind()) {
                 skillOnPanel.render(g);

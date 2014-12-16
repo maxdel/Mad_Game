@@ -94,7 +94,6 @@ public class GamePlayView {
                 World.getInstance().getHero().getY(), World.getInstance().getHero().getDirection());
         updateGameObjectViewList();
 
-
         tileView.render(g, camera);
 
         // Render order

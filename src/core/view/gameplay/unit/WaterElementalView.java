@@ -16,7 +16,7 @@ public class WaterElementalView extends UnitView {
 
     public WaterElementalView(GameObject unit) {
         super(unit);
-        animation = ResourceManager.getInstance().getAnimation("elemental");
+        animation = ResourceManager.getInstance().getAnimation("empty");
         try {
             ps = ParticleIO.loadConfiguredSystem("/res/particles/water_elemental.xml");
         } catch (IOException e) {
