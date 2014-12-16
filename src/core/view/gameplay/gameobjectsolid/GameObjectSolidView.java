@@ -23,7 +23,7 @@ public abstract class GameObjectSolidView extends GameObjectView {
         g.rotate((float) (gameObject.getX() - camera.getX()),
                 (float) (gameObject.getY() - camera.getY()),
                 -(float) (gameObject.getDirection() / Math.PI * 180));
-        //drawMask(g, camera.getX(), camera.getY());
+        drawMask(g, camera.getX(), camera.getY());
         g.rotate((float) (gameObject.getX() - camera.getX()),
                 (float) (gameObject.getY() - camera.getY()),
                 (float) (gameObject.getDirection() / Math.PI * 180));

@@ -63,6 +63,24 @@ public class Bullet extends GameObjectSolid {
                         }
                         otherMoving.getAttribute().getHP().damage(mDamage);
                     }
+                } else if (other instanceof Obstacle) {
+                    Obstacle otherObstacle = (Obstacle) other;
+                    if (otherObstacle.isDestructible()) {
+                        if (pAttack > 0) {
+                            double pDamage = pAttack + owner.getAttribute().getPAttack();
+                            if (pDamage <= 1) {
+                                pDamage = 1;
+                            }
+                            otherObstacle.changeHP(-pDamage);
+                        }
+                        if (mAttack > 0) {
+                            double mDamage = mAttack + owner.getAttribute().getMAttack();
+                            if (mDamage <= 1) {
+                                mDamage = 1;
+                            }
+                            otherObstacle.changeHP(-mDamage);
+                        }
+                    }
                 }
                 World.getInstance().getGameObjectToDeleteList().add(this);
             }

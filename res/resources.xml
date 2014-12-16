@@ -22,6 +22,7 @@
             <animation name="skeleton_mage" path="/res/skeletonmage/skeletonMage.png" isImage = "true" />
             <animation name="wall" path="/res/obstacles/wall.png" isImage = "true" />
             <animation name="tree" path="/res/obstacles/tree.png" isImage = "true" />
+            <animation name="ice_wall" path="/res/obstacles/iceWall.png" isImage = "true" />
             <animation name="arrow" path="/res/bullets/arrow.png" isImage = "true" />
             <animation name="fireball" path="/res/bullets/fireball.png" isImage = "true" />
 
@@ -31,6 +32,7 @@
             <mask name="unit" shape="circle" width="0" height="0" radius="20" />
 
             <mask name="wall" shape="rectangle" width="32" height="32" radius="0"/>
+            <mask name="ice_wall" shape="rectangle" width="32" height="64" radius="0"/>
             <mask name="tree" shape="circle" width="0" height="0" radius="32" />
 
             <mask name="arrow" shape="rectangle" width="20" height="3" radius="0" />
@@ -61,33 +63,39 @@
             <item name="Robe_of_magic" description="Robe of magic" path = "/res/items/robe of magic.png" type="Armor" pArmor="1" mArmor="5" />
         </items>
         <skills>
-            <skill name="Bow_shot" description="Shot!!!" path="/res/skills/bow shot.png" type="BulletShot"
-                    castTime="300" postApplyTime="200" cooldownTime="1000" requiredItemType="Bow" requiredHP="0" requiredMP="0"
-                    pAttack="15" mAttack="0" bulletSpeed="0.5"/>
             <skill name="Sword_attack" description="Sword!!!" path="/res/skills/sword attack.png" type="AreaDamage"
                    castTime="300" postApplyTime="150" cooldownTime="1000" requiredItemType="Sword" requiredHP="0" requiredMP="0"
                    pAttack="15" mAttack="0" radius="55" angle="45"/>
-            <skill name="Fireball" description="Fireball!!!" path="/res/skills/fireball.png" type="BulletShot"
-                   castTime="200" postApplyTime="100" cooldownTime="1000" requiredItemType="Staff" requiredHP="0" requiredMP="5"
-                   pAttack="0" mAttack="20" bulletSpeed="0.4"/>
-            <skill name="Heal" description="Heal!!!" path="/res/skills/heal.png" type="Regen"
-                   castTime="200" postApplyTime="100" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="10"
-                   HPdelta="20"/>
-            <skill name="Wind_bow" description="WINDBOW!!!" path="/res/skills/wind bow.png" type="ImproverSkill"
-                   castTime="200" postApplyTime="100" cooldownTime="10000" requiredItemType="" requiredHP="0" requiredMP="10"
-                   workTime="5000" skillToBuff="Bow_shot" castTimeDelta="150" cooldownTimeDelta="950"/>
             <skill name="Strong_sword_attack" description="SSSSword!!!" path="/res/skills/strong sword attack.png" type="AreaDamage"
                    castTime="400" postApplyTime="100" cooldownTime="2000" requiredItemType="Sword" requiredHP="0" requiredMP="4"
                    pAttack="50" mAttack="5" radius="100" angle="60"/>
+
+            <skill name="Bow_shot" description="Shot!!!" path="/res/skills/bow shot.png" type="BulletShot"
+                    castTime="300" postApplyTime="200" cooldownTime="1000" requiredItemType="Bow" requiredHP="0" requiredMP="0"
+                    pAttack="15" mAttack="0" bulletSpeed="0.5"/>
+            <skill name="Wind_bow" description="WINDBOW!!!" path="/res/skills/wind bow.png" type="ImproverSkill"
+                   castTime="200" postApplyTime="100" cooldownTime="10000" requiredItemType="" requiredHP="0" requiredMP="10"
+                   workTime="5000" skillToBuff="Bow_shot" castTimeDelta="150" cooldownTimeDelta="950"/>
+
             <skill name="Staff_attack" description="Staff!!!" path="/res/skills/staff attack.png" type="AreaDamage"
                    castTime="200" postApplyTime="100" cooldownTime="1000" requiredItemType="Staff" requiredHP="0" requiredMP="0"
                    pAttack="5" mAttack="1" radius="50" angle="60"/>
+            <skill name="Fireball" description="Fireball!!!" path="/res/skills/fireball.png" type="BulletShot"
+                   castTime="200" postApplyTime="100" cooldownTime="1000" requiredItemType="Staff" requiredHP="0" requiredMP="5"
+                   pAttack="0" mAttack="20" bulletSpeed="0.4"/>
+
+            <skill name="Heal" description="Heal!!!" path="/res/skills/heal.png" type="Regen"
+                   castTime="200" postApplyTime="100" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="10"
+                   HPdelta="20"/>
             <skill name="Blink" description="Easy blink" path="/res/skills/blink.png" type="BlinkSkill"
                    castTime="200" postApplyTime="0" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="20"
                    distance="200"/>
+            <skill name="Ice_wall" description="Invoker-style" path="/res/skills/ice wall.png" type="BarrierSkill"
+                   castTime="200" postApplyTime="100" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="5"
+                   hp="5" time="2000"/>
         </skills>
         <skillFakes>
-            <fake path="/res/skills/fake.png"></fake>
+            <fake path="/res/skills/fake.png"/>
         </skillFakes>
         <fonts>
             <font name="lootfont" fontName="verdana" size="10" isBold="false" />
@@ -95,6 +103,32 @@
             <font name="descfont" fontName="verdana" size="14" isBold="false" />
         </fonts>
         <units>
+            <unit name="hero" mask="unit">
+                <attribute hp="100" mp="100" maximumSpeed="0.16" pAttack="10" mAttack="15" pArmor="5" mArmor="7" />
+                <inventory>
+                    <itemRecord name="Sword" number="1"/>
+                    <itemRecord name="Bow" number="1"/>
+                    <itemRecord name="Staff" number="1"/>
+                    <itemRecord name="Arrow" number="100"/>
+                </inventory>
+                <skillList>
+                    <skill name="Sword_attack"/>
+                    <skill name="Strong_sword_attack"/>
+
+                    <skill name="Bow_shot"/>
+                    <skill name="Wind_bow"/>
+
+                    <skill name="Staff_attack"/>
+                    <skill name="Fireball"/>
+
+                    <skill name="Heal"/>
+                    <skill name="Blink"/>
+                    <skill name="Ice_wall"/>
+                </skillList>
+                <lootList>
+                    <loot name="Apple" probability="1" />
+                </lootList>
+            </unit>
             <unit name="vampire" mask="unit">
                 <attribute hp="150" mp="150" maximumSpeed="0.12" pAttack="10" mAttack="15" pArmor="5" mArmor="7" />
                 <inventory>
@@ -104,27 +138,6 @@
                 <skillList>
                     <skill name="Sword_attack"/>
                     <skill name="Fireball"/>
-                </skillList>
-                <lootList>
-                    <loot name="Apple" probability="1" />
-                </lootList>
-            </unit>
-            <unit name="hero" mask="unit">
-                <attribute hp="100" mp="100" maximumSpeed="0.16" pAttack="10" mAttack="15" pArmor="5" mArmor="7" />
-                <inventory>
-                    <itemRecord name="Sword" number="1" />
-                    <itemRecord name="Staff" number="1" />
-                    <itemRecord name="Arrow" number="100" />
-                </inventory>
-                <skillList>
-         <!--           <skill name="Heal"/>
---> <!--                   <skill name="Sword_attack"/>
-                    <skill name="Strong_sword_attack"/>
- -->                   <skill name="Bow_shot"/>
-                    <skill name="Wind_bow"/>
-     <!--               <skill name="Staff_attack"/>
-     -->               <skill name="Fireball"/>
-                    <skill name="Blink"/>
                 </skillList>
                 <lootList>
                     <loot name="Apple" probability="1" />
@@ -212,6 +225,7 @@
         <obstacles>
             <obstacle name="wall" mask="wall" />
             <obstacle name="tree" mask="tree" />
+            <obstacle name="icewall" mask="ice_wall" />
         </obstacles>
         <bullets>
             <bullet name="fireball" mask="fireball" />

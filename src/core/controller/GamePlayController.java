@@ -135,6 +135,9 @@ public class GamePlayController {
             if (input.isKeyDown(input.KEY_6)) {
                 hero.startCastSkill(SkillInstanceKind.BLINK);
             }
+            if (input.isKeyDown(input.KEY_7)) {
+                hero.startCastSkill(SkillInstanceKind.ICE_WALL);
+            }
 
 
             // Swtich combat mode

@@ -13,7 +13,7 @@ public class SkillInfo {
     private String type;
     private Image imageMain;
     private Map<String, String> map;
-    SkillInstanceKind kind;
+    private SkillInstanceKind kind;
 
     public SkillInfo(String name, String description, String type, Image imageMain, Map<String, String> map, SkillInstanceKind kind) {
         this.name = name;
@@ -73,6 +73,12 @@ public class SkillInfo {
                     Integer.parseInt(map.get("cooldownTime")), reqItemInstanceKind,
                     Double.parseDouble(map.get("requiredHP")), Double.parseDouble(map.get("requiredMP")),
                     Integer.parseInt(map.get("distance")), kind);
+        } else if (type.equals("BarrierSkill")) {
+            skill = new BarrierSkill(name, description, Integer.parseInt(map.get("castTime")),
+                    Integer.parseInt(map.get("postApplyTime")),
+                    Integer.parseInt(map.get("cooldownTime")), reqItemInstanceKind,
+                    Double.parseDouble(map.get("requiredHP")), Double.parseDouble(map.get("requiredMP")),
+                    Double.parseDouble(map.get("hp")), Integer.parseInt(map.get("time")), kind);
         }
         return skill;
     }

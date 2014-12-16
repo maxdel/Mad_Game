@@ -6,6 +6,7 @@ public enum SkillInstanceKind {
     BOW_SHOT, FIREBALL, // BulletShot
     HEAL, // Regen
     WIND_BOW, // Skill improver
-    BLINK // Blink skill
+    BLINK, // Blink skill
+    ICE_WALL // BarrierSkill
 
 }

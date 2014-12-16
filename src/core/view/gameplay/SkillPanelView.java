@@ -32,7 +32,7 @@ public class SkillPanelView {
         this.gc = gc;
 
         // skillsOnPanel filling
-        skillsOnPanel = new ArrayList<>(MAX_HERO_SKILLS);
+        /*skillsOnPanel = new ArrayList<>(MAX_HERO_SKILLS);
         for (int i = 0; i < unitsSkills.size(); i++) {
                 Skill skill = unitsSkills.get(i);
                 Image skillImg = skillInfos.get(skill.getKind()).getImageMain();
@@ -51,12 +51,12 @@ public class SkillPanelView {
         for (SkillOnPanel skillOnPanel: skillsOnPanel) {
             skillOnPanel.onPanelPosition = imgPositionOnCircle;
             imgPositionOnCircle += skillOnPanel.sectorSize;
-        }
+        }*/
     }
 
     public void render(Graphics g) {
         // draw fakes
-        int imgPositionOnCircle = skillsOnPanel.get(0).imageSideLn / 2;
+        /*int imgPositionOnCircle = skillsOnPanel.get(0).imageSideLn / 2;
         imgPositionOnCircle += 5 * skillsOnPanel.get(0).sectorSize;
         for (int i = 0; i < MAX_HERO_SKILLS; i++) {
             g.drawImage(ResourceManager.getInstance().getSkillFakeImage(),
@@ -80,7 +80,7 @@ public class SkillPanelView {
             } else if (castingSkill != null && castingSkill.getKind() == skillOnPanel.skill.getKind()) {
                 skillOnPanel.render(g);
             }
-        }
+        }*/
     }
 
 

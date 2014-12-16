@@ -6,10 +6,7 @@ import java.util.List;
 import core.resourcemanager.ResourceManager;
 import core.view.gameplay.gameobject.GameObjectView;
 import core.view.gameplay.gameobject.LootView;
-import core.view.gameplay.gameobjectsolid.ArrowView;
-import core.view.gameplay.gameobjectsolid.FireballView;
-import core.view.gameplay.gameobjectsolid.TreeView;
-import core.view.gameplay.gameobjectsolid.WallView;
+import core.view.gameplay.gameobjectsolid.*;
 import core.view.gameplay.unit.*;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -48,6 +45,9 @@ public class GamePlayView {
                     break;
                 case TREE:
                     gameObjectViewList.add(new TreeView(gameObject));
+                    break;
+                case ICEWALL:
+                    gameObjectViewList.add(new IceWallView(gameObject));
                     break;
                 case HERO:
                     gameObjectViewList.add(new HeroView(gameObject));
@@ -131,6 +131,9 @@ public class GamePlayView {
         /* Add required views */
         for (GameObject gameObject : World.getInstance().getGameObjectToAddList()) {
             switch (gameObject.getType()) {
+                case ICEWALL:
+                    gameObjectViewList.add(new IceWallView(gameObject));
+                    break;
                 case LOOT:
                     gameObjectViewList.add(new LootView(gameObject));
                     break;
