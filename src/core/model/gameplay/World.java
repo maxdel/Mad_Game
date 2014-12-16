@@ -3,13 +3,10 @@ package core.model.gameplay;
 import java.util.ArrayList;
 import java.util.List;
 
-import core.model.gameplay.gameobjects.ai.SkeletonAI;
+import core.model.gameplay.gameobjects.ai.*;
 import org.newdawn.slick.SlickException;
 
 import core.MathAdv;
-import core.model.gameplay.gameobjects.ai.BanditAI;
-import core.model.gameplay.gameobjects.ai.RangedAI;
-import core.model.gameplay.gameobjects.ai.VampireAI;
 import core.model.gameplay.items.ItemDB;
 import core.model.gameplay.gameobjects.*;
 import core.model.gameplay.items.ItemInstanceKind;
@@ -100,32 +97,32 @@ public class World {
                     skeletonAI.setOwner(bot);
                     gameObjectList.add(bot);
                 } else if (tileObjectName.equals("banditarcher")) {
-                    RangedAI rangedAI = new RangedAI();
+                    BanditArcherAI banditArcherAI = new BanditArcherAI();
                     Bot bot = new Bot(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
                             tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjInstanceKind.BANDITARCHER,
-                            rangedAI);
-                    rangedAI.setOwner(bot);
+                            banditArcherAI);
+                    banditArcherAI.setOwner(bot);
                     gameObjectList.add(bot);
                 } else if (tileObjectName.equals("skeletonmage")) {
-                    RangedAI rangedAI = new RangedAI();
+                    SkeletonMageAI skeletonMageAI = new SkeletonMageAI();
                     Bot bot = new Bot(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
                             tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjInstanceKind.SKELETONMAGE,
-                            rangedAI);
-                    rangedAI.setOwner(bot);
+                            skeletonMageAI);
+                    skeletonMageAI.setOwner(bot);
                     gameObjectList.add(bot);
                 } else if (tileObjectName.equals("fireelemental")) {
-                    RangedAI rangedAI = new RangedAI();
+                    BanditArcherAI banditArcherAI = new BanditArcherAI();
                     Bot bot = new Bot(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
                             tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjInstanceKind.FIREELEMENTAL,
-                            rangedAI);
-                    rangedAI.setOwner(bot);
+                            banditArcherAI);
+                    banditArcherAI.setOwner(bot);
                     gameObjectList.add(bot);
                 } else if (tileObjectName.equals("waterelemental")) {
-                    RangedAI rangedAI = new RangedAI();
+                    BanditArcherAI banditArcherAI = new BanditArcherAI();
                     Bot bot = new Bot(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
                             tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjInstanceKind.WATERELEMENTAL,
-                            rangedAI);
-                    rangedAI.setOwner(bot);
+                            banditArcherAI);
+                    banditArcherAI.setOwner(bot);
                     gameObjectList.add(bot);
                 }
             }

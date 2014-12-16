@@ -22,9 +22,7 @@ public class SkeletonAI extends BotAI {
     }
 
     private enum MeleeAIState implements BotAIState {
-
         STAND, WALK, PURSUE, ATTACK, STRAFE, RETREAT
-
     }
 
     @Override

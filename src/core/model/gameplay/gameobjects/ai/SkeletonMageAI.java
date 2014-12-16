@@ -10,20 +10,20 @@ import core.model.gameplay.skills.SkillInstanceKind;
 import org.newdawn.slick.geom.Point;
 import org.newdawn.slick.geom.Vector2f;
 
-public class RangedAI extends BotAI {
+import java.util.Arrays;
 
-    public RangedAI() {
+public class SkeletonMageAI extends BotAI {
+
+    public SkeletonMageAI() {
         this(null);
     }
 
-    public RangedAI(Bot bot) {
+    public SkeletonMageAI(Bot bot) {
         super(bot);
     }
 
     private enum RangedAIState implements BotAI.BotAIState {
-
         STAND, WALK, PURSUE, ATTACK
-
     }
 
     @Override
@@ -37,41 +37,36 @@ public class RangedAI extends BotAI {
             public void enter()           { timer = new Timer(standTime);                                                  }
             public void run(int delta)    { owner.stand();                                                                 }
             public void update(int delta) { if (timer.update(delta)) currentState = RangedAIState.WALK;
-                                            if (getDistanceToHero() < pursueDistance && seeTarget(World.getInstance().getHero())) currentState = RangedAIState.PURSUE; }
+                if (getDistanceToHero() < pursueDistance && seeTarget(World.getInstance().getHero())) currentState = RangedAIState.PURSUE; }
         });
         stateMap.put(RangedAIState.WALK, new AIState() {
             private Point target;
             public void enter()           { target = getRandomTarget();                                                     }
             public void run(int delta)    { followTarget(target);                                                           }
             public void update(int delta) { if (getDistanceToHero() < pursueDistance && seeTarget(World.getInstance().getHero())) currentState = RangedAIState.PURSUE;
-                                            if (getDistanceToTarget(target) < 2)      currentState = RangedAIState.STAND;   }
+                if (getDistanceToTarget(target) < 2)      currentState = RangedAIState.STAND;   }
         });
         stateMap.put(RangedAIState.PURSUE, new AIState() {
             private boolean isFollowing;
             public void enter()           { isFollowing = true;                                                                  }
             public void run(int delta)    { isFollowing = followHero();         }
             public void update(int delta) { if (getDistanceToHero() >= pursueDistance || !isFollowing) currentState = RangedAIState.STAND;
-                                            if (getDistanceToHero() < attackDistance && seeTarget(World.getInstance().getHero())) currentState = RangedAIState.ATTACK; }
+                if (getDistanceToHero() < attackDistance && seeTarget(World.getInstance().getHero())) currentState = RangedAIState.ATTACK; }
         });
         stateMap.put(RangedAIState.ATTACK, new AIState() {
             private boolean isAttacking;
             public void enter()           { isAttacking = true;                                                             }
-            public void run(int delta)    { isAttacking = attackHeroWithRangedSkill();                                      }
+            public void run(int delta)    { isAttacking = attackHeroWithFireball();                                      }
             public void update(int delta) { if (getDistanceToHero() >= attackDistance || !isAttacking) currentState = RangedAIState.PURSUE; }
         });
     }
 
-    private boolean attackHeroWithRangedSkill() {
+    private boolean attackHeroWithFireball() {
         owner.stand();
         owner.setDirection(getPredictedDirection(0));
         if (seeTarget(World.getInstance().getHero())) {
-            if (owner.getSkillList().get(0).getKind() == SkillInstanceKind.BOW_SHOT) {
-                owner.getInventory().useItem(owner.getInventory().addItem(ItemInstanceKind.STRONG_BOW));
-                owner.startCastSkill(SkillInstanceKind.BOW_SHOT);
-            } else {
-                owner.getInventory().useItem(owner.getInventory().addItem(ItemInstanceKind.STAFF));
-                owner.startCastSkill(SkillInstanceKind.FIREBALL);
-            }
+            owner.getInventory().dressIfNotDressed(Arrays.asList(ItemInstanceKind.STAFF, ItemInstanceKind.STRONG_STAFF));
+            owner.startCastSkill(SkillInstanceKind.FIREBALL);
             return true;
         }
         return false;
@@ -93,5 +88,5 @@ public class RangedAI extends BotAI {
             return angleToTarget;
         }
     }
-    
+
 }

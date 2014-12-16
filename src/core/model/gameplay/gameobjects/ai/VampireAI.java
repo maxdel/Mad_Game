@@ -21,9 +21,7 @@ public class VampireAI extends BotAI {
     }
 
     private enum VampireAIState implements BotAIState {
-
         STAND, WALK, PURSUE, RANGEDATTACK, MELEEATTACK
-
     }
 
     @Override
