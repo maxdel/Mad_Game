@@ -1,25 +1,15 @@
 package core.model.gameplay.gameobjects.ai;
 
-import core.model.Timer;
-import core.model.gameplay.World;
+import org.newdawn.slick.geom.Point;
+import org.newdawn.slick.geom.Vector2f;
 
-import core.model.gameplay.gameobjects.Bot;
+import core.model.Timer;
 import core.model.gameplay.gameobjects.Hero;
 import core.model.gameplay.items.ItemInstanceKind;
 import core.model.gameplay.skills.BulletShot;
 import core.model.gameplay.skills.SkillInstanceKind;
-import org.newdawn.slick.geom.Point;
-import org.newdawn.slick.geom.Vector2f;
 
 public class VampireAI extends BotAI {
-
-    public VampireAI() {
-        this(null);
-    }
-
-    public VampireAI(Bot bot) {
-        super(bot);
-    }
 
     private enum VampireAIState implements BotAIState {
         STAND, WALK, PURSUE, RANGEDATTACK, MELEEATTACK

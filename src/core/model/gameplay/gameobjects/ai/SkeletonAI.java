@@ -1,25 +1,15 @@
 package core.model.gameplay.gameobjects.ai;
 
+import java.util.Arrays;
+
+import org.newdawn.slick.geom.Point;
+
 import core.model.Timer;
-import core.model.gameplay.World;
-import core.model.gameplay.gameobjects.Bot;
 import core.model.gameplay.gameobjects.Hero;
 import core.model.gameplay.items.ItemInstanceKind;
 import core.model.gameplay.skills.SkillInstanceKind;
 
-import org.newdawn.slick.geom.Point;
-
-import java.util.Arrays;
-
 public class SkeletonAI extends BotAI {
-
-    public SkeletonAI() {
-        this(null);
-    }
-
-    public SkeletonAI(Bot bot) {
-        super(bot);
-    }
 
     private enum MeleeAIState implements BotAIState {
         STAND, WALK, PURSUE, ATTACK, STRAFE, RETREAT

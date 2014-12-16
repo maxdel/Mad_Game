@@ -1,21 +1,20 @@
 package core.model.gameplay.gameobjects.ai;
 
-import core.MathAdv;
-import core.model.Timer;
-import core.model.gameplay.CollisionManager;
-import core.model.gameplay.World;
-import core.model.gameplay.gameobjects.*;
-import org.lwjgl.Sys;
-import org.newdawn.slick.geom.Point;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.newdawn.slick.geom.Point;
+
+import core.MathAdv;
+import core.model.gameplay.CollisionManager;
+import core.model.gameplay.gameobjects.*;
 
 public abstract class BotAI {
 
     protected Bot owner;
     protected Map<BotAIState, AIState> stateMap;
+    private boolean isInited;
     protected BotAIState currentState;
     private BotAIState previousState;
     private AStar aStar;
@@ -24,24 +23,24 @@ public abstract class BotAI {
     private boolean updatePathIfSeeTarget;
 
     public BotAI() {
-        this(null);
-    }
-
-    public BotAI(Bot bot) {
-        this.owner = bot;
         this.stateMap = new HashMap<>();
+        this.isInited = false;
         this.currentState = null;
         this.previousState = null;
         this.aStar = new AStar();
         this.updatePathIfSeeTarget = true;
-        init();
     }
 
     public interface BotAIState {
 
     }
 
-    public void run(int delta) {
+    public void run(Bot bot, int delta) {
+        if (!isInited) {
+            this.owner = bot;
+            isInited = true;
+            init();
+        }
         if (currentState != previousState) {
             stateMap.get(currentState).enter();
             previousState = currentState;

@@ -14,7 +14,7 @@ public class Bot extends Unit {
     @Override
     public void update(int delta) {
         super.update(delta);
-        botAI.run(delta);
+        botAI.run(this, delta);
     }
 
     @Override

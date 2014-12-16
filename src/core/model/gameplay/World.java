@@ -75,59 +75,44 @@ public class World {
                     Hero.getInstance().setY(tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2);
                     gameObjectList.add(Hero.getInstance());
                 } else if (tileObjectName.equals("vampire")) {
-                    VampireAI vampireAI = new VampireAI();
                     Bot bot = new Bot(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
                             tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjInstanceKind.VAMPIRE,
-                            vampireAI);
-                    vampireAI.setOwner(bot);
+                            new VampireAI());
                     gameObjectList.add(bot);
                 } else if (tileObjectName.equals("banditsword")) {
-                    BanditAI banditAI = new BanditAI();
                     Bot bot = new Bot(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
                             tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjInstanceKind.BANDIT,
-                            banditAI);
-                    banditAI.setOwner(bot);
+                            new BanditAI());
                     gameObjectList.add(bot);
                 } else if (tileObjectName.equals("skeletsword")) {
-                    SkeletonAI skeletonAI = new SkeletonAI();
                     Bot bot = new Bot(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
                             tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjInstanceKind.SKELETON,
-                            skeletonAI);
-                    skeletonAI.setOwner(bot);
+                            new SkeletonAI());
                     gameObjectList.add(bot);
                 } else if (tileObjectName.equals("banditarcher")) {
-                    BanditArcherAI banditArcherAI = new BanditArcherAI();
                     Bot bot = new Bot(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
                             tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjInstanceKind.BANDITARCHER,
-                            banditArcherAI);
-                    banditArcherAI.setOwner(bot);
+                            new BanditArcherAI());
                     gameObjectList.add(bot);
                 } else if (tileObjectName.equals("skeletonmage")) {
-                    SkeletonMageAI skeletonMageAI = new SkeletonMageAI();
                     Bot bot = new Bot(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
                             tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjInstanceKind.SKELETONMAGE,
-                            skeletonMageAI);
-                    skeletonMageAI.setOwner(bot);
+                            new SkeletonMageAI());
                     gameObjectList.add(bot);
                 } else if (tileObjectName.equals("fireelemental")) {
-                    BanditArcherAI banditArcherAI = new BanditArcherAI();
                     Bot bot = new Bot(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
                             tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjInstanceKind.FIREELEMENTAL,
-                            banditArcherAI);
-                    banditArcherAI.setOwner(bot);
+                            new BanditArcherAI());
                     gameObjectList.add(bot);
                 } else if (tileObjectName.equals("waterelemental")) {
-                    BanditArcherAI banditArcherAI = new BanditArcherAI();
                     Bot bot = new Bot(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
                             tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjInstanceKind.WATERELEMENTAL,
-                            banditArcherAI);
-                    banditArcherAI.setOwner(bot);
+                            new BanditArcherAI());
                     gameObjectList.add(bot);
                 } else if (tileObjectName.equals("banditboss")) {
                     Bot bot = new Bot(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
                             tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjInstanceKind.BANDITBOSS,
-                            null);
-                    bot.setBotAI(new BanditBossAI(bot));
+                            new BanditBossAI());
                     gameObjectList.add(bot);
                 }
             }

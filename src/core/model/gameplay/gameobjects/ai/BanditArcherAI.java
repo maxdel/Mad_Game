@@ -1,27 +1,17 @@
 package core.model.gameplay.gameobjects.ai;
 
+import java.util.Arrays;
+
+import org.newdawn.slick.geom.Point;
+import org.newdawn.slick.geom.Vector2f;
+
 import core.model.Timer;
-import core.model.gameplay.World;
-import core.model.gameplay.gameobjects.Bot;
 import core.model.gameplay.gameobjects.Hero;
 import core.model.gameplay.items.ItemInstanceKind;
 import core.model.gameplay.skills.BulletShot;
 import core.model.gameplay.skills.SkillInstanceKind;
 
-import org.newdawn.slick.geom.Point;
-import org.newdawn.slick.geom.Vector2f;
-
-import java.util.Arrays;
-
 public class BanditArcherAI extends BotAI {
-
-    public BanditArcherAI() {
-        this(null);
-    }
-
-    public BanditArcherAI(Bot bot) {
-        super(bot);
-    }
 
     private enum RangedAIState implements BotAI.BotAIState {
         STAND, WALK, PURSUE, ATTACK

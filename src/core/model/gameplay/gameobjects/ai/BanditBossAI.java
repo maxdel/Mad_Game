@@ -1,25 +1,15 @@
 package core.model.gameplay.gameobjects.ai;
 
+import java.util.Arrays;
+
+import org.newdawn.slick.geom.Point;
+
 import core.model.Timer;
-import core.model.gameplay.World;
-import core.model.gameplay.gameobjects.Bot;
 import core.model.gameplay.gameobjects.Hero;
 import core.model.gameplay.items.ItemInstanceKind;
 import core.model.gameplay.skills.SkillInstanceKind;
 
-import org.newdawn.slick.geom.Point;
-
-import java.util.Arrays;
-
 public class BanditBossAI extends BotAI {
-
-    public BanditBossAI() {
-        this(null);
-    }
-
-    public BanditBossAI(Bot bot) {
-        super(bot);
-    }
 
     private enum MeleeAIState implements BotAIState {
         STAND, WALK, PURSUE, ATTACK, STRAFE, RETREAT
