@@ -19,6 +19,8 @@
 
             <animation name="golem" path="/res/golem/golem.png" isImage = "true"/>
 
+            <animation name="golem_tiny" path="/res/golemtiny/golemTiny.png" isImage = "true"/>
+
             <animation name="vampire" path="/res/vampire/vampire.png" isImage = "true" />
 
             <animation name="elemental" path="/res/fireelemental/elemental.png" isImage = "true" />
@@ -34,6 +36,7 @@
             <animation name="empty" path="/res/empty_image.png" isImage="true" />
         </animations>
         <masks>
+            <mask name="unit_small" shape="circle" width="0" height="0" radius="12" />
             <mask name="unit" shape="circle" width="0" height="0" radius="20" />
             <mask name="unit_big" shape="circle" width="0" height="0" radius="30" />
 
@@ -107,6 +110,13 @@
             <skill name="Thorn" description="Thorn!!!" path="/res/skills/thorn.png" type="BulletShot"
                    castTime="100" postApplyTime="50" cooldownTime="100" requiredItemType="" requiredHP="0" requiredMP="0"
                    pAttack="20" mAttack="0" bulletSpeed="0.4" distance="40"/>
+
+            <skill name="Weak_punch" description="Weak punch!!!" path="/res/skills/weak punch.png" type="AreaDamage"
+                   castTime="400" postApplyTime="150" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="0"
+                   pAttack="20" mAttack="0" radius="55" angle="45"/>
+            <skill name="Weak_thorn" description="Weak thorn!!!" path="/res/skills/weak thorn.png" type="BulletShot"
+                   castTime="100" postApplyTime="50" cooldownTime="100" requiredItemType="" requiredHP="0" requiredMP="0"
+                   pAttack="10" mAttack="0" bulletSpeed="0.4" distance="40"/>
         </skills>
         <skillFakes>
             <fake path="/res/skills/fake.png"/>
@@ -192,6 +202,20 @@
                 <skillList>
                     <skill name="Punch"/>
                     <skill name="Thorn"/>
+                </skillList>
+                <lootList>
+                    <loot name="Healing_flask" probability="1" />
+                    <loot name="Mana_flask" probability="1" />
+                </lootList>
+            </unit>
+            <unit name="golemTiny" mask="unit_small">
+                <attribute hp="100" mp="100" maximumSpeed="0.14" pAttack="10" mAttack="15" pArmor="5" mArmor="7" />
+                <inventory>
+
+                </inventory>
+                <skillList>
+                    <skill name="Weak_punch"/>
+                    <skill name="Weak_thorn"/>
                 </skillList>
                 <lootList>
                     <loot name="Healing_flask" probability="1" />

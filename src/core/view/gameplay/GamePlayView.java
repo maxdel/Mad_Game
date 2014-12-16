@@ -64,6 +64,9 @@ public class GamePlayView {
                 case GOLEM:
                     gameObjectViewList.add(new GolemView(gameObject));
                     break;
+                case GOLEMTINY:
+                    gameObjectViewList.add(new GolemTinyView(gameObject));
+                    break;
                 case VAMPIRE:
                     gameObjectViewList.add(new VampireView(gameObject));
                     break;
@@ -181,6 +184,9 @@ public class GamePlayView {
                     break;
                 case GOLEM:
                     gameObjectViewList.add(new GolemView(gameObject));
+                    break;
+                case GOLEMTINY:
+                    gameObjectViewList.add(new GolemTinyView(gameObject));
                     break;
             }
         }
