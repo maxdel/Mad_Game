@@ -70,7 +70,7 @@ public class AreaDamage extends Skill {
         if (mDamage <= 1) {
             mDamage = 1;
         }
-        target.getAttribute().getHP().damage(mDamage);
+        target.getAttribute().changeHP(-mDamage);
     }
 
     /**
@@ -82,7 +82,7 @@ public class AreaDamage extends Skill {
         if (pDamage <= 1) {
             pDamage = 1;
         }
-        target.getAttribute().getHP().damage(pDamage);
+        target.getAttribute().changeHP(-pDamage);
     }
 
     public double getRadius() {

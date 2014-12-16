@@ -89,8 +89,8 @@ public abstract class Skill {
      * when unit successfully uses skill
      */
     public void stealSkillCost(Unit owner) {
-        owner.getAttribute().getMP().damage(requiredMP);
-        owner.getAttribute().getHP().damage(requiredHP);
+        owner.getAttribute().changeHP(-requiredHP);
+        owner.getAttribute().changeMP(-requiredMP);
     }
 
     /**

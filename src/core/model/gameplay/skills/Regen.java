@@ -20,7 +20,7 @@ public class Regen extends Skill {
      */
     @Override
     protected void apply(Unit owner) {
-        owner.getAttribute().getHP().heal(HPdelta);
+        owner.getAttribute().changeHP(HPdelta);
     }
 
 }

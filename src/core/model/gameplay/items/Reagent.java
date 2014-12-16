@@ -17,8 +17,8 @@ public class Reagent extends Item implements IBonusGiver {
      */
     @Override
     public void setBonuses(Unit target) {
-        target.getAttribute().getHP().heal(getParameter("heal"));
-        target.getAttribute().getMP().heal(getParameter("mana"));
+        target.getAttribute().changeHP(getParameter("heal"));
+        target.getAttribute().changeMP(getParameter("mana"));
     }
 
     /**

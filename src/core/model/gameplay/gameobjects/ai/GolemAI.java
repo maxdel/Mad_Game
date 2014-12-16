@@ -40,8 +40,8 @@ public class GolemAI extends BotAI {
         stateMap.put(GolemAIState.PURSUE, new AIState() {
             private boolean isFollowing;
             private double previousHP;
-            public void enter()           { isFollowing = true; previousHP = owner.getAttribute().getHP().getCurrent(); }
-            public void run(int delta)    { isFollowing = followHero(); checkThornSpawn(owner.getAttribute().getHP().getCurrent() < previousHP); previousHP = owner.getAttribute().getHP().getCurrent(); }
+            public void enter()           { isFollowing = true; previousHP = owner.getAttribute().getCurrentHP(); }
+            public void run(int delta)    { isFollowing = followHero(); checkThornSpawn(owner.getAttribute().getCurrentHP() < previousHP); previousHP = owner.getAttribute().getCurrentHP(); }
             public void update(int delta) { if (getDistanceToHero() >= pursueDistance || !isFollowing) { currentState = GolemAIState.STAND; return; }
                 if (getDistanceToHero() < attackDistance && Math.random() < attackProbability) { currentState = GolemAIState.ATTACK; return; }
                 if (getDistanceToHero() < attackDistance && Math.random() < strafeProbability) { currentState = GolemAIState.STRAFE; return; }
@@ -49,8 +49,8 @@ public class GolemAI extends BotAI {
         });
         stateMap.put(GolemAIState.ATTACK, new AIState() {
             private double previousHP;
-            public void enter()           { previousHP = owner.getAttribute().getHP().getCurrent(); }
-            public void run(int delta)    { attackHeroWithPunch(); checkThornSpawn(owner.getAttribute().getHP().getCurrent() < previousHP); previousHP = owner.getAttribute().getHP().getCurrent(); }
+            public void enter()           { previousHP = owner.getAttribute().getCurrentHP(); }
+            public void run(int delta)    { attackHeroWithPunch(); checkThornSpawn(owner.getAttribute().getCurrentHP() < previousHP); previousHP = owner.getAttribute().getCurrentHP(); }
             public void update(int delta) { if (getDistanceToHero() >= attackDistance && seeTarget(Hero.getInstance())) { currentState = GolemAIState.PURSUE; return; }
                 if (Math.random() < strafeProbability) { currentState = GolemAIState.STRAFE; return; }
                 currentState = GolemAIState.RETREAT; }
@@ -59,8 +59,8 @@ public class GolemAI extends BotAI {
             private Timer timer;
             private boolean strafeDirection;
             private double previousHP;
-            public void enter()           { timer = new Timer(strafeTime); strafeDirection = Math.random() < 0.5; previousHP = owner.getAttribute().getHP().getCurrent(); }
-            public void run(int delta)    { strafe(strafeDirection); checkThornSpawn(owner.getAttribute().getHP().getCurrent() < previousHP); previousHP = owner.getAttribute().getHP().getCurrent(); }
+            public void enter()           { timer = new Timer(strafeTime); strafeDirection = Math.random() < 0.5; previousHP = owner.getAttribute().getCurrentHP(); }
+            public void run(int delta)    { strafe(strafeDirection); checkThornSpawn(owner.getAttribute().getCurrentHP() < previousHP); previousHP = owner.getAttribute().getCurrentHP(); }
             public void update(int delta) { timer.update(delta);
                 if (timer.isTime() && getDistanceToHero() >= attackDistance && seeTarget(Hero.getInstance())) { currentState = GolemAIState.PURSUE; return; }
                 if (timer.isTime() && Math.random() < attackProbability) { currentState = GolemAIState.ATTACK; return; }
@@ -69,8 +69,8 @@ public class GolemAI extends BotAI {
         stateMap.put(GolemAIState.RETREAT, new AIState() {
             private double currentRetreatDistance;
             private double previousHP;
-            public void enter()           { currentRetreatDistance = 0; previousHP = owner.getAttribute().getHP().getCurrent(); }
-            public void run(int delta)    { currentRetreatDistance += retreat(delta); checkThornSpawn(owner.getAttribute().getHP().getCurrent() < previousHP); previousHP = owner.getAttribute().getHP().getCurrent(); }
+            public void enter()           { currentRetreatDistance = 0; previousHP = owner.getAttribute().getCurrentHP(); }
+            public void run(int delta)    { currentRetreatDistance += retreat(delta); checkThornSpawn(owner.getAttribute().getCurrentHP() < previousHP); previousHP = owner.getAttribute().getCurrentHP(); }
             public void update(int delta) { if (currentRetreatDistance >= retreatDistance) currentState = GolemAIState.PURSUE; }
         });
     }

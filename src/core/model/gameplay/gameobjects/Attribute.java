@@ -1,9 +1,14 @@
 package core.model.gameplay.gameobjects;
 
+import core.MathAdv;
+
 public class Attribute {
 
-    private AttributePair hp;
-    private AttributePair mp;
+    private double currentHP;
+    private double maximumHP;
+
+    private double currentMP;
+    private double maximumMP;
 
     private double currentSpeed;
     private double maximumSpeed;
@@ -16,8 +21,10 @@ public class Attribute {
 
     public Attribute(double maximumHP, double maximumMP, double maximumSpeed, double pAttack, double mAttack,
                      double pArmor, double mArmor) {
-        this.hp = new AttributePair(maximumHP);
-        this.mp = new AttributePair(maximumMP);
+        this.maximumHP = maximumHP;
+        this.currentHP = maximumHP;
+        this.maximumMP = maximumMP;
+        this.currentMP = maximumMP;
         this.currentSpeed = 0;
         this.maximumSpeed = maximumSpeed;
         this.pAttack = pAttack;
@@ -31,16 +38,24 @@ public class Attribute {
     }
 
     // Getters
-    public boolean hpAreEnded() {
-        return hp.getCurrent() == 0;
+    public boolean isAlive() {
+        return currentHP > 0;
     }
 
-    public AttributePair getHP() {
-        return hp;
+    public double getCurrentHP() {
+        return currentHP;
     }
 
-    public AttributePair getMP() {
-        return mp;
+    public double getMaximumHP() {
+        return maximumHP;
+    }
+
+    public double getCurrentMP() {
+        return currentMP;
+    }
+
+    public double getMaximumMP() {
+        return maximumMP;
     }
 
     public double getPAttack() {
@@ -67,51 +82,33 @@ public class Attribute {
         return maximumSpeed;
     }
 
-
     // Modifiers
-    public void resetHpMp(double hpValue, double mpValue) {
-        hp.init(hpValue);
-        mp.init(mpValue);
-    }
-
     public void setCurrentSpeed(double currentSpeed) {
         this.currentSpeed = currentSpeed;
     }
 
-    public void setMaximumSpeed(double maximumSpeed) {
-        this.maximumSpeed = maximumSpeed;
+    public void changeHP(double HPDelta) {
+        currentHP = MathAdv.clamp(0, currentHP + HPDelta, maximumHP);
     }
 
-    public void increaseMArmor(double value) {
-        mArmor += value;
+    public void changeMP(double MPDelta) {
+        currentMP = MathAdv.clamp(0, currentMP + MPDelta, maximumMP);
     }
 
-    public void increasePArmor(double value) {
-        pArmor += value;
+    public void changePArmor(double deltaPArmor) {
+        pArmor += deltaPArmor;
     }
 
-    public void increasePAttack(double value) {
-        pAttack += value;
+    public void changeMArmor(double deltaMArmor) {
+        mArmor += deltaMArmor;
     }
 
-    public void increaseMAttack(double value) {
-        pAttack += value;
-    }
-    
-    public void decreaseMArmor(double value) {
-        mArmor -= value;
+    public void changePAttack(double deltaPAttack) {
+        pAttack += deltaPAttack;
     }
 
-    public void decreasePArmor(double value) {
-        pArmor -= value;
-    }
-
-    public void decreasePAttack(double value) {
-        pAttack -= value;
-    }
-
-    public void decreaseMAttack(double value) {
-        pAttack -= value;
+    public void changeMAttack(double deltaMAttack) {
+        mAttack += deltaMAttack;
     }
 
 }

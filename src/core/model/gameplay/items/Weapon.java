@@ -17,8 +17,8 @@ public class Weapon extends Item implements IBonusGiver {
      */
     @Override
     public void setBonuses(Unit target) {
-        target.getAttribute().increasePAttack(getParameter("pAttack"));
-        target.getAttribute().increaseMAttack(getParameter("mAttack"));
+        target.getAttribute().changePAttack(getParameter("pAttack"));
+        target.getAttribute().changeMAttack(getParameter("mAttack"));
     }
 
     /**
@@ -27,8 +27,8 @@ public class Weapon extends Item implements IBonusGiver {
      */
     @Override
     public void unsetBonuses(Unit target) {
-        target.getAttribute().decreasePAttack(getParameter("pAttack"));
-        target.getAttribute().decreaseMAttack(getParameter("mAttack"));
+        target.getAttribute().changePAttack(getParameter("pAttack"));
+        target.getAttribute().changeMAttack(getParameter("mAttack"));
     }
 
 }

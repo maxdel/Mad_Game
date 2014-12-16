@@ -97,7 +97,7 @@ public abstract class Unit extends GameObjectSolid {
 
         updatePosition(delta);
 
-        if (attribute.hpAreEnded()) {
+        if (!attribute.isAlive()) {
             onDelete();
         }
     }
@@ -346,8 +346,8 @@ public abstract class Unit extends GameObjectSolid {
             }
         }
 
-        if (attribute.getMP().getCurrent() < skillToCast.getRequiredMP() ||
-                attribute.getHP().getCurrent() < skillToCast.getRequiredHP()) {
+        if (attribute.getCurrentMP() < skillToCast.getRequiredMP() ||
+                attribute.getCurrentHP() < skillToCast.getRequiredHP()) {
             return false;
         }
 

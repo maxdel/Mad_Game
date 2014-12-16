@@ -60,11 +60,11 @@ public abstract class UnitView extends GameObjectSolidView {
                 (float) (gameObject.getY() - camera.getY()),
                 (float) (camera.getDirectionDegrees() - unit.getDirection() / Math.PI * 180));
         drawHealthbar(g, (int)(unit.getX() - camera.getX()), (int)(unit.getY() - camera.getY()) - 46, 60, 6,
-                unit.getAttribute().getHP().getCurrent(),
-                unit.getAttribute().getHP().getMaximum(), Color.red);
+                unit.getAttribute().getCurrentHP(),
+                unit.getAttribute().getMaximumHP(), Color.red);
         drawHealthbar(g, (int) (unit.getX() - camera.getX()), (int) (unit.getY() - camera.getY()) - 38, 60, 6,
-                unit.getAttribute().getMP().getCurrent(),
-                unit.getAttribute().getMP().getMaximum(), Color.blue);
+                unit.getAttribute().getCurrentMP(),
+                unit.getAttribute().getMaximumMP(), Color.blue);
         drawSkillProcessBar(g, (int) (unit.getX() - camera.getX()), (int) (unit.getY() - camera.getY()) + 38, 150, 4,
                 Color.magenta, Color.cyan);
         g.rotate((float) (gameObject.getX() - camera.getX()),

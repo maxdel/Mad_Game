@@ -55,14 +55,14 @@ public class Bullet extends GameObjectSolid {
                         if (pDamage <= 1) {
                             pDamage = 1;
                         }
-                        otherMoving.getAttribute().getHP().damage(pDamage);
+                        otherMoving.getAttribute().changeHP(-pDamage);
                     }
                     if (mAttack > 0) {
                         double mDamage = mAttack + owner.getAttribute().getMAttack() - otherMoving.getAttribute().getMArmor();
                         if (mDamage <= 1) {
                             mDamage = 1;
                         }
-                        otherMoving.getAttribute().getHP().damage(mDamage);
+                        otherMoving.getAttribute().changeHP(-mDamage);
                     }
                 } else if (other instanceof Obstacle) {
                     Obstacle otherObstacle = (Obstacle) other;
