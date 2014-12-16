@@ -1,5 +1,6 @@
 package core.view.gameplay.unit;
 
+import core.model.gameplay.gameobjects.Bot;
 import org.newdawn.slick.SlickException;
 
 import core.model.gameplay.gameobjects.GameObject;

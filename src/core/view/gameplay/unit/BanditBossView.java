@@ -9,8 +9,8 @@ import core.resourcemanager.ResourceManager;
 
 public class BanditBossView extends UnitView {
 
-    public BanditBossView(GameObject banditArcher) throws SlickException {
-        super(banditArcher);
+    public BanditBossView(GameObject banditBoss) throws SlickException {
+        super(banditBoss);
         animation = ResourceManager.getInstance().getAnimation("bandit_boss");
     }
 

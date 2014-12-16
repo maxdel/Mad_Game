@@ -2,7 +2,7 @@ package core.model.gameplay.skills;
 
 public enum SkillInstanceKind {
 
-    SWORD_ATTACK, STRONG_SWORD_ATTACK, STAFF_ATTACK, // Area damage
+    SWORD_ATTACK, STRONG_SWORD_ATTACK, STAFF_ATTACK, PUNCH, // Area damage
     BOW_SHOT, FIREBALL, // BulletShot
     HEAL, // Regen
     WIND_BOW, // Skill improver

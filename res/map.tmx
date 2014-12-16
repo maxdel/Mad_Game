@@ -52,6 +52,11 @@
     <property name="name" value="waterelemental"/>
    </properties>
   </tile>
+  <tile id="16">
+   <properties>
+    <property name="name" value="golem"/>
+   </properties>
+  </tile>
   <tile id="19">
    <properties>
     <property name="name" value="banditboss"/>
@@ -70,7 +75,7 @@
  </layer>
  <layer name="Objects" width="64" height="64">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3Yyw6CQAwFULaKURf+/7eycj2ZSOm0nrOFQHmkvem2AdXcBsfvl1QB53tkFwCLGvX9ke5zofvzAdDbnl1AI50ywa/5DzLpa5xFL4S6Vp8FlffQnTIvrEwOgT4ic8nqmQeoTyaZM/u+Zs7X82P51/uo/i2jd0bv4OtHytpJvZLuS31X96MOe9tqe/PqMweggsj59gm8Nnz9S15YPYs+swto4AAOLzqjAEAAAA==
+   H4sIAAAAAAAAC+3YSQqAQAxEUbcOOID3P6snkKbRWEn531JF45QuMgwAqhkb+6dPqgDet6gLAJJq9f0W93XB/f4AAN5mdQFGnDLB0/wHKNHX8BZ6IVBX9rWg8hzaKfMCmZFDAB+RuSR75gFQH5mkT+/z6jmenh+Lb91H9XcZPTPag88fSTWT2kTXRX1f9yOHuW3Wufl5s736mgMAFTisb0qHugD8Ji9k/1dXdQEGLqqubcMAQAAA
   </data>
  </layer>
  <objectgroup name="Слой объектов 1">

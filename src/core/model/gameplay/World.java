@@ -114,6 +114,11 @@ public class World {
                             tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjInstanceKind.BANDITBOSS,
                             new BanditBossAI());
                     gameObjectList.add(bot);
+                } else if (tileObjectName.equals("golem")) {
+                    Bot bot = new Bot(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
+                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjInstanceKind.GOLEM,
+                            new GolemAI());
+                    gameObjectList.add(bot);
                 }
             }
         }

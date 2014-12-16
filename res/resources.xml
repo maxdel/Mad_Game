@@ -17,6 +17,8 @@
 
             <animation name="bandit_boss" path="/res/banditboss/banditboss.png" isImage = "true" />
 
+            <animation name="golem" path="/res/golem/golem.png" isImage = "true"/>
+
             <animation name="vampire" path="/res/vampire/vampire.png" isImage = "true" />
 
             <animation name="elemental" path="/res/fireelemental/elemental.png" isImage = "true" />
@@ -96,6 +98,10 @@
             <skill name="Ice_wall" description="Invoker-style" path="/res/skills/ice wall.png" type="BarrierSkill"
                    castTime="200" postApplyTime="100" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="5"
                    hp="5" time="2000"/>
+
+            <skill name="Punch" description="Punch!!!" path="/res/skills/punch.png" type="AreaDamage"
+                   castTime="400" postApplyTime="150" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="0"
+                   pAttack="55" mAttack="0" radius="55" angle="45"/>
         </skills>
         <skillFakes>
             <fake path="/res/skills/fake.png"/>
@@ -167,6 +173,19 @@
                 <skillList>
                     <skill name="Sword_attack"/>
                     <skill name="Strong_sword_attack"/>
+                </skillList>
+                <lootList>
+                    <loot name="Healing_flask" probability="1" />
+                    <loot name="Mana_flask" probability="1" />
+                </lootList>
+            </unit>
+            <unit name="golem" mask="unit">
+                <attribute hp="100" mp="100" maximumSpeed="0.07" pAttack="10" mAttack="15" pArmor="5" mArmor="7" />
+                <inventory>
+
+                </inventory>
+                <skillList>
+                    <skill name="Punch"/>
                 </skillList>
                 <lootList>
                     <loot name="Healing_flask" probability="1" />

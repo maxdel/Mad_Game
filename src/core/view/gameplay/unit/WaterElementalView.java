@@ -1,5 +1,6 @@
 package core.view.gameplay.unit;
 
+import core.model.gameplay.gameobjects.Bot;
 import core.model.gameplay.gameobjects.GameObject;
 import core.resourcemanager.ResourceManager;
 import core.view.gameplay.Camera;
@@ -14,8 +15,8 @@ public class WaterElementalView extends UnitView {
 
     private ParticleSystem ps;
 
-    public WaterElementalView(GameObject unit) {
-        super(unit);
+    public WaterElementalView(GameObject waterElemental) {
+        super(waterElemental);
         animation = ResourceManager.getInstance().getAnimation("empty");
         try {
             ps = ParticleIO.loadConfiguredSystem("/res/particles/water_elemental.xml");

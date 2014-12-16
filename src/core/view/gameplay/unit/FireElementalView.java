@@ -1,5 +1,6 @@
 package core.view.gameplay.unit;
 
+import core.model.gameplay.gameobjects.Bot;
 import core.model.gameplay.gameobjects.GameObject;
 import core.resourcemanager.ResourceManager;
 import core.view.gameplay.Camera;
@@ -14,8 +15,8 @@ public class FireElementalView extends UnitView {
 
     private ParticleSystem ps;
 
-    public FireElementalView(GameObject unit) {
-        super(unit);
+    public FireElementalView(GameObject fireElemental) {
+        super(fireElemental);
         animation = ResourceManager.getInstance().getAnimation("empty");
         try {
             ps = ParticleIO.loadConfiguredSystem("/res/particles/fire_elemental.xml");

@@ -13,7 +13,7 @@ import core.model.gameplay.skills.SkillInstanceKind;
 
 public class SkeletonMageAI extends BotAI {
 
-    private enum RangedAIState implements BotAI.BotAIState {
+    private enum SkeletonMageAIState implements BotAI.BotAIState {
         STAND, WALK, PURSUE, ATTACK
     }
 
@@ -22,33 +22,33 @@ public class SkeletonMageAI extends BotAI {
         final int standTime = 3000;
         final int pursueDistance = 400;
         final int attackDistance = 200;
-        currentState = RangedAIState.STAND;
-        stateMap.put(RangedAIState.STAND, new AIState() {
+        currentState = SkeletonMageAIState.STAND;
+        stateMap.put(SkeletonMageAIState.STAND, new AIState() {
             private Timer timer;
             public void enter()           { timer = new Timer(standTime);                                                  }
             public void run(int delta)    { owner.stand();                                                                 }
-            public void update(int delta) { if (timer.update(delta)) currentState = RangedAIState.WALK;
-                if (getDistanceToHero() < pursueDistance && seeTarget(Hero.getInstance())) currentState = RangedAIState.PURSUE; }
+            public void update(int delta) { if (timer.update(delta)) currentState = SkeletonMageAIState.WALK;
+                if (getDistanceToHero() < pursueDistance && seeTarget(Hero.getInstance())) currentState = SkeletonMageAIState.PURSUE; }
         });
-        stateMap.put(RangedAIState.WALK, new AIState() {
+        stateMap.put(SkeletonMageAIState.WALK, new AIState() {
             private Point target;
             public void enter()           { target = getRandomTarget();                                                     }
             public void run(int delta)    { followTarget(target);                                                           }
-            public void update(int delta) { if (getDistanceToHero() < pursueDistance && seeTarget(Hero.getInstance())) currentState = RangedAIState.PURSUE;
-                if (getDistanceToTarget(target) < 2)      currentState = RangedAIState.STAND;   }
+            public void update(int delta) { if (getDistanceToHero() < pursueDistance && seeTarget(Hero.getInstance())) currentState = SkeletonMageAIState.PURSUE;
+                if (getDistanceToTarget(target) < 2)      currentState = SkeletonMageAIState.STAND;   }
         });
-        stateMap.put(RangedAIState.PURSUE, new AIState() {
+        stateMap.put(SkeletonMageAIState.PURSUE, new AIState() {
             private boolean isFollowing;
             public void enter()           { isFollowing = true;                                                                  }
             public void run(int delta)    { isFollowing = followHero();         }
-            public void update(int delta) { if (getDistanceToHero() >= pursueDistance || !isFollowing) currentState = RangedAIState.STAND;
-                if (getDistanceToHero() < attackDistance && seeTarget(Hero.getInstance())) currentState = RangedAIState.ATTACK; }
+            public void update(int delta) { if (getDistanceToHero() >= pursueDistance || !isFollowing) currentState = SkeletonMageAIState.STAND;
+                if (getDistanceToHero() < attackDistance && seeTarget(Hero.getInstance())) currentState = SkeletonMageAIState.ATTACK; }
         });
-        stateMap.put(RangedAIState.ATTACK, new AIState() {
+        stateMap.put(SkeletonMageAIState.ATTACK, new AIState() {
             private boolean isAttacking;
             public void enter()           { isAttacking = true;                                                             }
             public void run(int delta)    { isAttacking = attackHeroWithFireball();                                      }
-            public void update(int delta) { if (getDistanceToHero() >= attackDistance || !isAttacking) currentState = RangedAIState.PURSUE; }
+            public void update(int delta) { if (getDistanceToHero() >= attackDistance || !isAttacking) currentState = SkeletonMageAIState.PURSUE; }
         });
     }
 
