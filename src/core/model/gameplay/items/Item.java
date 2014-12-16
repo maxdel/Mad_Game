@@ -1,21 +1,19 @@
 package core.model.gameplay.items;
 
-import core.model.gameplay.gameobjects.Unit;
-
 import java.util.Map;
 
 abstract public class Item {
 
     protected ItemInstanceKind instanceKind;
 
-    private String name;
+    //private String name;
     private String description;
     private ItemOperation itemOperation;
 
     private Map<String, Integer> values;
 
     public Item(ItemInstanceKind instanceKind, String description, Map<String, Integer> values) {
-        this.name = name;
+        //this.name = name;
         this.description = description;
         this.values = values;
         setItemOperation(ItemOperation.EMPTY);

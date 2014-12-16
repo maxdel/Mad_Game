@@ -248,7 +248,7 @@ public abstract class Unit extends GameObjectSolid {
             castingTimer.activate(castingSkill.getCastTime());
 
             stealSkillCostAction.realized(this);
-          }
+        }
     }
 
     private Skill getSkillByKind(SkillInstanceKind skillInstanceKind) {

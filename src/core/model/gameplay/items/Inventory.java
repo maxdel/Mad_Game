@@ -187,6 +187,23 @@ public class Inventory {
         }
     }
 
+    /**
+     * Dress any of existing items which kind in @param kindList
+     * @param kindList suitable to dress kinds of items
+     */
+    public void dressIfNotDressed(List<ItemInstanceKind> kindList) {
+        for (ItemRecord itemRecord : existedItems) {
+            for (ItemInstanceKind itemKind : kindList) {
+                if (itemRecord.getItem().getInstanceKind() == itemKind) {
+                    if (!isItemDressed(itemRecord.getItem())) {
+                        useItem(itemRecord);
+                    } else {
+                        break;
+                    }
+                }
+            }
+        }
+    }
 
     /* Getters and setters region */
     public String getDressedWeaponType() {

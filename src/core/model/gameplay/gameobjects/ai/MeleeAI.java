@@ -5,9 +5,13 @@ import core.model.gameplay.World;
 import core.model.gameplay.gameobjects.Bot;
 import core.model.gameplay.gameobjects.Hero;
 import core.model.gameplay.items.ItemInstanceKind;
+import core.model.gameplay.items.ItemRecord;
 import core.model.gameplay.skills.SkillInstanceKind;
 
 import org.newdawn.slick.geom.Point;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class MeleeAI extends BotAI {
 
@@ -86,8 +90,7 @@ public class MeleeAI extends BotAI {
 
     private void attackHeroWithSword() {
         owner.stand();
-        //owner.setDirection(getPredictedDirection(1));
-        owner.getInventory().useItem(owner.getInventory().addItem(ItemInstanceKind.SWORD));
+        owner.getInventory().dressIfNotDressed(Arrays.asList(ItemInstanceKind.SWORD, ItemInstanceKind.STRONG_SWORD));
         owner.startCastSkill(SkillInstanceKind.SWORD_ATTACK);
     }
 
