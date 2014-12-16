@@ -27,4 +27,8 @@ public class Bot extends Unit {
         return botAI;
     }
 
+    public void setBotAI(BotAI botAI) {
+        this.botAI = botAI;
+    }
+
 }

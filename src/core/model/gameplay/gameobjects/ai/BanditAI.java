@@ -40,14 +40,14 @@ public class BanditAI extends BotAI {
             public void enter()           { timer = new Timer(standTime); }
             public void run(int delta)    { owner.stand(); }
             public void update(int delta) { timer.update(delta);
-                                            if (getDistanceToHero() < pursueDistance && seeTarget(World.getInstance().getHero())) { currentState = MeleeAIState.PURSUE; return; }
+                                            if (getDistanceToHero() < pursueDistance && seeTarget(Hero.getInstance())) { currentState = MeleeAIState.PURSUE; return; }
                                             if (timer.isTime()) currentState = MeleeAIState.WALK; }
         });
         stateMap.put(MeleeAIState.WALK, new AIState() {
             private Point target;
             public void enter()           { target = getRandomTarget(); }
             public void run(int delta)    { followTarget(target); }
-            public void update(int delta) { if (getDistanceToHero() < pursueDistance && seeTarget(World.getInstance().getHero())) { currentState = MeleeAIState.PURSUE; return; }
+            public void update(int delta) { if (getDistanceToHero() < pursueDistance && seeTarget(Hero.getInstance())) { currentState = MeleeAIState.PURSUE; return; }
                                             if (getDistanceToTarget(target) < 2) currentState = MeleeAIState.STAND; }
         });
         stateMap.put(MeleeAIState.PURSUE, new AIState() {
@@ -62,7 +62,7 @@ public class BanditAI extends BotAI {
         stateMap.put(MeleeAIState.ATTACK, new AIState() {
             public void enter()           { }
             public void run(int delta)    { attackHeroWithSword(); }
-            public void update(int delta) { if (getDistanceToHero() >= attackDistance && seeTarget(World.getInstance().getHero())) { currentState = MeleeAIState.PURSUE; return; }
+            public void update(int delta) { if (getDistanceToHero() >= attackDistance && seeTarget(Hero.getInstance())) { currentState = MeleeAIState.PURSUE; return; }
                                             if (Math.random() < strafeProbability) { currentState = MeleeAIState.STRAFE; return; }
                                             currentState = MeleeAIState.RETREAT; }
         });
@@ -72,7 +72,7 @@ public class BanditAI extends BotAI {
             public void enter()           { timer = new Timer(strafeTime); strafeDirection = Math.random() < 0.5; }
             public void run(int delta)    { strafe(strafeDirection); }
             public void update(int delta) { timer.update(delta);
-                                            if (timer.isTime() && getDistanceToHero() >= attackDistance && seeTarget(World.getInstance().getHero())) { currentState = MeleeAIState.PURSUE; return; }
+                                            if (timer.isTime() && getDistanceToHero() >= attackDistance && seeTarget(Hero.getInstance())) { currentState = MeleeAIState.PURSUE; return; }
                                             if (timer.isTime() && Math.random() < attackProbability) { currentState = MeleeAIState.ATTACK; return; }
                                             if (timer.isTime()) currentState = MeleeAIState.RETREAT; }
         });
@@ -91,13 +91,13 @@ public class BanditAI extends BotAI {
     }
 
     private void strafe(boolean strafeDirection) {
-        Hero hero = World.getInstance().getHero();
+        Hero hero = Hero.getInstance();
         owner.setDirection(Math.atan2(hero.getY() - owner.getY(), hero.getX() - owner.getX()));
         owner.move(Math.PI / 2 * (strafeDirection ? 1 : -1));
     }
 
     private double retreat(int delta) {
-        Hero hero = World.getInstance().getHero();
+        Hero hero = Hero.getInstance();
         owner.setDirection(Math.atan2(hero.getY() - owner.getY(), hero.getX() - owner.getX()));
         owner.move(Math.PI);
         return owner.getAttribute().getCurrentSpeed() * delta;

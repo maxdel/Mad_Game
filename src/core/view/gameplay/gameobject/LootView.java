@@ -1,5 +1,6 @@
 package core.view.gameplay.gameobject;
 
+import core.model.gameplay.gameobjects.Hero;
 import core.view.gameplay.Camera;
 import org.newdawn.slick.*;
 
@@ -26,7 +27,7 @@ public class LootView extends GameObjectView {
         draw(camera);
         rotate(g, camera, false);
 
-        if (World.getInstance().getHero().getItemToPick() == gameObject) {
+        if (Hero.getInstance().getItemToPick() == gameObject) {
             // On the screen without rotation
             double x;
             double y;

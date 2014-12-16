@@ -9,15 +9,17 @@
             <animation name="hero_skill_strong_sword_attack" path="/res/hero/hero_skill_strong_sword_attack.png" isImage = "false" frameWidth="160" frameHeight="160" speedCoef="0.07" />
             <animation name="hero_skill_bow_shot" path="/res/hero/hero_skill_bow_shot.png" isImage = "false" frameWidth="128" frameHeight="128" speedCoef="0.07" />
 
-            <animation name="vampire" path="/res/vampire/vampire.png" isImage = "true" />
-
-            <animation name="elemental" path="/res/fireelemental/elemental.png" isImage = "true" />
-
             <animation name="bandit" path="/res/bandit/bandit.png" isImage = "true" />
             <animation name="bandit_walk_sword" path="/res/bandit/bandit_walk_sword.png" isImage = "false" frameWidth="160" frameHeight="160" speedCoef="5" />
             <animation name="bandit_skill_sword_attack" path="/res/bandit/bandit_skill_sword_attack.png" isImage = "false" frameWidth="160" frameHeight="160" speedCoef="0.07" />
 
             <animation name="bandit_archer" path="/res/banditarcher/banditArcher.png" isImage = "true" />
+
+            <animation name="bandit_boss" path="/res/banditboss/banditboss.png" isImage = "true" />
+
+            <animation name="vampire" path="/res/vampire/vampire.png" isImage = "true" />
+
+            <animation name="elemental" path="/res/fireelemental/elemental.png" isImage = "true" />
             <animation name="skeleton" path="/res/skeleton/skeleton.png" isImage = "true" />
             <animation name="skeleton_mage" path="/res/skeletonmage/skeletonMage.png" isImage = "true" />
             <animation name="wall" path="/res/obstacles/wall.png" isImage = "true" />
@@ -30,6 +32,7 @@
         </animations>
         <masks>
             <mask name="unit" shape="circle" width="0" height="0" radius="20" />
+            <mask name="unit_big" shape="circle" width="0" height="0" radius="30" />
 
             <mask name="wall" shape="rectangle" width="32" height="32" radius="0"/>
             <mask name="ice_wall" shape="rectangle" width="32" height="64" radius="0"/>
@@ -154,6 +157,20 @@
                 <lootList>
                     <loot name="Healing_flask" probability="0.8" />
                     <loot name="Strong_bow" probability="0.5" />
+                </lootList>
+            </unit>
+            <unit name="banditBoss" mask="unit_big">
+                <attribute hp="100" mp="100" maximumSpeed="0.14" pAttack="10" mAttack="15" pArmor="5" mArmor="7" />
+                <inventory>
+                    <itemRecord name="Strong_sword" number="1" />
+                </inventory>
+                <skillList>
+                    <skill name="Sword_attack"/>
+                    <skill name="Strong_sword_attack"/>
+                </skillList>
+                <lootList>
+                    <loot name="Healing_flask" probability="1" />
+                    <loot name="Mana_flask" probability="1" />
                 </lootList>
             </unit>
             <unit name="skeleton" mask="unit">

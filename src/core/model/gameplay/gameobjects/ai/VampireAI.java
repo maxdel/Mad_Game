@@ -4,6 +4,7 @@ import core.model.Timer;
 import core.model.gameplay.World;
 
 import core.model.gameplay.gameobjects.Bot;
+import core.model.gameplay.gameobjects.Hero;
 import core.model.gameplay.items.ItemInstanceKind;
 import core.model.gameplay.skills.BulletShot;
 import core.model.gameplay.skills.SkillInstanceKind;
@@ -79,11 +80,11 @@ public class VampireAI extends BotAI {
     }
 
     private double getPredictedDirection(int skillIndex) {
-        Vector2f v = new Vector2f((float) World.getInstance().getHero().getX() - (float)owner.getX(),
-                (float)World.getInstance().getHero().getY() - (float)owner.getY());
+        Vector2f v = new Vector2f((float) Hero.getInstance().getX() - (float)owner.getX(),
+                (float)Hero.getInstance().getY() - (float)owner.getY());
         double angleToTarget = v.getTheta() / 180 * Math.PI;
-        double targetSpeed = World.getInstance().getHero().getAttribute().getCurrentSpeed();
-        double targetDirection = World.getInstance().getHero().getDirection() + World.getInstance().getHero().getRelativeDirection();
+        double targetSpeed = Hero.getInstance().getAttribute().getCurrentSpeed();
+        double targetDirection = Hero.getInstance().getDirection() + Hero.getInstance().getRelativeDirection();
         double bulletSpeed = ((BulletShot) owner.getSkillList().get(skillIndex)).getBulletSpeed();
 
         if (targetSpeed > 0) {

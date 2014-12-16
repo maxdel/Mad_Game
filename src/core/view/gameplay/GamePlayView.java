@@ -30,9 +30,9 @@ public class GamePlayView {
     private List<Class> renderOrder;
 
     public GamePlayView(GameContainer gc, List<GameObject> gameObjectList, TiledMapAdv tiledMap) throws SlickException {
-        this.inventoryView = new InventoryView(World.getInstance().getHero().getInventory());
+        this.inventoryView = new InventoryView(Hero.getInstance().getInventory());
 
-        this.skillPanelView = new SkillPanelView(World.getInstance().getHero().getSkillList(),
+        this.skillPanelView = new SkillPanelView(Hero.getInstance().getSkillList(),
                 ResourceManager.getInstance().getSkillInfos(), gc);
 
         this.tileView = new TileView(tiledMap);
@@ -73,6 +73,9 @@ public class GamePlayView {
                 case WATERELEMENTAL:
                     gameObjectViewList.add(new WaterElementalView(gameObject));
                     break;
+                case BANDITBOSS:
+                    gameObjectViewList.add(new BanditBossView(gameObject));
+                    break;
             }
         }
 
@@ -90,8 +93,8 @@ public class GamePlayView {
     }
 
     public void render(GameContainer gc, Graphics g) throws SlickException {
-        camera.update(gc.getWidth(), gc.getHeight(), World.getInstance().getHero().getX(),
-                World.getInstance().getHero().getY(), World.getInstance().getHero().getDirection());
+        camera.update(gc.getWidth(), gc.getHeight(), Hero.getInstance().getX(),
+                Hero.getInstance().getY(), Hero.getInstance().getDirection());
         updateGameObjectViewList();
 
         tileView.render(g, camera);
@@ -166,6 +169,9 @@ public class GamePlayView {
                     break;
                 case WATERELEMENTAL:
                     gameObjectViewList.add(new WaterElementalView(gameObject));
+                    break;
+                case BANDITBOSS:
+                    gameObjectViewList.add(new BanditBossView(gameObject));
                     break;
             }
         }

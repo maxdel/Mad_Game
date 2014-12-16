@@ -3,6 +3,7 @@ package core.model.gameplay.gameobjects.ai;
 import core.model.Timer;
 import core.model.gameplay.World;
 import core.model.gameplay.gameobjects.Bot;
+import core.model.gameplay.gameobjects.Hero;
 import core.model.gameplay.items.ItemInstanceKind;
 import core.model.gameplay.skills.BulletShot;
 import core.model.gameplay.skills.SkillInstanceKind;
@@ -37,13 +38,13 @@ public class BanditArcherAI extends BotAI {
             public void enter()           { timer = new Timer(standTime);                                                  }
             public void run(int delta)    { owner.stand();                                                                 }
             public void update(int delta) { if (timer.update(delta)) currentState = RangedAIState.WALK;
-                                            if (getDistanceToHero() < pursueDistance && seeTarget(World.getInstance().getHero())) currentState = RangedAIState.PURSUE; }
+                                            if (getDistanceToHero() < pursueDistance && seeTarget(Hero.getInstance())) currentState = RangedAIState.PURSUE; }
         });
         stateMap.put(RangedAIState.WALK, new AIState() {
             private Point target;
             public void enter()           { target = getRandomTarget();                                                     }
             public void run(int delta)    { followTarget(target);                                                           }
-            public void update(int delta) { if (getDistanceToHero() < pursueDistance && seeTarget(World.getInstance().getHero())) currentState = RangedAIState.PURSUE;
+            public void update(int delta) { if (getDistanceToHero() < pursueDistance && seeTarget(Hero.getInstance())) currentState = RangedAIState.PURSUE;
                                             if (getDistanceToTarget(target) < 2)      currentState = RangedAIState.STAND;   }
         });
         stateMap.put(RangedAIState.PURSUE, new AIState() {
@@ -51,7 +52,7 @@ public class BanditArcherAI extends BotAI {
             public void enter()           { isFollowing = true;                                                                  }
             public void run(int delta)    { isFollowing = followHero();         }
             public void update(int delta) { if (getDistanceToHero() >= pursueDistance || !isFollowing) currentState = RangedAIState.STAND;
-                                            if (getDistanceToHero() < attackDistance && seeTarget(World.getInstance().getHero())) currentState = RangedAIState.ATTACK; }
+                                            if (getDistanceToHero() < attackDistance && seeTarget(Hero.getInstance())) currentState = RangedAIState.ATTACK; }
         });
         stateMap.put(RangedAIState.ATTACK, new AIState() {
             private boolean isAttacking;
@@ -64,7 +65,7 @@ public class BanditArcherAI extends BotAI {
     private boolean attackHeroWithBowShot() {
         owner.stand();
         owner.setDirection(getPredictedDirection(0));
-        if (seeTarget(World.getInstance().getHero())) {
+        if (seeTarget(Hero.getInstance())) {
             owner.getInventory().dressIfNotDressed(Arrays.asList(ItemInstanceKind.BOW, ItemInstanceKind.STRONG_BOW));
             owner.startCastSkill(SkillInstanceKind.BOW_SHOT);
             return true;
@@ -73,11 +74,11 @@ public class BanditArcherAI extends BotAI {
     }
 
     private double getPredictedDirection(int skillIndex) {
-        Vector2f v = new Vector2f((float) World.getInstance().getHero().getX() - (float)owner.getX(),
-                (float)World.getInstance().getHero().getY() - (float)owner.getY());
+        Vector2f v = new Vector2f((float) Hero.getInstance().getX() - (float)owner.getX(),
+                (float)Hero.getInstance().getY() - (float)owner.getY());
         double angleToTarget = v.getTheta() / 180 * Math.PI;
-        double targetSpeed = World.getInstance().getHero().getAttribute().getCurrentSpeed();
-        double targetDirection = World.getInstance().getHero().getDirection() + World.getInstance().getHero().getRelativeDirection();
+        double targetSpeed = Hero.getInstance().getAttribute().getCurrentSpeed();
+        double targetDirection = Hero.getInstance().getDirection() + Hero.getInstance().getRelativeDirection();
         double bulletSpeed = ((BulletShot) owner.getSkillList().get(skillIndex)).getBulletSpeed();
 
         if (targetSpeed > 0) {

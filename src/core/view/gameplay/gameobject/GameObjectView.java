@@ -23,7 +23,7 @@ public abstract class GameObjectView {
     }
 
     public void render(Graphics g, Camera camera) throws SlickException {
-        Hero hero = World.getInstance().getHero();
+        Hero hero = Hero.getInstance();
         if (MathAdv.getDistance(gameObject.getX(), gameObject.getY(), hero.getX(), hero.getY()) < DRAW_RADIUS) {
             rotate(g, camera, true);
             draw(camera);

@@ -55,7 +55,7 @@ public abstract class BotAI {
     // AI methods
 
     protected double getDistanceToHero() {
-        return MathAdv.getDistance(World.getInstance().getHero().getX(), World.getInstance().getHero().getY(),
+        return MathAdv.getDistance(Hero.getInstance().getX(), Hero.getInstance().getY(),
                 owner.getX(), owner.getY());
     }
 
@@ -97,7 +97,7 @@ public abstract class BotAI {
     }
 
     protected boolean followHero() {
-        Unit hero = World.getInstance().getHero();
+        Unit hero = Hero.getInstance();
         if (seeTarget(hero)) {
             lastTargetX = hero.getX();
             lastTargetY = hero.getY();

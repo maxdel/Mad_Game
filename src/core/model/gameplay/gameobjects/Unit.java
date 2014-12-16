@@ -251,7 +251,7 @@ public abstract class Unit extends GameObjectSolid {
         }
     }
 
-    private Skill getSkillByKind(SkillInstanceKind skillInstanceKind) {
+    public Skill getSkillByKind(SkillInstanceKind skillInstanceKind) {
         for (Skill skill : skillList) {
             if (skill.getKind() == skillInstanceKind) {
                 return skill;

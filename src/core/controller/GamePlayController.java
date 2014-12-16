@@ -1,5 +1,6 @@
 package core.controller;
 
+import core.model.gameplay.gameobjects.Hero;
 import core.model.gameplay.skills.SkillInstanceKind;
 import main.Main;
 import org.lwjgl.input.Mouse;
@@ -17,7 +18,6 @@ import core.view.gameplay.GamePlayView;
  */
 public class GamePlayController {
 
-    private Hero hero;
     private GamePlayView gamePlayView;
     private int mouseX, mouseY;
     private int oldMouseX, oldMouseY;
@@ -26,12 +26,11 @@ public class GamePlayController {
     private final double ROTATE_SPEED = 1f/288;
 
     public GamePlayController(World world, GamePlayView gamePlayView) throws SlickException {
-        hero = world.getHero();
         oldMouseX = -1;
         oldMouseY = -1;
         mouseX = -1;
         mouseY = -1;
-        controlMode = "Hero";
+        controlMode = "Hero.getInstance()";
         combatMode = false;
         this.gamePlayView = gamePlayView;
     }
@@ -57,15 +56,15 @@ public class GamePlayController {
         }
         //--
 
-        if (controlMode.equals("Hero")) {
+        if (controlMode.equals("Hero.getInstance()")) {
 
-            // Controls the direction of the hero
+            // Controls the direction of the Hero.getInstance()
             oldMouseX = mouseX;
             oldMouseY = mouseY;
             mouseX = input.getMouseX();
             mouseY = input.getMouseY();
 
-            if (oldMouseX >= 0) hero.rotate((mouseX - oldMouseX) * (2 * Math.PI) * ROTATE_SPEED);
+            if (oldMouseX >= 0) Hero.getInstance().rotate((mouseX - oldMouseX) * (2 * Math.PI) * ROTATE_SPEED);
 
             if (input.getMouseX() > gc.getWidth() / 2 + 1 / ROTATE_SPEED) {
                 Mouse.setCursorPosition((int) (input.getMouseX() - (1.0 / ROTATE_SPEED)),
@@ -79,7 +78,7 @@ public class GamePlayController {
                 mouseX = input.getMouseX();
             }
 
-            // Controls the movement of the hero
+            // Controls the movement of the Hero.getInstance()
             boolean[] downKeys = {false, false, false, false};
             if (input.isKeyDown(Input.KEY_D)) downKeys[0] = true;
             if (input.isKeyDown(Input.KEY_S)) downKeys[1] = true;
@@ -98,45 +97,45 @@ public class GamePlayController {
 
             direction *= Math.PI / 180;
             if (direction >= 0) {
-                hero.move(direction);
+                Hero.getInstance().move(direction);
             } else {
-                hero.stand();
+                Hero.getInstance().stand();
             }
 
             // Pick loot
             if (input.isMouseButtonDown(input.MOUSE_LEFT_BUTTON)) {
                 if (combatMode) {
-                    hero.startCastSkill(SkillInstanceKind.SWORD_ATTACK);
-                    hero.startCastSkill(SkillInstanceKind.BOW_SHOT);
-                    hero.startCastSkill(SkillInstanceKind.FIREBALL);
+                    Hero.getInstance().startCastSkill(SkillInstanceKind.SWORD_ATTACK);
+                    Hero.getInstance().startCastSkill(SkillInstanceKind.BOW_SHOT);
+                    Hero.getInstance().startCastSkill(SkillInstanceKind.FIREBALL);
                 } else {
-                    hero.startPickItem();
+                    Hero.getInstance().startPickItem();
                 }
             }
 
             // Use skill
             if (input.isKeyDown(input.KEY_1)) {
-                hero.startCastSkill(SkillInstanceKind.SWORD_ATTACK);
-                hero.startCastSkill(SkillInstanceKind.BOW_SHOT);
-                hero.startCastSkill(SkillInstanceKind.FIREBALL);
+                Hero.getInstance().startCastSkill(SkillInstanceKind.SWORD_ATTACK);
+                Hero.getInstance().startCastSkill(SkillInstanceKind.BOW_SHOT);
+                Hero.getInstance().startCastSkill(SkillInstanceKind.FIREBALL);
             }
             if (input.isKeyDown(input.KEY_2)) {
-                hero.startCastSkill(SkillInstanceKind.STRONG_SWORD_ATTACK);
+                Hero.getInstance().startCastSkill(SkillInstanceKind.STRONG_SWORD_ATTACK);
             }
             if (input.isKeyDown(input.KEY_3)) {
-                hero.startCastSkill(SkillInstanceKind.WIND_BOW);
+                Hero.getInstance().startCastSkill(SkillInstanceKind.WIND_BOW);
             }
             if (input.isKeyDown(input.KEY_4)) {
-                hero.startCastSkill(SkillInstanceKind.HEAL);
+                Hero.getInstance().startCastSkill(SkillInstanceKind.HEAL);
             }
             if (input.isKeyDown(input.KEY_5)) {
-                hero.startCastSkill(SkillInstanceKind.STAFF_ATTACK);
+                Hero.getInstance().startCastSkill(SkillInstanceKind.STAFF_ATTACK);
             }
             if (input.isKeyDown(input.KEY_6)) {
-                hero.startCastSkill(SkillInstanceKind.BLINK);
+                Hero.getInstance().startCastSkill(SkillInstanceKind.BLINK);
             }
             if (input.isKeyDown(input.KEY_7)) {
-                hero.startCastSkill(SkillInstanceKind.ICE_WALL);
+                Hero.getInstance().startCastSkill(SkillInstanceKind.ICE_WALL);
             }
 
 
@@ -150,11 +149,11 @@ public class GamePlayController {
                 controlMode = "Inventory";
                 gamePlayView.getInventoryView().setActive(true);
                 input.enableKeyRepeat();
-                hero.stand();
+                Hero.getInstance().stand();
             }
         } else if (controlMode.equals("Inventory")) {
             if (input.isKeyPressed(Input.KEY_ESCAPE) || input.isKeyPressed(Input.KEY_TAB)) {
-                controlMode = "Hero";
+                controlMode = "Hero.getInstance()";
                 gamePlayView.getInventoryView().setActive(false);
                 mouseX = input.getMouseX();
                 input.disableKeyRepeat();
@@ -163,36 +162,36 @@ public class GamePlayController {
             if (input.isKeyPressed(Input.KEY_D)) {
                 int selectedItemRecordIndex = gamePlayView.getInventoryView().selectRight();
                 if (selectedItemRecordIndex != -1) {
-                    hero.getInventory().setSelectedRecord(selectedItemRecordIndex);
+                    Hero.getInstance().getInventory().setSelectedRecord(selectedItemRecordIndex);
                 }
             }
             if (input.isKeyPressed(Input.KEY_S)) {
                 int selectedItemRecordIndex = gamePlayView.getInventoryView().selectBottom();
                 if (selectedItemRecordIndex != -1) {
-                    hero.getInventory().setSelectedRecord(selectedItemRecordIndex);
+                    Hero.getInstance().getInventory().setSelectedRecord(selectedItemRecordIndex);
                 }
             }
             if (input.isKeyPressed(Input.KEY_A)) {
                 int selectedItemRecordIndex = gamePlayView.getInventoryView().selectLeft();
                 if (selectedItemRecordIndex != -1) {
-                    hero.getInventory().setSelectedRecord(selectedItemRecordIndex);
+                    Hero.getInstance().getInventory().setSelectedRecord(selectedItemRecordIndex);
                 }
             }
             if (input.isKeyPressed(Input.KEY_W)) {
                 int selectedItemRecordIndex = gamePlayView.getInventoryView().selectTop();
                 if (selectedItemRecordIndex != -1) {
-                    hero.getInventory().setSelectedRecord(selectedItemRecordIndex);
+                    Hero.getInstance().getInventory().setSelectedRecord(selectedItemRecordIndex);
                 }
             }
 
             // Drop item
             if (input.isMousePressed(input.MOUSE_RIGHT_BUTTON)) {
-                hero.startDropItem();
+                Hero.getInstance().startDropItem();
             }
 
             // Use item
             if (input.isMousePressed(input.MOUSE_LEFT_BUTTON)) {
-                hero.startUseItem();
+                Hero.getInstance().startUseItem();
             }
 
         }

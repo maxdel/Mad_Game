@@ -11,13 +11,13 @@ import org.newdawn.slick.geom.Point;
 
 import java.util.Arrays;
 
-public class SkeletonAI extends BotAI {
+public class BanditBossAI extends BotAI {
 
-    public SkeletonAI() {
+    public BanditBossAI() {
         this(null);
     }
 
-    public SkeletonAI(Bot bot) {
+    public BanditBossAI(Bot bot) {
         super(bot);
     }
 
@@ -29,7 +29,8 @@ public class SkeletonAI extends BotAI {
     protected void init() {
         final int standTime = 1000;
         final int pursueDistance = 300;
-        final int attackDistance = 50;
+        final int attackDistance = (int) (owner.getMask().getBoundingCircleRadius() +
+                Hero.getInstance().getMask().getBoundingCircleRadius() + 5);
         final int retreatDistance = 30;
         final int strafeTime = 250;
         final double attackProbability = 0.7;
@@ -87,7 +88,11 @@ public class SkeletonAI extends BotAI {
     private void attackHeroWithSword() {
         owner.stand();
         owner.getInventory().dressIfNotDressed(Arrays.asList(ItemInstanceKind.SWORD, ItemInstanceKind.STRONG_SWORD));
-        owner.startCastSkill(SkillInstanceKind.SWORD_ATTACK);
+        if (owner.canStartCast(owner.getSkillByKind(SkillInstanceKind.STRONG_SWORD_ATTACK))) {
+            owner.startCastSkill(SkillInstanceKind.STRONG_SWORD_ATTACK);
+        } else {
+            owner.startCastSkill(SkillInstanceKind.SWORD_ATTACK);
+        }
     }
 
     private void strafe(boolean strafeDirection) {

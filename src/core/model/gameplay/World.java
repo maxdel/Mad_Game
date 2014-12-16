@@ -23,7 +23,6 @@ public class World {
     private List<GameObject> gameObjectList;
     private List<GameObject> gameObjectToDeleteList;
     private List<GameObject> gameObjectToAddList;
-    private Hero hero;
     private TiledMapAdv tiledMap;
 
     private final int UPDATE_RADIUS = 1000;
@@ -72,9 +71,9 @@ public class World {
                 // Objects
                 String tileObjectName = tiledMap.getTileProperty(tiledMap.getTileId(i, j, 2), "name", "error");
                 if (tileObjectName.equals("hero")) {
-                    hero = new Hero(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
-                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0);
-                    gameObjectList.add(hero);
+                    Hero.getInstance().setX(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2);
+                    Hero.getInstance().setY(tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2);
+                    gameObjectList.add(Hero.getInstance());
                 } else if (tileObjectName.equals("vampire")) {
                     VampireAI vampireAI = new VampireAI();
                     Bot bot = new Bot(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
@@ -124,17 +123,24 @@ public class World {
                             banditArcherAI);
                     banditArcherAI.setOwner(bot);
                     gameObjectList.add(bot);
+                } else if (tileObjectName.equals("banditboss")) {
+                    Bot bot = new Bot(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
+                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjInstanceKind.BANDITBOSS,
+                            null);
+                    bot.setBotAI(new BanditBossAI(bot));
+                    gameObjectList.add(bot);
                 }
             }
         }
 
-        gameObjectList.add(new Loot(hero.getX() + 40, hero.getY() - 70, Math.PI / 4,
+        gameObjectList.add(new Loot(Hero.getInstance().getX() + 40, Hero.getInstance().getY() - 70, Math.PI / 4,
                 ItemDB.getInstance().getItem(ItemInstanceKind.SWORD), 1));
     }
 
     // Singleton pattern method
     public static World getInstance(boolean reset) {
         if (instance == null || reset) {
+            Hero.getInstance(true);
             instance = new World();
         }
         return instance;
@@ -162,7 +168,7 @@ public class World {
         gameObjectToDeleteList.clear();
 
         for (GameObject gameObject : gameObjectList) {
-            if (MathAdv.getDistance(gameObject.getX(), gameObject.getY(), hero.getX(), hero.getY()) < UPDATE_RADIUS) {
+            if (MathAdv.getDistance(gameObject.getX(), gameObject.getY(), Hero.getInstance().getX(), Hero.getInstance().getY()) < UPDATE_RADIUS) {
                 gameObject.update(delta);
             }
         }
@@ -170,10 +176,6 @@ public class World {
 
     public List<GameObject> getGameObjectList() {
         return gameObjectList;
-    }
-
-    public Hero getHero() {
-        return hero;
     }
 
     public TiledMapAdv getTiledMap() {

@@ -70,12 +70,12 @@ public class SkillPanelView {
             skillOnPanel.renderFake(g);
             //--
 
-            Skill castingSkill = World.getInstance().getHero().getCastingSkill();
+            Skill castingSkill = Hero.getInstance().getCastingSkill();
             skillOnPanel.render(g, Color.green);
 
             if (skillOnPanel.skill.getTimerCooldown().isActive()) {
                 skillOnPanel.render(g, Color.yellow);
-            } else if (!World.getInstance().getHero().canStartCast(skillOnPanel.skill)) {
+            } else if (!Hero.getInstance().canStartCast(skillOnPanel.skill)) {
                 skillOnPanel.render(g, Color.red);
             } else if (castingSkill != null && castingSkill.getKind() == skillOnPanel.skill.getKind()) {
                 skillOnPanel.render(g);
