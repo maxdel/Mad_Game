@@ -5,21 +5,19 @@ import core.model.gameplay.World;
 import core.model.gameplay.gameobjects.Bot;
 import core.model.gameplay.gameobjects.Hero;
 import core.model.gameplay.items.ItemInstanceKind;
-import core.model.gameplay.items.ItemRecord;
 import core.model.gameplay.skills.SkillInstanceKind;
 
 import org.newdawn.slick.geom.Point;
 
 import java.util.Arrays;
-import java.util.List;
 
-public class MeleeAI extends BotAI {
+public class SkeletonAI extends BotAI {
 
-    public MeleeAI() {
+    public SkeletonAI() {
         this(null);
     }
 
-    public MeleeAI(Bot bot) {
+    public SkeletonAI(Bot bot) {
         super(bot);
     }
 
@@ -44,31 +42,31 @@ public class MeleeAI extends BotAI {
             public void enter()           { timer = new Timer(standTime); }
             public void run(int delta)    { owner.stand(); }
             public void update(int delta) { timer.update(delta);
-                                            if (getDistanceToHero() < pursueDistance && seeTarget(World.getInstance().getHero())) { currentState = MeleeAIState.PURSUE; return; }
-                                            if (timer.isTime()) currentState = MeleeAIState.WALK; }
+                if (getDistanceToHero() < pursueDistance && seeTarget(World.getInstance().getHero())) { currentState = MeleeAIState.PURSUE; return; }
+                if (timer.isTime()) currentState = MeleeAIState.WALK; }
         });
         stateMap.put(MeleeAIState.WALK, new AIState() {
             private Point target;
             public void enter()           { target = getRandomTarget(); }
             public void run(int delta)    { followTarget(target); }
             public void update(int delta) { if (getDistanceToHero() < pursueDistance && seeTarget(World.getInstance().getHero())) { currentState = MeleeAIState.PURSUE; return; }
-                                            if (getDistanceToTarget(target) < 2) currentState = MeleeAIState.STAND; }
+                if (getDistanceToTarget(target) < 2) currentState = MeleeAIState.STAND; }
         });
         stateMap.put(MeleeAIState.PURSUE, new AIState() {
             private boolean isFollowing;
             public void enter()           { isFollowing = true; }
             public void run(int delta)    { isFollowing = followHero(); }
             public void update(int delta) { if (getDistanceToHero() >= pursueDistance || !isFollowing) { currentState = MeleeAIState.STAND; return; }
-                                            if (getDistanceToHero() < attackDistance && Math.random() < attackProbability) { currentState = MeleeAIState.ATTACK; return; }
-                                            if (getDistanceToHero() < attackDistance && Math.random() < strafeProbability) { currentState = MeleeAIState.STRAFE; return; }
-                                            if (getDistanceToHero() < attackDistance)  currentState = MeleeAIState.RETREAT;  }
+                if (getDistanceToHero() < attackDistance && Math.random() < attackProbability) { currentState = MeleeAIState.ATTACK; return; }
+                if (getDistanceToHero() < attackDistance && Math.random() < strafeProbability) { currentState = MeleeAIState.STRAFE; return; }
+                if (getDistanceToHero() < attackDistance)  currentState = MeleeAIState.RETREAT;  }
         });
         stateMap.put(MeleeAIState.ATTACK, new AIState() {
             public void enter()           { }
             public void run(int delta)    { attackHeroWithSword(); }
             public void update(int delta) { if (getDistanceToHero() >= attackDistance && seeTarget(World.getInstance().getHero())) { currentState = MeleeAIState.PURSUE; return; }
-                                            if (Math.random() < strafeProbability) { currentState = MeleeAIState.STRAFE; return; }
-                                            currentState = MeleeAIState.RETREAT; }
+                if (Math.random() < strafeProbability) { currentState = MeleeAIState.STRAFE; return; }
+                currentState = MeleeAIState.RETREAT; }
         });
         stateMap.put(MeleeAIState.STRAFE, new AIState() {
             private Timer timer;
@@ -76,9 +74,9 @@ public class MeleeAI extends BotAI {
             public void enter()           { timer = new Timer(strafeTime); strafeDirection = Math.random() < 0.5; }
             public void run(int delta)    { strafe(strafeDirection); }
             public void update(int delta) { timer.update(delta);
-                                            if (timer.isTime() && getDistanceToHero() >= attackDistance && seeTarget(World.getInstance().getHero())) { currentState = MeleeAIState.PURSUE; return; }
-                                            if (timer.isTime() && Math.random() < attackProbability) { currentState = MeleeAIState.ATTACK; return; }
-                                            if (timer.isTime()) currentState = MeleeAIState.RETREAT; }
+                if (timer.isTime() && getDistanceToHero() >= attackDistance && seeTarget(World.getInstance().getHero())) { currentState = MeleeAIState.PURSUE; return; }
+                if (timer.isTime() && Math.random() < attackProbability) { currentState = MeleeAIState.ATTACK; return; }
+                if (timer.isTime()) currentState = MeleeAIState.RETREAT; }
         });
         stateMap.put(MeleeAIState.RETREAT, new AIState() {
             private double currentRetreatDistance;

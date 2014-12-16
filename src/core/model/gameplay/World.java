@@ -3,10 +3,11 @@ package core.model.gameplay;
 import java.util.ArrayList;
 import java.util.List;
 
+import core.model.gameplay.gameobjects.ai.SkeletonAI;
 import org.newdawn.slick.SlickException;
 
 import core.MathAdv;
-import core.model.gameplay.gameobjects.ai.MeleeAI;
+import core.model.gameplay.gameobjects.ai.BanditAI;
 import core.model.gameplay.gameobjects.ai.RangedAI;
 import core.model.gameplay.gameobjects.ai.VampireAI;
 import core.model.gameplay.items.ItemDB;
@@ -85,18 +86,18 @@ public class World {
                     vampireAI.setOwner(bot);
                     gameObjectList.add(bot);
                 } else if (tileObjectName.equals("banditsword")) {
-                    MeleeAI meleeAI = new MeleeAI();
+                    BanditAI banditAI = new BanditAI();
                     Bot bot = new Bot(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
                             tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjInstanceKind.BANDIT,
-                            meleeAI);
-                    meleeAI.setOwner(bot);
+                            banditAI);
+                    banditAI.setOwner(bot);
                     gameObjectList.add(bot);
                 } else if (tileObjectName.equals("skeletsword")) {
-                    MeleeAI meleeAI = new MeleeAI();
+                    SkeletonAI skeletonAI = new SkeletonAI();
                     Bot bot = new Bot(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
                             tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjInstanceKind.SKELETON,
-                            meleeAI);
-                    meleeAI.setOwner(bot);
+                            skeletonAI);
+                    skeletonAI.setOwner(bot);
                     gameObjectList.add(bot);
                 } else if (tileObjectName.equals("banditarcher")) {
                     RangedAI rangedAI = new RangedAI();
