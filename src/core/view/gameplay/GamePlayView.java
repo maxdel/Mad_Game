@@ -158,6 +158,9 @@ public class GamePlayView {
                 case FIREBALL:
                     gameObjectViewList.add(new FireballView(gameObject));
                     break;
+                case THORN:
+                    gameObjectViewList.add(new ThornView(gameObject));
+                    break;
                 case BANDITARCHER:
                     gameObjectViewList.add(new BanditArcherView(gameObject));
                     break;

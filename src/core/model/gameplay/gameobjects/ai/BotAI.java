@@ -144,7 +144,7 @@ public abstract class BotAI {
     protected boolean seeTarget(GameObjectSolid target) {
         int step = 1;
         double direction = Math.atan2(target.getY() - owner.getY(), target.getX() - owner.getX());
-        Bullet dummy = new Bullet(owner, owner.getX(), owner.getY(), direction, 0, 0, 0, GameObjInstanceKind.ARROW);
+        Bullet dummy = new Bullet(owner, owner.getX(), owner.getY(), direction, 0, 0, 0, 1, GameObjInstanceKind.ARROW);
         for (int i = 0; i < MathAdv.getDistance(owner.getX(), owner.getY(), target.getX(), target.getY()) / step; ++i) {
             GameObjectSolid collisionObject = CollisionManager.getInstance().collidesWith(dummy,
                     owner.getX() + MathAdv.lengthDirX(direction, step * i),

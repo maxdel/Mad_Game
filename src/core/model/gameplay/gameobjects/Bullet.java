@@ -11,11 +11,11 @@ public class Bullet extends GameObjectSolid {
     private double speed;
     private double pAttack;
     private double mAttack;
-    private final int maximumDistance = 1000;
+    private double maximumDistance;
     private double currentDistance;
 
     public Bullet(Unit owner, double x, double y, double direction, double speed, double pAttack,
-                    double mAttack, GameObjInstanceKind type) {
+                    double mAttack, double maximumDistance, GameObjInstanceKind type) {
         super(x, y, direction, type);
 
         this.mask = ResourceManager.getInstance().getBulletInfo(type).getMask();
@@ -24,6 +24,7 @@ public class Bullet extends GameObjectSolid {
         this.speed = speed;
         this.pAttack = pAttack;
         this.mAttack = mAttack;
+        this.maximumDistance = maximumDistance;
         this.currentDistance = 0;
     }
 

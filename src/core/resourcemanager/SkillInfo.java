@@ -42,7 +42,7 @@ public class SkillInfo {
                     reqItemInstanceKind,
                     Double.parseDouble(map.get("requiredHP")), Double.parseDouble(map.get("requiredMP")),
                     Double.parseDouble(map.get("bulletSpeed")), Double.parseDouble(map.get("pAttack")),
-                    Double.parseDouble(map.get("mAttack")), kind);
+                    Double.parseDouble(map.get("mAttack")), Double.parseDouble(map.get("distance")),kind);
         } else if (type.equals("AreaDamage")) {
             skill = new AreaDamage(name, description, Integer.parseInt(map.get("castTime")),
                     Integer.parseInt(map.get("postApplyTime")),
