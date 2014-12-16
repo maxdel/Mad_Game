@@ -32,7 +32,6 @@
             <animation name="tree" path="/res/obstacles/tree.png" isImage = "true" />
             <animation name="ice_wall" path="/res/obstacles/iceWall.png" isImage = "true" />
             <animation name="arrow" path="/res/bullets/arrow.png" isImage = "true" />
-            <animation name="fireball" path="/res/bullets/fireball.png" isImage = "true" />
             <animation name="thorn" path="/res/bullets/thorn.png" isImage = "true"/>
             <animation name="stone" path="/res/bullets/stone.png" isImage = "true"/>
 
@@ -51,6 +50,7 @@
             <mask name="fireball" shape="circle" width="0" height="0" radius="5" />
             <mask name="thorn" shape="rectangle" width="10" height="3" radius="0" />
             <mask name="stone" shape="circle" width="0" height="0" radius="6" />
+            <mask name="waterball" shape="circle" width="0" height="0" radius="5" />
         </masks>
         <images>
             <image name="Selected item frame" path = "/res/items/selected item.png" />
@@ -131,6 +131,10 @@
             <skill name="Throw_stone" description="Throw stone!!!" path="/res/skills/empty skill.png" type="BulletShot"
                    castTime="300" postApplyTime="150" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="0"
                    pAttack="20" mAttack="0" bulletSpeed="0.4" distance="1000"/>
+
+            <skill name="Waterball" description="Fireball!!!" path="/res/skills/empty skill.png" type="BulletShot"
+                   castTime="200" postApplyTime="100" cooldownTime="1000" requiredItemType="Staff" requiredHP="0" requiredMP="5"
+                   pAttack="0" mAttack="20" bulletSpeed="0.4" distance="1000"/>
         </skills>
         <skillFakes>
             <fake path="/res/skills/fake.png"/>
@@ -251,6 +255,30 @@
                     <loot name="Mana_flask" probability="1" />
                 </lootList>
             </unit>
+            <unit name="fireElemental" mask="unit">
+                <attribute hp="100" mp="200" maximumSpeed="0.3" pAttack="10" mAttack="15" pArmor="5" mArmor="7" />
+                <inventory>
+                    <itemRecord name="Strong_staff" number="1" />
+                </inventory>
+                <skillList>
+                    <skill name="Fireball"/>
+                </skillList>
+                <lootList>
+                    <loot name="Mana_flask" probability="0.8" />
+                </lootList>
+            </unit>
+            <unit name="waterElemental" mask="unit">
+                <attribute hp="100" mp="200" maximumSpeed="0.3" pAttack="10" mAttack="15" pArmor="5" mArmor="7" />
+                <inventory>
+                    <itemRecord name="Strong_staff" number="1" />
+                </inventory>
+                <skillList>
+                    <skill name="Waterball"/>
+                </skillList>
+                <lootList>
+                    <loot name="Mana_flask" probability="0.8" />
+                </lootList>
+            </unit>
             <unit name="skeleton" mask="unit">
                 <attribute hp="100" mp="100" maximumSpeed="0.15" pAttack="10" mAttack="15" pArmor="5" mArmor="7" />
                 <inventory>
@@ -278,30 +306,6 @@
                     <loot name="Mana_flask" probability="0.7" />
                 </lootList>
             </unit>
-            <unit name="fireElemental" mask="unit">
-                <attribute hp="100" mp="200" maximumSpeed="0.3" pAttack="10" mAttack="15" pArmor="5" mArmor="7" />
-                <inventory>
-                    <itemRecord name="Strong_staff" number="1" />
-                </inventory>
-                <skillList>
-                    <skill name="Fireball"/>
-                </skillList>
-                <lootList>
-                    <loot name="Mana_flask" probability="0.8" />
-                </lootList>
-            </unit>
-            <unit name="waterElemental" mask="unit">
-                <attribute hp="100" mp="200" maximumSpeed="0.3" pAttack="10" mAttack="15" pArmor="5" mArmor="7" />
-                <inventory>
-                    <itemRecord name="Strong_staff" number="1" />
-                </inventory>
-                <skillList>
-                    <skill name="Fireball"/>
-                </skillList>
-                <lootList>
-                    <loot name="Mana_flask" probability="0.8" />
-                </lootList>
-            </unit>
             <unit name="vampire" mask="unit">
                 <attribute hp="150" mp="150" maximumSpeed="0.12" pAttack="10" mAttack="15" pArmor="5" mArmor="7" />
                 <inventory>
@@ -327,6 +331,7 @@
             <bullet name="arrow" mask="arrow" />
             <bullet name="thorn" mask="thorn" />
             <bullet name="stone" mask="stone" />
+            <bullet name="waterball" mask="waterball" />
         </bullets>
         <sounds>
             <sound name="sword_attack" path="/res/sounds/sword_attack.wav" />

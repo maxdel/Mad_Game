@@ -102,12 +102,12 @@ public class World {
                 } else if (tileObjectName.equals("fireelemental")) {
                     Bot bot = new Bot(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
                             tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjInstanceKind.FIREELEMENTAL,
-                            new BanditArcherAI());
+                            new FireElementalAI());
                     gameObjectList.add(bot);
                 } else if (tileObjectName.equals("waterelemental")) {
                     Bot bot = new Bot(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
                             tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjInstanceKind.WATERELEMENTAL,
-                            new BanditArcherAI());
+                            new WaterElementalAI());
                     gameObjectList.add(bot);
                 } else if (tileObjectName.equals("banditboss")) {
                     Bot bot = new Bot(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,

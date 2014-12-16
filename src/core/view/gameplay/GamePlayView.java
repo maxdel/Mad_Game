@@ -170,6 +170,9 @@ public class GamePlayView {
                 case STONE:
                     gameObjectViewList.add(new StoneView(gameObject));
                     break;
+                case WATERBALL:
+                    gameObjectViewList.add(new WaterballView(gameObject));
+                    break;
                 case BANDITARCHER:
                     gameObjectViewList.add(new BanditArcherView(gameObject));
                     break;

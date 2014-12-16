@@ -54,30 +54,13 @@ public class BanditArcherAI extends BotAI {
 
     private boolean attackHeroWithBowShot() {
         owner.stand();
-        owner.setDirection(getPredictedDirection(0));
+        owner.setDirection(getPredictedDirection(owner.getSkillByKind(SkillInstanceKind.BOW_SHOT)));
         if (seeTarget(Hero.getInstance())) {
             owner.getInventory().dressIfNotDressed(Arrays.asList(ItemInstanceKind.BOW, ItemInstanceKind.STRONG_BOW));
             owner.startCastSkill(SkillInstanceKind.BOW_SHOT);
             return true;
         }
         return false;
-    }
-
-    private double getPredictedDirection(int skillIndex) {
-        Vector2f v = new Vector2f((float) Hero.getInstance().getX() - (float)owner.getX(),
-                (float)Hero.getInstance().getY() - (float)owner.getY());
-        double angleToTarget = v.getTheta() / 180 * Math.PI;
-        double targetSpeed = Hero.getInstance().getAttribute().getCurrentSpeed();
-        double targetDirection = Hero.getInstance().getDirection() + Hero.getInstance().getRelativeDirection();
-        double bulletSpeed = ((BulletShot) owner.getSkillList().get(skillIndex)).getBulletSpeed();
-
-        if (targetSpeed > 0) {
-            double alphaAngle = (Math.PI - targetDirection) + angleToTarget;
-            double neededOffsetAngle = Math.asin(Math.sin(alphaAngle) * targetSpeed / bulletSpeed);
-            return angleToTarget + neededOffsetAngle;
-        } else {
-            return angleToTarget;
-        }
     }
     
 }

@@ -35,6 +35,10 @@ public class BulletShot extends Skill {
                         bulletSpeed, pAttack, mAttack, distance, GameObjInstanceKind.ARROW));
                 owner.getInventory().deleteItem(ItemInstanceKind.ARROW, 1);
                 break;
+            case WATERBALL:
+                World.getInstance().getGameObjectToAddList().add(new core.model.gameplay.gameobjects.Bullet(owner, owner.getX(), owner.getY(), owner.getDirection(),
+                        bulletSpeed, pAttack, mAttack, distance, GameObjInstanceKind.WATERBALL));
+                break;
             case FIREBALL:
                 World.getInstance().getGameObjectToAddList().add(new core.model.gameplay.gameobjects.Bullet(owner, owner.getX(), owner.getY(), owner.getDirection(),
                         bulletSpeed, pAttack, mAttack, distance, GameObjInstanceKind.FIREBALL));

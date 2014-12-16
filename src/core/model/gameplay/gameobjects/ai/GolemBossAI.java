@@ -114,21 +114,4 @@ public class GolemBossAI extends BotAI {
         }
     }
 
-    private double getPredictedDirection(Skill skill) {
-        Vector2f v = new Vector2f((float) Hero.getInstance().getX() - (float)owner.getX(),
-                (float)Hero.getInstance().getY() - (float)owner.getY());
-        double angleToTarget = v.getTheta() / 180 * Math.PI;
-        double targetSpeed = Hero.getInstance().getAttribute().getCurrentSpeed();
-        double targetDirection = Hero.getInstance().getDirection() + Hero.getInstance().getRelativeDirection();
-        double bulletSpeed = ((BulletShot) skill).getBulletSpeed();
-
-        if (targetSpeed > 0) {
-            double alphaAngle = (Math.PI - targetDirection) + angleToTarget;
-            double neededOffsetAngle = Math.asin(Math.sin(alphaAngle) * targetSpeed / bulletSpeed);
-            return angleToTarget + neededOffsetAngle;
-        } else {
-            return angleToTarget;
-        }
-    }
-
 }

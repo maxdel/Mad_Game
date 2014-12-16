@@ -4,11 +4,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import core.model.gameplay.skills.BulletShot;
+import core.model.gameplay.skills.Skill;
 import org.newdawn.slick.geom.Point;
 
 import core.MathAdv;
 import core.model.gameplay.CollisionManager;
 import core.model.gameplay.gameobjects.*;
+import org.newdawn.slick.geom.Vector2f;
 
 public abstract class BotAI {
 
@@ -76,6 +79,23 @@ public abstract class BotAI {
         target.setX((float)owner.getX());
         target.setY((float)owner.getY());
         return target;
+    }
+
+    protected double getPredictedDirection(Skill skill) {
+        Vector2f v = new Vector2f((float) Hero.getInstance().getX() - (float)owner.getX(),
+                (float)Hero.getInstance().getY() - (float)owner.getY());
+        double angleToTarget = v.getTheta() / 180 * Math.PI;
+        double targetSpeed = Hero.getInstance().getAttribute().getCurrentSpeed();
+        double targetDirection = Hero.getInstance().getDirection() + Hero.getInstance().getRelativeDirection();
+        double bulletSpeed = ((BulletShot) skill).getBulletSpeed();
+
+        if (targetSpeed > 0) {
+            double alphaAngle = (Math.PI - targetDirection) + angleToTarget;
+            double neededOffsetAngle = Math.asin(Math.sin(alphaAngle) * targetSpeed / bulletSpeed);
+            return angleToTarget + neededOffsetAngle;
+        } else {
+            return angleToTarget;
+        }
     }
 
     protected boolean followTarget(double x, double y) {
