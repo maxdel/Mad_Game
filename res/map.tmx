@@ -62,6 +62,11 @@
     <property name="name" value="golemtiny"/>
    </properties>
   </tile>
+  <tile id="18">
+   <properties>
+    <property name="name" value="golemboss"/>
+   </properties>
+  </tile>
   <tile id="19">
    <properties>
     <property name="name" value="banditboss"/>
@@ -80,7 +85,7 @@
  </layer>
  <layer name="Objects" width="64" height="64">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3YWQqAMAxFUX8dcML9r9UVSCkmTfK451OlxoH0kWkCUM3cOL8MqQKwt0UXACTV6vst6vuC+vMBALSt0QUIUcoEf/MfEIm+Biv0QqCu7HtB5Tm0UuYFMiOHADo8c0n2zAOgPjJJn9731XM9Pd8X/7qO6t/Se2Z0Oq/vKWomdQTdF/WN7kcKc9usc/Pn43j1PQcAKrDe327j9bK7ogvA8LwQ9Y9nz6J7dAECXs66FiMAQAAA
+   H4sIAAAAAAAAC+3YWw6DMAxEUX5Lq0If+19rNwCKouKMPbnnE1AwEGzLywKgmlvj/DokCuB6D3UAQFKtvN/iXhfcnw8A4O2uDsCIU0/wb/8HKJHXcBVyIVBX9lpQeQ7t1PMCmdGHAD4i+5LsPQ+g9lYHMNgrYE16kj6976vn+qOcP9sej8Re91H9W0bPjPbg9SOpZlKb6L6ob3Q+cpjbZp2bf0+OV685AFCBQ33L6qMOYBKz9AvZ/9WnOgADP8aXa3MAQAAA
   </data>
  </layer>
  <objectgroup name="Слой объектов 1">

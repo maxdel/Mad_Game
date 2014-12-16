@@ -67,6 +67,9 @@ public class GamePlayView {
                 case GOLEMTINY:
                     gameObjectViewList.add(new GolemTinyView(gameObject));
                     break;
+                case GOLEMBOSS:
+                    gameObjectViewList.add(new GolemBossView(gameObject));
+                    break;
                 case VAMPIRE:
                     gameObjectViewList.add(new VampireView(gameObject));
                     break;
@@ -164,6 +167,9 @@ public class GamePlayView {
                 case THORN:
                     gameObjectViewList.add(new ThornView(gameObject));
                     break;
+                case STONE:
+                    gameObjectViewList.add(new StoneView(gameObject));
+                    break;
                 case BANDITARCHER:
                     gameObjectViewList.add(new BanditArcherView(gameObject));
                     break;
@@ -187,6 +193,9 @@ public class GamePlayView {
                     break;
                 case GOLEMTINY:
                     gameObjectViewList.add(new GolemTinyView(gameObject));
+                    break;
+                case GOLEMBOSS:
+                    gameObjectViewList.add(new GolemBossView(gameObject));
                     break;
             }
         }

@@ -19,7 +19,9 @@
 
             <animation name="golem" path="/res/golem/golem.png" isImage = "true"/>
 
-            <animation name="golem_tiny" path="/res/golemtiny/golemTiny.png" isImage = "true"/>
+            <animation name="golem_tiny" path="/res/golemtiny/golemtiny.png" isImage = "true"/>
+
+            <animation name="golem_boss" path="/res/golemboss/golemboss.png" isImage = "true"/>
 
             <animation name="vampire" path="/res/vampire/vampire.png" isImage = "true" />
 
@@ -32,6 +34,7 @@
             <animation name="arrow" path="/res/bullets/arrow.png" isImage = "true" />
             <animation name="fireball" path="/res/bullets/fireball.png" isImage = "true" />
             <animation name="thorn" path="/res/bullets/thorn.png" isImage = "true"/>
+            <animation name="stone" path="/res/bullets/stone.png" isImage = "true"/>
 
             <animation name="empty" path="/res/empty_image.png" isImage="true" />
         </animations>
@@ -47,6 +50,7 @@
             <mask name="arrow" shape="rectangle" width="20" height="3" radius="0" />
             <mask name="fireball" shape="circle" width="0" height="0" radius="5" />
             <mask name="thorn" shape="rectangle" width="10" height="3" radius="0" />
+            <mask name="stone" shape="circle" width="0" height="0" radius="6" />
         </masks>
         <images>
             <image name="Selected item frame" path = "/res/items/selected item.png" />
@@ -117,6 +121,16 @@
             <skill name="Weak_thorn" description="Weak thorn!!!" path="/res/skills/weak thorn.png" type="BulletShot"
                    castTime="100" postApplyTime="50" cooldownTime="100" requiredItemType="" requiredHP="0" requiredMP="0"
                    pAttack="10" mAttack="0" bulletSpeed="0.4" distance="40"/>
+
+            <skill name="Strong_punch" description="Strong punch!!!" path="/res/skills/empty skill.png" type="AreaDamage"
+                   castTime="400" postApplyTime="150" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="0"
+                   pAttack="95" mAttack="0" radius="55" angle="45"/>
+            <skill name="Strong_thorn" description="Strong thorn!!!" path="/res/skills/empty skill.png" type="BulletShot"
+                   castTime="100" postApplyTime="50" cooldownTime="100" requiredItemType="" requiredHP="0" requiredMP="0"
+                   pAttack="30" mAttack="0" bulletSpeed="0.4" distance="40"/>
+            <skill name="Throw_stone" description="Throw stone!!!" path="/res/skills/empty skill.png" type="BulletShot"
+                   castTime="300" postApplyTime="150" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="0"
+                   pAttack="20" mAttack="0" bulletSpeed="0.4" distance="1000"/>
         </skills>
         <skillFakes>
             <fake path="/res/skills/fake.png"/>
@@ -222,6 +236,21 @@
                     <loot name="Mana_flask" probability="1" />
                 </lootList>
             </unit>
+            <unit name="golemBoss" mask="unit_big">
+                <attribute hp="100" mp="100" maximumSpeed="0.06" pAttack="15" mAttack="15" pArmor="5" mArmor="7" />
+                <inventory>
+
+                </inventory>
+                <skillList>
+                    <skill name="Strong_punch"/>
+                    <skill name="Strong_thorn"/>
+                    <skill name="Throw_stone"/>
+                </skillList>
+                <lootList>
+                    <loot name="Healing_flask" probability="1" />
+                    <loot name="Mana_flask" probability="1" />
+                </lootList>
+            </unit>
             <unit name="skeleton" mask="unit">
                 <attribute hp="100" mp="100" maximumSpeed="0.15" pAttack="10" mAttack="15" pArmor="5" mArmor="7" />
                 <inventory>
@@ -297,6 +326,7 @@
             <bullet name="fireball" mask="fireball" />
             <bullet name="arrow" mask="arrow" />
             <bullet name="thorn" mask="thorn" />
+            <bullet name="stone" mask="stone" />
         </bullets>
         <sounds>
             <sound name="sword_attack" path="/res/sounds/sword_attack.wav" />

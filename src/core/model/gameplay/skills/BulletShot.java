@@ -40,6 +40,8 @@ public class BulletShot extends Skill {
                         bulletSpeed, pAttack, mAttack, distance, GameObjInstanceKind.FIREBALL));
                 break;
             case THORN:
+            case WEAK_THORN:
+            case STRONG_THORN:
                 int numberOfThorns = 4;
                 for (int i = 0; i < numberOfThorns; ++i) {
                     double currentDirection = owner.getDirection() + 2 * Math.PI / numberOfThorns * i;
@@ -50,16 +52,9 @@ public class BulletShot extends Skill {
                             bulletSpeed, pAttack, mAttack, distance, GameObjInstanceKind.THORN));
                 }
                 break;
-            case WEAK_THORN:
-                int numberOfWeakThorns = 4;
-                for (int i = 0; i < numberOfWeakThorns; ++i) {
-                    double currentDirection = owner.getDirection() + 2 * Math.PI / numberOfWeakThorns * i;
-                    double lengthDirX = MathAdv.lengthDirX(currentDirection, owner.getMask().getBoundingCircleRadius());
-                    double lengthDirY = MathAdv.lengthDirY(currentDirection, owner.getMask().getBoundingCircleRadius());
-                    World.getInstance().getGameObjectToAddList().add(new core.model.gameplay.gameobjects.Bullet(owner,
-                            owner.getX() + lengthDirX, owner.getY() + lengthDirY, currentDirection,
-                            bulletSpeed, pAttack, mAttack, distance, GameObjInstanceKind.THORN));
-                }
+            case THROW_STONE:
+                World.getInstance().getGameObjectToAddList().add(new core.model.gameplay.gameobjects.Bullet(owner, owner.getX(), owner.getY(), owner.getDirection(),
+                        bulletSpeed, pAttack, mAttack, distance, GameObjInstanceKind.STONE));
                 break;
         }
     }
