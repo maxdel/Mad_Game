@@ -17,6 +17,8 @@ public abstract class Skill {
     protected int cooldownTime;
     protected Timer timerCooldown;
 
+    protected Timer timerAterCooldown;
+
     protected int preApplyTime;
 
     protected Item requiredItem;
@@ -37,6 +39,8 @@ public abstract class Skill {
         this.kind = kind;
 
         timerCooldown = new Timer();
+        timerAterCooldown = new Timer();
+
     }
 
     /**
@@ -44,7 +48,12 @@ public abstract class Skill {
      * @param delta passed time in milliseconds
      */
     public void update(int delta) {
-        timerCooldown.update(delta);
+
+        if (timerCooldown.update(delta)) {
+            timerAterCooldown.activate(70);
+        }
+
+        timerAterCooldown.update(delta);
     }
 
     /**
@@ -136,5 +145,9 @@ public abstract class Skill {
 
     public Timer getTimerCooldown() {
         return timerCooldown;
+    }
+
+    public Timer getTimerAterCooldown() {
+        return timerAterCooldown;
     }
 }

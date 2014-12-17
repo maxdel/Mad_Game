@@ -79,43 +79,17 @@ public class SkillPanelView {
     }
 
     public void render(Graphics g) {
-        if (isOpacity) {
-            for (SkillOnPanel fake: fakeImages) {
-                fake.renderOpacity(g);
-
-            }
-
-            for (SkillOnPanel skillOnPanel: skillsOnPanel) {
-                skillOnPanel.renderOpacity(g);
-
-                if (!World.getInstance().getHero().canStartCast(skillOnPanel.getSkill())) {
-                    skillOnPanel.renderCantCastMsak(g, true);
-                }
-            }
-
-
-            renderCastingSkill(g);
-
+        for (SkillOnPanel fake: fakeImages) {
+            fake.simpleRender(g, isOpacity);
         }
 
-        else if (!isOpacity) {
-            for (SkillOnPanel fake: fakeImages) {
-                fake.render(g);
-            }
-
-            for (SkillOnPanel skillOnPanel: skillsOnPanel) {
-                skillOnPanel.render(g);
-
-                if (!World.getInstance().getHero().canStartCast(skillOnPanel.getSkill())) {
-                    skillOnPanel.renderCantCastMsak(g, false);
-
-                }
-            }
+        for (SkillOnPanel skillOnPanel: skillsOnPanel) {
+            skillOnPanel.render(g, isOpacity);
         }
+
+        renderCastingSkill(g);
 
         renderBuff(g);
-
-
     }
 
 
@@ -125,7 +99,7 @@ public class SkillPanelView {
             return;
         }
 
-        buff.render(g);
+        buff.simpleRender(g, false);
 
         if (!((SkillImprover) buff.getSkill()).getTimerWorkTime().isActive()) {
             buff = null;
@@ -141,7 +115,7 @@ public class SkillPanelView {
 
         for (SkillOnPanel skillOnPanel: skillsOnPanel) {
             if (skillOnPanel.getSkill().getKind() == castingSkill.getKind()) {
-                skillOnPanel.render(g);
+                skillOnPanel.simpleRender(g, false);
                 if (castingSkill.getKind() == SkillInstanceKind.WIND_BOW) {
                     buff = skillOnPanel;
                 }
@@ -187,30 +161,41 @@ public class SkillPanelView {
             return resultPoint;
         }
 
-        private void render(Graphics g) {
+        private void simpleRender(Graphics g, boolean opacity) {
             int absoluteImgPositionX = getAbsolutePosition()[X];
             int absoluteImgPositionY = getAbsolutePosition()[Y];
 
-            g.drawImage(imageMain, absoluteImgPositionX, absoluteImgPositionY);
+            Image imageToDraw;
+            if (opacity) {
+                imageToDraw = imageOpacity;
+            } else {
+                imageToDraw = imageMain;
+            }
+
+            g.drawImage(imageToDraw, absoluteImgPositionX, absoluteImgPositionY);
         }
-        private void render(Graphics g, Color c) {
+
+        private void render(Graphics g, boolean opacity) {
             int absoluteImgPositionX = getAbsolutePosition()[X];
             int absoluteImgPositionY = getAbsolutePosition()[Y];
 
-            g.drawImage(imageMain, absoluteImgPositionX, absoluteImgPositionY, c);
-        }
+            Image imageToDraw;
+            if (opacity) {
+                imageToDraw = imageOpacity;
+            } else {
+                imageToDraw = imageMain;
+            }
 
-        private void renderOpacity(Graphics g) {
-            int absoluteImgPositionX = getAbsolutePosition()[X];
-            int absoluteImgPositionY = getAbsolutePosition()[Y];
+            g.drawImage(imageToDraw, absoluteImgPositionX, absoluteImgPositionY);
 
-            g.drawImage(imageOpacity, absoluteImgPositionX, absoluteImgPositionY);
-        }
-        private void renderOpacity(Graphics g, Color c) {
-            int absoluteImgPositionX = getAbsolutePosition()[X];
-            int absoluteImgPositionY = getAbsolutePosition()[Y];
+            if (!World.getInstance().getHero().canStartCast(skill)) {
+                renderCantCastMsak(g, opacity);
+            }
 
-            g.drawImage(imageOpacity, absoluteImgPositionX, absoluteImgPositionY, c);
+            if (skill.getTimerAterCooldown().isActive()) {
+                // simpleRender(g, false);
+            }
+
         }
 
         public void renderCantCastMsak(Graphics g, boolean opacity) {
