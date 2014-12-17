@@ -24,6 +24,8 @@
             <animation name="tree" path="/res/obstacles/tree.png" isImage = "true" />
             <animation name="arrow" path="/res/bullets/arrow.png" isImage = "true" />
             <animation name="fireball" path="/res/bullets/fireball.png" isImage = "true" />
+
+            <animation name="empty" path="/res/empty_image.png" isImage="true" />
         </animations>
         <masks>
             <mask name="unit" shape="circle" width="0" height="0" radius="20" />
