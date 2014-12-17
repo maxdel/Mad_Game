@@ -25,15 +25,16 @@
 
             <animation name="vampire" path="/res/vampire/vampire.png" isImage = "true" />
 
-            <animation name="elemental" path="/res/fireelemental/elemental.png" isImage = "true" />
-            <animation name="skeleton" path="/res/skeleton/skeleton.png" isImage = "true" />
-            <animation name="skeleton_mage" path="/res/skeletonmage/skeletonMage.png" isImage = "true" />
-            <animation name="wall" path="/res/obstacles/wall.png" isImage = "true" />
-            <animation name="tree" path="/res/obstacles/tree.png" isImage = "true" />
-            <animation name="ice_wall" path="/res/obstacles/iceWall.png" isImage = "true" />
+            <animation name="elemental" path="/res/fireelemental/elemental.png" isImage = "true"/>
+            <animation name="skeleton" path="/res/skeleton/skeleton.png" isImage = "true"/>
+            <animation name="skeleton_mage" path="/res/skeletonmage/skeletonMage.png" isImage = "true"/>
+            <animation name="wall" path="/res/obstacles/wall.png" isImage = "true"/>
+            <animation name="tree" path="/res/obstacles/tree.png" isImage = "true"/>
+            <animation name="ice_wall" path="/res/obstacles/iceWall.png" isImage = "true"/>
             <animation name="arrow" path="/res/bullets/arrow.png" isImage = "true" />
             <animation name="thorn" path="/res/bullets/thorn.png" isImage = "true"/>
             <animation name="stone" path="/res/bullets/stone.png" isImage = "true"/>
+            <animation name="vampiric_knife" path="/res/bullets/thorn.png" isImage = "true"/>
 
             <animation name="empty" path="/res/empty_image.png" isImage="true" />
         </animations>
@@ -51,6 +52,7 @@
             <mask name="thorn" shape="rectangle" width="10" height="3" radius="0" />
             <mask name="stone" shape="circle" width="0" height="0" radius="6" />
             <mask name="waterball" shape="circle" width="0" height="0" radius="5" />
+            <mask name="darkflame" shape="circle" width="0" height="0" radius="4" />
         </masks>
         <images>
             <image name="Selected item frame" path = "/res/items/selected item.png" />
@@ -102,7 +104,7 @@
                    castTime="200" postApplyTime="100" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="10"
                    HPdelta="20"/>
             <skill name="Blink" description="Easy blink" path="/res/skills/blink.png" type="BlinkSkill"
-                   castTime="200" postApplyTime="0" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="20"
+                   castTime="200" postApplyTime="0" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="0"
                    distance="200"/>
             <skill name="Ice_wall" description="Invoker-style" path="/res/skills/ice wall.png" type="BarrierSkill"
                    castTime="200" postApplyTime="100" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="5"
@@ -135,6 +137,19 @@
             <skill name="Waterball" description="Fireball!!!" path="/res/skills/empty skill.png" type="BulletShot"
                    castTime="200" postApplyTime="100" cooldownTime="1000" requiredItemType="Staff" requiredHP="0" requiredMP="5"
                    pAttack="0" mAttack="20" bulletSpeed="0.4" distance="1000"/>
+
+            <skill name="Vampiric_knife" description="Vampiric knife!!!" path="/res/skills/empty skill.png" type="BulletShot"
+                   castTime="200" postApplyTime="100" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="5"
+                   pAttack="10" mAttack="20" bulletSpeed="0.4" distance="1000"/>
+            <skill name="Power_beam" description="Power_beam!!!" path="/res/skills/empty skill.png" type="AreaDamage"
+                   castTime="700" postApplyTime="300" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="0"
+                   pAttack="50" mAttack="0" radius="200" angle="60"/>
+            <skill name="Doom" description="DOOOOOOM!!!" path="/res/skills/empty skill.png" type="BulletShot"
+                   castTime="1000" postApplyTime="500" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="0"
+                   pAttack="50" mAttack="50" bulletSpeed="0.2" distance="1000"/>
+            <skill name="Sword_spin" description="Sword_spin!!!" path="/res/skills/empty skill.png" type="AreaDamage"
+                   castTime="200" postApplyTime="100" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="0"
+                   pAttack="10" mAttack="0" radius="60" angle="360"/>
         </skills>
         <skillFakes>
             <fake path="/res/skills/fake.png"/>
@@ -146,7 +161,7 @@
         </fonts>
         <units>
             <unit name="hero" mask="unit">
-                <attribute hp="100" mp="100" maximumSpeed="0.16" pAttack="10" mAttack="15" pArmor="5" mArmor="7" />
+                <attribute hp="1000" mp="100" maximumSpeed="0.16" pAttack="10" mAttack="15" pArmor="5" mArmor="7" />
                 <inventory>
                     <itemRecord name="Sword" number="1"/>
                     <itemRecord name="Bow" number="1"/>
@@ -314,7 +329,13 @@
                 </inventory>
                 <skillList>
                     <skill name="Sword_attack"/>
-                    <skill name="Fireball"/>
+                    <skill name="Sword_spin"/>
+
+                    <skill name="Vampiric_knife"/>
+                    <skill name="Power_beam"/>
+                    <skill name="Doom"/>
+
+                    <skill name="Blink"/>
                 </skillList>
                 <lootList>
                     <loot name="Apple" probability="1" />
@@ -332,6 +353,8 @@
             <bullet name="thorn" mask="thorn" />
             <bullet name="stone" mask="stone" />
             <bullet name="waterball" mask="waterball" />
+            <bullet name="vampiricknife" mask="thorn" />
+            <bullet name="darkflame" mask="darkflame" />
         </bullets>
         <sounds>
             <sound name="sword_attack" path="/res/sounds/sword_attack.wav" />

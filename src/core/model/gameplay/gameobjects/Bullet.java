@@ -56,6 +56,9 @@ public class Bullet extends GameObjectSolid {
                             pDamage = 1;
                         }
                         otherMoving.getAttribute().changeHP(-pDamage);
+                        if (getType() == GameObjInstanceKind.VAMPIRICKNIFE) {
+                            owner.getAttribute().changeHP(pDamage);
+                        }
                     }
                     if (mAttack > 0) {
                         double mDamage = mAttack + owner.getAttribute().getMAttack() - otherMoving.getAttribute().getMArmor();
@@ -63,6 +66,9 @@ public class Bullet extends GameObjectSolid {
                             mDamage = 1;
                         }
                         otherMoving.getAttribute().changeHP(-mDamage);
+                        if (getType() == GameObjInstanceKind.VAMPIRICKNIFE) {
+                            owner.getAttribute().changeHP(mDamage);
+                        }
                     }
                 } else if (other instanceof Obstacle) {
                     Obstacle otherObstacle = (Obstacle) other;

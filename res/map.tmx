@@ -75,17 +75,17 @@
  </tileset>
  <layer name="Tiles" width="64" height="64">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3TMQ6AMAzF0ELvf2cmBiQEZWicFA+e+1+k9tZaNzMzMzMzMzMzW7A9wQbKfUZvodx/8t+5K/tHtz+5K/pHLSPuav4vppX8s9wV/LPtWf0R7gz+SCfpp42kn/aRftpG+WkT6ac9pJ+2kH7aQfnp/ZSf3k366c2Un95K+umdlJ/eR/mj3t8S+iPtZxn8xPv0DTL8cfoGGfIG1xvMjrbSN6Cdb356h379+vXr169fv379+vXbWh1BzSzGAEAAAA==
+   H4sIAAAAAAAAC+3WwQrCMBAG4Wjf/5099VJCSIVkNrtzGBBby//Rol6ttcvMzMzMzMzMzCxh3wAbKPcdvYVyV/L33Cf7Z7eP3Cf6Zy0z7tP8b0yZ/KvcJ/hX26P6d7gj+Hc6ST9tJP20j/TTNspPm0g/7SH9tIX00w7KT++n/PRu0k9vpvz0VtJP76T89D7KT+8i/fQmyk9vofz0BrO7z+Jon/55f+Rrrvb3noV/n6HndSM32vl8v3fu6LOZ/DOvs/p7x0fHsvmr3//RuZn8lb//q//++/+vpt/M9vUDh/xipgBAAAA=
   </data>
  </layer>
  <layer name="Obstacles" width="64" height="64">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2Yyw6FIAxE3Vz//5NdmZgbUSgzfchMwg5pTwutsG/bti8+WGKujZD4/fgzxqKX3+q7+H3qzKnf4Hw2P3oNtMSP52/NFX8+af/n5h+t56PrzfBbek02efXl01Y2fYF/5ox8gX9G4hc/yq+3dSL432oDmn/0jQnd30flmf+MQr4VVua3fPP/7Sr8rTVW5UfKux7O8nv7i7aXLf/e+ho/6/23ulpxWYW/JTQ/ox4yaywz/+x91RMXxP3HEv8q54rh5+iakXdAND8r76wYMe7/2XWNpe4/Nf0+9XQues5MZn6PupiZ30NV+VF7oyo/StX6NVqZ8295m7aOVSV+8Yt/Xc2+fyD6XGT8M+Rf/H1z7ubN9nFv/rvz0mv/bV4F/pYPPXMq8FvfihFC87Pr/tWHKFXZ/0zb4o+V1T7q38uD/8lX5T/WtvhjlYG/2kByHFznHMkAQAAA
+   H4sIAAAAAAAAC+2YyQ6EIBBEvYz//8lzIjGTQVmqerHrJd4U+jXQCOdxHGfxhwWzbQTyt/OPmItR/9XY5W9TZxqfyffZ/ug20Mgf7997V/7x0PyP7T9bz2fb2/Ff2WuiYbUvt76i8Qb/nTXyBv8d5C9/VFxP7Xj4P9UGtP/sHRN6f5/FcvwjgrwrzOy/8s3vt1X8e21U9UdiXQ93/a3jRfcXbfyteZs/6/43O728VPHvgfZn1ENmjWWOP3tejeQFcf5ZyX+WdcWIc7ZNzzMg2p817qwcMc7/0bnmUuefnHE37tbFyJqJ7G9RFyP7W5DVHzU3svqjyLZfo4kw/it30OjHE8/+5S9/+fsS3X/3H3skBi80/vK37P/feqnk34vBs2/v+/+o/uy6f43BC81/+cufz129qOD/FINn3/L3JYJ/5ecLbpgzggBAAAA=
   </data>
  </layer>
  <layer name="Objects" width="64" height="64">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3YWw7CMAxE0f6WZ6Hsf61sABRFrTP25J7PFqUGUmfkZQFQzdq4fxlSBXC+m7oAIKlW329xPxfcvx8AwNtVXYARp0xwNP8BSvQ1nIVeCNSV/SyoPId2yrxAZuQQwEdkLsmeeQC1t7qAwV4Ba5JJ+vT+Xj2f/9XzZ9vjkdjrPqr/l9Ezoy14/UiqmdRT9FzUN7ofOcxts87NP3+uVz9zANQXme32wLV7OJxvWd3VBUxilryQ/V19qAsw8AVMpvPEAEAAAA==
+   H4sIAAAAAAAAC+3aSwrAIAwFwG77vf9xuy8Fkdoa05mtCBEheYjTBIxmLqwvn1QB7W29C4CgSn2/JPtcyH4+AHJbexeQSKZM8DT/QU/6Gq3ohTCu6LPAOzRQIodAHm/mkuiZB+BvajOczAdceTOCPMz5eqP1wMh3vD/YezSrAgCInBdayvRvlnsns3O4ewBAAAA=
   </data>
  </layer>
  <objectgroup name="Слой объектов 1">

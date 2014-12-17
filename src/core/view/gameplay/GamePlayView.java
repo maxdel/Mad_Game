@@ -173,6 +173,12 @@ public class GamePlayView {
                 case WATERBALL:
                     gameObjectViewList.add(new WaterballView(gameObject));
                     break;
+                case VAMPIRICKNIFE:
+                    gameObjectViewList.add(new VampiricKnifeView(gameObject));
+                    break;
+                case DARKFLAME:
+                    gameObjectViewList.add(new DarkFlameView(gameObject));
+                    break;
                 case BANDITARCHER:
                     gameObjectViewList.add(new BanditArcherView(gameObject));
                     break;

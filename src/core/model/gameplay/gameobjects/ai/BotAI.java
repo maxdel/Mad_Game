@@ -162,13 +162,17 @@ public abstract class BotAI {
     }
 
     protected boolean seeTarget(GameObjectSolid target) {
+        return seeTarget(target, owner.getX(), owner.getY());
+    }
+
+    protected boolean seeTarget(GameObjectSolid target, double x, double y) {
         int step = 1;
-        double direction = Math.atan2(target.getY() - owner.getY(), target.getX() - owner.getX());
-        Bullet dummy = new Bullet(owner, owner.getX(), owner.getY(), direction, 0, 0, 0, 1, GameObjInstanceKind.ARROW);
-        for (int i = 0; i < MathAdv.getDistance(owner.getX(), owner.getY(), target.getX(), target.getY()) / step; ++i) {
+        double direction = MathAdv.getAngle(x, y, target.getX(), target.getY());
+        Bullet dummy = new Bullet(owner, x, y, direction, 0, 0, 0, 1, GameObjInstanceKind.ARROW);
+        for (int i = 0; i < MathAdv.getDistance(x, y, target.getX(), target.getY()) / step; ++i) {
             GameObjectSolid collisionObject = CollisionManager.getInstance().collidesWith(dummy,
-                    owner.getX() + MathAdv.lengthDirX(direction, step * i),
-                    owner.getY() + MathAdv.lengthDirY(direction, step * i));
+                    x + MathAdv.lengthDirX(direction, step * i),
+                    y + MathAdv.lengthDirY(direction, step * i));
             if (collisionObject != owner && collisionObject != null && collisionObject != target && !(collisionObject instanceof Bullet)) {
                 return false;
             }

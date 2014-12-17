@@ -1,13 +1,16 @@
 package core.model.gameplay.gameobjects.ai;
 
+import core.MathAdv;
+import core.model.gameplay.CollisionManager;
+import core.model.gameplay.skills.BlinkSkill;
 import org.newdawn.slick.geom.Point;
-import org.newdawn.slick.geom.Vector2f;
 
 import core.model.Timer;
 import core.model.gameplay.gameobjects.Hero;
 import core.model.gameplay.items.ItemInstanceKind;
-import core.model.gameplay.skills.BulletShot;
 import core.model.gameplay.skills.SkillInstanceKind;
+
+import java.util.Arrays;
 
 public class VampireAI extends BotAI {
 
@@ -24,48 +27,116 @@ public class VampireAI extends BotAI {
         currentState = VampireAIState.STAND;
         stateMap.put(VampireAIState.STAND, new AIState() {
             private Timer timer;
-            public void enter()           { timer = new Timer(standTime);                                                                }
-            public void run(int delta)             { owner.stand();                                                                               }
-            public void update(int delta) { if (timer.update(delta))                  currentState = VampireAIState.WALK;
-                                            if (getDistanceToHero() < pursueDistance) currentState = VampireAIState.PURSUE;              }
+            public void enter() { timer = new Timer(standTime); }
+            public void run(int delta) { owner.stand(); }
+            public void update(int delta) { if (timer.update(delta)) currentState = VampireAIState.WALK;
+                                            if (getDistanceToHero() < pursueDistance && seeTarget(Hero.getInstance())) currentState = VampireAIState.PURSUE; }
         });
         stateMap.put(VampireAIState.WALK, new AIState() {
             private Point target;
             public void enter() { target = getRandomTarget(); }
             public void run(int delta) { followTarget(target); }
-            public void update(int delta) { if (getDistanceToHero() < pursueDistance) currentState = VampireAIState.PURSUE;
+            public void update(int delta) { if (getDistanceToHero() < pursueDistance && seeTarget(Hero.getInstance())) currentState = VampireAIState.PURSUE;
                                             if (getDistanceToTarget(target) < 2) currentState = VampireAIState.STAND; }
         });
         stateMap.put(VampireAIState.PURSUE, new AIState() {
-            public void enter() { }
-            public void run(int delta) { followHero(); }
-            public void update(int delta) { if (getDistanceToHero() >= pursueDistance) currentState = VampireAIState.STAND;
-                                            if (getDistanceToHero() < rangedAttackDistance) currentState = VampireAIState.RANGEDATTACK; }
+            private boolean isFollowing;
+            public void enter() {isFollowing = true; }
+            public void run(int delta) { isFollowing = followHero(); }
+            public void update(int delta) { if (getDistanceToHero() >= pursueDistance || !isFollowing) currentState = VampireAIState.STAND;
+                                            if (getDistanceToHero() < rangedAttackDistance && seeTarget(Hero.getInstance())) currentState = VampireAIState.RANGEDATTACK;
+                                            if (getDistanceToHero() < meleeAttackDistance) currentState = VampireAIState.MELEEATTACK; }
         });
         stateMap.put(VampireAIState.RANGEDATTACK, new AIState() {
-            public void enter() { }
-            public void run(int delta) { attackHeroWithFireball(); }
-            public void update(int delta) { if (getDistanceToHero() >= rangedAttackDistance) currentState = VampireAIState.PURSUE;
+            private final int BLINK_TIME = 200;
+            private Timer blinkTimer;
+            private final int POWER_BEAM_TIME = 1000;
+            private Timer powerBeamTimer;
+            private final int DOOM_TIME = 4333;
+            private Timer doomTimer;
+            private boolean isAttacking;
+            public void enter() { blinkTimer = new Timer(BLINK_TIME);
+                                  powerBeamTimer = new Timer(POWER_BEAM_TIME);
+                                  doomTimer = new Timer(DOOM_TIME);
+                                  isAttacking = true; }
+            public void run(int delta) { isAttacking = RangedAttackBehavior(blinkTimer, BLINK_TIME,
+                                            powerBeamTimer, POWER_BEAM_TIME, doomTimer, DOOM_TIME);
+                                         blinkTimer.update(delta);
+                                         powerBeamTimer.update(delta);
+                                         doomTimer.update(delta); }
+            public void update(int delta) { if (getDistanceToHero() >= rangedAttackDistance || !isAttacking) currentState = VampireAIState.PURSUE;
                                             if (getDistanceToHero() < meleeAttackDistance) currentState = VampireAIState.MELEEATTACK; }
         });
         stateMap.put(VampireAIState.MELEEATTACK, new AIState() {
             public void enter() { }
-            public void run(int delta) { attackHeroWithSword(); }
-            public void update(int delta) { if (getDistanceToHero() >= meleeAttackDistance) currentState = VampireAIState.RANGEDATTACK; }
+            public void run(int delta) { MeleeAttackBehavior(); }
+            public void update(int delta) { if (getDistanceToHero() >= meleeAttackDistance) currentState = VampireAIState.RANGEDATTACK;
+                                            if (getDistanceToHero() >= pursueDistance) currentState = VampireAIState.PURSUE; }
         });
     }
 
-    private void attackHeroWithFireball() {
+    private boolean RangedAttackBehavior(Timer blinkTimer, int blinkTime, Timer powerBeamTimer, int powerBeamTime,
+                                         Timer doomTimer, int doomTime) {
+        owner.setDirection(MathAdv.getAngle(owner.getX(), owner.getY(),
+                Hero.getInstance().getX(), Hero.getInstance().getY()));
+        if (blinkTimer.isTime() && owner.canStartCast(owner.getSkillByKind(SkillInstanceKind.BLINK))) {
+            double blinkDirectionFirstAttemp = calculateBlinkDirectionModule() * (Math.random() < 0.5 ? 1 : -1);
+            if (canBlink(blinkDirectionFirstAttemp)) {
+                owner.setRelativeDirection(blinkDirectionFirstAttemp);
+                owner.startCastSkill(SkillInstanceKind.BLINK);
+                blinkTimer.activate(blinkTime);
+                return true;
+            } else if (canBlink(-blinkDirectionFirstAttemp)) {
+                owner.setRelativeDirection(-blinkDirectionFirstAttemp);
+                owner.startCastSkill(SkillInstanceKind.BLINK);
+                blinkTimer.activate(blinkTime);
+                return true;
+            }
+        }
+
         owner.stand();
-        owner.setDirection(getPredictedDirection(owner.getSkillByKind(SkillInstanceKind.FIREBALL)));
-        owner.getInventory().useItem(owner.getInventory().addItem(ItemInstanceKind.STAFF));
-        owner.startCastSkill(SkillInstanceKind.FIREBALL);
+        owner.setDirection(getPredictedDirection(owner.getSkillByKind(SkillInstanceKind.VAMPIRIC_KNIFE)));
+        if (seeTarget(Hero.getInstance())) {
+            if (powerBeamTimer.isTime() && owner.canStartCast(owner.getSkillByKind(SkillInstanceKind.POWER_BEAM))) {
+                owner.startCastSkill(SkillInstanceKind.POWER_BEAM);
+                powerBeamTimer.activate(powerBeamTime);
+            } else if (doomTimer.isTime() && owner.canStartCast(owner.getSkillByKind(SkillInstanceKind.DOOM))) {
+                owner.startCastSkill(SkillInstanceKind.DOOM);
+                doomTimer.activate(doomTime);
+            } else {
+                owner.startCastSkill(SkillInstanceKind.VAMPIRIC_KNIFE);
+            }
+            return true;
+        }
+        return false;
     }
 
-    private void attackHeroWithSword() {
+    private double calculateBlinkDirectionModule() {
+        double blinkDistance = ((BlinkSkill)owner.getSkillByKind(SkillInstanceKind.BLINK)).getDistance();
+        double distanceToHero = MathAdv.getDistance(owner.getX(), owner.getY(),
+                Hero.getInstance().getX(), Hero.getInstance().getY());
+        return Math.acos(0.5 * blinkDistance / distanceToHero);
+    }
+
+    private boolean canBlink(double blinkDirection) {
+        double direction = owner.getDirection() + blinkDirection;
+        double blinkDistance = ((BlinkSkill)owner.getSkillByKind(SkillInstanceKind.BLINK)).getDistance();
+        double distanceToHero = MathAdv.getDistance(owner.getX(), owner.getY(),
+                Hero.getInstance().getX(), Hero.getInstance().getY());
+        double lengthDirX = MathAdv.lengthDirX(direction, blinkDistance);
+        double lengthDirY = MathAdv.lengthDirY(direction, blinkDistance);
+        return (CollisionManager.getInstance().isPlaceFreeAdv(owner, owner.getX() + lengthDirX, owner.getY() + lengthDirY) &&
+                seeTarget(Hero.getInstance(), owner.getX() + lengthDirX, owner.getY() + lengthDirY) &&
+                blinkDistance <= 2 * distanceToHero);
+    }
+
+    private void MeleeAttackBehavior() {
         owner.stand();
-        owner.getInventory().useItem(owner.getInventory().addItem(ItemInstanceKind.SWORD));
+        owner.setDirection(MathAdv.getAngle(owner.getX(), owner.getY(),
+                Hero.getInstance().getX(), Hero.getInstance().getY()));
+        owner.getInventory().dressIfNotDressed(Arrays.asList(ItemInstanceKind.SWORD, ItemInstanceKind.STRONG_SWORD));
         owner.startCastSkill(SkillInstanceKind.SWORD_ATTACK);
+        owner.startCastSkill(SkillInstanceKind.SWORD_SPIN);
     }
 
 }

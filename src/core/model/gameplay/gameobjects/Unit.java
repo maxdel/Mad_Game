@@ -331,6 +331,10 @@ public abstract class Unit extends GameObjectSolid {
      * @return true if an owner can start casting skill
      */
     public boolean canStartCast(Skill skillToCast) {
+        if (skillToCast == null) {
+            throw new NullPointerException("skillToCast in method canStartCast of " + getType());
+        }
+
         if (skillToCast.getRequiredItem() != null &&
                 !inventory.isItemClassDressed(skillToCast.getRequiredItem().getClass())) {
             return false;
@@ -359,6 +363,12 @@ public abstract class Unit extends GameObjectSolid {
     public void setDirection(double direction) {
         if (currentState == GameObjectState.STAND || currentState == GameObjectState.MOVE) {
             super.setDirection(direction);
+        }
+    }
+
+    public void setRelativeDirection(double relativeDirection) {
+        if (currentState == GameObjectState.STAND || currentState == GameObjectState.MOVE) {
+            this.relativeDirection = relativeDirection;
         }
     }
 

@@ -60,6 +60,21 @@ public class BulletShot extends Skill {
                 World.getInstance().getGameObjectToAddList().add(new core.model.gameplay.gameobjects.Bullet(owner, owner.getX(), owner.getY(), owner.getDirection(),
                         bulletSpeed, pAttack, mAttack, distance, GameObjInstanceKind.STONE));
                 break;
+            case VAMPIRIC_KNIFE:
+                World.getInstance().getGameObjectToAddList().add(new core.model.gameplay.gameobjects.Bullet(owner, owner.getX(), owner.getY(), owner.getDirection(),
+                        bulletSpeed, pAttack, mAttack, distance, GameObjInstanceKind.VAMPIRICKNIFE));
+                break;
+            case DOOM:
+                int numberOfDirections = 32;
+                for (int i = 0; i < numberOfDirections; ++i) {
+                    double currentDirection = owner.getDirection() + 2 * Math.PI / numberOfDirections * i;
+                    double lengthDirX = MathAdv.lengthDirX(currentDirection, owner.getMask().getBoundingCircleRadius());
+                    double lengthDirY = MathAdv.lengthDirY(currentDirection, owner.getMask().getBoundingCircleRadius());
+                    World.getInstance().getGameObjectToAddList().add(new core.model.gameplay.gameobjects.Bullet(owner,
+                            owner.getX() + lengthDirX, owner.getY() + lengthDirY, currentDirection,
+                            bulletSpeed, pAttack, mAttack, distance, GameObjInstanceKind.DARKFLAME));
+                }
+                break;
         }
     }
 

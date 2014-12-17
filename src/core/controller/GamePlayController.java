@@ -30,7 +30,7 @@ public class GamePlayController {
         oldMouseY = -1;
         mouseX = -1;
         mouseY = -1;
-        controlMode = "Hero.getInstance()";
+        controlMode = "World";
         combatMode = false;
         this.gamePlayView = gamePlayView;
     }
@@ -56,7 +56,7 @@ public class GamePlayController {
         }
         //--
 
-        if (controlMode.equals("Hero.getInstance()")) {
+        if (controlMode.equals("World")) {
 
             // Controls the direction of the Hero.getInstance()
             oldMouseX = mouseX;
@@ -131,11 +131,14 @@ public class GamePlayController {
             if (input.isKeyDown(input.KEY_5)) {
                 Hero.getInstance().startCastSkill(SkillInstanceKind.STAFF_ATTACK);
             }
-            if (input.isKeyDown(input.KEY_6)) {
+            if (input.isMouseButtonDown(input.MOUSE_RIGHT_BUTTON)) {
                 Hero.getInstance().startCastSkill(SkillInstanceKind.BLINK);
             }
             if (input.isKeyDown(input.KEY_7)) {
                 Hero.getInstance().startCastSkill(SkillInstanceKind.ICE_WALL);
+            }
+            if (input.isKeyDown(input.KEY_8)) {
+                Hero.getInstance().startCastSkill(SkillInstanceKind.DOOM);
             }
 
 
@@ -153,7 +156,7 @@ public class GamePlayController {
             }
         } else if (controlMode.equals("Inventory")) {
             if (input.isKeyPressed(Input.KEY_ESCAPE) || input.isKeyPressed(Input.KEY_TAB)) {
-                controlMode = "Hero.getInstance()";
+                controlMode = "World";
                 gamePlayView.getInventoryView().setActive(false);
                 mouseX = input.getMouseX();
                 input.disableKeyRepeat();

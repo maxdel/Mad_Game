@@ -26,4 +26,8 @@ public class BlinkSkill extends Skill {
         }
     }
 
+    public double getDistance() {
+        return distance;
+    }
+
 }
