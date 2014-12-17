@@ -1,6 +1,7 @@
 package core.controller;
 
 import core.model.gameplay.skills.SkillInstanceKind;
+import core.view.gameplay.SkillPanelView;
 import main.Main;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.*;
@@ -78,6 +79,14 @@ public class GamePlayController {
                         gc.getHeight() - input.getMouseY());
                 mouseX = input.getMouseX();
             }
+
+            // Skill panel view showing
+            if (input.isKeyDown(Input.KEY_LSHIFT)) {
+                SkillPanelView.isOpacity = false;
+            } else {
+                SkillPanelView.isOpacity = true;
+            }
+
 
             // Controls the movement of the hero
             boolean[] downKeys = {false, false, false, false};

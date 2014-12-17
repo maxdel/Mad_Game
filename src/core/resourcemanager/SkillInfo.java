@@ -12,6 +12,7 @@ public class SkillInfo {
     private String description;
     private String type;
     private Image imageMain;
+    private Image opacityImage;
     private Map<String, String> map;
     SkillInstanceKind kind;
 
@@ -81,5 +82,11 @@ public class SkillInfo {
         return imageMain;
     }
 
+    public Image getOpacityImage() {
+        return opacityImage;
+    }
 
+    public void setOpacityImage(Image opacityImage) {
+        this.opacityImage = opacityImage;
+    }
 }

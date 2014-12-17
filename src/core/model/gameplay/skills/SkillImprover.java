@@ -64,4 +64,7 @@ public class SkillImprover extends Skill {
         buffingSkill.changeCooldownTime(cooldownTimeDelta);
     }
 
+    public Timer getTimerWorkTime() {
+        return timerWorkTime;
+    }
 }
