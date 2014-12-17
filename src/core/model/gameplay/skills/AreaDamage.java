@@ -63,7 +63,6 @@ public class AreaDamage extends Skill {
 
     /**
      * Applies magic damage to the target
-     * @param target
      */
     private void applyMagicDamage(Unit owner, Unit target) {
         double mDamage = mAttack + owner.getAttribute().getMAttack() - target.getAttribute().getMArmor();
@@ -75,7 +74,6 @@ public class AreaDamage extends Skill {
 
     /**
      * Applies physical damage to the target
-     * @param target
      */
     private void applyPhysDamage(Unit owner, Unit target) {
         double pDamage = pAttack + owner.getAttribute().getPAttack() - target.getAttribute().getPArmor();

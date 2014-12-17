@@ -77,7 +77,7 @@ public class BanditAI extends BotAI {
     private void attackHeroWithSword() {
         owner.stand();
         owner.getInventory().dressIfNotDressed(Arrays.asList(ItemInstanceKind.SWORD, ItemInstanceKind.STRONG_SWORD));
-        owner.startCastSkill(SkillInstanceKind.SWORD_ATTACK);
+        owner.startCastSkill(SkillInstanceKind.BANDIT_SWORD_ATTACK);
     }
 
     private void strafe(boolean strafeDirection) {

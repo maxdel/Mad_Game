@@ -78,10 +78,10 @@ public class BanditBossAI extends BotAI {
     private void attackHeroWithSword() {
         owner.stand();
         owner.getInventory().dressIfNotDressed(Arrays.asList(ItemInstanceKind.SWORD, ItemInstanceKind.STRONG_SWORD));
-        if (owner.canStartCast(owner.getSkillByKind(SkillInstanceKind.STRONG_SWORD_ATTACK))) {
-            owner.startCastSkill(SkillInstanceKind.STRONG_SWORD_ATTACK);
+        if (owner.canStartCast(owner.getSkillByKind(SkillInstanceKind.BANDITBOSS_STRONG_SWORD_ATTACK))) {
+            owner.startCastSkill(SkillInstanceKind.BANDITBOSS_STRONG_SWORD_ATTACK);
         } else {
-            owner.startCastSkill(SkillInstanceKind.SWORD_ATTACK);
+            owner.startCastSkill(SkillInstanceKind.BANDITBOSS_SWORD_ATTACK);
         }
     }
 

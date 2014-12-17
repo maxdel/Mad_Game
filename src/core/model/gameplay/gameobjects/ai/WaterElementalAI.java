@@ -52,10 +52,10 @@ public class WaterElementalAI extends BotAI {
 
     private boolean attackHeroWithFireball() {
         owner.stand();
-        owner.setDirection(getPredictedDirection(owner.getSkillByKind(SkillInstanceKind.WATERBALL)));
+        owner.setDirection(getPredictedDirection(owner.getSkillByKind(SkillInstanceKind.ELEMENTAL_WATERBALL)));
         if (seeTarget(Hero.getInstance())) {
             owner.getInventory().dressIfNotDressed(Arrays.asList(ItemInstanceKind.STAFF, ItemInstanceKind.STRONG_STAFF));
-            owner.startCastSkill(SkillInstanceKind.WATERBALL);
+            owner.startCastSkill(SkillInstanceKind.ELEMENTAL_WATERBALL);
             return true;
         }
         return false;

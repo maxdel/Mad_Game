@@ -52,10 +52,10 @@ public class FireElementalAI extends BotAI {
 
     private boolean attackHeroWithFireball() {
         owner.stand();
-        owner.setDirection(getPredictedDirection(owner.getSkillByKind(SkillInstanceKind.FIREBALL)));
+        owner.setDirection(getPredictedDirection(owner.getSkillByKind(SkillInstanceKind.ELEMENTAL_FIREBALL)));
         if (seeTarget(Hero.getInstance())) {
             owner.getInventory().dressIfNotDressed(Arrays.asList(ItemInstanceKind.STAFF, ItemInstanceKind.STRONG_STAFF));
-            owner.startCastSkill(SkillInstanceKind.FIREBALL);
+            owner.startCastSkill(SkillInstanceKind.ELEMENTAL_FIREBALL);
             return true;
         }
         return false;

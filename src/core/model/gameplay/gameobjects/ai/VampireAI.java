@@ -48,30 +48,31 @@ public class VampireAI extends BotAI {
                                             if (getDistanceToHero() < meleeAttackDistance) currentState = VampireAIState.MELEEATTACK; }
         });
         stateMap.put(VampireAIState.RANGEDATTACK, new AIState() {
-            private final int BLINK_TIME = 200;
-            private Timer blinkTimer;
+            private final int SHIFT_TIME = 200;
+            private Timer shiftTimer;
             private final int POWER_BEAM_TIME = 1000;
             private Timer powerBeamTimer;
             private final int DOOM_TIME = 4333;
             private Timer doomTimer;
             private boolean isAttacking;
-            public void enter() { blinkTimer = new Timer(BLINK_TIME);
+            public void enter() { shiftTimer = new Timer(SHIFT_TIME);
                                   powerBeamTimer = new Timer(POWER_BEAM_TIME);
                                   doomTimer = new Timer(DOOM_TIME);
                                   isAttacking = true; }
-            public void run(int delta) { isAttacking = RangedAttackBehavior(blinkTimer, BLINK_TIME,
+            public void run(int delta) { isAttacking = RangedAttackBehavior(shiftTimer, SHIFT_TIME,
                                             powerBeamTimer, POWER_BEAM_TIME, doomTimer, DOOM_TIME);
-                                         blinkTimer.update(delta);
+                                         shiftTimer.update(delta);
                                          powerBeamTimer.update(delta);
                                          doomTimer.update(delta); }
             public void update(int delta) { if (getDistanceToHero() >= rangedAttackDistance || !isAttacking) currentState = VampireAIState.PURSUE;
                                             if (getDistanceToHero() < meleeAttackDistance) currentState = VampireAIState.MELEEATTACK; }
         });
         stateMap.put(VampireAIState.MELEEATTACK, new AIState() {
-            private final int BLINK_TIME = 1500;
-            private Timer blinkTimer;
-            public void enter() {blinkTimer = new Timer(BLINK_TIME); }
-            public void run(int delta) { MeleeAttackBehavior(blinkTimer, BLINK_TIME); blinkTimer.update(delta); }
+            private final int SHIFT_TIME = 1500;
+            private Timer shiftTimer;
+            public void enter() {
+                shiftTimer = new Timer(SHIFT_TIME); }
+            public void run(int delta) { MeleeAttackBehavior(shiftTimer, SHIFT_TIME); shiftTimer.update(delta); }
             public void update(int delta) { if (getDistanceToHero() >= meleeAttackDistance) currentState = VampireAIState.RANGEDATTACK;
                                             if (getDistanceToHero() >= pursueDistance) currentState = VampireAIState.PURSUE; }
         });
@@ -81,16 +82,16 @@ public class VampireAI extends BotAI {
                                          Timer doomTimer, int doomTime) {
         owner.setDirection(MathAdv.getAngle(owner.getX(), owner.getY(),
                 Hero.getInstance().getX(), Hero.getInstance().getY()));
-        if (blinkTimer.isTime() && owner.canStartCast(owner.getSkillByKind(SkillInstanceKind.BLINK))) {
+        if (blinkTimer.isTime() && owner.canStartCast(owner.getSkillByKind(SkillInstanceKind.SHIFT))) {
             double blinkDirectionFirstAttemp = calculateBlinkDirectionModule() * (Math.random() < 0.5 ? 1 : -1);
             if (canBlink(blinkDirectionFirstAttemp)) {
                 owner.setRelativeDirection(blinkDirectionFirstAttemp);
-                owner.startCastSkill(SkillInstanceKind.BLINK);
+                owner.startCastSkill(SkillInstanceKind.SHIFT);
                 blinkTimer.activate(blinkTime);
                 return true;
             } else if (canBlink(-blinkDirectionFirstAttemp)) {
                 owner.setRelativeDirection(-blinkDirectionFirstAttemp);
-                owner.startCastSkill(SkillInstanceKind.BLINK);
+                owner.startCastSkill(SkillInstanceKind.SHIFT);
                 blinkTimer.activate(blinkTime);
                 return true;
             }
@@ -114,7 +115,7 @@ public class VampireAI extends BotAI {
     }
 
     private double calculateBlinkDirectionModule() {
-        double blinkDistance = ((BlinkSkill)owner.getSkillByKind(SkillInstanceKind.BLINK)).getDistance();
+        double blinkDistance = ((BlinkSkill)owner.getSkillByKind(SkillInstanceKind.SHIFT)).getDistance();
         double distanceToHero = MathAdv.getDistance(owner.getX(), owner.getY(),
                 Hero.getInstance().getX(), Hero.getInstance().getY());
         return Math.acos(0.5 * blinkDistance / distanceToHero);
@@ -122,7 +123,7 @@ public class VampireAI extends BotAI {
 
     private boolean canBlink(double blinkDirection) {
         double direction = owner.getDirection() + blinkDirection;
-        double blinkDistance = ((BlinkSkill)owner.getSkillByKind(SkillInstanceKind.BLINK)).getDistance();
+        double blinkDistance = ((BlinkSkill)owner.getSkillByKind(SkillInstanceKind.SHIFT)).getDistance();
         double distanceToHero = MathAdv.getDistance(owner.getX(), owner.getY(),
                 Hero.getInstance().getX(), Hero.getInstance().getY());
         double lengthDirX = MathAdv.lengthDirX(direction, blinkDistance);
@@ -135,15 +136,15 @@ public class VampireAI extends BotAI {
     private void MeleeAttackBehavior(Timer blinkTimer, int blinkTime) {
         owner.setDirection(MathAdv.getAngle(owner.getX(), owner.getY(),
                 Hero.getInstance().getX(), Hero.getInstance().getY()));
-        if (blinkTimer.isTime() && owner.canStartCast(owner.getSkillByKind(SkillInstanceKind.BLINK))) {
+        if (blinkTimer.isTime() && owner.canStartCast(owner.getSkillByKind(SkillInstanceKind.SHIFT))) {
             double blinkDirection = Math.random() * 2 * Math.PI;
-            double blinkDistance = ((BlinkSkill)owner.getSkillByKind(SkillInstanceKind.BLINK)).getDistance();
+            double blinkDistance = ((BlinkSkill)owner.getSkillByKind(SkillInstanceKind.SHIFT)).getDistance();
             double lengthDirX = MathAdv.lengthDirX(blinkDirection, blinkDistance);
             double lengthDirY = MathAdv.lengthDirY(blinkDirection, blinkDistance);
             if (CollisionManager.getInstance().isPlaceFreeAdv(owner, owner.getX() + lengthDirX, owner.getY() + lengthDirY) &&
                     seeTarget(Hero.getInstance(), owner.getX() + lengthDirX, owner.getY() + lengthDirY)) {
                 owner.setRelativeDirection(blinkDirection);
-                owner.startCastSkill(SkillInstanceKind.BLINK);
+                owner.startCastSkill(SkillInstanceKind.SHIFT);
                 blinkTimer.activate(blinkTime);
                 return;
             }
@@ -152,7 +153,7 @@ public class VampireAI extends BotAI {
         owner.setDirection(MathAdv.getAngle(owner.getX(), owner.getY(),
                 Hero.getInstance().getX(), Hero.getInstance().getY()));
         owner.getInventory().dressIfNotDressed(Arrays.asList(ItemInstanceKind.SWORD, ItemInstanceKind.STRONG_SWORD));
-        owner.startCastSkill(SkillInstanceKind.SWORD_ATTACK);
+        owner.startCastSkill(SkillInstanceKind.KNIFE_ATTACK);
         owner.startCastSkill(SkillInstanceKind.SWORD_SPIN);
     }
 

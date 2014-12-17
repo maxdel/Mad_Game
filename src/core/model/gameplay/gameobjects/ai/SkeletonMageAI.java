@@ -54,10 +54,10 @@ public class SkeletonMageAI extends BotAI {
 
     private boolean attackHeroWithFireball() {
         owner.stand();
-        owner.setDirection(getPredictedDirection(owner.getSkillByKind(SkillInstanceKind.FIREBALL)));
+        owner.setDirection(getPredictedDirection(owner.getSkillByKind(SkillInstanceKind.SKELETON_FIREBALL)));
         if (seeTarget(Hero.getInstance())) {
             owner.getInventory().dressIfNotDressed(Arrays.asList(ItemInstanceKind.STAFF, ItemInstanceKind.STRONG_STAFF));
-            owner.startCastSkill(SkillInstanceKind.FIREBALL);
+            owner.startCastSkill(SkillInstanceKind.SKELETON_FIREBALL);
             return true;
         }
         return false;

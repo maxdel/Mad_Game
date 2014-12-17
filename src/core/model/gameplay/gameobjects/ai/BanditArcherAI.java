@@ -54,10 +54,10 @@ public class BanditArcherAI extends BotAI {
 
     private boolean attackHeroWithBowShot() {
         owner.stand();
-        owner.setDirection(getPredictedDirection(owner.getSkillByKind(SkillInstanceKind.BOW_SHOT)));
+        owner.setDirection(getPredictedDirection(owner.getSkillByKind(SkillInstanceKind.BANDIT_BOW_SHOT)));
         if (seeTarget(Hero.getInstance())) {
             owner.getInventory().dressIfNotDressed(Arrays.asList(ItemInstanceKind.BOW, ItemInstanceKind.STRONG_BOW));
-            owner.startCastSkill(SkillInstanceKind.BOW_SHOT);
+            owner.startCastSkill(SkillInstanceKind.BANDIT_BOW_SHOT);
             return true;
         }
         return false;

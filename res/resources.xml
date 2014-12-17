@@ -112,46 +112,77 @@
                    castTime="200" postApplyTime="100" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="5"
                    hp="5" time="2000"/>
 
-            <skill name="Punch" description="Punch!!!" path="/res/skills/punch.png" type="AreaDamage"
+            <skill name="Bandit_sword_attack" description="" path="/res/skills/empty skill.png" type="AreaDamage"
+                   castTime="300" postApplyTime="150" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="0"
+                   pAttack="15" mAttack="0" radius="55" angle="45"/>
+
+            <skill name="Bandit_bow_shot" description="" path="/res/skills/empty skill.png" type="BulletShot"
+                   castTime="300" postApplyTime="200" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="0"
+                   pAttack="15" mAttack="0" bulletSpeed="0.5" distance="1000"/>
+
+            <skill name="BanditBoss_sword_attack" description="" path="/res/skills/empty skill.png" type="AreaDamage"
+                   castTime="300" postApplyTime="150" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="0"
+                   pAttack="15" mAttack="0" radius="55" angle="45"/>
+            <skill name="BanditBoss_strong_sword_attack" description="" path="/res/skills/empty skill.png" type="AreaDamage"
+                   castTime="400" postApplyTime="100" cooldownTime="2000" requiredItemType="" requiredHP="0" requiredMP="4"
+                   pAttack="50" mAttack="5" radius="100" angle="60"/>
+
+            <skill name="Punch" description="" path="/res/skills/empty skill.png" type="AreaDamage"
                    castTime="400" postApplyTime="150" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="0"
                    pAttack="55" mAttack="0" radius="55" angle="45"/>
-            <skill name="Thorn" description="Thorn!!!" path="/res/skills/thorn.png" type="BulletShot"
+            <skill name="Thorn" description="Thorn!!!" path="/res/skills/empty skill.png" type="BulletShot"
                    castTime="100" postApplyTime="50" cooldownTime="100" requiredItemType="" requiredHP="0" requiredMP="0"
                    pAttack="20" mAttack="0" bulletSpeed="0.4" distance="40"/>
 
-            <skill name="Weak_punch" description="Weak punch!!!" path="/res/skills/weak punch.png" type="AreaDamage"
+            <skill name="Weak_punch" description="" path="/res/skills/empty skill.png" type="AreaDamage"
                    castTime="400" postApplyTime="150" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="0"
                    pAttack="20" mAttack="0" radius="55" angle="45"/>
-            <skill name="Weak_thorn" description="Weak thorn!!!" path="/res/skills/weak thorn.png" type="BulletShot"
+            <skill name="Weak_thorn" description="" path="/res/skills/empty skill.png" type="BulletShot"
                    castTime="100" postApplyTime="50" cooldownTime="100" requiredItemType="" requiredHP="0" requiredMP="0"
                    pAttack="10" mAttack="0" bulletSpeed="0.4" distance="40"/>
 
-            <skill name="Strong_punch" description="Strong punch!!!" path="/res/skills/empty skill.png" type="AreaDamage"
+            <skill name="Strong_punch" description="" path="/res/skills/empty skill.png" type="AreaDamage"
                    castTime="400" postApplyTime="150" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="0"
                    pAttack="95" mAttack="0" radius="55" angle="45"/>
-            <skill name="Strong_thorn" description="Strong thorn!!!" path="/res/skills/empty skill.png" type="BulletShot"
+            <skill name="Strong_thorn" description="" path="/res/skills/empty skill.png" type="BulletShot"
                    castTime="100" postApplyTime="50" cooldownTime="100" requiredItemType="" requiredHP="0" requiredMP="0"
                    pAttack="30" mAttack="0" bulletSpeed="0.4" distance="40"/>
-            <skill name="Throw_stone" description="Throw stone!!!" path="/res/skills/empty skill.png" type="BulletShot"
+            <skill name="Throw_stone" description="" path="/res/skills/empty skill.png" type="BulletShot"
                    castTime="300" postApplyTime="150" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="0"
                    pAttack="20" mAttack="0" bulletSpeed="0.4" distance="1000"/>
 
-            <skill name="Waterball" description="Fireball!!!" path="/res/skills/empty skill.png" type="BulletShot"
-                   castTime="200" postApplyTime="100" cooldownTime="1000" requiredItemType="Staff" requiredHP="0" requiredMP="5"
+            <skill name="Elemental_waterball" description="" path="/res/skills/empty skill.png" type="BulletShot"
+                   castTime="200" postApplyTime="100" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="5"
+                   pAttack="0" mAttack="20" bulletSpeed="0.4" distance="1000"/>
+            <skill name="Elemental_fireball" description="" path="/res/skills/empty skill.png" type="BulletShot"
+                   castTime="200" postApplyTime="100" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="5"
                    pAttack="0" mAttack="20" bulletSpeed="0.4" distance="1000"/>
 
-            <skill name="Vampiric_knife" description="Vampiric knife!!!" path="/res/skills/empty skill.png" type="BulletShot"
+            <skill name="Skeleton_sword_attack" description="" path="/res/skills/empty skill.png" type="AreaDamage"
+                   castTime="300" postApplyTime="150" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="0"
+                   pAttack="15" mAttack="0" radius="55" angle="45"/>
+            <skill name="Skeleton_fireball" description="" path="/res/skills/empty skill.png" type="BulletShot"
+                   castTime="200" postApplyTime="100" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="5"
+                   pAttack="0" mAttack="20" bulletSpeed="0.4" distance="1000"/>
+
+            <skill name="Knife_attack" description="" path="/res/skills/empty skill.png" type="AreaDamage"
+                   castTime="300" postApplyTime="150" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="0"
+                   pAttack="15" mAttack="0" radius="55" angle="45"/>
+            <skill name="Vampiric_knife" description="" path="/res/skills/empty skill.png" type="BulletShot"
                    castTime="200" postApplyTime="100" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="5"
                    pAttack="10" mAttack="20" bulletSpeed="0.4" distance="1000"/>
-            <skill name="Power_beam" description="Power_beam!!!" path="/res/skills/empty skill.png" type="AreaDamage"
+            <skill name="Power_beam" description="" path="/res/skills/empty skill.png" type="AreaDamage"
                    castTime="700" postApplyTime="300" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="0"
                    pAttack="50" mAttack="0" radius="200" angle="60"/>
-            <skill name="Doom" description="DOOOOOOM!!!" path="/res/skills/empty skill.png" type="BulletShot"
+            <skill name="Doom" description="" path="/res/skills/empty skill.png" type="BulletShot"
                    castTime="1000" postApplyTime="500" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="0"
                    pAttack="50" mAttack="50" bulletSpeed="0.2" distance="1000"/>
-            <skill name="Sword_spin" description="Sword_spin!!!" path="/res/skills/empty skill.png" type="AreaDamage"
+            <skill name="Sword_spin" description="" path="/res/skills/empty skill.png" type="AreaDamage"
                    castTime="200" postApplyTime="100" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="0"
                    pAttack="10" mAttack="0" radius="60" angle="360"/>
+            <skill name="Shift" description="" path="/res/skills/empty skill.png" type="BlinkSkill"
+                   castTime="200" postApplyTime="0" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="0"
+                   distance="200"/>
         </skills>
         <fonts>
             <font name="lootfont" fontName="verdana" size="10" isBold="false"/>
@@ -191,7 +222,7 @@
                     <itemRecord name="Sword" number="1"/>
                 </inventory>
                 <skillList>
-                    <skill name="Sword_attack"/>
+                    <skill name="Bandit_sword_attack"/>
                 </skillList>
                 <lootList>
                     <loot name="Healing_flask" probability="1"/>
@@ -205,7 +236,7 @@
                     <itemRecord name="Arrow" number="1000"/>
                 </inventory>
                 <skillList>
-                    <skill name="Bow_shot"/>
+                    <skill name="Bandit_bow_shot"/>
                 </skillList>
                 <lootList>
                     <loot name="Healing_flask" probability="0.8"/>
@@ -218,8 +249,8 @@
                     <itemRecord name="Strong_sword" number="1"/>
                 </inventory>
                 <skillList>
-                    <skill name="Sword_attack"/>
-                    <skill name="Strong_sword_attack"/>
+                    <skill name="BanditBoss_sword_attack"/>
+                    <skill name="BanditBoss_strong_sword_attack"/>
                 </skillList>
                 <lootList>
                     <loot name="Healing_flask" probability="1"/>
@@ -275,7 +306,7 @@
                     <itemRecord name="Strong_staff" number="1"/>
                 </inventory>
                 <skillList>
-                    <skill name="Fireball"/>
+                    <skill name="Elemental_fireball"/>
                 </skillList>
                 <lootList>
                     <loot name="Mana_flask" probability="0.8"/>
@@ -287,7 +318,7 @@
                     <itemRecord name="Strong_staff" number="1"/>
                 </inventory>
                 <skillList>
-                    <skill name="Waterball"/>
+                    <skill name="Elemental_waterball"/>
                 </skillList>
                 <lootList>
                     <loot name="Mana_flask" probability="0.8"/>
@@ -299,7 +330,7 @@
                     <itemRecord name="Sword" number="1"/>
                 </inventory>
                 <skillList>
-                    <skill name="Sword_attack"/>
+                    <skill name="Skeleton_sword_attack"/>
                 </skillList>
                 <lootList>
                     <loot name="Healing_flask" probability="1"/>
@@ -312,8 +343,7 @@
                     <itemRecord name="Robe_of_magic" number="1"/>
                 </inventory>
                 <skillList>
-                    <skill name="Staff_attack"/>
-                    <skill name="Fireball"/>
+                    <skill name="Skeleton_fireball"/>
                 </skillList>
                 <lootList>
                     <loot name="Healing_flask" probability="0.5"/>
@@ -327,14 +357,14 @@
                     <itemRecord name="Staff" number="1"/>
                 </inventory>
                 <skillList>
-                    <skill name="Sword_attack"/>
+                    <skill name="Knife_attack"/>
                     <skill name="Sword_spin"/>
 
                     <skill name="Vampiric_knife"/>
                     <skill name="Power_beam"/>
                     <skill name="Doom"/>
 
-                    <skill name="Blink"/>
+                    <skill name="Shift"/>
                 </skillList>
                 <lootList>
                     <loot name="Apple" probability="1"/>
