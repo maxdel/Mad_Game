@@ -2,20 +2,20 @@
 
     <gameplay>
         <animations>
-            <animation name="hero_walk" path="/res/hero/hero_walk.png" isImage = "false" frameWidth="128" frameHeight="128" speedCoef="5" />
-            <animation name="hero_walk_sword" path="/res/hero/hero_walk_sword.png" isImage = "false" frameWidth="128" frameHeight="128" speedCoef="5" />
-            <animation name="hero_walk_bow" path="/res/hero/hero_walk_bow.png" isImage = "false" frameWidth="128" frameHeight="128" speedCoef="5" />
-            <animation name="hero_skill_sword_attack" path="/res/hero/hero_skill_sword_attack.png" isImage = "false" frameWidth="128" frameHeight="128" speedCoef="0.07" />
-            <animation name="hero_skill_strong_sword_attack" path="/res/hero/hero_skill_strong_sword_attack.png" isImage = "false" frameWidth="160" frameHeight="160" speedCoef="0.07" />
-            <animation name="hero_skill_bow_shot" path="/res/hero/hero_skill_bow_shot.png" isImage = "false" frameWidth="128" frameHeight="128" speedCoef="0.07" />
+            <animation name="hero_walk" path="/res/hero/hero_walk.png" isImage = "false" frameWidth="128" frameHeight="128" speedCoef="5"/>
+            <animation name="hero_walk_sword" path="/res/hero/hero_walk_sword.png" isImage = "false" frameWidth="128" frameHeight="128" speedCoef="5"/>
+            <animation name="hero_walk_bow" path="/res/hero/hero_walk_bow.png" isImage = "false" frameWidth="128" frameHeight="128" speedCoef="5"/>
+            <animation name="hero_skill_sword_attack" path="/res/hero/hero_skill_sword_attack.png" isImage = "false" frameWidth="128" frameHeight="128" speedCoef="0.07"/>
+            <animation name="hero_skill_strong_sword_attack" path="/res/hero/hero_skill_strong_sword_attack.png" isImage = "false" frameWidth="160" frameHeight="160" speedCoef="0.07"/>
+            <animation name="hero_skill_bow_shot" path="/res/hero/hero_skill_bow_shot.png" isImage = "false" frameWidth="128" frameHeight="128" speedCoef="0.07"/>
 
-            <animation name="bandit" path="/res/bandit/bandit.png" isImage = "true" />
-            <animation name="bandit_walk_sword" path="/res/bandit/bandit_walk_sword.png" isImage = "false" frameWidth="160" frameHeight="160" speedCoef="5" />
-            <animation name="bandit_skill_sword_attack" path="/res/bandit/bandit_skill_sword_attack.png" isImage = "false" frameWidth="160" frameHeight="160" speedCoef="0.07" />
+            <animation name="bandit" path="/res/bandit/bandit.png" isImage = "true"/>
+            <animation name="bandit_walk_sword" path="/res/bandit/bandit_walk_sword.png" isImage = "false" frameWidth="160" frameHeight="160" speedCoef="5"/>
+            <animation name="bandit_skill_sword_attack" path="/res/bandit/bandit_skill_sword_attack.png" isImage = "false" frameWidth="160" frameHeight="160" speedCoef="0.07"/>
 
-            <animation name="bandit_archer" path="/res/banditarcher/banditArcher.png" isImage = "true" />
+            <animation name="bandit_archer" path="/res/banditarcher/banditArcher.png" isImage = "true"/>
 
-            <animation name="bandit_boss" path="/res/banditboss/banditboss.png" isImage = "true" />
+            <animation name="bandit_boss" path="/res/banditboss/banditboss.png" isImage = "true"/>
 
             <animation name="golem" path="/res/golem/golem.png" isImage = "true"/>
 
@@ -23,7 +23,7 @@
 
             <animation name="golem_boss" path="/res/golemboss/golemboss.png" isImage = "true"/>
 
-            <animation name="vampire" path="/res/vampire/vampire.png" isImage = "true" />
+            <animation name="vampire" path="/res/vampire/vampire.png" isImage = "true"/>
 
             <animation name="elemental" path="/res/fireelemental/elemental.png" isImage = "true"/>
             <animation name="skeleton" path="/res/skeleton/skeleton.png" isImage = "true"/>
@@ -31,37 +31,37 @@
             <animation name="wall" path="/res/obstacles/wall.png" isImage = "true"/>
             <animation name="tree" path="/res/obstacles/tree.png" isImage = "true"/>
             <animation name="ice_wall" path="/res/obstacles/iceWall.png" isImage = "true"/>
-            <animation name="arrow" path="/res/bullets/arrow.png" isImage = "true" />
+            <animation name="arrow" path="/res/bullets/arrow.png" isImage = "true"/>
             <animation name="thorn" path="/res/bullets/thorn.png" isImage = "true"/>
             <animation name="stone" path="/res/bullets/stone.png" isImage = "true"/>
             <animation name="vampiric_knife" path="/res/bullets/thorn.png" isImage = "true"/>
 
-            <animation name="empty" path="/res/empty_image.png" isImage="true" />
+            <animation name="empty" path="/res/empty_image.png" isImage="true"/>
         </animations>
         <masks>
-            <mask name="unit_small" shape="circle" width="0" height="0" radius="12" />
-            <mask name="unit" shape="circle" width="0" height="0" radius="20" />
-            <mask name="unit_big" shape="circle" width="0" height="0" radius="30" />
+            <mask name="unit_small" shape="circle" width="0" height="0" radius="12"/>
+            <mask name="unit" shape="circle" width="0" height="0" radius="20"/>
+            <mask name="unit_big" shape="circle" width="0" height="0" radius="30"/>
 
             <mask name="wall" shape="rectangle" width="32" height="32" radius="0"/>
             <mask name="ice_wall" shape="rectangle" width="32" height="64" radius="0"/>
-            <mask name="tree" shape="circle" width="0" height="0" radius="32" />
+            <mask name="tree" shape="circle" width="0" height="0" radius="32"/>
 
-            <mask name="arrow" shape="rectangle" width="20" height="3" radius="0" />
-            <mask name="fireball" shape="circle" width="0" height="0" radius="5" />
-            <mask name="thorn" shape="rectangle" width="10" height="3" radius="0" />
-            <mask name="stone" shape="circle" width="0" height="0" radius="6" />
-            <mask name="waterball" shape="circle" width="0" height="0" radius="5" />
-            <mask name="darkflame" shape="circle" width="0" height="0" radius="4" />
+            <mask name="arrow" shape="rectangle" width="20" height="3" radius="0"/>
+            <mask name="fireball" shape="circle" width="0" height="0" radius="5"/>
+            <mask name="thorn" shape="rectangle" width="10" height="3" radius="0"/>
+            <mask name="stone" shape="circle" width="0" height="0" radius="6"/>
+            <mask name="waterball" shape="circle" width="0" height="0" radius="5"/>
+            <mask name="darkflame" shape="circle" width="0" height="0" radius="4"/>
         </masks>
         <images>
-            <image name="Selected item frame" path = "/res/items/selected item.png" />
-            <image name="Dressed item frame" path = "/res/items/dressed item.png" />
-            <image name="Selected loot" path = "/res/items/selected loot.png" />
-            <image name="Bow aim" path = "/res/aim.png" />
+            <image name="Selected item frame" path = "/res/items/selected item.png"/>
+            <image name="Dressed item frame" path = "/res/items/dressed item.png"/>
+            <image name="Selected loot" path = "/res/items/selected loot.png"/>
+            <image name="Bow aim" path = "/res/aim.png"/>
 
-            <image name="particle_spark" path = "/res/particles/particle_spark.png" />
-            <image name="particle_leaf" path = "/res/particles/particle_leaf.png" />
+            <image name="particle_spark" path = "/res/particles/particle_spark.png"/>
+            <image name="particle_leaf" path = "/res/particles/particle_leaf.png"/>
         </images>
         <items>
             <item name="Healing_flask" description="+20 HP" path = "/res/items/healing flask.png" type="Reagent" heal="20" mana="0"/>
@@ -69,14 +69,14 @@
             <item name="Apple" description="Green apple" path = "/res/items/apple.png" type="Reagent" heal="5" mana="0"/>
             <item name="Sword" description="Simple sword" path = "/res/items/sword.png" type="Sword" pAttack="4" mAttack="1"/>
             <item name="Strong_sword" description="Strong sword" path = "/res/items/strong sword.png" type="Sword" pAttack="10" mAttack="1"/>
-            <item name="Staff" description="Simple staff" path = "/res/items/staff.png" type="Staff" pAttack="1" mAttack="4" />
-            <item name="Strong_staff" description="Strong staff" path = "/res/items/strong staff.png" type="Staff" pAttack="1" mAttack="10" />
+            <item name="Staff" description="Simple staff" path = "/res/items/staff.png" type="Staff" pAttack="1" mAttack="4"/>
+            <item name="Strong_staff" description="Strong staff" path = "/res/items/strong staff.png" type="Staff" pAttack="1" mAttack="10"/>
             <item name="Bow" description="Simple bow" path = "/res/items/bow.png" type="Bow" pAttack="4" mAttack="1"/>
-            <item name="Strong_bow" description="Strong bow" path = "/res/items/strong bow.png" type="Bow" pAttack="10" mAttack="1" />
-            <item name="Arrow" description="Simple arrow" path = "/res/items/arrow.png" type="Arrow" pAttack="1" />
-            <item name="Light_armor" description="Light armor" path = "/res/items/light armor.png" type="Armor" pArmor="3" mArmor="3" />
-            <item name="Heavy_armor" description="Heavy armor" path = "/res/items/heavy armor.png" type="Armor" pArmor="5" mArmor="1" />
-            <item name="Robe_of_magic" description="Robe of magic" path = "/res/items/robe of magic.png" type="Armor" pArmor="1" mArmor="5" />
+            <item name="Strong_bow" description="Strong bow" path = "/res/items/strong bow.png" type="Bow" pAttack="10" mAttack="1"/>
+            <item name="Arrow" description="Simple arrow" path = "/res/items/arrow.png" type="Arrow" pAttack="1"/>
+            <item name="Light_armor" description="Light armor" path = "/res/items/light armor.png" type="Armor" pArmor="3" mArmor="3"/>
+            <item name="Heavy_armor" description="Heavy armor" path = "/res/items/heavy armor.png" type="Armor" pArmor="5" mArmor="1"/>
+            <item name="Robe_of_magic" description="Robe of magic" path = "/res/items/robe of magic.png" type="Armor" pArmor="1" mArmor="5"/>
         </items>
         <skills>
             <skill name="Sword_attack" description="Sword!!!" path="/res/skills/sword attack.png" type="AreaDamage"
@@ -155,13 +155,13 @@
             <fake path="/res/skills/fake.png"/>
         </skillFakes>
         <fonts>
-            <font name="lootfont" fontName="verdana" size="10" isBold="false" />
-            <font name="itemfont" fontName="verdana" size="12" isBold="false" />
-            <font name="descfont" fontName="verdana" size="14" isBold="false" />
+            <font name="lootfont" fontName="verdana" size="10" isBold="false"/>
+            <font name="itemfont" fontName="verdana" size="12" isBold="false"/>
+            <font name="descfont" fontName="verdana" size="14" isBold="false"/>
         </fonts>
         <units>
             <unit name="hero" mask="unit">
-                <attribute hp="1000" mp="100" maximumSpeed="0.16" pAttack="10" mAttack="15" pArmor="5" mArmor="7" />
+                <attribute hp="1000" mp="100" maximumSpeed="0.16" pAttack="10" mAttack="15" pArmor="5" mArmor="7"/>
                 <inventory>
                     <itemRecord name="Sword" number="1"/>
                     <itemRecord name="Bow" number="1"/>
@@ -183,52 +183,52 @@
                     <skill name="Ice_wall"/>
                 </skillList>
                 <lootList>
-                    <loot name="Apple" probability="1" />
+                    <loot name="Apple" probability="1"/>
                 </lootList>
             </unit>
             <unit name="bandit" mask="unit">
-                <attribute hp="100" mp="100" maximumSpeed="0.14" pAttack="10" mAttack="15" pArmor="5" mArmor="7" />
+                <attribute hp="100" mp="100" maximumSpeed="0.14" pAttack="10" mAttack="15" pArmor="5" mArmor="7"/>
                 <inventory>
-                    <itemRecord name="Sword" number="1" />
+                    <itemRecord name="Sword" number="1"/>
                 </inventory>
                 <skillList>
                     <skill name="Sword_attack"/>
                 </skillList>
                 <lootList>
-                    <loot name="Healing_flask" probability="1" />
+                    <loot name="Healing_flask" probability="1"/>
                 </lootList>
             </unit>
             <unit name="banditArcher" mask="unit">
-                <attribute hp="100" mp="100" maximumSpeed="0.05" pAttack="10" mAttack="15" pArmor="5" mArmor="7" />
+                <attribute hp="100" mp="100" maximumSpeed="0.05" pAttack="10" mAttack="15" pArmor="5" mArmor="7"/>
                 <inventory>
-                    <itemRecord name="Strong_bow" number="1" />
-                    <itemRecord name="Light_armor" number="1" />
-                    <itemRecord name="Arrow" number="1000" />
+                    <itemRecord name="Strong_bow" number="1"/>
+                    <itemRecord name="Light_armor" number="1"/>
+                    <itemRecord name="Arrow" number="1000"/>
                 </inventory>
                 <skillList>
                     <skill name="Bow_shot"/>
                 </skillList>
                 <lootList>
-                    <loot name="Healing_flask" probability="0.8" />
-                    <loot name="Strong_bow" probability="0.5" />
+                    <loot name="Healing_flask" probability="0.8"/>
+                    <loot name="Strong_bow" probability="0.5"/>
                 </lootList>
             </unit>
             <unit name="banditBoss" mask="unit_big">
-                <attribute hp="100" mp="100" maximumSpeed="0.14" pAttack="10" mAttack="15" pArmor="5" mArmor="7" />
+                <attribute hp="100" mp="100" maximumSpeed="0.14" pAttack="10" mAttack="15" pArmor="5" mArmor="7"/>
                 <inventory>
-                    <itemRecord name="Strong_sword" number="1" />
+                    <itemRecord name="Strong_sword" number="1"/>
                 </inventory>
                 <skillList>
                     <skill name="Sword_attack"/>
                     <skill name="Strong_sword_attack"/>
                 </skillList>
                 <lootList>
-                    <loot name="Healing_flask" probability="1" />
-                    <loot name="Mana_flask" probability="1" />
+                    <loot name="Healing_flask" probability="1"/>
+                    <loot name="Mana_flask" probability="1"/>
                 </lootList>
             </unit>
             <unit name="golem" mask="unit">
-                <attribute hp="100" mp="100" maximumSpeed="0.07" pAttack="10" mAttack="15" pArmor="5" mArmor="7" />
+                <attribute hp="100" mp="100" maximumSpeed="0.07" pAttack="10" mAttack="15" pArmor="5" mArmor="7"/>
                 <inventory>
 
                 </inventory>
@@ -237,12 +237,12 @@
                     <skill name="Thorn"/>
                 </skillList>
                 <lootList>
-                    <loot name="Healing_flask" probability="1" />
-                    <loot name="Mana_flask" probability="1" />
+                    <loot name="Healing_flask" probability="1"/>
+                    <loot name="Mana_flask" probability="1"/>
                 </lootList>
             </unit>
             <unit name="golemTiny" mask="unit_small">
-                <attribute hp="100" mp="100" maximumSpeed="0.14" pAttack="10" mAttack="15" pArmor="5" mArmor="7" />
+                <attribute hp="100" mp="100" maximumSpeed="0.14" pAttack="10" mAttack="15" pArmor="5" mArmor="7"/>
                 <inventory>
 
                 </inventory>
@@ -251,12 +251,12 @@
                     <skill name="Weak_thorn"/>
                 </skillList>
                 <lootList>
-                    <loot name="Healing_flask" probability="1" />
-                    <loot name="Mana_flask" probability="1" />
+                    <loot name="Healing_flask" probability="1"/>
+                    <loot name="Mana_flask" probability="1"/>
                 </lootList>
             </unit>
             <unit name="golemBoss" mask="unit_big">
-                <attribute hp="100" mp="100" maximumSpeed="0.06" pAttack="15" mAttack="15" pArmor="5" mArmor="7" />
+                <attribute hp="100" mp="100" maximumSpeed="0.06" pAttack="15" mAttack="15" pArmor="5" mArmor="7"/>
                 <inventory>
 
                 </inventory>
@@ -266,66 +266,66 @@
                     <skill name="Throw_stone"/>
                 </skillList>
                 <lootList>
-                    <loot name="Healing_flask" probability="1" />
-                    <loot name="Mana_flask" probability="1" />
+                    <loot name="Healing_flask" probability="1"/>
+                    <loot name="Mana_flask" probability="1"/>
                 </lootList>
             </unit>
             <unit name="fireElemental" mask="unit">
-                <attribute hp="100" mp="200" maximumSpeed="0.3" pAttack="10" mAttack="15" pArmor="5" mArmor="7" />
+                <attribute hp="100" mp="200" maximumSpeed="0.3" pAttack="10" mAttack="15" pArmor="5" mArmor="7"/>
                 <inventory>
-                    <itemRecord name="Strong_staff" number="1" />
+                    <itemRecord name="Strong_staff" number="1"/>
                 </inventory>
                 <skillList>
                     <skill name="Fireball"/>
                 </skillList>
                 <lootList>
-                    <loot name="Mana_flask" probability="0.8" />
+                    <loot name="Mana_flask" probability="0.8"/>
                 </lootList>
             </unit>
             <unit name="waterElemental" mask="unit">
-                <attribute hp="100" mp="200" maximumSpeed="0.3" pAttack="10" mAttack="15" pArmor="5" mArmor="7" />
+                <attribute hp="100" mp="200" maximumSpeed="0.3" pAttack="10" mAttack="15" pArmor="5" mArmor="7"/>
                 <inventory>
-                    <itemRecord name="Strong_staff" number="1" />
+                    <itemRecord name="Strong_staff" number="1"/>
                 </inventory>
                 <skillList>
                     <skill name="Waterball"/>
                 </skillList>
                 <lootList>
-                    <loot name="Mana_flask" probability="0.8" />
+                    <loot name="Mana_flask" probability="0.8"/>
                 </lootList>
             </unit>
             <unit name="skeleton" mask="unit">
-                <attribute hp="100" mp="100" maximumSpeed="0.15" pAttack="10" mAttack="15" pArmor="5" mArmor="7" />
+                <attribute hp="100" mp="100" maximumSpeed="0.15" pAttack="10" mAttack="15" pArmor="5" mArmor="7"/>
                 <inventory>
-                    <itemRecord name="Sword" number="1" />
+                    <itemRecord name="Sword" number="1"/>
                 </inventory>
                 <skillList>
                     <skill name="Sword_attack"/>
                 </skillList>
                 <lootList>
-                    <loot name="Healing_flask" probability="1" />
+                    <loot name="Healing_flask" probability="1"/>
                 </lootList>
             </unit>
             <unit name="skeletonmage" mask="unit">
-                <attribute hp="100" mp="100" maximumSpeed="0.3" pAttack="10" mAttack="15" pArmor="5" mArmor="7" />
+                <attribute hp="100" mp="100" maximumSpeed="0.3" pAttack="10" mAttack="15" pArmor="5" mArmor="7"/>
                 <inventory>
-                    <itemRecord name="Strong_staff" number="1" />
-                    <itemRecord name="Robe_of_magic" number="1" />
+                    <itemRecord name="Strong_staff" number="1"/>
+                    <itemRecord name="Robe_of_magic" number="1"/>
                 </inventory>
                 <skillList>
                     <skill name="Staff_attack"/>
                     <skill name="Fireball"/>
                 </skillList>
                 <lootList>
-                    <loot name="Healing_flask" probability="0.5" />
-                    <loot name="Mana_flask" probability="0.7" />
+                    <loot name="Healing_flask" probability="0.5"/>
+                    <loot name="Mana_flask" probability="0.7"/>
                 </lootList>
             </unit>
             <unit name="vampire" mask="unit">
-                <attribute hp="150" mp="150" maximumSpeed="0.12" pAttack="10" mAttack="15" pArmor="5" mArmor="7" />
+                <attribute hp="150" mp="150" maximumSpeed="0.12" pAttack="10" mAttack="15" pArmor="5" mArmor="7"/>
                 <inventory>
-                    <itemRecord name="Sword" number="1" />
-                    <itemRecord name="Staff" number="1" />
+                    <itemRecord name="Sword" number="1"/>
+                    <itemRecord name="Staff" number="1"/>
                 </inventory>
                 <skillList>
                     <skill name="Sword_attack"/>
@@ -338,43 +338,43 @@
                     <skill name="Blink"/>
                 </skillList>
                 <lootList>
-                    <loot name="Apple" probability="1" />
+                    <loot name="Apple" probability="1"/>
                 </lootList>
             </unit>
         </units>
         <obstacles>
-            <obstacle name="wall" mask="wall" />
-            <obstacle name="tree" mask="tree" />
-            <obstacle name="icewall" mask="ice_wall" />
+            <obstacle name="wall" mask="wall"/>
+            <obstacle name="tree" mask="tree"/>
+            <obstacle name="icewall" mask="ice_wall"/>
         </obstacles>
         <bullets>
-            <bullet name="fireball" mask="fireball" />
-            <bullet name="arrow" mask="arrow" />
-            <bullet name="thorn" mask="thorn" />
-            <bullet name="stone" mask="stone" />
-            <bullet name="waterball" mask="waterball" />
-            <bullet name="vampiricknife" mask="thorn" />
-            <bullet name="darkflame" mask="darkflame" />
+            <bullet name="fireball" mask="fireball"/>
+            <bullet name="arrow" mask="arrow"/>
+            <bullet name="thorn" mask="thorn"/>
+            <bullet name="stone" mask="stone"/>
+            <bullet name="waterball" mask="waterball"/>
+            <bullet name="vampiricknife" mask="thorn"/>
+            <bullet name="darkflame" mask="darkflame"/>
         </bullets>
         <sounds>
-            <sound name="sword_attack" path="/res/sounds/sword_attack.wav" />
-            <sound name="sword_stone" path="/res/sounds/sword_stone.wav" />
-            <sound name="sword_tree" path="/res/sounds/sword_tree.wav" />
-            <sound name="bow_shot" path="/res/sounds/bow_shot.wav" />
-            <sound name="apple_bite" path="/res/sounds/apple_bite.wav" />
-            <sound name="fireball" path="/res/sounds/fireball.wav" />
+            <sound name="sword_attack" path="/res/sounds/sword_attack.wav"/>
+            <sound name="sword_stone" path="/res/sounds/sword_stone.wav"/>
+            <sound name="sword_tree" path="/res/sounds/sword_tree.wav"/>
+            <sound name="bow_shot" path="/res/sounds/bow_shot.wav"/>
+            <sound name="apple_bite" path="/res/sounds/apple_bite.wav"/>
+            <sound name="fireball" path="/res/sounds/fireball.wav"/>
         </sounds>
     </gameplay>
 
     <menustart>
         <fonts>
-            <font name="menufont" fontName="verdana" size="40" isBold="true" />
+            <font name="menufont" fontName="verdana" size="40" isBold="true"/>
         </fonts>
     </menustart>
 
     <menupause>
         <fonts>
-            <font name="menufont" fontName="verdana" size="40" isBold="true" />
+            <font name="menufont" fontName="verdana" size="40" isBold="true"/>
         </fonts>
     </menupause>
 

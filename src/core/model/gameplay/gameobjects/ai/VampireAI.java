@@ -68,8 +68,10 @@ public class VampireAI extends BotAI {
                                             if (getDistanceToHero() < meleeAttackDistance) currentState = VampireAIState.MELEEATTACK; }
         });
         stateMap.put(VampireAIState.MELEEATTACK, new AIState() {
-            public void enter() { }
-            public void run(int delta) { MeleeAttackBehavior(); }
+            private final int BLINK_TIME = 1500;
+            private Timer blinkTimer;
+            public void enter() {blinkTimer = new Timer(BLINK_TIME); }
+            public void run(int delta) { MeleeAttackBehavior(blinkTimer, BLINK_TIME); blinkTimer.update(delta); }
             public void update(int delta) { if (getDistanceToHero() >= meleeAttackDistance) currentState = VampireAIState.RANGEDATTACK;
                                             if (getDistanceToHero() >= pursueDistance) currentState = VampireAIState.PURSUE; }
         });
@@ -130,7 +132,22 @@ public class VampireAI extends BotAI {
                 blinkDistance <= 2 * distanceToHero);
     }
 
-    private void MeleeAttackBehavior() {
+    private void MeleeAttackBehavior(Timer blinkTimer, int blinkTime) {
+        owner.setDirection(MathAdv.getAngle(owner.getX(), owner.getY(),
+                Hero.getInstance().getX(), Hero.getInstance().getY()));
+        if (blinkTimer.isTime() && owner.canStartCast(owner.getSkillByKind(SkillInstanceKind.BLINK))) {
+            double blinkDirection = Math.random() * 2 * Math.PI;
+            double blinkDistance = ((BlinkSkill)owner.getSkillByKind(SkillInstanceKind.BLINK)).getDistance();
+            double lengthDirX = MathAdv.lengthDirX(blinkDirection, blinkDistance);
+            double lengthDirY = MathAdv.lengthDirY(blinkDirection, blinkDistance);
+            if (CollisionManager.getInstance().isPlaceFreeAdv(owner, owner.getX() + lengthDirX, owner.getY() + lengthDirY) &&
+                    seeTarget(Hero.getInstance(), owner.getX() + lengthDirX, owner.getY() + lengthDirY)) {
+                owner.setRelativeDirection(blinkDirection);
+                owner.startCastSkill(SkillInstanceKind.BLINK);
+                blinkTimer.activate(blinkTime);
+                return;
+            }
+        }
         owner.stand();
         owner.setDirection(MathAdv.getAngle(owner.getX(), owner.getY(),
                 Hero.getInstance().getX(), Hero.getInstance().getY()));
