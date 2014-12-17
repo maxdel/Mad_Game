@@ -148,7 +148,7 @@ public class SkillPanelView {
             int absoluteImgPositionX = getAbsolutePosition()[X];
             int absoluteImgPositionY = getAbsolutePosition()[Y];
 
-            g.drawImage(ResourceManager.getInstance().getSkillFakeImage(), absoluteImgPositionX, absoluteImgPositionY);
+            g.drawImage(ResourceManager.getInstance().getImage("skill_fake"), absoluteImgPositionX, absoluteImgPositionY);
         }
     }
 

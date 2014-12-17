@@ -62,6 +62,8 @@
 
             <image name="particle_spark" path = "/res/particles/particle_spark.png"/>
             <image name="particle_leaf" path = "/res/particles/particle_leaf.png"/>
+
+            <image name="skill fake" path = "/res/skills/fake.png"/>
         </images>
         <items>
             <item name="Healing_flask" description="+20 HP" path = "/res/items/healing flask.png" type="Reagent" heal="20" mana="0"/>
@@ -151,9 +153,6 @@
                    castTime="200" postApplyTime="100" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="0"
                    pAttack="10" mAttack="0" radius="60" angle="360"/>
         </skills>
-        <skillFakes>
-            <fake path="/res/skills/fake.png"/>
-        </skillFakes>
         <fonts>
             <font name="lootfont" fontName="verdana" size="10" isBold="false"/>
             <font name="itemfont" fontName="verdana" size="12" isBold="false"/>

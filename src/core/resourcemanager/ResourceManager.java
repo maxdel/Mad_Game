@@ -101,7 +101,6 @@ public class ResourceManager {
         loadObstacles(gameplayElement);
         loadBullets(gameplayElement);
         loadSounds(gameplayElement);
-        setSkillFakeImage(gameplayElement);
 
         in.close();
     }
@@ -433,14 +432,4 @@ public class ResourceManager {
         return soundInfos.get(name).getSound();
     }
 
-    public Image getSkillFakeImage() {
-        return skillFakeImage;
-    }
-
-    private void setSkillFakeImage(XMLElement gameStateElement) throws SlickException {
-        XMLElement fakesEl = gameStateElement.getChildrenByName("skillFakes").get(0);
-        XMLElementList fakes = fakesEl.getChildrenByName("fake");
-        String path = fakes.get(0).getAttribute("path");
-        skillFakeImage = new Image(path);
-    }
 }
