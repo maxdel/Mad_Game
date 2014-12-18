@@ -46,6 +46,9 @@ public class GamePlayView {
                 case TREE:
                     gameObjectViewList.add(new TreeView(gameObject));
                     break;
+                case TREEBIG:
+                    gameObjectViewList.add(new TreeBigView(gameObject));
+                    break;
                 case ICEWALL:
                     gameObjectViewList.add(new IceWallView(gameObject));
                     break;
@@ -96,12 +99,25 @@ public class GamePlayView {
         this.renderOrder = new ArrayList<>();
         renderOrder.add(WallView.class);
         renderOrder.add(LootView.class);
+
         renderOrder.add(BanditView.class);
         renderOrder.add(BanditArcherView.class);
-        renderOrder.add(SkeletonMageView.class);
+        renderOrder.add(BanditBossView.class);
+
         renderOrder.add(SkeletonView.class);
-        renderOrder.add(HeroView.class);
+        renderOrder.add(SkeletonMageView.class);
         renderOrder.add(VampireView.class);
+
+        renderOrder.add(HeroView.class);
+
+        renderOrder.add(ArrowView.class);
+        renderOrder.add(WaterballView.class);
+        renderOrder.add(FireballView.class);
+        renderOrder.add(StoneView.class);
+        renderOrder.add(VampiricKnifeView.class);
+
+        renderOrder.add(TreeView.class);
+        renderOrder.add(TreeBigView.class);
     }
 
     public void render(GameContainer gc, Graphics g) throws SlickException {

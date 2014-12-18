@@ -67,6 +67,10 @@ public class World {
                     gameObjectList.add(new Obstacle(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
                             tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0,
                             GameObjInstanceKind.TREE));
+                } else if (tileObstacleName.equals("treebig")) {
+                    gameObjectList.add(new Obstacle(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
+                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0,
+                            GameObjInstanceKind.TREEBIG));
                 }
                 // Objects
                 String tileObjectName = tiledMap.getTileProperty(tiledMap.getTileId(i, j, 2), "name", "error");

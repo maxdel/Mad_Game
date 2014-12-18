@@ -3,7 +3,7 @@ package core.model.gameplay.gameobjects;
 public enum GameObjInstanceKind {
 
     LOOT,
-    WALL, TREE, ICEWALL,
+    WALL, TREE, ICEWALL, TREEBIG,
     ARROW, FIREBALL, THORN, STONE, WATERBALL, VAMPIRICKNIFE, DARKFLAME,
     BANDIT, BANDITARCHER, BANDITBOSS,
     GOLEM, GOLEMTINY, GOLEMBOSS,
