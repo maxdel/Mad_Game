@@ -34,6 +34,7 @@
             <animation name="tree" path="/res/obstacles/tree.png" isImage = "true"/>
             <animation name="ice_wall" path="/res/obstacles/iceWall.png" isImage = "true"/>
             <animation name="tree_big" path="/res/obstacles/tree_big.png" isImage = "true"/>
+            <animation name="rock" path="/res/obstacles/rock.png" isImage = "true"/>
             <animation name="arrow" path="/res/bullets/arrow.png" isImage = "true"/>
             <animation name="thorn" path="/res/bullets/thorn.png" isImage = "true"/>
             <animation name="stone" path="/res/bullets/stone.png" isImage = "true"/>
@@ -48,6 +49,7 @@
 
             <mask name="wall" shape="rectangle" width="32" height="32" radius="0"/>
             <mask name="ice_wall" shape="rectangle" width="32" height="64" radius="0"/>
+            <mask name="rock" shape="circle" width="0" height="0" radius="14"/>
             <mask name="tree" shape="circle" width="0" height="0" radius="16"/>
 
             <mask name="arrow" shape="rectangle" width="20" height="3" radius="0"/>
@@ -390,6 +392,7 @@
             <obstacle name="wall" mask="wall"/>
             <obstacle name="tree" mask="tree"/>
             <obstacle name="treebig" mask="tree"/>
+            <obstacle name="rock" mask="rock"/>
             <obstacle name="icewall" mask="ice_wall"/>
         </obstacles>
         <bullets>

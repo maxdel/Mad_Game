@@ -49,6 +49,9 @@ public class GamePlayView {
                 case TREEBIG:
                     gameObjectViewList.add(new TreeBigView(gameObject));
                     break;
+                case ROCK:
+                    gameObjectViewList.add(new RockView(gameObject));
+                    break;
                 case ICEWALL:
                     gameObjectViewList.add(new IceWallView(gameObject));
                     break;

@@ -49,8 +49,17 @@ public class World {
                     gameObjectList.add(new Obstacle(
                             tiledMap.getObjectX(i, j) + MathAdv.lengthDirX(-Math.PI / 4 + rotation, length),
                             tiledMap.getObjectY(i, j) + MathAdv.lengthDirY(-Math.PI / 4 + rotation, length),
-                                    rotation, GameObjInstanceKind.WALL)
-                    );
+                            rotation, GameObjInstanceKind.WALL));
+                } else if (tiledMap.getObjectName(i, j).equals("rock")) {
+                    double length;
+                    length = Math.sqrt(Math.pow(tiledMap.getObjectWidth(i, j) / 2, 2) +
+                            Math.pow(tiledMap.getObjectHeight(i, j) / 2, 2));
+                    double rotation;
+                    rotation = tiledMap.getObjectRotation(i, j) * Math.PI / 180;
+                    gameObjectList.add(new Obstacle(
+                            tiledMap.getObjectX(i, j) + MathAdv.lengthDirX(-Math.PI / 4 + rotation, length),
+                            tiledMap.getObjectY(i, j) + MathAdv.lengthDirY(-Math.PI / 4 + rotation, length),
+                            rotation, GameObjInstanceKind.ROCK));
                 }
             }
         }
@@ -71,6 +80,10 @@ public class World {
                     gameObjectList.add(new Obstacle(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
                             tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0,
                             GameObjInstanceKind.TREEBIG));
+                } else if (tileObstacleName.equals("rock")) {
+                    gameObjectList.add(new Obstacle(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
+                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0,
+                            GameObjInstanceKind.ROCK));
                 }
                 // Objects
                 String tileObjectName = tiledMap.getTileProperty(tiledMap.getTileId(i, j, 2), "name", "error");
