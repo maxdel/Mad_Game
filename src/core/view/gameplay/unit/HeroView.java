@@ -53,6 +53,7 @@ public class HeroView extends UnitView {
                     animation.start();
                     break;
                 case STAND:
+                case DIALOG:
                     if (hero.getInventory().getDressedWeaponType().equals("Sword")) {
                         animation = animationWalkSword;
                     } else if (hero.getInventory().getDressedWeaponType().equals("Bow")) {

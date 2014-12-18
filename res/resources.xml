@@ -25,6 +25,8 @@
 
             <animation name="vampire" path="/res/vampire/vampire.png" isImage = "true"/>
 
+            <animation name="wanderer" path="/res/wanderer/wanderer.png" isImage = "true"/>
+
             <animation name="elemental" path="/res/fireelemental/elemental.png" isImage = "true"/>
             <animation name="skeleton" path="/res/skeleton/skeleton.png" isImage = "true"/>
             <animation name="skeleton_mage" path="/res/skeletonmage/skeletonMage.png" isImage = "true"/>
@@ -64,6 +66,8 @@
             <image name="particle_leaf" path = "/res/particles/particle_leaf.png"/>
 
             <image name="skill fake" path = "/res/skills/fake.png"/>
+
+            <image name="selected npc" path = "/res/selected npc.png"/>
         </images>
         <items>
             <item name="Healing_flask" description="+20 HP" path = "/res/items/healing flask.png" type="Reagent" heal="20" mana="0"/>
@@ -188,6 +192,7 @@
             <font name="lootfont" fontName="verdana" size="10" isBold="false"/>
             <font name="itemfont" fontName="verdana" size="12" isBold="false"/>
             <font name="descfont" fontName="verdana" size="14" isBold="false"/>
+            <font name="replica_font" fontName="verdana" size="10" isBold="false"/>
         </fonts>
         <units>
             <unit name="hero" mask="unit">
@@ -370,6 +375,15 @@
                     <loot name="Apple" probability="1"/>
                 </lootList>
             </unit>
+            <unit name="wanderer" mask="unit">
+                <attribute hp="150" mp="150" maximumSpeed="0.12" pAttack="10" mAttack="15" pArmor="5" mArmor="7"/>
+                <inventory>
+                </inventory>
+                <skillList>
+                </skillList>
+                <lootList>
+                </lootList>
+            </unit>
         </units>
         <obstacles>
             <obstacle name="wall" mask="wall"/>
@@ -393,6 +407,38 @@
             <sound name="apple_bite" path="/res/sounds/apple_bite.wav"/>
             <sound name="fireball" path="/res/sounds/fireball.wav"/>
         </sounds>
+        <quests>
+            <quest name="Beat bandits">
+                <replicasClosed>
+                    <replica text="Hello, Hero!"/>
+                    <replica text="Now it's time to get your first quest."/>
+                </replicasClosed>
+                <replicasOpened>
+                    <replica text="Come when you finish your task."/>
+                </replicasOpened>
+                <replicasCompleted>
+                    <replica text="Good job, Hero! You are really so good as I expect."/>
+                </replicasCompleted>
+                <actions>
+                    <action action="take" type="item" name="Sword"/>
+                    <action action="give" type="item" name="Strong_sword"/>
+                    <action action="give" type="skill" name="Strong_sword_attack"/>
+                </actions>
+            </quest>
+            <quest name="No quest">
+                <replicasClosed>
+                    <replica text="No more quests for you, sorry."/>
+                    <replica text="Maybe you should come later"/>
+                </replicasClosed>
+                <replicasOpened>
+                </replicasOpened>
+                <replicasCompleted>
+                    <replica text="Sorry, as I said, no more quests for you, boy."/>
+                </replicasCompleted>
+                <actions>
+                </actions>
+            </quest>
+        </quests>
     </gameplay>
 
     <menustart>

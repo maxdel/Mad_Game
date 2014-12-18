@@ -10,6 +10,7 @@ public enum GameObjInstanceKind {
     SKELETON, SKELETONMAGE,
     FIREELEMENTAL, WATERELEMENTAL,
     VAMPIRE,
-    HERO
+    HERO,
+    WANDERER
 
 }

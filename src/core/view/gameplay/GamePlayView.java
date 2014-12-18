@@ -85,6 +85,9 @@ public class GamePlayView {
                 case WATERELEMENTAL:
                     gameObjectViewList.add(new WaterElementalView(gameObject));
                     break;
+                case WANDERER:
+                    gameObjectViewList.add(new NPCView(gameObject));
+                    break;
             }
         }
 
@@ -205,6 +208,9 @@ public class GamePlayView {
                     break;
                 case GOLEMBOSS:
                     gameObjectViewList.add(new GolemBossView(gameObject));
+                    break;
+                case WANDERER:
+                    gameObjectViewList.add(new NPCView(gameObject));
                     break;
             }
         }

@@ -129,6 +129,10 @@ public class World {
                             tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjInstanceKind.GOLEMBOSS,
                             new GolemBossAI());
                     gameObjectList.add(bot);
+                } else if (tileObjectName.equals("npc")) {
+                    NPC npc = new NPC(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
+                            tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, GameObjInstanceKind.WANDERER);
+                    gameObjectList.add(npc);
                 }
             }
         }

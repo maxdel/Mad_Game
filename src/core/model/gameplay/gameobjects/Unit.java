@@ -17,7 +17,7 @@ public abstract class Unit extends GameObjectSolid {
 
     private double relativeDirection;
     private Attribute attribute;
-    private GameObjectState currentState;
+    protected GameObjectState currentState;
 
     private List<LootRecord> lootRecordList;
     private Inventory inventory;

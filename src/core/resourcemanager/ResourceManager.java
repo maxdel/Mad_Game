@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 import java.util.List;
+
+import core.model.gameplay.Quest;
+import core.model.gameplay.QuestAction;
 import javafx.util.Pair;
 
 import core.gamestates.GameState;
@@ -27,8 +30,6 @@ public class ResourceManager {
 
     private final String xmlFilePath = "res/resources.xml";
 
-
-    private Image skillFakeImage;
     private Map<String, AnimationInfo> animationInfos;
     private Map<String, MaskInfo> maskInfos;
     private Map<String, FontInfo> fontInfos;
@@ -39,6 +40,7 @@ public class ResourceManager {
     private Map<GameObjInstanceKind, ObstacleInfo> obstacleInfos;
     private Map<GameObjInstanceKind, BulletInfo> bulletInfos;
     private Map<String, SoundInfo> soundInfos;
+    private Map<String, Quest> questInfos;
 
     private ResourceManager() {
         animationInfos = new HashMap<>();
@@ -51,6 +53,7 @@ public class ResourceManager {
         obstacleInfos = new HashMap<>();
         bulletInfos = new HashMap<>();
         soundInfos = new HashMap<>();
+        questInfos = new HashMap<>();
     }
 
 
@@ -101,6 +104,7 @@ public class ResourceManager {
         loadObstacles(gameplayElement);
         loadBullets(gameplayElement);
         loadSounds(gameplayElement);
+        loadQuests(gameplayElement);
 
         in.close();
     }
@@ -365,6 +369,44 @@ public class ResourceManager {
         }
     }
 
+    private void loadQuests(XMLElement gameStateElement) throws SlickException {
+        XMLElement questsElement = gameStateElement.getChildrenByName("quests").get(0);
+        XMLElementList questList = questsElement.getChildrenByName("quest");
+        for (int i = 0; i < questList.size(); ++i) {
+            XMLElement questElement = questList.get(i);
+
+            String questName = questElement.getAttribute("name");
+            List<String> closedReplicaList = loadReplicaList(questElement, "replicasClosed");
+            List<String> openedReplicaList = loadReplicaList(questElement, "replicasOpened");
+            List<String> completedReplicaList = loadReplicaList(questElement, "replicasCompleted");
+
+            XMLElement actionsElement = questElement.getChildrenByName("actions").get(0);
+            XMLElementList actionElementList = actionsElement.getChildrenByName("action");
+            List<QuestAction> actionList = new ArrayList<>();
+            for (int j = 0; j < actionElementList.size(); ++j) {
+                XMLElement actionElement = actionElementList.get(j);
+                String action = actionElement.getAttribute("action");
+                String type = actionElement.getAttribute("type");
+                String name = actionElement.getAttribute("name");
+                actionList.add(new QuestAction(action, type, name));
+            }
+
+            questInfos.put(questName, new Quest(questName, closedReplicaList, openedReplicaList, completedReplicaList,
+                    actionList));
+        }
+    }
+
+    private List<String> loadReplicaList(XMLElement questElement, String replicasType) {
+        XMLElement replicasElement = questElement.getChildrenByName(replicasType).get(0);
+        XMLElementList replicaElementList = replicasElement.getChildrenByName("replica");
+        List<String> replicaList = new ArrayList<>();
+        for (int j = 0; j < replicaElementList.size(); ++j) {
+            XMLElement replica = replicaElementList.get(j);
+            replicaList.add(replica.getAttribute("text"));
+        }
+        return replicaList;
+    }
+
     // GETTERS
     public Image getImage(String name) {
         return imageInfos.get(name);
@@ -430,6 +472,10 @@ public class ResourceManager {
 
     public Sound getSound(String name) {
         return soundInfos.get(name).getSound();
+    }
+
+    public Quest getQuest(String name) {
+        return questInfos.get(name);
     }
 
 }

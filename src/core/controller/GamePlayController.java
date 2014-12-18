@@ -113,6 +113,11 @@ public class GamePlayController {
                 }
             }
 
+            // Talk to NPC
+            if (input.isMousePressed(input.MOUSE_LEFT_BUTTON)) {
+                Hero.getInstance().talkToNpc();
+            }
+
             // Use skill
             if (input.isKeyDown(input.KEY_1)) {
                 Hero.getInstance().startCastSkill(SkillInstanceKind.SWORD_ATTACK);

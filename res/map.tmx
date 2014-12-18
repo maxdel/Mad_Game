@@ -72,6 +72,11 @@
     <property name="name" value="banditboss"/>
    </properties>
   </tile>
+  <tile id="23">
+   <properties>
+    <property name="name" value="npc"/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="Tiles" width="64" height="64">
   <data encoding="base64" compression="gzip">
@@ -85,7 +90,7 @@
  </layer>
  <layer name="Objects" width="64" height="64">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3aSwrAIAwFwG77vf9xuy8Fkdoa05mtCBEheYjTBIxmLqwvn1QB7W29C4CgSn2/JPtcyH4+AHJbexeQSKZM8DT/QU/6Gq3ohTCu6LPAOzRQIodAHm/mkuiZB+BvajOczAdceTOCPMz5eqP1wMh3vD/YezSrAgCInBdayvRvlnsns3O4ewBAAAA=
+   H4sIAAAAAAAAC+3aOwqAMBAFQFu/tfc/qb0IQYxms860Irwg7D6CwwD0Ziw8nz5JAfUtrQNAUKW5X5J9L2Q/HwC5za0DJJKpEzztf9CSuUYtZiH0K/oucA8NlOghkMebvSR65wH4m7sdTucDziLfGe2tA0Bn7Pn7Is/AK5G/8frg3a1aCgAgcl+oKdN/s1w7AN4BLAQAQAAA
   </data>
  </layer>
  <objectgroup name="Слой объектов 1">
