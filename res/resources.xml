@@ -91,6 +91,8 @@
             <fake path="/res/opacitySkills/fake.png"></fake>
             <fake path="res/skills/cantCast.png"></fake>
             <fake path="res/opacitySkills/opacityCantCast.png"></fake>
+            <fake path="res/skills/onCD.png"></fake>
+            <fake path="res/opacitySkills/opacityOnCD.png"></fake>
         </skillFakes>
         <opacitySkills>
             <opskill name="Bow_shot" path="/res/opacitySkills/bow shot.png"/>
@@ -130,15 +132,15 @@
                     <itemRecord name="Arrow" number="100" />
                 </inventory>
                 <skillList>
-         <!--           <skill name="Heal"/>
---> <!--                   <skill name="Sword_attack"/>
                     <skill name="Strong_sword_attack"/>
- -->                   <skill name="Bow_shot"/>
+                    <skill name="Sword_attack"/>
+                    <skill name="Heal"/>
+                    <skill name="Bow_shot"/>
                     <skill name="Wind_bow"/>
-     <!--               <skill name="Staff_attack"/>
-     -->               <skill name="Fireball"/>
+                    <!--<skill name="Staff_attack"/>
+                    <skill name="Fireball"/>
                     <skill name="Blink"/>
-                </skillList>
+           -->     </skillList>
                 <lootList>
                     <loot name="Apple" probability="1" />
                 </lootList>

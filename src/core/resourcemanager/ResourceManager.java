@@ -44,6 +44,8 @@ public class ResourceManager {
     private Image opacitySkillFakeImage;
     private Image cantCastImage;
     private Image opacityCantCastImage;
+    private Image onCDImage;
+    private Image opacityOnCDImage;
 
     private ResourceManager() {
         animationInfos = new HashMap<>();
@@ -111,6 +113,8 @@ public class ResourceManager {
         setOpacitySkillFakeImage(gameplayElement);
         setCantCastImage(gameplayElement);
         setOpacityCantCastImage(gameplayElement);
+        setOnCDImage(gameplayElement);
+        setOpacityOnCDImage(gameplayElement);
 
         in.close();
     }
@@ -460,7 +464,8 @@ public class ResourceManager {
         return skillFakeImage;
     }
 
-    private void setSkillFakeImage(XMLElement gameStateElement) throws SlickException {
+
+        private void setSkillFakeImage(XMLElement gameStateElement) throws SlickException {
         XMLElement fakesEl = gameStateElement.getChildrenByName("skillFakes").get(0);
         XMLElementList fakes = fakesEl.getChildrenByName("fake");
         String path = fakes.get(0).getAttribute("path");
@@ -501,4 +506,26 @@ public class ResourceManager {
         return cantCastImage;
     }
 
+
+    private void setOnCDImage(XMLElement gameStateElement) throws SlickException {
+        XMLElement fakesEl = gameStateElement.getChildrenByName("skillFakes").get(0);
+        XMLElementList fakes = fakesEl.getChildrenByName("fake");
+        String path = fakes.get(4).getAttribute("path");
+        onCDImage = new Image(path);
+    }
+
+    private void setOpacityOnCDImage(XMLElement gameStateElement) throws SlickException {
+        XMLElement fakesEl = gameStateElement.getChildrenByName("skillFakes").get(0);
+        XMLElementList fakes = fakesEl.getChildrenByName("fake");
+        String path = fakes.get(5).getAttribute("path");
+        opacityOnCDImage = new Image(path);
+    }
+
+    public Image getOnCDImage() {
+        return onCDImage;
+    }
+
+    public Image getOpacityOnCDImage() {
+        return opacityOnCDImage;
+    }
 }

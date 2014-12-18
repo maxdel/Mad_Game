@@ -10,6 +10,9 @@ import core.view.gameplay.gameobjectsolid.ArrowView;
 import core.view.gameplay.gameobjectsolid.FireballView;
 import core.view.gameplay.gameobjectsolid.TreeView;
 import core.view.gameplay.gameobjectsolid.WallView;
+import core.view.gameplay.ui.HeroInfoView;
+import core.view.gameplay.ui.InventoryView;
+import core.view.gameplay.ui.SkillPanelView;
 import core.view.gameplay.unit.*;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -28,6 +31,7 @@ public class GamePlayView {
     private Camera camera;
     private InventoryView inventoryView;
     private SkillPanelView skillPanelView;
+    private HeroInfoView heroInfoView;
     private TileView tileView;
 
     private List<Class> renderOrder;
@@ -37,6 +41,8 @@ public class GamePlayView {
 
         this.skillPanelView = new SkillPanelView(World.getInstance().getHero().getSkillList(),
                 ResourceManager.getInstance().getSkillInfos(), gc);
+
+        this.heroInfoView = new HeroInfoView(gc);
 
         this.tileView = new TileView(tiledMap);
 
@@ -119,6 +125,8 @@ public class GamePlayView {
         inventoryView.render(g, camera.getWidth(), camera.getHeight());
 
         skillPanelView.render(g);
+
+        heroInfoView.render(g, camera);
     }
 
     public void update(int delta) {

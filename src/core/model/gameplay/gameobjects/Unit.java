@@ -20,7 +20,8 @@ public abstract class Unit extends GameObjectSolid {
     private GameObjectState currentState;
 
     private List<LootRecord> lootRecordList;
-    private Inventory inventory;
+    protected Inventory inventory;
+
 
     private Skill.ISkillAction skillApplyAction;
     private Skill.ISkillAction stealSkillCostAction;
@@ -145,7 +146,8 @@ public abstract class Unit extends GameObjectSolid {
      * Tries to start use item
      */
     public void startUseItem() {
-        if (currentState == GameObjectState.STAND && inventory.getSelectedRecord() != null) {
+        if ((currentState == GameObjectState.STAND || currentState == GameObjectState.MOVE)
+                && inventory.getSelectedRecord() != null) {
             currentState = GameObjectState.ITEM;
             itemToUse = inventory.getSelectedRecord();
             useItemTimer.activate(USE_ITEM_TIME);

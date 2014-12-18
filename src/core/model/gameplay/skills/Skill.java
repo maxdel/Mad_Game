@@ -150,4 +150,18 @@ public abstract class Skill {
     public Timer getTimerAterCooldown() {
         return timerAterCooldown;
     }
+
+    public int getCooldownTime() {
+        return cooldownTime;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+
 }

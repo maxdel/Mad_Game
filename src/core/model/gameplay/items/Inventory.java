@@ -13,6 +13,12 @@ public class Inventory {
     private List<ItemRecord> dressedItems;
     private ItemRecord selectedRecord;
 
+    private ItemRecord dressedWeapon;
+
+    public ItemRecord getDressedWeapon() {
+        return dressedWeapon;
+    }
+
     public Inventory(Unit owner) {
         this.owner = owner;
         existedItems = new ArrayList<>();
@@ -153,21 +159,31 @@ public class Inventory {
      * Dresses @param itemToDress
      * @param itemToDress is an ItemRecord we want to dress
      */
-    private void dressItem(ItemRecord itemToDress) {
+    public boolean dressItem(ItemRecord itemToDress) {
+        if (itemToDress == null) {
+            return false;
+        }
+
         ItemRecord itemToUndress = findItemToUndress(itemToDress);
 
         undressItem(itemToUndress);
 
         if (itemToDress == itemToUndress) {
-            return;
+            return true;
         }
 
         if (itemToUndress != null && implementsInterface(itemToUndress, IBonusGiver.class)) {
             ((IBonusGiver) itemToUndress).setBonuses(owner);
         }
 
+        if (itemToDress.getItem() instanceof Weapon) {
+            dressedWeapon = itemToDress;
+        }
+
         dressedItems.add(itemToDress);
         itemToDress.setMarked(true);
+
+        return true;
     }
 
     /**
@@ -253,6 +269,10 @@ public class Inventory {
 
     public void setSelectedRecord(int index) {
         selectedRecord = existedItems.get(index);
+    }
+
+    public void setSelectedRecord(ItemRecord itemRecord) {
+        selectedRecord = itemRecord;
     }
 
     private static boolean implementsInterface(Object object, Class interf){

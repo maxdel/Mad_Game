@@ -1,7 +1,8 @@
 package core.controller;
 
+import core.model.gameplay.gameobjects.GameObjectState;
 import core.model.gameplay.skills.SkillInstanceKind;
-import core.view.gameplay.SkillPanelView;
+import core.view.gameplay.ui.SkillPanelView;
 import main.Main;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.*;
@@ -87,6 +88,15 @@ public class GamePlayController {
                 SkillPanelView.isOpacity = true;
             }
 
+            if (input.isKeyPressed(Input.KEY_TAB)) {
+                SkillPanelView.skillBarsIsActive = !SkillPanelView.skillBarsIsActive;
+            }
+
+            if ((World.getInstance().getHero().getCurrentState() == GameObjectState.STAND
+                    || World.getInstance().getHero().getCurrentState() == GameObjectState.MOVE)
+                    & input.isKeyPressed(Input.KEY_Q)) {
+                hero.changeWeapon();
+            }
 
             // Controls the movement of the hero
             boolean[] downKeys = {false, false, false, false};
