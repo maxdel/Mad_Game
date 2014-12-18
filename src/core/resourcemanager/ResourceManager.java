@@ -418,6 +418,11 @@ public class ResourceManager {
         return itemInfos.get(instanceKind).getImage();
     }
 
+
+    public Image getSkillImage(SkillInstanceKind instanceKind) {
+        return skillInfos.get(instanceKind).getImageMain();
+    }
+
     public String getItemDescription(String name) {
         return itemInfos.get(name).getDescription();
     }

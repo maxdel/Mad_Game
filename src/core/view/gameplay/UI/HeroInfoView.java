@@ -28,6 +28,7 @@ public class HeroInfoView {
         drawBar(g, (int) (hero.getX() - camera.getX()), (int) (hero.getY() - camera.getY()) - 38, 60, 6,
                 hero.getAttribute().getMP().getCurrent(),
                 hero.getAttribute().getMP().getMaximum(), Color.blue);
+
         drawSkillProcessBar(g, (int) (hero.getX() - camera.getX()), (int) (hero.getY() - camera.getY()) + 38, 150, 4,
                 Color.magenta, Color.cyan);
 
