@@ -27,8 +27,6 @@ public class GamePlayState extends BasicGameState {
     private GamePlayView gamePlayView;
     private GamePlayController gamePlayController;
 
-
-
     private GamePlayState() {
 
     }
@@ -47,7 +45,7 @@ public class GamePlayState extends BasicGameState {
 
     @Override
     public void init(GameContainer gc, StateBasedGame game) throws SlickException {
-        gc.setMouseCursor("res/empty_image.png", 0, 0);
+        gc.setMouseGrabbed(true);
     }
 
     @Override
