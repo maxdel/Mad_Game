@@ -14,10 +14,7 @@ public class Inventory {
     private ItemRecord selectedRecord;
 
     private ItemRecord dressedWeapon;
-
-    public ItemRecord getDressedWeapon() {
-        return dressedWeapon;
-    }
+    private ItemInstanceKind dressedArmorKind;
 
     public Inventory(Unit owner) {
         this.owner = owner;
@@ -180,6 +177,10 @@ public class Inventory {
             dressedWeapon = itemToDress;
         }
 
+        if (itemToDress.getItem() instanceof Armor) {
+            dressedArmorKind =  itemToDress.getItem().getInstanceKind();
+        }
+
         dressedItems.add(itemToDress);
         itemToDress.setMarked(true);
 
@@ -274,6 +275,15 @@ public class Inventory {
     public void setSelectedRecord(ItemRecord itemRecord) {
         selectedRecord = itemRecord;
     }
+
+    public ItemInstanceKind getDressedArmorKind() {
+        return dressedArmorKind;
+    }
+
+    public ItemRecord getDressedWeapon() {
+        return dressedWeapon;
+    }
+
 
     private static boolean implementsInterface(Object object, Class interf){
         for (Class c : object.getClass().getInterfaces()) {

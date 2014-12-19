@@ -130,6 +130,8 @@
                     <itemRecord name="Sword" number="1" />
                     <!--<itemRecord name="Staff" number="1" />
                     --><itemRecord name="Arrow" number="100" />
+                    --><itemRecord name="Heavy_armor" number="1" />
+                    --><itemRecord name="Robe_of_magic" number="1" />
                 </inventory>
                 <skillList>
                     <skill name="Sword_attack"/>

@@ -89,15 +89,20 @@ public class GamePlayController {
                 SkillPanelView.isOpacity = true;
             }
 
-          /*  if (input.isKeyPressed(Input.KEY_TAB)) {
+            if (input.isKeyPressed(Input.KEY_TAB)) {
                 SkillPanelView.skillBarsIsActive = !SkillPanelView.skillBarsIsActive;
             }
-*/
+
 
             if ((World.getInstance().getHero().getCurrentState() == GameObjectState.STAND
                     || World.getInstance().getHero().getCurrentState() == GameObjectState.MOVE)
                     & input.isKeyPressed(Input.KEY_Q)) {
                 hero.changeWeapon();
+            }
+
+            if ((World.getInstance().getHero().getCurrentState() == GameObjectState.STAND)
+                    & input.isKeyPressed(Input.KEY_E)) {
+                hero.changeArmor();
             }
 
             // Controls the movement of the hero
