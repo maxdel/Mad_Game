@@ -58,7 +58,7 @@ public class GamePlayController {
 
         if (controlMode.equals("World")) {
 
-            // Controls the direction of the Hero.getInstance()
+            // Controls the direction of the hero
             oldMouseX = mouseX;
             oldMouseY = mouseY;
             mouseX = input.getMouseX();
@@ -78,7 +78,7 @@ public class GamePlayController {
                 mouseX = input.getMouseX();
             }
 
-            // Controls the movement of the Hero.getInstance()
+            // Controls the movement of the hero
             boolean[] downKeys = {false, false, false, false};
             if (input.isKeyDown(Input.KEY_D)) downKeys[0] = true;
             if (input.isKeyDown(Input.KEY_S)) downKeys[1] = true;
