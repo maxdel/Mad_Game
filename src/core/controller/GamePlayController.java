@@ -62,7 +62,7 @@ public class GamePlayController {
 
         if (controlMode.equals("World")) {
 
-            // Controls the direction of the Hero.getInstance()
+            // Controls the direction of the hero
             oldMouseX = mouseX;
             oldMouseY = mouseY;
             mouseX = input.getMouseX();
