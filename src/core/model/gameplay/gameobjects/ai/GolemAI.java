@@ -16,7 +16,8 @@ public class GolemAI extends BotAI {
     protected void init() {
         final int standTime = 1000;
         final int pursueDistance = 300;
-        final int attackDistance = 50;
+        final int attackDistance = (int) (owner.getMask().getBoundingCircleRadius() +
+                Hero.getInstance().getMask().getBoundingCircleRadius() + 5);
         final int retreatDistance = 30;
         final int strafeTime = 250;
         final double attackProbability = 0.7;
