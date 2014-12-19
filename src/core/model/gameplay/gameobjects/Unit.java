@@ -160,7 +160,8 @@ public abstract class Unit extends GameObjectSolid {
     private void useItem() {
         inventory.useItem(itemToUse);
         itemToUse = null;
-        currentState = GameObjectState.STAND;
+        currentState = GameObjectState.MOVE;
+        attribute.setCurrentSpeed(0);
     }
 
     /**
