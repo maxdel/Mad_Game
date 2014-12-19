@@ -135,6 +135,7 @@ public class HeroView extends UnitView {
             switch (hero.getCurrentState()) {
                 case MOVE:
                     //TODO: bad code
+                    int currentFrame = animation.getFrame();
                     if (hero.getInventory().getDressedWeapon().getItem().getClass() == Sword.class) {
                         animation = animationWalkSword;
                         animation.setSpeed((float) (hero.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("hero_walk_sword")));
@@ -145,10 +146,26 @@ public class HeroView extends UnitView {
                         animation = animationWalk;
                         animation.setSpeed((float) (hero.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("hero_walk")));
                     }
+                    animation.restart();
+                    animation.setCurrentFrame(currentFrame);
                     animation.start();
+                    break;
+                case STAND:
+                    if (hero.getInventory().getDressedWeapon().getItem().getClass() == Sword.class) {
+                        animation = animationWalkSword;
+                    } else if (hero.getInventory().getDressedWeapon().getItem().getClass() == Bow.class) {
+                        animation = animationWalkBow;
+                    } else {
+                        animation = animationWalk;
+                    }
+                    animation.stop();
+                    animation.setCurrentFrame(0);
                     break;
             }
             previousWeapon = Hero.getInstance().getInventory().getDressedWeapon().getItem();
+        }
+        if (animation.getFrame() != 0) {
+            System.out.println(animation.getFrame());
         }
         previousState = hero.getCurrentState();
 

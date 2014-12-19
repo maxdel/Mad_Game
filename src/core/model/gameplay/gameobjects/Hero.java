@@ -6,8 +6,6 @@ import core.model.gameplay.items.SpinnerArmor;
 import core.model.gameplay.items.ItemRecord;
 import core.model.gameplay.items.SpinnerWeapon;
 
-import java.util.List;
-
 /**
  * Represents hero
  * */
