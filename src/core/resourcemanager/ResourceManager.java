@@ -42,12 +42,20 @@ public class ResourceManager {
     private Map<String, SoundInfo> soundInfos;
     private Map<String, Quest> questInfos;
 
+    //skills
+    private Image skillFakeImage;
+    private Image opacitySkillFakeImage;
+    private Image cantCastImage;
+    private Image opacityCantCastImage;
+    private Image onCDImage;
+    private Image opacityOnCDImage;
+
     private ResourceManager() {
         animationInfos = new HashMap<>();
         maskInfos = new HashMap<>();
         fontInfos = new HashMap<>();
         itemInfos = new HashMap<>();
-        skillInfos = new HashMap<>();
+        skillInfos = new LinkedHashMap<>();
         imageInfos = new HashMap<>();
         unitInfos = new HashMap<>();
         obstacleInfos = new HashMap<>();
@@ -105,6 +113,13 @@ public class ResourceManager {
         loadBullets(gameplayElement);
         loadSounds(gameplayElement);
         loadQuests(gameplayElement);
+
+        setSkillFakeImage(gameplayElement);
+        setOpacitySkillFakeImage(gameplayElement);
+        setCantCastImage(gameplayElement);
+        setOpacityCantCastImage(gameplayElement);
+        setOnCDImage(gameplayElement);
+        setOpacityOnCDImage(gameplayElement);
 
         in.close();
     }
@@ -227,6 +242,20 @@ public class ResourceManager {
 
             SkillInstanceKind skillInstanceKind = SkillInstanceKind.valueOf(name.toUpperCase());
             skillInfos.put(skillInstanceKind, new SkillInfo(name, description, type, new Image(path), map, skillInstanceKind));
+        }
+
+        setOpacitiSkilllsImages(gameStateElement);
+    }
+
+    private void setOpacitiSkilllsImages(XMLElement gameStateElement) throws SlickException {
+        XMLElement opacitySkillsElement = gameStateElement.getChildrenByName("opacitySkills").get(0);
+        XMLElementList opSkillList = opacitySkillsElement.getChildrenByName("opskill");
+        for (int i = 0; i < opSkillList.size(); ++i) {
+            XMLElement skillElement = opSkillList.get(i);
+            String path = skillElement.getAttribute("path");
+            String name = skillElement.getAttribute("name");
+            SkillInstanceKind kind = SkillInstanceKind.valueOf(name.toUpperCase());
+            skillInfos.get(kind).setOpacityImage(new Image(path));
         }
     }
 
@@ -432,6 +461,11 @@ public class ResourceManager {
         return itemInfos.get(instanceKind).getImage();
     }
 
+
+    public Image getSkillImage(SkillInstanceKind instanceKind) {
+        return skillInfos.get(instanceKind).getImageMain();
+    }
+
     public String getItemDescription(String name) {
         return itemInfos.get(name).getDescription();
     }
@@ -478,4 +512,67 @@ public class ResourceManager {
         return questInfos.get(name);
     }
 
+        private void setSkillFakeImage(XMLElement gameStateElement) throws SlickException {
+        XMLElement fakesEl = gameStateElement.getChildrenByName("skillFakes").get(0);
+        XMLElementList fakes = fakesEl.getChildrenByName("fake");
+        String path = fakes.get(0).getAttribute("path");
+        skillFakeImage = new Image(path);
+    }
+
+    public Image getOpacitySkillFakeImage() {
+        return opacitySkillFakeImage;
+    }
+
+    public void setOpacitySkillFakeImage(XMLElement gameStateElement) throws SlickException {
+        XMLElement fakesEl = gameStateElement.getChildrenByName("skillFakes").get(0);
+        XMLElementList fakes = fakesEl.getChildrenByName("fake");
+        String path = fakes.get(1).getAttribute("path");
+        opacitySkillFakeImage = new Image(path);
+    }
+
+    public Image getOpacityCantCastImage() {
+        return opacityCantCastImage;
+    }
+
+
+    public void setCantCastImage(XMLElement gameStateElement) throws SlickException {
+        XMLElement fakesEl = gameStateElement.getChildrenByName("skillFakes").get(0);
+        XMLElementList fakes = fakesEl.getChildrenByName("fake");
+        String path = fakes.get(3).getAttribute("path");
+        opacityCantCastImage = new Image(path);
+    }
+
+    public void setOpacityCantCastImage(XMLElement gameStateElement) throws SlickException {
+        XMLElement fakesEl = gameStateElement.getChildrenByName("skillFakes").get(0);
+        XMLElementList fakes = fakesEl.getChildrenByName("fake");
+        String path = fakes.get(2).getAttribute("path");
+        cantCastImage = new Image(path);
+    }
+
+    public Image getCantCastImage() {
+        return cantCastImage;
+    }
+
+
+    private void setOnCDImage(XMLElement gameStateElement) throws SlickException {
+        XMLElement fakesEl = gameStateElement.getChildrenByName("skillFakes").get(0);
+        XMLElementList fakes = fakesEl.getChildrenByName("fake");
+        String path = fakes.get(4).getAttribute("path");
+        onCDImage = new Image(path);
+    }
+
+    private void setOpacityOnCDImage(XMLElement gameStateElement) throws SlickException {
+        XMLElement fakesEl = gameStateElement.getChildrenByName("skillFakes").get(0);
+        XMLElementList fakes = fakesEl.getChildrenByName("fake");
+        String path = fakes.get(5).getAttribute("path");
+        opacityOnCDImage = new Image(path);
+    }
+
+    public Image getOnCDImage() {
+        return onCDImage;
+    }
+
+    public Image getOpacityOnCDImage() {
+        return opacityOnCDImage;
+    }
 }

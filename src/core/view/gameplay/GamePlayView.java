@@ -7,6 +7,14 @@ import core.resourcemanager.ResourceManager;
 import core.view.gameplay.gameobject.GameObjectView;
 import core.view.gameplay.gameobject.LootView;
 import core.view.gameplay.gameobjectsolid.*;
+import core.view.gameplay.gameobjectsolid.ArrowView;
+import core.view.gameplay.gameobjectsolid.FireballView;
+import core.view.gameplay.gameobjectsolid.TreeView;
+import core.view.gameplay.gameobjectsolid.WallView;
+import core.view.gameplay.ui.HeroInfoView;
+import core.view.gameplay.ui.InventoryView;
+import core.view.gameplay.ui.SkillPanelView;
+import core.view.gameplay.ui.WeaponPanelView;
 import core.view.gameplay.unit.*;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -25,15 +33,23 @@ public class GamePlayView {
     private Camera camera;
     private InventoryView inventoryView;
     private SkillPanelView skillPanelView;
+    private WeaponPanelView weaponPanelView;
+    private HeroInfoView heroInfoView;
     private TileView tileView;
 
     private List<Class> renderOrder;
+
+
 
     public GamePlayView(GameContainer gc, List<GameObject> gameObjectList, TiledMapAdv tiledMap) throws SlickException {
         this.inventoryView = new InventoryView(Hero.getInstance().getInventory());
 
         this.skillPanelView = new SkillPanelView(Hero.getInstance().getSkillList(),
                 ResourceManager.getInstance().getSkillInfos(), gc);
+
+        this.weaponPanelView = new WeaponPanelView(gc);
+
+        this.heroInfoView = new HeroInfoView(gc);
 
         this.tileView = new TileView(tiledMap);
 
@@ -150,6 +166,10 @@ public class GamePlayView {
         inventoryView.render(g, camera.getWidth(), camera.getHeight());
 
         skillPanelView.render(g);
+
+        weaponPanelView.render(g);
+
+        heroInfoView.render(g, camera);
     }
 
     public void update(int delta) {

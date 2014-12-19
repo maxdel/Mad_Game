@@ -13,6 +13,9 @@ public class Inventory {
     private List<ItemRecord> dressedItems;
     private ItemRecord selectedRecord;
 
+    private ItemRecord dressedWeapon;
+    private ItemInstanceKind dressedArmorKind;
+
     public Inventory(Unit owner) {
         this.owner = owner;
         existedItems = new ArrayList<>();
@@ -153,21 +156,35 @@ public class Inventory {
      * Dresses @param itemToDress
      * @param itemToDress is an ItemRecord we want to dress
      */
-    private void dressItem(ItemRecord itemToDress) {
+    public boolean dressItem(ItemRecord itemToDress) {
+        if (itemToDress == null) {
+            return false;
+        }
+
         ItemRecord itemToUndress = findItemToUndress(itemToDress);
 
         undressItem(itemToUndress);
 
         if (itemToDress == itemToUndress) {
-            return;
+            return true;
         }
 
         if (itemToUndress != null && implementsInterface(itemToUndress, IBonusGiver.class)) {
             ((IBonusGiver) itemToUndress).setBonuses(owner);
         }
 
+        if (itemToDress.getItem() instanceof Weapon) {
+            dressedWeapon = itemToDress;
+        }
+
+        if (itemToDress.getItem() instanceof Armor) {
+            dressedArmorKind =  itemToDress.getItem().getInstanceKind();
+        }
+
         dressedItems.add(itemToDress);
         itemToDress.setMarked(true);
+
+        return true;
     }
 
     /**
@@ -271,6 +288,19 @@ public class Inventory {
     public void setSelectedRecord(int index) {
         selectedRecord = existedItems.get(index);
     }
+
+    public void setSelectedRecord(ItemRecord itemRecord) {
+        selectedRecord = itemRecord;
+    }
+
+    public ItemInstanceKind getDressedArmorKind() {
+        return dressedArmorKind;
+    }
+
+    public ItemRecord getDressedWeapon() {
+        return dressedWeapon;
+    }
+
 
     private static boolean implementsInterface(Object object, Class interf){
         for (Class c : object.getClass().getInterfaces()) {

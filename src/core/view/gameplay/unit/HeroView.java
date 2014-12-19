@@ -1,6 +1,8 @@
 package core.view.gameplay.unit;
 
 import core.model.gameplay.gameobjects.*;
+import core.model.gameplay.items.Bow;
+import core.model.gameplay.items.Sword;
 import core.view.gameplay.Camera;
 import core.view.gameplay.ParticleEffect;
 import org.newdawn.slick.*;
@@ -40,10 +42,10 @@ public class HeroView extends UnitView {
             switch (hero.getCurrentState()) {
                 case MOVE:
                     //TODO: bad code
-                    if (hero.getInventory().getDressedWeaponType().equals("Sword")) {
+                    if (hero.getInventory().getDressedWeapon().getItem().getClass() == Sword.class) {
                         animation = animationWalkSword;
                         animation.setSpeed((float) (hero.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("hero_walk_sword")));
-                    } else if (hero.getInventory().getDressedWeaponType().equals("Bow")) {
+                    } else if (hero.getInventory().getDressedWeapon().getItem().getClass() == Bow.class) {
                         animation = animationWalkBow;
                         animation.setSpeed((float) (hero.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("hero_walk_bow")));
                     } else {
@@ -53,21 +55,20 @@ public class HeroView extends UnitView {
                     animation.start();
                     break;
                 case STAND:
-                case DIALOG:
-                    if (hero.getInventory().getDressedWeaponType().equals("Sword")) {
+                    if (hero.getInventory().getDressedWeapon().getItem().getClass() == Sword.class) {
                         animation = animationWalkSword;
-                    } else if (hero.getInventory().getDressedWeaponType().equals("Bow")) {
+                    } else if (hero.getInventory().getDressedWeapon().getItem().getClass() == Bow.class) {
                         animation = animationWalkBow;
                     } else {
-                    animation = animationWalk;
+                        animation = animationWalk;
                     }
                     animation.stop();
                     animation.setCurrentFrame(0);
                     break;
                 case ITEM:
-                    if (hero.getInventory().getDressedWeaponType().equals("Sword")) {
+                    if (hero.getInventory().getDressedWeapon().getItem().getClass() == Sword.class) {
                         animation = animationWalkSword;
-                    } else if (hero.getInventory().getDressedWeaponType().equals("Bow")) {
+                    } else if (hero.getInventory().getDressedWeapon().getItem().getClass() == Bow.class) {
                         animation = animationWalkBow;
                     } else {
                         animation = animationWalk;
@@ -117,10 +118,22 @@ public class HeroView extends UnitView {
                             }
                             break;
                     }
-                    animation.start();
+                animation.start();
+                case DIALOG:
+                    if (hero.getInventory().getDressedWeapon().getItem().getClass() == Sword.class) {
+                        if (hero.getInventory().getDressedWeapon().getItem().getClass() == Sword.class) {
+                            animation = animationWalkSword;
+                        } else if (hero.getInventory().getDressedWeapon().getItem().getClass() == Bow.class) {
+                            animation = animationWalkBow;
+                        } else {
+                            animation = animationWalk;
+                        }
+                        animation.stop();
+                        animation.setCurrentFrame(0);
+                    }
+                    break;
             }
         }
-
         previousState = hero.getCurrentState();
 
         super.render(g, camera);

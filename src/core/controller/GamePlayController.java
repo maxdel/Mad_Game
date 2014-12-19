@@ -1,7 +1,10 @@
 package core.controller;
 
 import core.model.gameplay.gameobjects.Hero;
+import core.model.gameplay.gameobjects.GameObjectState;
 import core.model.gameplay.skills.SkillInstanceKind;
+import core.resourcemanager.ResourceManager;
+import core.view.gameplay.ui.SkillPanelView;
 import main.Main;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.*;
@@ -24,6 +27,7 @@ public class GamePlayController {
     private String controlMode;
     private boolean combatMode;
     private final double ROTATE_SPEED = 1f/288;
+    private Hero hero = Hero.getInstance();
 
     public GamePlayController(World world, GamePlayView gamePlayView) throws SlickException {
         oldMouseX = -1;
@@ -78,7 +82,30 @@ public class GamePlayController {
                 mouseX = input.getMouseX();
             }
 
-            // Controls the movement of the Hero.getInstance()
+            // Skill panel view showing
+            if (input.isKeyDown(Input.KEY_LSHIFT)) {
+                SkillPanelView.isOpacity = false;
+            } else {
+                SkillPanelView.isOpacity = true;
+            }
+
+            if (input.isKeyPressed(Input.KEY_TAB)) {
+                SkillPanelView.skillBarsIsActive = !SkillPanelView.skillBarsIsActive;
+            }
+
+
+            if ((Hero.getInstance().getCurrentState() == GameObjectState.STAND
+                    || Hero.getInstance().getCurrentState() == GameObjectState.MOVE)
+                    & input.isKeyPressed(Input.KEY_Q)) {
+                Hero.getInstance().changeWeapon();
+            }
+
+            if ((Hero.getInstance().getCurrentState() == GameObjectState.STAND)
+                    & input.isKeyPressed(Input.KEY_E)) {
+                Hero.getInstance().changeArmor();
+            }
+
+            // Controls the movement of the hero
             boolean[] downKeys = {false, false, false, false};
             if (input.isKeyDown(Input.KEY_D)) downKeys[0] = true;
             if (input.isKeyDown(Input.KEY_S)) downKeys[1] = true;
@@ -136,7 +163,7 @@ public class GamePlayController {
             if (input.isKeyDown(input.KEY_5)) {
                 Hero.getInstance().startCastSkill(SkillInstanceKind.STAFF_ATTACK);
             }
-            if (input.isMouseButtonDown(input.MOUSE_RIGHT_BUTTON)) {
+            if (input.isMouseButtonDown(input.KEY_6)) {
                 Hero.getInstance().startCastSkill(SkillInstanceKind.BLINK);
             }
             if (input.isKeyDown(input.KEY_7)) {
