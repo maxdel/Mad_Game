@@ -1,23 +1,21 @@
 package core.model.gameplay.items;
 
-import core.model.gameplay.World;
 import core.model.gameplay.gameobjects.Hero;
 
 import java.util.List;
 
-public class ArmorLinkedList {
-    ArmorNode heavy;
-    ArmorNode light;
-    ArmorNode robe;
-    ArmorNode dressed;
+public class SpinnerArmor extends SpinnerThreesome {
+    SpinnerNode heavy;
+    SpinnerNode light;
+    SpinnerNode robe;
 
     List<ItemRecord> existedItems;
 
-    public ArmorLinkedList(List<ItemRecord> existedItems) {
+    public SpinnerArmor(List<ItemRecord> existedItems) {
         this.existedItems = existedItems;
-        heavy = new ArmorNode();
-        light = new ArmorNode();
-        robe = new ArmorNode();
+        heavy = new SpinnerNode();
+        light = new SpinnerNode();
+        robe = new SpinnerNode();
 
         heavy.next = light;
         light.next = robe;
@@ -26,13 +24,14 @@ public class ArmorLinkedList {
         setValues();
     }
 
-    public ItemRecord getNext() {
-        dressed = getNodeFromArmor(Hero.getInstance().getInventory().getDressedWeapon());
-        setValues();
-        return dressed.next().value;
+
+    @Override
+    protected void setDressed() {
+        dressed = getNode(Hero.getInstance().getInventory().getDressedWeapon());
     }
 
-    private ArmorNode getNodeFromArmor(ItemRecord weapon) {
+    @Override
+    protected SpinnerNode getNode(ItemRecord weapon) {
         if (weapon.getItem().getClass() == Sword.class) {
             return heavy;
         } else if (weapon.getItem().getClass() == Bow.class) {
@@ -44,7 +43,8 @@ public class ArmorLinkedList {
         return null;
     }
 
-    private void setValues() {
+    @Override
+    protected void setValues() {
         for (ItemRecord existedItem : existedItems) {
             if (existedItem.getItem().getInstanceKind() == ItemInstanceKind.HEAVY_ARMOR) {
                 heavy.value = existedItem;
@@ -56,23 +56,5 @@ public class ArmorLinkedList {
         }
     }
 
-    private class ArmorNode {
-        ItemRecord value;
-        ArmorNode next;
-        ArmorNode curr;
-
-        public ArmorNode() {
-            curr = this;
-        }
-
-        ArmorNode next() {
-            curr = curr.next;
-            if (curr.value != null) {
-                return curr;
-            }
-            ArmorNode curr = next();
-            return curr;
-        }
-    }
 
 }

@@ -14,16 +14,13 @@ public class Inventory {
     private ItemRecord selectedRecord;
 
     private ItemRecord dressedWeapon;
-    private ItemInstanceKind dressedArmorKind;
+    private ItemRecord dressedArmor;
 
     public Inventory(Unit owner) {
         this.owner = owner;
         existedItems = new ArrayList<>();
         dressedItems = new ArrayList<>();
         selectedRecord = null;
-
-        addItem(ItemInstanceKind.ARROW);
-        addItem(ItemInstanceKind.BOW);
     }
 
     /**
@@ -178,7 +175,7 @@ public class Inventory {
         }
 
         if (itemToDress.getItem() instanceof Armor) {
-            dressedArmorKind =  itemToDress.getItem().getInstanceKind();
+            dressedArmor =  itemToDress;
         }
 
         dressedItems.add(itemToDress);
@@ -223,20 +220,6 @@ public class Inventory {
     }
 
     /* Getters and setters region */
-    public String getDressedWeaponType() {
-        for (Iterator<ItemRecord> it = dressedItems.iterator(); it.hasNext();) {
-            ItemRecord itemRecord = it.next();
-            if (itemRecord.getItem() instanceof Sword) {
-                return "Sword";
-            } else if (itemRecord.getItem() instanceof Bow) {
-                return "Bow";
-            } else if (itemRecord.getItem() instanceof Staff) {
-                return "Stuff";
-            }
-        }
-        return "";
-    }
-
     public boolean isItemDressed(Item item) {
         for (Iterator<ItemRecord> it = dressedItems.iterator(); it.hasNext();) {
             ItemRecord itemRecord = it.next();
@@ -293,8 +276,8 @@ public class Inventory {
         selectedRecord = itemRecord;
     }
 
-    public ItemInstanceKind getDressedArmorKind() {
-        return dressedArmorKind;
+    public ItemRecord getDressedArmor() {
+        return dressedArmor;
     }
 
     public ItemRecord getDressedWeapon() {

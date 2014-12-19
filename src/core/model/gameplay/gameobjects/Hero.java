@@ -2,9 +2,9 @@ package core.model.gameplay.gameobjects;
 
 import core.MathAdv;
 import core.model.gameplay.World;
-import core.model.gameplay.items.ArmorLinkedList;
+import core.model.gameplay.items.SpinnerArmor;
 import core.model.gameplay.items.ItemRecord;
-import core.model.gameplay.items.WeaponLinkedList;
+import core.model.gameplay.items.SpinnerWeapon;
 
 /**
  * Represents hero
@@ -14,8 +14,8 @@ public class Hero extends Unit {
     private static Hero instance;
 
     private NPC selectedNPC;
-    private WeaponLinkedList weaponLinkedList;
-    private ArmorLinkedList armorLinkedList;
+    private SpinnerWeapon spinnerWeapon;
+    private SpinnerArmor spinnerAromor;
 
     private Hero(double x, double y, double direction) {
 
@@ -24,8 +24,11 @@ public class Hero extends Unit {
 
         inventory.dressItem(inventory.getExistedItems().get(2));
 
-        weaponLinkedList = new WeaponLinkedList(inventory.getExistedItems());
-        armorLinkedList = new ArmorLinkedList(inventory.getExistedItems());
+        spinnerWeapon = new SpinnerWeapon(inventory.getExistedItems());
+        spinnerAromor = new SpinnerArmor(inventory.getExistedItems());
+
+        inventory.dressItem(inventory.getExistedItems().get(0));
+        inventory.dressItem(inventory.getExistedItems().get(5));
     }
 
     public static Hero getInstance(boolean reset) {
@@ -83,7 +86,7 @@ public class Hero extends Unit {
     }
 
     public void changeWeapon() {
-        ItemRecord itemToDress = weaponLinkedList.getNext();
+        ItemRecord itemToDress = spinnerWeapon.getNext();
         if (inventory.getDressedWeapon().getItem().getClass() == itemToDress.getItem().getClass()) {
             return;
         }
@@ -94,8 +97,8 @@ public class Hero extends Unit {
     }
 
     public void changeArmor() {
-        ItemRecord itemToDress = armorLinkedList.getNext();
-        if (inventory.getDressedArmorKind() == itemToDress.getItem().getInstanceKind()) {
+        ItemRecord itemToDress = spinnerAromor.getNext();
+        if (inventory.getDressedArmor().getItem().getInstanceKind() == itemToDress.getItem().getInstanceKind()) {
             return;
         }
 
