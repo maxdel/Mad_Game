@@ -66,7 +66,7 @@ public class BanditAI extends BotAI {
                 if ((getDistanceToHero() >= pursueDistance && timer.isTime()) || !isFollowing) { currentState = BanditAIState.STAND; return; }
                 if (getDistanceToHero() < attackDistance && Math.random() < attackProbability) { currentState = BanditAIState.ATTACK; return; }
                 if (getDistanceToHero() < attackDistance && Math.random() < strafeProbability) { currentState = BanditAIState.STRAFE; return; }
-                if (getDistanceToHero() < attackDistance) currentState = BanditAIState.RETREAT; }
+                if (getDistanceToHero() < attackDistance) { currentState = BanditAIState.RETREAT; return; } }
         });
         stateMap.put(BanditAIState.ATTACK, new AIState() {
             public void enter()           { }
