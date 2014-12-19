@@ -1,7 +1,7 @@
 package core.controller;
 
 import core.model.gameplay.gameobjects.Hero;
-import core.model.gameplay.gameobjects.GameObjectState;
+import core.model.gameplay.gameobjects.UnitState;
 import core.model.gameplay.skills.SkillInstanceKind;
 import main.Main;
 import org.lwjgl.input.Mouse;
@@ -80,13 +80,13 @@ public class GamePlayController {
             }
 
 
-            if ((Hero.getInstance().getCurrentState() == GameObjectState.STAND
-                    || Hero.getInstance().getCurrentState() == GameObjectState.MOVE)
+            if ((Hero.getInstance().getCurrentState() == UnitState.STAND
+                    || Hero.getInstance().getCurrentState() == UnitState.MOVE)
                     & input.isKeyPressed(Input.KEY_Q)) {
                 Hero.getInstance().changeWeapon();
             }
 
-            if ((Hero.getInstance().getCurrentState() == GameObjectState.STAND)
+            if ((Hero.getInstance().getCurrentState() == UnitState.STAND)
                     & input.isKeyPressed(Input.KEY_E)) {
                 Hero.getInstance().changeArmor();
             }

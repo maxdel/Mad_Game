@@ -2,26 +2,24 @@ package core.view.gameplay.unit;
 
 import core.model.gameplay.gameobjects.*;
 import core.model.gameplay.items.Bow;
+import core.model.gameplay.items.Item;
 import core.model.gameplay.items.Sword;
 import core.view.gameplay.Camera;
-import core.view.gameplay.ParticleEffect;
 import org.newdawn.slick.*;
 
 import core.model.gameplay.skills.Skill;
 import core.resourcemanager.ResourceManager;
-import org.newdawn.slick.particles.ParticleIO;
-
-import java.io.IOException;
 
 public class HeroView extends UnitView {
 
-    private GameObjectState previousState;
+    private UnitState previousState;
     private Animation animationWalk;
     private Animation animationWalkSword;
     private Animation animationStrongSwordAttack;
     private Animation animationSwordAttack;
     private Animation animationWalkBow;
     private Animation animationBowShot;
+    private Item previousWeapon;
 
     public HeroView(GameObject hero) throws SlickException {
         super(hero);
@@ -133,6 +131,24 @@ public class HeroView extends UnitView {
                     }
                     break;
             }
+        } else if (Hero.getInstance().getInventory().getDressedWeapon().getItem() != previousWeapon) {
+            switch (hero.getCurrentState()) {
+                case MOVE:
+                    //TODO: bad code
+                    if (hero.getInventory().getDressedWeapon().getItem().getClass() == Sword.class) {
+                        animation = animationWalkSword;
+                        animation.setSpeed((float) (hero.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("hero_walk_sword")));
+                    } else if (hero.getInventory().getDressedWeapon().getItem().getClass() == Bow.class) {
+                        animation = animationWalkBow;
+                        animation.setSpeed((float) (hero.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("hero_walk_bow")));
+                    } else {
+                        animation = animationWalk;
+                        animation.setSpeed((float) (hero.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("hero_walk")));
+                    }
+                    animation.start();
+                    break;
+            }
+            previousWeapon = Hero.getInstance().getInventory().getDressedWeapon().getItem();
         }
         previousState = hero.getCurrentState();
 

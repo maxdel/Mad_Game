@@ -1,9 +1,7 @@
 package core.view.gameplay.ui;
 
-import core.model.gameplay.World;
-import core.model.gameplay.gameobjects.GameObjectState;
+import core.model.gameplay.gameobjects.UnitState;
 import core.model.gameplay.gameobjects.Hero;
-import core.model.gameplay.skills.Skill;
 import core.view.gameplay.Camera;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -39,7 +37,7 @@ public class HeroInfoView {
     protected void drawSkillProcessBar(Graphics g, int x, int y, int width, int height, Color preCastColor,
                                        Color postCastColor) {
 
-        if (hero.getCurrentState() == GameObjectState.SKILL) {
+        if (hero.getCurrentState() == UnitState.SKILL) {
             int castTime = hero.getCastingSkill().getCastTime();
             int preCastTime = hero.getCastingSkill().getPreApplyTime();
             int postCastTime = castTime - preCastTime;

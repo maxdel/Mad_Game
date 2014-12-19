@@ -6,6 +6,8 @@ import core.model.gameplay.items.ArmorLinkedList;
 import core.model.gameplay.items.ItemRecord;
 import core.model.gameplay.items.WeaponLinkedList;
 
+import java.util.List;
+
 /**
  * Represents hero
  * */
@@ -14,6 +16,7 @@ public class Hero extends Unit {
     private static Hero instance;
 
     private NPC selectedNPC;
+
     private WeaponLinkedList weaponLinkedList;
     private ArmorLinkedList armorLinkedList;
 
@@ -40,15 +43,15 @@ public class Hero extends Unit {
     }
 
     public void talkToNpc() {
-        if ((currentState == GameObjectState.STAND || currentState == GameObjectState.MOVE ||
-                currentState == GameObjectState.DIALOG) && selectedNPC != null) {
+        if ((currentState == UnitState.STAND || currentState == UnitState.MOVE ||
+                currentState == UnitState.DIALOG) && selectedNPC != null) {
             stand();
             setDirection(MathAdv.getAngle(getX(), getY(), selectedNPC.getX(), selectedNPC.getY()));
             selectedNPC.apply();
             if (selectedNPC.isActive()) {
-                currentState = GameObjectState.DIALOG;
+                currentState = UnitState.DIALOG;
             } else {
-                currentState = GameObjectState.STAND;
+                currentState = UnitState.STAND;
             }
         }
     }
@@ -83,13 +86,14 @@ public class Hero extends Unit {
     }
 
     public void changeWeapon() {
+        System.out.println("Trying to change weapon");
         ItemRecord itemToDress = weaponLinkedList.getNext();
         if (inventory.getDressedWeapon().getItem().getClass() == itemToDress.getItem().getClass()) {
             return;
         }
 
         inventory.setSelectedRecord(itemToDress);
-        startUseItem();
+        fastUseItem();
         System.out.println("Dressed:" + itemToDress.getItem().getInstanceKind().toString());
     }
 

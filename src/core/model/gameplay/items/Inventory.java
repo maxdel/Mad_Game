@@ -1,10 +1,10 @@
 package core.model.gameplay.items;
 
-import core.model.gameplay.gameobjects.Unit;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import core.model.gameplay.gameobjects.Unit;
 
 public class Inventory {
 

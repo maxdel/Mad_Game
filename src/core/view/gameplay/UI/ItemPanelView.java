@@ -20,7 +20,7 @@ public class ItemPanelView {
     private Class currentWeapon;
     private ItemInstanceKind currentArmor;
 
-    public ItemPanelView(GameContainer gc) {
+    public ItemPanelView() {
         this.armorSpinner = new SpinnerView(40,
                 Arrays.asList(ResourceManager.getInstance().getImage("skill fake"),
                         ResourceManager.getInstance().getImage("skill fake"),

@@ -40,7 +40,7 @@ public class GamePlayView {
         this.inventoryView = new InventoryView(Hero.getInstance().getInventory());
 
         this.heroInfoView = new HeroInfoView(gc);
-        this.itemPanelView = new ItemPanelView(gc);
+        this.itemPanelView = new ItemPanelView();
 
         this.tileView = new TileView(tiledMap);
 
