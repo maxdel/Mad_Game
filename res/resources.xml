@@ -5,9 +5,11 @@
             <animation name="hero_walk" path="/res/hero/hero_walk.png" isImage = "false" frameWidth="128" frameHeight="128" speedCoef="5"/>
             <animation name="hero_walk_sword" path="/res/hero/hero_walk_sword.png" isImage = "false" frameWidth="128" frameHeight="128" speedCoef="5"/>
             <animation name="hero_walk_bow" path="/res/hero/hero_walk_bow.png" isImage = "false" frameWidth="128" frameHeight="128" speedCoef="5"/>
+            <animation name="hero_walk_staff" path="/res/hero/hero_walk_staff.png" isImage = "false" frameWidth="170" frameHeight="170" speedCoef="5"/>
             <animation name="hero_skill_sword_attack" path="/res/hero/hero_skill_sword_attack.png" isImage = "false" frameWidth="128" frameHeight="128" speedCoef="0.07"/>
             <animation name="hero_skill_strong_sword_attack" path="/res/hero/hero_skill_strong_sword_attack.png" isImage = "false" frameWidth="160" frameHeight="160" speedCoef="0.07"/>
             <animation name="hero_skill_bow_shot" path="/res/hero/hero_skill_bow_shot.png" isImage = "false" frameWidth="128" frameHeight="128" speedCoef="0.07"/>
+            <animation name="hero_skill_fireball" path="/res/hero/hero_skill_fireball.png" isImage = "false" frameWidth="160" frameHeight="160" speedCoef="0.07"/>
 
             <animation name="bandit" path="/res/bandit/bandit.png" isImage = "true"/>
             <animation name="bandit_walk_sword" path="/res/bandit/bandit_walk_sword.png" isImage = "false" frameWidth="160" frameHeight="160" speedCoef="5"/>
