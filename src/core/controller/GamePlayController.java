@@ -3,6 +3,7 @@ package core.controller;
 import core.model.gameplay.gameobjects.Hero;
 import core.model.gameplay.gameobjects.UnitState;
 import core.model.gameplay.skills.SkillInstanceKind;
+//import core.view.gameplay.ui.SkillPanelView;
 import main.Main;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.*;
@@ -79,6 +80,17 @@ public class GamePlayController {
                 mouseX = input.getMouseX();
             }
 
+
+            // Skill panel view showing
+            /*if (input.isKeyDown(Input.KEY_LSHIFT)) {
+                SkillPanelView.isOpacity = false;
+            } else {
+                SkillPanelView.isOpacity = true;
+            }
+
+            if (input.isKeyPressed(Input.KEY_TAB)) {
+                SkillPanelView.skillBarsIsActive = !SkillPanelView.skillBarsIsActive;
+            }*/
 
             if ((Hero.getInstance().getCurrentState() == UnitState.STAND
                     || Hero.getInstance().getCurrentState() == UnitState.MOVE)
