@@ -3,7 +3,6 @@ package core.controller;
 import core.model.gameplay.gameobjects.Hero;
 import core.model.gameplay.gameobjects.GameObjectState;
 import core.model.gameplay.skills.SkillInstanceKind;
-import core.resourcemanager.ResourceManager;
 import core.view.gameplay.ui.SkillPanelView;
 import main.Main;
 import org.lwjgl.input.Mouse;
@@ -11,7 +10,6 @@ import org.newdawn.slick.*;
 import org.newdawn.slick.state.StateBasedGame;
 
 import core.gamestates.GameState;
-import core.model.gameplay.gameobjects.Hero;
 import core.model.gameplay.World;
 
 import core.view.gameplay.GamePlayView;
@@ -82,6 +80,7 @@ public class GamePlayController {
                 mouseX = input.getMouseX();
             }
 
+
             // Skill panel view showing
             if (input.isKeyDown(Input.KEY_LSHIFT)) {
                 SkillPanelView.isOpacity = false;
@@ -92,7 +91,6 @@ public class GamePlayController {
             if (input.isKeyPressed(Input.KEY_TAB)) {
                 SkillPanelView.skillBarsIsActive = !SkillPanelView.skillBarsIsActive;
             }
-
 
             if ((Hero.getInstance().getCurrentState() == GameObjectState.STAND
                     || Hero.getInstance().getCurrentState() == GameObjectState.MOVE)

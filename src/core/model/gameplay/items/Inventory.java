@@ -284,7 +284,6 @@ public class Inventory {
         return dressedWeapon;
     }
 
-
     private static boolean implementsInterface(Object object, Class interf){
         for (Class c : object.getClass().getInterfaces()) {
             if (c.equals(interf)) {
@@ -293,4 +292,5 @@ public class Inventory {
         }
         return false;
     }
+
 }

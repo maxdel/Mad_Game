@@ -93,7 +93,6 @@ public class Hero extends Unit {
 
         inventory.setSelectedRecord(itemToDress);
         startUseItem();
-        System.out.println("Dressed:" + itemToDress.getItem().getInstanceKind().toString());
     }
 
     public void changeArmor() {
@@ -104,6 +103,5 @@ public class Hero extends Unit {
 
         inventory.setSelectedRecord(itemToDress);
         startUseItem();
-        System.out.println("Dressed:" + itemToDress.getItem().getInstanceKind().toString());
     }
 }

@@ -13,6 +13,7 @@ import core.view.gameplay.gameobjectsolid.TreeView;
 import core.view.gameplay.gameobjectsolid.WallView;
 import core.view.gameplay.ui.HeroInfoView;
 import core.view.gameplay.ui.InventoryView;
+import core.view.gameplay.ui.ItemPanelView;
 import core.view.gameplay.ui.SkillPanelView;
 import core.view.gameplay.unit.*;
 import org.newdawn.slick.GameContainer;
@@ -31,24 +32,21 @@ public class GamePlayView {
     private List<GameObjectView> gameObjectViewList;
     private Camera camera;
     private InventoryView inventoryView;
-    private SkillPanelView skillPanelView;
     private HeroInfoView heroInfoView;
+    private ItemPanelView itemPanelView;
+    private SkillPanelView skillPanelView;
     private TileView tileView;
 
     private List<Class> renderOrder;
 
-
-
     public GamePlayView(GameContainer gc, List<GameObject> gameObjectList, TiledMapAdv tiledMap) throws SlickException {
         this.inventoryView = new InventoryView(Hero.getInstance().getInventory());
 
+        this.heroInfoView = new HeroInfoView(gc);
+        this.itemPanelView = new ItemPanelView(gc);
+        this.tileView = new TileView(tiledMap);
         this.skillPanelView = new SkillPanelView(Hero.getInstance().getSkillList(),
                 ResourceManager.getInstance().getSkillInfos(), gc);
-
-
-        this.heroInfoView = new HeroInfoView(gc);
-
-        this.tileView = new TileView(tiledMap);
 
         this.gameObjectViewList = new ArrayList<>();
         for (GameObject gameObject : gameObjectList) {
@@ -165,15 +163,17 @@ public class GamePlayView {
         }
         inventoryView.render(g, camera.getWidth(), camera.getHeight());
 
-        skillPanelView.render(g);
 
+        skillPanelView.render(g);
         heroInfoView.render(g, camera);
+        itemPanelView.render(gc, g);
     }
 
     public void update(int delta) {
         for (GameObjectView gameObjectView : gameObjectViewList) {
             gameObjectView.update(delta);
         }
+        itemPanelView.update(delta);
     }
 
     private void updateGameObjectViewList() throws SlickException {

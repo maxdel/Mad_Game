@@ -1,7 +1,7 @@
-package core.view.gameplay;
+package core.view.gameplay.ui;
 
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
+import java.util.List;
+
 import org.newdawn.slick.Image;
 
 import core.MathAdv;
@@ -9,10 +9,8 @@ import core.model.Timer;
 
 public class SpinnerView {
 
-    private int x;
-    private int y;
     private int radius;
-    private Image []images;
+    private List<Image> imageList;
     private int elementsNumber;
     private double direction;
     private int spinTime;
@@ -21,11 +19,9 @@ public class SpinnerView {
     private Timer timer;
     private double spinDelta;
 
-    public SpinnerView(int x, int y, int radius, Image[] images, int elementsNumber, double initialDirection, int spinTime) {
-        this.x = x;
-        this.y = y;
+    public SpinnerView(int radius, List<Image> imageList, int elementsNumber, double initialDirection, int spinTime) {
         this.radius = radius;
-        this.images = images;
+        this.imageList = imageList;
         this.elementsNumber = elementsNumber;
         this.direction = initialDirection;
         this.spinTime = spinTime;
@@ -43,11 +39,11 @@ public class SpinnerView {
         }
     }
 
-    protected void render(GameContainer gc, Graphics g) {
+    protected void render(int x, int y) {
         double currentItemDirection = direction;
         for (int i = 0; i < elementsNumber; ++i) {
-            images[i].draw((float) (x + MathAdv.lengthDirX(currentItemDirection, radius) - images[i].getWidth() / 2),
-                    (float) (y + MathAdv.lengthDirY(currentItemDirection, radius) - images[i].getHeight() / 2));
+            imageList.get(i).draw((float) (x + MathAdv.lengthDirX(currentItemDirection, radius) - imageList.get(i).getWidth() / 2),
+                    (float) (y + MathAdv.lengthDirY(currentItemDirection, radius) - imageList.get(i).getHeight() / 2));
             currentItemDirection += 2 * Math.PI / elementsNumber;
         }
     }
@@ -68,6 +64,10 @@ public class SpinnerView {
 
     protected void setElementsNumber(int elementsNumber) {
         this.elementsNumber = elementsNumber;
+    }
+
+    protected void setImages(List<Image> imageList) {
+        this.imageList = imageList;
     }
 
 }
