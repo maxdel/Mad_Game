@@ -71,6 +71,8 @@
             <image name="skill fake" path = "/res/skills/fake.png"/>
 
             <image name="selected npc" path = "/res/selected npc.png"/>
+
+            <image name="item_substrat" path = "/res/item substrat.png"/>
         </images>
         <items>
             <item name="Healing_flask" description="+20 HP" path = "/res/items/healing flask.png" type="Reagent" heal="20" mana="0"/>
@@ -215,6 +217,7 @@
             <font name="itemfont" fontName="verdana" size="12" isBold="false"/>
             <font name="descfont" fontName="verdana" size="14" isBold="false"/>
             <font name="replica_font" fontName="verdana" size="10" isBold="false"/>
+            <font name="item_number_font" fontName="tahoma" size="20" isBold="false"/>
         </fonts>
         <units>
             <unit name="hero" mask="unit">
@@ -226,6 +229,8 @@
                     <itemRecord name="Arrow" number="100" />
                     <itemRecord name="Heavy_armor" number="1" />
                     <itemRecord name="Robe_of_magic" number="1" />
+                    <itemRecord name="Healing_flask" number="10" />
+                    <itemRecord name="Mana_flask" number="2" />
                 </inventory>
                 <skillList>
                     <skill name="Sword_attack"/>

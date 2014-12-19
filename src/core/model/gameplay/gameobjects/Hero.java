@@ -2,9 +2,7 @@ package core.model.gameplay.gameobjects;
 
 import core.MathAdv;
 import core.model.gameplay.World;
-import core.model.gameplay.items.SpinnerArmor;
-import core.model.gameplay.items.ItemRecord;
-import core.model.gameplay.items.SpinnerWeapon;
+import core.model.gameplay.items.*;
 
 /**
  * Represents hero
@@ -18,8 +16,6 @@ public class Hero extends Unit {
     private SpinnerArmor spinnerAromor;
 
     private Hero(double x, double y, double direction) {
-
-
         super(x, y, direction, GameObjInstanceKind.HERO);
 
         inventory.dressItem(inventory.getExistedItems().get(2));
@@ -79,20 +75,13 @@ public class Hero extends Unit {
         selectedNPC = null;
     }
 
-    // Getters
-
-    public NPC getSelectedNPC() {
-        return selectedNPC;
-    }
-
     public void changeWeapon() {
         ItemRecord itemToDress = spinnerWeapon.getNext();
         if (inventory.getDressedWeapon().getItem().getClass() == itemToDress.getItem().getClass()) {
             return;
         }
 
-        inventory.setSelectedRecord(itemToDress);
-        fastUseItem();
+        fastUseItem(itemToDress);
     }
 
     public void changeArmor() {
@@ -104,4 +93,26 @@ public class Hero extends Unit {
         inventory.setSelectedRecord(itemToDress);
         startUseItem();
     }
+
+    public void useItem(ItemInstanceKind kind) {
+        if (Hero.getInstance().getInventory().isItemExists(ItemDB.getInstance().getItem(kind))) {
+            startUseItem(Hero.getInstance().getInventory().getItemRecord(ItemDB.getInstance().getItem(kind)));
+        }
+    }
+
+    public void forceUseItem(ItemInstanceKind kind) {
+        if (Hero.getInstance().getInventory().isItemExists(ItemDB.getInstance().getItem(kind))) {
+            stand();
+            if (currentState == UnitState.STAND) {
+                startUseItem(Hero.getInstance().getInventory().getItemRecord(ItemDB.getInstance().getItem(kind)));
+            }
+        }
+    }
+
+    // Getters
+
+    public NPC getSelectedNPC() {
+        return selectedNPC;
+    }
+
 }

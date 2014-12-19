@@ -116,7 +116,8 @@ public class HeroView extends UnitView {
                             }
                             break;
                     }
-                animation.start();
+                    animation.start();
+                    break;
                 case DIALOG:
                     if (hero.getInventory().getDressedWeapon().getItem().getClass() == Sword.class) {
                         if (hero.getInventory().getDressedWeapon().getItem().getClass() == Sword.class) {
@@ -165,7 +166,7 @@ public class HeroView extends UnitView {
             previousWeapon = Hero.getInstance().getInventory().getDressedWeapon().getItem();
         }
         if (animation.getFrame() != 0) {
-            System.out.println(animation.getFrame());
+            System.out.println();
         }
         previousState = hero.getCurrentState();
 

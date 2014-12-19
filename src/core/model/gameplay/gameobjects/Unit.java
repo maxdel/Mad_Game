@@ -143,10 +143,16 @@ public abstract class Unit extends GameObjectSolid {
      * Tries to start use item
      */
     public void startUseItem() {
-        if ((currentState == UnitState.STAND || currentState == UnitState.MOVE)
-                && inventory.getSelectedRecord() != null) {
+        startUseItem(inventory.getSelectedRecord());
+    }
+
+    /**
+     * Tries to start use item
+     */
+    public void startUseItem(ItemRecord itemRecord) {
+        if (currentState == UnitState.STAND && inventory.getSelectedRecord() != null) {
             currentState = UnitState.ITEM;
-            itemToUse = inventory.getSelectedRecord();
+            itemToUse = itemRecord;
             useItemTimer.activate(USE_ITEM_TIME);
         }
     }
@@ -163,11 +169,9 @@ public abstract class Unit extends GameObjectSolid {
     /**
      * Uses item without changing state
      */
-    public void fastUseItem() {
+    public void fastUseItem(ItemRecord itemRecord) {
         if (currentState == UnitState.STAND || currentState == UnitState.MOVE) {
-            itemToUse = inventory.getSelectedRecord();
-            inventory.useItem(itemToUse);
-            itemToUse = null;
+            inventory.useItem(itemRecord);
         }
     }
 

@@ -284,6 +284,15 @@ public class Inventory {
         return dressedWeapon;
     }
 
+    public ItemRecord getItemRecord(Item item) {
+        for (ItemRecord itemRecord : existedItems) {
+            if (itemRecord.getItem() == item) {
+                return itemRecord;
+            }
+        }
+        return null;
+    }
+
     private static boolean implementsInterface(Object object, Class interf){
         for (Class c : object.getClass().getInterfaces()) {
             if (c.equals(interf)) {

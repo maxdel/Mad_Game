@@ -16,6 +16,9 @@ public class ItemPanelView {
 
     private SpinnerView weaponSpinner;
     private SpinnerView armorSpinner;
+    private ItemView healItemView;
+    private ItemView manaItemView;
+    private ItemView arrowItemView;
 
     private Class currentWeapon;
     private ItemInstanceKind currentArmor;
@@ -29,6 +32,9 @@ public class ItemPanelView {
                 Arrays.asList(ResourceManager.getInstance().getImage("skill fake"),
                         ResourceManager.getInstance().getImage("skill fake"),
                         ResourceManager.getInstance().getImage("skill fake")), 3, Math.PI, 200);
+        this.healItemView = new ItemView(ItemInstanceKind.HEALING_FLASK);
+        this.manaItemView = new ItemView(ItemInstanceKind.MANA_FLASK);
+        this.arrowItemView = new ItemView(ItemInstanceKind.ARROW);
     }
 
     public void update(int delta) {
@@ -87,8 +93,11 @@ public class ItemPanelView {
     }
 
     public void render(GameContainer gc, Graphics g) {
-        weaponSpinner.render(gc.getWidth() - 70, gc.getHeight() - 70);
+        arrowItemView.render(gc.getWidth() - 90, gc.getHeight() - 420);
+        healItemView.render(gc.getWidth() - 90, gc.getHeight() - 360);
+        manaItemView.render(gc.getWidth() - 90, gc.getHeight() - 300);
         armorSpinner.render(gc.getWidth() - 70, gc.getHeight() - 200);
+        weaponSpinner.render(gc.getWidth() - 70, gc.getHeight() - 70);
     }
 
     private List<Image> getWeaponImages() {
