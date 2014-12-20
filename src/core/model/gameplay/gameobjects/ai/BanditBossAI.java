@@ -12,7 +12,7 @@ import core.model.gameplay.skills.SkillInstanceKind;
 public class BanditBossAI extends BotAI {
 
     private enum BanditBossAIState implements BotAIState {
-        STAND, WALK, PURSUE, ATTACK, STRAFE, RETREAT
+        STAND, WALK, PURSUE, FORCE_PURSUE, ATTACK, STRAFE, RETREAT
     }
 
     @Override
@@ -25,27 +25,46 @@ public class BanditBossAI extends BotAI {
         final int strafeTime = 250;
         final double attackProbability = 0.7;
         final double strafeProbability = 0.7;
+        final int forcePursueTime = 7000;
         currentState = BanditBossAIState.STAND;
         stateMap.put(BanditBossAIState.STAND, new AIState() {
             private Timer timer;
-            public void enter()           { timer = new Timer(standTime); }
+            private double previousHP;
+            public void enter()           { timer = new Timer(standTime); previousHP = owner.getAttribute().getCurrentHP(); }
             public void run(int delta)    { owner.stand(); }
             public void update(int delta) { timer.update(delta);
-                if (getDistanceToHero() < pursueDistance && seeTarget(Hero.getInstance())) { currentState = BanditBossAIState.PURSUE; return; }
-                if (timer.isTime()) currentState = BanditBossAIState.WALK; }
+                                            if (getDistanceToHero() < pursueDistance && seeTarget(Hero.getInstance())) { currentState = BanditBossAIState.PURSUE; return; }
+                                            if (timer.isTime()) { currentState = BanditBossAIState.WALK; return; }
+                                            if (owner.getAttribute().getCurrentHP() < previousHP) { currentState = BanditBossAIState.FORCE_PURSUE; return; }
+                                            previousHP = owner.getAttribute().getCurrentHP(); }
         });
         stateMap.put(BanditBossAIState.WALK, new AIState() {
             private Point target;
+            private double previousHP;
             public void enter()           { target = getRandomTarget(); }
             public void run(int delta)    { followTarget(target); }
             public void update(int delta) { if (getDistanceToHero() < pursueDistance && seeTarget(Hero.getInstance())) { currentState = BanditBossAIState.PURSUE; return; }
-                if (getDistanceToTarget(target) < 2) currentState = BanditBossAIState.STAND; }
+                                            if (getDistanceToTarget(target) < 2) { currentState = BanditBossAIState.STAND; return; }
+                                            if (owner.getAttribute().getCurrentHP() < previousHP) { currentState = BanditBossAIState.FORCE_PURSUE; return; }
+                                            previousHP = owner.getAttribute().getCurrentHP(); }
         });
         stateMap.put(BanditBossAIState.PURSUE, new AIState() {
             private boolean isFollowing;
             public void enter()           { isFollowing = true; }
             public void run(int delta)    { isFollowing = followHero(); }
             public void update(int delta) { if (getDistanceToHero() >= pursueDistance || !isFollowing) { currentState = BanditBossAIState.STAND; return; }
+                if (getDistanceToHero() < attackDistance && Math.random() < attackProbability) { currentState = BanditBossAIState.ATTACK; return; }
+                if (getDistanceToHero() < attackDistance && Math.random() < strafeProbability) { currentState = BanditBossAIState.STRAFE; return; }
+                if (getDistanceToHero() < attackDistance)  currentState = BanditBossAIState.RETREAT;  }
+        });
+        stateMap.put(BanditBossAIState.FORCE_PURSUE, new AIState() {
+            private Timer timer;
+            private boolean isFollowing;
+            public void enter()           { timer = new Timer(forcePursueTime); isFollowing = true; }
+            public void run(int delta)    { isFollowing = followHero(); }
+            public void update(int delta) {
+                timer.update(delta);
+                if ((getDistanceToHero() >= pursueDistance && timer.isTime()) || !isFollowing) { currentState = BanditBossAIState.STAND; return; }
                 if (getDistanceToHero() < attackDistance && Math.random() < attackProbability) { currentState = BanditBossAIState.ATTACK; return; }
                 if (getDistanceToHero() < attackDistance && Math.random() < strafeProbability) { currentState = BanditBossAIState.STRAFE; return; }
                 if (getDistanceToHero() < attackDistance)  currentState = BanditBossAIState.RETREAT;  }

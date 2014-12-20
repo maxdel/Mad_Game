@@ -5,9 +5,11 @@
             <animation name="hero_walk" path="/res/hero/hero_walk.png" isImage = "false" frameWidth="128" frameHeight="128" speedCoef="5"/>
             <animation name="hero_walk_sword" path="/res/hero/hero_walk_sword.png" isImage = "false" frameWidth="128" frameHeight="128" speedCoef="5"/>
             <animation name="hero_walk_bow" path="/res/hero/hero_walk_bow.png" isImage = "false" frameWidth="128" frameHeight="128" speedCoef="5"/>
+            <animation name="hero_walk_staff" path="/res/hero/hero_walk_staff.png" isImage = "false" frameWidth="160" frameHeight="160" speedCoef="5"/>
             <animation name="hero_skill_sword_attack" path="/res/hero/hero_skill_sword_attack.png" isImage = "false" frameWidth="128" frameHeight="128" speedCoef="0.07"/>
             <animation name="hero_skill_strong_sword_attack" path="/res/hero/hero_skill_strong_sword_attack.png" isImage = "false" frameWidth="160" frameHeight="160" speedCoef="0.07"/>
             <animation name="hero_skill_bow_shot" path="/res/hero/hero_skill_bow_shot.png" isImage = "false" frameWidth="128" frameHeight="128" speedCoef="0.07"/>
+            <animation name="hero_skill_fireball" path="/res/hero/hero_skill_fireball.png" isImage = "false" frameWidth="160" frameHeight="160" speedCoef="0.07"/>
 
             <animation name="bandit" path="/res/bandit/bandit.png" isImage = "true"/>
             <animation name="bandit_walk_sword" path="/res/bandit/bandit_walk_sword.png" isImage = "false" frameWidth="160" frameHeight="160" speedCoef="5"/>
@@ -17,7 +19,9 @@
 
             <animation name="bandit_boss" path="/res/banditboss/banditboss.png" isImage = "true"/>
 
-            <animation name="golem" path="/res/golem/golem.png" isImage = "true"/>
+            <animation name="golem_walk" path="/res/golem/golem_walk.png" isImage = "false" frameWidth="104" frameHeight="104" speedCoef="5"/>
+            <animation name="golem_attack_right" path="/res/golem/golem_attack_right.png" isImage = "false" frameWidth="104" frameHeight="104" speedCoef="0.07"/>
+            <animation name="golem_attack_left" path="/res/golem/golem_attack_left.png" isImage = "false" frameWidth="104" frameHeight="104" speedCoef="0.07"/>
 
             <animation name="golem_tiny" path="/res/golemtiny/golemtiny.png" isImage = "true"/>
 
@@ -71,6 +75,8 @@
             <image name="skill fake" path = "/res/skills/fake.png"/>
 
             <image name="selected npc" path = "/res/selected npc.png"/>
+
+            <image name="item_substrat" path = "/res/item substrat.png"/>
         </images>
         <items>
             <item name="Healing_flask" description="+20 HP" path = "/res/items/healing flask.png" type="Reagent" heal="20" mana="0"/>
@@ -136,7 +142,7 @@
 
             <skill name="Punch" description="" path="/res/skills/empty skill.png" type="AreaDamage"
                    castTime="400" postApplyTime="150" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="0"
-                   pAttack="55" mAttack="0" radius="55" angle="45"/>
+                   pAttack="55" mAttack="0" radius="60" angle="45"/>
             <skill name="Thorn" description="Thorn!!!" path="/res/skills/empty skill.png" type="BulletShot"
                    castTime="100" postApplyTime="50" cooldownTime="100" requiredItemType="" requiredHP="0" requiredMP="0"
                    pAttack="20" mAttack="0" bulletSpeed="0.4" distance="40"/>
@@ -215,17 +221,20 @@
             <font name="itemfont" fontName="verdana" size="12" isBold="false"/>
             <font name="descfont" fontName="verdana" size="14" isBold="false"/>
             <font name="replica_font" fontName="verdana" size="10" isBold="false"/>
+            <font name="item_number_font" fontName="tahoma" size="20" isBold="false"/>
         </fonts>
         <units>
             <unit name="hero" mask="unit">
-                <attribute hp="100000" mp="100" maximumSpeed="0.16" pAttack="10" mAttack="15" pArmor="5" mArmor="7" />
+                <attribute hp="300" mp="100" maximumSpeed="0.16" pAttack="10" mAttack="15" pArmor="5" mArmor="7" />
                 <inventory>
                     <itemRecord name="Sword" number="1" />
-                    <itemRecord name="Staff" number="1" />
                     <itemRecord name="Bow" number="1" />
+                    <itemRecord name="Strong_staff" number="1" />
                     <itemRecord name="Arrow" number="100" />
                     <itemRecord name="Heavy_armor" number="1" />
                     <itemRecord name="Robe_of_magic" number="1" />
+                    <itemRecord name="Healing_flask" number="10" />
+                    <itemRecord name="Mana_flask" number="2" />
                 </inventory>
                 <skillList>
                     <skill name="Sword_attack"/>
@@ -287,7 +296,7 @@
                     <loot name="Mana_flask" probability="1"/>
                 </lootList>
             </unit>
-            <unit name="golem" mask="unit">
+            <unit name="golem" mask="unit_big">
                 <attribute hp="100" mp="100" maximumSpeed="0.07" pAttack="10" mAttack="15" pArmor="5" mArmor="7"/>
                 <inventory>
 
@@ -433,6 +442,8 @@
             <sound name="bow_shot" path="/res/sounds/bow_shot.wav"/>
             <sound name="apple_bite" path="/res/sounds/apple_bite.wav"/>
             <sound name="fireball" path="/res/sounds/fireball.wav"/>
+            <sound name="golem_step" path="/res/sounds/golem_step.wav"/>
+            <sound name="golem_attack" path="/res/sounds/golem_attack.wav"/>
         </sounds>
         <quests>
             <quest name="Beat bandits">

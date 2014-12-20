@@ -1,6 +1,6 @@
 package core.model.gameplay.gameobjects;
 
-public enum GameObjectState {
+public enum UnitState {
 
     STAND, MOVE, ITEM, SKILL, DIALOG
 

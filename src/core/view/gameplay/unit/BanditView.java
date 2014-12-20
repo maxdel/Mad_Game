@@ -1,6 +1,5 @@
 package core.view.gameplay.unit;
 
-import core.model.gameplay.gameobjects.ai.Cell;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -12,7 +11,7 @@ import core.resourcemanager.ResourceManager;
 
 public class BanditView extends UnitView {
 
-    private GameObjectState previousState;
+    private UnitState previousState;
     private Animation animationSwordAttack;
     private Animation animationWalkSword;
 

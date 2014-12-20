@@ -1,10 +1,10 @@
 package core.model.gameplay.items;
 
-import core.model.gameplay.gameobjects.Unit;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import core.model.gameplay.gameobjects.Unit;
 
 public class Inventory {
 
@@ -282,6 +282,15 @@ public class Inventory {
 
     public ItemRecord getDressedWeapon() {
         return dressedWeapon;
+    }
+
+    public ItemRecord getItemRecord(Item item) {
+        for (ItemRecord itemRecord : existedItems) {
+            if (itemRecord.getItem() == item) {
+                return itemRecord;
+            }
+        }
+        return null;
     }
 
     private static boolean implementsInterface(Object object, Class interf){

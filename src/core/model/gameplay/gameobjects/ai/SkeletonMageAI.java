@@ -14,7 +14,7 @@ import core.model.gameplay.skills.SkillInstanceKind;
 public class SkeletonMageAI extends BotAI {
 
     private enum SkeletonMageAIState implements BotAI.BotAIState {
-        STAND, WALK, PURSUE, ATTACK
+        STAND, WALK, PURSUE, FORCE_PURSUE, ATTACK
     }
 
     @Override
@@ -22,26 +22,43 @@ public class SkeletonMageAI extends BotAI {
         final int standTime = 3000;
         final int pursueDistance = 400;
         final int attackDistance = 200;
+        final int forcePursueTime = 7000;
         currentState = SkeletonMageAIState.STAND;
         stateMap.put(SkeletonMageAIState.STAND, new AIState() {
             private Timer timer;
-            public void enter()           { timer = new Timer(standTime);                                                  }
+            private double previousHP;
+            public void enter()           { timer = new Timer(standTime); previousHP = owner.getAttribute().getCurrentHP(); }
             public void run(int delta)    { owner.stand();                                                                 }
             public void update(int delta) { if (timer.update(delta)) currentState = SkeletonMageAIState.WALK;
-                if (getDistanceToHero() < pursueDistance && seeTarget(Hero.getInstance())) currentState = SkeletonMageAIState.PURSUE; }
+                if (getDistanceToHero() < pursueDistance && seeTarget(Hero.getInstance())) { currentState = SkeletonMageAIState.PURSUE; return; }
+                if (owner.getAttribute().getCurrentHP() < previousHP) { currentState = SkeletonMageAIState.FORCE_PURSUE; return; }
+                previousHP = owner.getAttribute().getCurrentHP(); }
         });
         stateMap.put(SkeletonMageAIState.WALK, new AIState() {
             private Point target;
-            public void enter()           { target = getRandomTarget();                                                     }
+            private double previousHP;
+            public void enter()           { target = getRandomTarget(); previousHP = owner.getAttribute().getCurrentHP(); }
             public void run(int delta)    { followTarget(target);                                                           }
             public void update(int delta) { if (getDistanceToHero() < pursueDistance && seeTarget(Hero.getInstance())) currentState = SkeletonMageAIState.PURSUE;
-                if (getDistanceToTarget(target) < 2)      currentState = SkeletonMageAIState.STAND;   }
+                if (getDistanceToTarget(target) < 2) { currentState = SkeletonMageAIState.STAND; return; }
+                if (owner.getAttribute().getCurrentHP() < previousHP) { currentState = SkeletonMageAIState.FORCE_PURSUE; return; }
+                previousHP = owner.getAttribute().getCurrentHP();   }
         });
         stateMap.put(SkeletonMageAIState.PURSUE, new AIState() {
             private boolean isFollowing;
             public void enter()           { isFollowing = true;                                                                  }
             public void run(int delta)    { isFollowing = followHero();         }
             public void update(int delta) { if (getDistanceToHero() >= pursueDistance || !isFollowing) currentState = SkeletonMageAIState.STAND;
+                if (getDistanceToHero() < attackDistance && seeTarget(Hero.getInstance())) currentState = SkeletonMageAIState.ATTACK; }
+        });
+        stateMap.put(SkeletonMageAIState.FORCE_PURSUE, new AIState() {
+            private Timer timer;
+            private boolean isFollowing;
+            public void enter()           { timer = new Timer(forcePursueTime); isFollowing = true;                                                                  }
+            public void run(int delta)    { isFollowing = followHero();         }
+            public void update(int delta) {
+                timer.update(delta);
+                if ((getDistanceToHero() >= pursueDistance && timer.isTime()) || !isFollowing) currentState = SkeletonMageAIState.STAND;
                 if (getDistanceToHero() < attackDistance && seeTarget(Hero.getInstance())) currentState = SkeletonMageAIState.ATTACK; }
         });
         stateMap.put(SkeletonMageAIState.ATTACK, new AIState() {

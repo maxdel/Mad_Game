@@ -2,35 +2,38 @@ package core.view.gameplay.unit;
 
 import core.model.gameplay.gameobjects.*;
 import core.model.gameplay.items.Bow;
+import core.model.gameplay.items.Item;
+import core.model.gameplay.items.Staff;
 import core.model.gameplay.items.Sword;
 import core.view.gameplay.Camera;
-import core.view.gameplay.ParticleEffect;
 import org.newdawn.slick.*;
 
 import core.model.gameplay.skills.Skill;
 import core.resourcemanager.ResourceManager;
-import org.newdawn.slick.particles.ParticleIO;
-
-import java.io.IOException;
 
 public class HeroView extends UnitView {
 
-    private GameObjectState previousState;
+    private UnitState previousState;
     private Animation animationWalk;
     private Animation animationWalkSword;
+    private Animation animationWalkStaff;
     private Animation animationStrongSwordAttack;
     private Animation animationSwordAttack;
     private Animation animationWalkBow;
     private Animation animationBowShot;
+    private Animation animationFireball;
+    private Item previousWeapon;
 
     public HeroView(GameObject hero) throws SlickException {
         super(hero);
         animation = ResourceManager.getInstance().getAnimation("hero_walk");
         animationWalkSword = ResourceManager.getInstance().getAnimation("hero_walk_sword");
         animationWalkBow = ResourceManager.getInstance().getAnimation("hero_walk_bow");
+        animationWalkStaff = ResourceManager.getInstance().getAnimation("hero_walk_staff");
         animationSwordAttack = ResourceManager.getInstance().getAnimation("hero_skill_sword_attack");
         animationStrongSwordAttack = ResourceManager.getInstance().getAnimation("hero_skill_strong_sword_attack");
         animationBowShot = ResourceManager.getInstance().getAnimation("hero_skill_bow_shot");
+        animationFireball = ResourceManager.getInstance().getAnimation("hero_skill_fireball");
         animationWalk = animation;
     }
 
@@ -48,6 +51,9 @@ public class HeroView extends UnitView {
                     } else if (hero.getInventory().getDressedWeapon().getItem().getClass() == Bow.class) {
                         animation = animationWalkBow;
                         animation.setSpeed((float) (hero.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("hero_walk_bow")));
+                    } else if (hero.getInventory().getDressedWeapon().getItem().getClass() == Staff.class) {
+                        animation = animationWalkStaff;
+                        animation.setSpeed((float) (hero.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("hero_walk_staff")));
                     } else {
                         animation = animationWalk;
                         animation.setSpeed((float) (hero.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("hero_walk")));
@@ -59,6 +65,8 @@ public class HeroView extends UnitView {
                         animation = animationWalkSword;
                     } else if (hero.getInventory().getDressedWeapon().getItem().getClass() == Bow.class) {
                         animation = animationWalkBow;
+                    } else if (hero.getInventory().getDressedWeapon().getItem().getClass() == Staff.class) {
+                        animation = animationWalkStaff;
                     } else {
                         animation = animationWalk;
                     }
@@ -101,7 +109,7 @@ public class HeroView extends UnitView {
                             break;
                         case FIREBALL:
                             ResourceManager.getInstance().getSound("fireball").play();
-                            animation = animationBowShot;
+                            animation = animationFireball;
                             animation.restart();
                             hero.getCastingSkill().getCastTime();
                             for (int i = 0; i < animation.getFrameCount(); ++i) {
@@ -118,7 +126,8 @@ public class HeroView extends UnitView {
                             }
                             break;
                     }
-                animation.start();
+                    animation.start();
+                    break;
                 case DIALOG:
                     if (hero.getInventory().getDressedWeapon().getItem().getClass() == Sword.class) {
                         if (hero.getInventory().getDressedWeapon().getItem().getClass() == Sword.class) {
@@ -133,6 +142,46 @@ public class HeroView extends UnitView {
                     }
                     break;
             }
+        } else if (Hero.getInstance().getInventory().getDressedWeapon().getItem() != previousWeapon) {
+            switch (hero.getCurrentState()) {
+                case MOVE:
+                    //TODO: bad code
+                    int currentFrame = animation.getFrame();
+                    if (hero.getInventory().getDressedWeapon().getItem().getClass() == Sword.class) {
+                        animation = animationWalkSword;
+                        animation.setSpeed((float) (hero.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("hero_walk_sword")));
+                    } else if (hero.getInventory().getDressedWeapon().getItem().getClass() == Bow.class) {
+                        animation = animationWalkBow;
+                        animation.setSpeed((float) (hero.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("hero_walk_bow")));
+                    } else if (hero.getInventory().getDressedWeapon().getItem().getClass() == Staff.class) {
+                        animation = animationWalkStaff;
+                        animation.setSpeed((float) (hero.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("hero_walk_staff")));
+                    } else {
+                        animation = animationWalk;
+                        animation.setSpeed((float) (hero.getAttribute().getCurrentSpeed() / ResourceManager.getInstance().getSpeedCoef("hero_walk")));
+                    }
+                    animation.restart();
+                    animation.setCurrentFrame(currentFrame);
+                    animation.start();
+                    break;
+                case STAND:
+                    if (hero.getInventory().getDressedWeapon().getItem().getClass() == Sword.class) {
+                        animation = animationWalkSword;
+                    } else if (hero.getInventory().getDressedWeapon().getItem().getClass() == Bow.class) {
+                        animation = animationWalkBow;
+                    } else if (hero.getInventory().getDressedWeapon().getItem().getClass() == Staff.class) {
+                        animation = animationWalkStaff;
+                    } else {
+                        animation = animationWalk;
+                    }
+                    animation.stop();
+                    animation.setCurrentFrame(0);
+                    break;
+            }
+            previousWeapon = Hero.getInstance().getInventory().getDressedWeapon().getItem();
+        }
+        if (animation.getFrame() != 0) {
+            System.out.println();
         }
         previousState = hero.getCurrentState();
 

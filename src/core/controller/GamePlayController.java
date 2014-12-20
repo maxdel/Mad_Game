@@ -1,9 +1,10 @@
 package core.controller;
 
 import core.model.gameplay.gameobjects.Hero;
-import core.model.gameplay.gameobjects.GameObjectState;
+import core.model.gameplay.gameobjects.UnitState;
+import core.model.gameplay.items.ItemInstanceKind;
 import core.model.gameplay.skills.SkillInstanceKind;
-import core.view.gameplay.ui.SkillPanelView;
+//import core.view.gameplay.ui.SkillPanelView;
 import main.Main;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.*;
@@ -80,9 +81,8 @@ public class GamePlayController {
                 mouseX = input.getMouseX();
             }
 
-
             // Skill panel view showing
-            if (input.isKeyDown(Input.KEY_LSHIFT)) {
+            /*if (input.isKeyDown(Input.KEY_LSHIFT)) {
                 SkillPanelView.isOpacity = false;
             } else {
                 SkillPanelView.isOpacity = true;
@@ -90,17 +90,22 @@ public class GamePlayController {
 
             if (input.isKeyPressed(Input.KEY_TAB)) {
                 SkillPanelView.skillBarsIsActive = !SkillPanelView.skillBarsIsActive;
-            }
+            }*/
 
-            if ((Hero.getInstance().getCurrentState() == GameObjectState.STAND
-                    || Hero.getInstance().getCurrentState() == GameObjectState.MOVE)
-                    & input.isKeyPressed(Input.KEY_Q)) {
+            if (input.isKeyPressed(Input.KEY_Q)) {
                 Hero.getInstance().changeWeapon();
             }
 
-            if ((Hero.getInstance().getCurrentState() == GameObjectState.STAND)
-                    & input.isKeyPressed(Input.KEY_E)) {
+            if (input.isKeyPressed(Input.KEY_E)) {
                 Hero.getInstance().changeArmor();
+            }
+
+            if (input.isKeyPressed(Input.KEY_R)) {
+                Hero.getInstance().forceUseItem(ItemInstanceKind.HEALING_FLASK);
+            }
+
+            if (input.isKeyPressed(Input.KEY_F)) {
+                Hero.getInstance().forceUseItem(ItemInstanceKind.MANA_FLASK);
             }
 
             // Controls the movement of the hero

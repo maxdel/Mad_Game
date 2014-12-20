@@ -86,7 +86,7 @@ public abstract class UnitView extends GameObjectSolidView {
     private void renderParticleSystem(Graphics g, Camera camera) throws SlickException {
         Unit unit = (Unit) gameObject;
 
-        if (unit.getCurrentState() == GameObjectState.SKILL) {
+        if (unit.getCurrentState() == UnitState.SKILL) {
             if (unit.getCastingSkill().getKind() == SkillInstanceKind.SWORD_ATTACK) {
                 for (GameObject gameObject : World.getInstance().getGameObjectList()) {
                     if (gameObject instanceof GameObjectSolid) {

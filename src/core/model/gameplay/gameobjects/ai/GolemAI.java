@@ -9,33 +9,41 @@ import core.model.gameplay.skills.SkillInstanceKind;
 public class GolemAI extends BotAI {
 
     private enum GolemAIState implements BotAIState {
-        STAND, WALK, PURSUE, ATTACK, STRAFE, RETREAT
+        STAND, WALK, PURSUE, FORCE_PURSUE, ATTACK, STRAFE, RETREAT
     }
 
     @Override
     protected void init() {
         final int standTime = 1000;
         final int pursueDistance = 300;
-        final int attackDistance = 50;
+        final int attackDistance = (int) (owner.getMask().getBoundingCircleRadius() +
+                Hero.getInstance().getMask().getBoundingCircleRadius() + 5);
         final int retreatDistance = 30;
         final int strafeTime = 250;
         final double attackProbability = 0.7;
         final double strafeProbability = 0.7;
+        final int forcePursueTime = 7000;
         currentState = GolemAIState.STAND;
         stateMap.put(GolemAIState.STAND, new AIState() {
             private Timer timer;
-            public void enter()           { timer = new Timer(standTime); }
+            private double previousHP;
+            public void enter()           { timer = new Timer(standTime); previousHP = owner.getAttribute().getCurrentHP(); }
             public void run(int delta)    { owner.stand(); }
             public void update(int delta) { timer.update(delta);
                 if (getDistanceToHero() < pursueDistance && seeTarget(Hero.getInstance())) { currentState = GolemAIState.PURSUE; return; }
-                if (timer.isTime()) currentState = GolemAIState.WALK; }
+                if (timer.isTime()) { currentState = GolemAIState.WALK; }
+                if (owner.getAttribute().getCurrentHP() < previousHP) { currentState = GolemAIState.FORCE_PURSUE; return; }
+                previousHP = owner.getAttribute().getCurrentHP(); }
         });
         stateMap.put(GolemAIState.WALK, new AIState() {
             private Point target;
-            public void enter()           { target = getRandomTarget(); }
+            private double previousHP;
+            public void enter()           { target = getRandomTarget(); previousHP = owner.getAttribute().getCurrentHP(); }
             public void run(int delta)    { followTarget(target); }
             public void update(int delta) { if (getDistanceToHero() < pursueDistance && seeTarget(Hero.getInstance())) { currentState = GolemAIState.PURSUE; return; }
-                if (getDistanceToTarget(target) < 2) currentState = GolemAIState.STAND; }
+                if (getDistanceToTarget(target) < 2) { currentState = GolemAIState.STAND; }
+                if (owner.getAttribute().getCurrentHP() < previousHP) { currentState = GolemAIState.FORCE_PURSUE; return; }
+                previousHP = owner.getAttribute().getCurrentHP(); }
         });
         stateMap.put(GolemAIState.PURSUE, new AIState() {
             private boolean isFollowing;
@@ -46,6 +54,19 @@ public class GolemAI extends BotAI {
                 if (getDistanceToHero() < attackDistance && Math.random() < attackProbability) { currentState = GolemAIState.ATTACK; return; }
                 if (getDistanceToHero() < attackDistance && Math.random() < strafeProbability) { currentState = GolemAIState.STRAFE; return; }
                 if (getDistanceToHero() < attackDistance)  currentState = GolemAIState.RETREAT;  }
+        });
+        stateMap.put(GolemAIState.FORCE_PURSUE, new AIState() {
+            private Timer timer;
+            private boolean isFollowing;
+            private double previousHP;
+            public void enter()           { timer = new Timer(forcePursueTime); isFollowing = true; previousHP = owner.getAttribute().getCurrentHP(); }
+            public void run(int delta)    { isFollowing = followHero(); checkThornSpawn(owner.getAttribute().getCurrentHP() < previousHP); previousHP = owner.getAttribute().getCurrentHP(); }
+            public void update(int delta) {
+                timer.update(delta);
+                if ((getDistanceToHero() >= pursueDistance && timer.isTime()) || !isFollowing) { currentState = GolemAIState.STAND; return; }
+                if (getDistanceToHero() < attackDistance && Math.random() < attackProbability) { currentState = GolemAIState.ATTACK; return; }
+                if (getDistanceToHero() < attackDistance && Math.random() < strafeProbability) { currentState = GolemAIState.STRAFE; return; }
+                if (getDistanceToHero() < attackDistance) { currentState = GolemAIState.RETREAT; return; } }
         });
         stateMap.put(GolemAIState.ATTACK, new AIState() {
             private double previousHP;

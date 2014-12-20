@@ -53,7 +53,6 @@ public class SpinnerWeapon extends SpinnerThreesome {
                 staff.value = existedItem;
             }
         }
-
-
     }
+
 }

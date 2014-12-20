@@ -4,24 +4,21 @@ import java.util.List;
 
 import core.model.gameplay.items.*;
 import core.model.gameplay.skills.SkillInstanceKind;
-import org.newdawn.slick.geom.Vector2f;
 
 import core.MathAdv;
 import core.resourcemanager.ResourceManager;
 import core.model.Timer;
 import core.model.gameplay.*;
 import core.model.gameplay.skills.Skill;
-import core.resourcemanager.ResourceManager;
 
 public abstract class Unit extends GameObjectSolid {
 
     private double relativeDirection;
     private Attribute attribute;
-    protected GameObjectState currentState;
+    protected UnitState currentState;
 
     private List<LootRecord> lootRecordList;
     protected Inventory inventory;
-
 
     private Skill.ISkillAction skillApplyAction;
     private Skill.ISkillAction stealSkillCostAction;
@@ -51,7 +48,7 @@ public abstract class Unit extends GameObjectSolid {
         this.mask = ResourceManager.getInstance().getUnitInfo(type).getMask();
 
         this.attribute = ResourceManager.getInstance().getUnitInfo(type).getAttribute();
-        this.currentState = GameObjectState.STAND;
+        this.currentState = UnitState.STAND;
 
         this.lootRecordList = ResourceManager.getInstance().getUnitInfo(type).getLootRecordList();
         this.inventory = ResourceManager.getInstance().getUnitInfo(type).getInventory(this);
@@ -107,8 +104,8 @@ public abstract class Unit extends GameObjectSolid {
      * Stops unit
      */
     public void stand() {
-        if (currentState == GameObjectState.MOVE) {
-            currentState = GameObjectState.STAND;
+        if (currentState == UnitState.MOVE) {
+            currentState = UnitState.STAND;
             attribute.setCurrentSpeed(0);
         }
     }
@@ -125,8 +122,8 @@ public abstract class Unit extends GameObjectSolid {
      * @param relativeDirection angle in radians
      */
     public void move(double relativeDirection) {
-        if (currentState == GameObjectState.STAND || currentState == GameObjectState.MOVE) {
-            currentState = GameObjectState.MOVE;
+        if (currentState == UnitState.STAND || currentState == UnitState.MOVE) {
+            currentState = UnitState.MOVE;
             this.relativeDirection = relativeDirection;
             attribute.setCurrentSpeed(attribute.getMaximumSpeed());
         }
@@ -137,7 +134,7 @@ public abstract class Unit extends GameObjectSolid {
      * @param directionDelta angle in radians
      */
     public void rotate(double directionDelta) {
-        if (currentState == GameObjectState.STAND || currentState == GameObjectState.MOVE) {
+        if (currentState == UnitState.STAND || currentState == UnitState.MOVE) {
             changeDirection(directionDelta);
         }
     }
@@ -146,10 +143,16 @@ public abstract class Unit extends GameObjectSolid {
      * Tries to start use item
      */
     public void startUseItem() {
-        if ((currentState == GameObjectState.STAND || currentState == GameObjectState.MOVE)
-                && inventory.getSelectedRecord() != null) {
-            currentState = GameObjectState.ITEM;
-            itemToUse = inventory.getSelectedRecord();
+        startUseItem(inventory.getSelectedRecord());
+    }
+
+    /**
+     * Tries to start use item
+     */
+    public void startUseItem(ItemRecord itemRecord) {
+        if (currentState == UnitState.STAND && inventory.getSelectedRecord() != null) {
+            currentState = UnitState.ITEM;
+            itemToUse = itemRecord;
             useItemTimer.activate(USE_ITEM_TIME);
         }
     }
@@ -160,16 +163,24 @@ public abstract class Unit extends GameObjectSolid {
     private void useItem() {
         inventory.useItem(itemToUse);
         itemToUse = null;
-        currentState = GameObjectState.MOVE;
-        attribute.setCurrentSpeed(0);
+        currentState = UnitState.STAND;
+    }
+
+    /**
+     * Uses item without changing state
+     */
+    public void fastUseItem(ItemRecord itemRecord) {
+        if (currentState == UnitState.STAND || currentState == UnitState.MOVE) {
+            inventory.useItem(itemRecord);
+        }
     }
 
     /**
      * Tries to start drop action
      */
     public void startDropItem() {
-        if (currentState == GameObjectState.STAND && inventory.getSelectedRecord() != null) {
-            currentState = GameObjectState.ITEM;
+        if (currentState == UnitState.STAND && inventory.getSelectedRecord() != null) {
+            currentState = UnitState.ITEM;
             itemToDrop = inventory.getSelectedRecord();
             dropItemTimer.activate(DROP_ITEM_TIME);
         }
@@ -184,14 +195,14 @@ public abstract class Unit extends GameObjectSolid {
                 itemToDrop.getItem());
         World.getInstance().getGameObjectToAddList().add(loot);
         inventory.deleteItem(inventory.getSelectedRecord().getItem().getInstanceKind());
-        currentState = GameObjectState.STAND;
+        currentState = UnitState.STAND;
     }
 
     /**
      * Updating current Loot itemToPick object
      */
     private void updateItemToPick() {
-        if (currentState != GameObjectState.ITEM) {
+        if (currentState != UnitState.ITEM) {
             double lookPointX = getX() + MathAdv.lengthDirX(getDirection(), LOOT_RANGE);
             double lookPointY = getY() + MathAdv.lengthDirY(getDirection(), LOOT_RANGE);
             double lookRadius = LOOT_PICK_RADIUS;
@@ -213,8 +224,8 @@ public abstract class Unit extends GameObjectSolid {
      * Tries to start pick item
      */
     public void startPickItem() {
-        if (currentState == GameObjectState.STAND && itemToPick != null) {
-            currentState = GameObjectState.ITEM;
+        if (currentState == UnitState.STAND && itemToPick != null) {
+            currentState = UnitState.ITEM;
             pickItemTimer.activate(PICK_ITEM_TIME);
         }
     }
@@ -229,7 +240,7 @@ public abstract class Unit extends GameObjectSolid {
             World.getInstance().getGameObjectToDeleteList().add(itemToPick);
             itemToPick = null;
         }
-        currentState = GameObjectState.STAND;
+        currentState = UnitState.STAND;
     }
 
     /**
@@ -238,10 +249,10 @@ public abstract class Unit extends GameObjectSolid {
      */
     public void startCastSkill(SkillInstanceKind skillInstanceKind) {
         Skill skillToCast = getSkillByKind(skillInstanceKind);
-        if (((currentState == GameObjectState.STAND || currentState == GameObjectState.MOVE)) &&
+        if (((currentState == UnitState.STAND || currentState == UnitState.MOVE)) &&
                 skillToCast != null && canStartCast(skillToCast) ) {
             stand();
-            currentState = GameObjectState.SKILL;
+            currentState = UnitState.SKILL;
 
             castingSkill = skillToCast;
             skillApplyAction = castingSkill.getToApplyAction();
@@ -269,7 +280,7 @@ public abstract class Unit extends GameObjectSolid {
     private void onCastingFinish() {
         castingSkill.activateCooldownTimer();
         castingSkill = null;
-        currentState = GameObjectState.STAND;
+        currentState = UnitState.STAND;
     }
 
     /**
@@ -364,13 +375,13 @@ public abstract class Unit extends GameObjectSolid {
     /* Getters and setters region */
     @Override
     public void setDirection(double direction) {
-        if (currentState == GameObjectState.STAND || currentState == GameObjectState.MOVE) {
+        if (currentState == UnitState.STAND || currentState == UnitState.MOVE) {
             super.setDirection(direction);
         }
     }
 
     public void setRelativeDirection(double relativeDirection) {
-        if (currentState == GameObjectState.STAND || currentState == GameObjectState.MOVE) {
+        if (currentState == UnitState.STAND || currentState == UnitState.MOVE) {
             this.relativeDirection = relativeDirection;
         }
     }
@@ -383,7 +394,7 @@ public abstract class Unit extends GameObjectSolid {
         return relativeDirection;
     }
 
-    public GameObjectState getCurrentState() {
+    public UnitState getCurrentState() {
         return currentState;
     }
 

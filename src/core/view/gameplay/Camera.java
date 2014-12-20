@@ -1,5 +1,7 @@
 package core.view.gameplay;
 
+import core.model.Timer;
+
 public class Camera {
 
     private double x;
@@ -9,6 +11,7 @@ public class Camera {
     private int height;
     private double centerX;
     private double centerY;
+    private Timer shakeTimer;
 
     public Camera(double x, double y, double direction, int width, int height) {
         this.x = x;
@@ -18,13 +21,16 @@ public class Camera {
         this.height = height;
         this.centerX = 0;
         this.centerY = 0;
+        this.shakeTimer = new Timer();
     }
 
     public Camera(int width, int height) {
         this(0, 0, 0, width, height);
     }
 
-    public void update(int width, int height, double x, double y, double direction) {
+    public void update(int delta, int width, int height, double x, double y, double direction) {
+        shakeTimer.update(delta);
+
         this.width = width;
         this.height = height;
 
@@ -40,8 +46,18 @@ public class Camera {
         this.direction = resultDirection;
         centerX = this.width / 2;
         centerY = 2 * this.height / 3;
-        setX(x - centerX);
-        setY(y - centerY);
+        double tempX = x - centerX;
+        double tempY = y - centerY;
+        if (shakeTimer.isActive()) {
+            tempX += -5 + Math.random() * 10;
+            tempY += -5 + Math.random() * 10;
+        }
+        setX(tempX);
+        setY(tempY);
+    }
+
+    public void shake(int shakeTime) {
+        shakeTimer.activate(shakeTime);
     }
 
     public double getX() {

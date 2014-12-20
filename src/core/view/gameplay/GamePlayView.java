@@ -3,7 +3,7 @@ package core.view.gameplay;
 import java.util.ArrayList;
 import java.util.List;
 
-import core.resourcemanager.ResourceManager;
+import core.MathAdv;
 import core.view.gameplay.gameobject.GameObjectView;
 import core.view.gameplay.gameobject.LootView;
 import core.view.gameplay.gameobjectsolid.*;
@@ -14,7 +14,7 @@ import core.view.gameplay.gameobjectsolid.WallView;
 import core.view.gameplay.ui.HeroInfoView;
 import core.view.gameplay.ui.InventoryView;
 import core.view.gameplay.ui.ItemPanelView;
-import core.view.gameplay.ui.SkillPanelView;
+//import core.view.gameplay.ui.SkillPanelView;
 import core.view.gameplay.unit.*;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -29,24 +29,28 @@ import core.resourcemanager.tilemapadv.TiledMapAdv;
 * */
 public class GamePlayView {
 
+    private GameContainer gc;
     private List<GameObjectView> gameObjectViewList;
     private Camera camera;
     private InventoryView inventoryView;
     private HeroInfoView heroInfoView;
     private ItemPanelView itemPanelView;
-    private SkillPanelView skillPanelView;
+    //private SkillPanelView skillPanelView;
     private TileView tileView;
 
     private List<Class> renderOrder;
+    private int RENDER_RADIUS = 1000;
 
     public GamePlayView(GameContainer gc, List<GameObject> gameObjectList, TiledMapAdv tiledMap) throws SlickException {
+        this.gc = gc;
         this.inventoryView = new InventoryView(Hero.getInstance().getInventory());
 
         this.heroInfoView = new HeroInfoView(gc);
-        this.itemPanelView = new ItemPanelView(gc);
+        this.itemPanelView = new ItemPanelView();
+
         this.tileView = new TileView(tiledMap);
-        this.skillPanelView = new SkillPanelView(Hero.getInstance().getSkillList(),
-                ResourceManager.getInstance().getSkillInfos(), gc);
+        /*this.skillPanelView = new SkillPanelView(Hero.getInstance().getSkillList(),
+                ResourceManager.getInstance().getSkillInfos(), gc);*/
 
         this.gameObjectViewList = new ArrayList<>();
         for (GameObject gameObject : gameObjectList) {
@@ -135,8 +139,6 @@ public class GamePlayView {
     }
 
     public void render(GameContainer gc, Graphics g) throws SlickException {
-        camera.update(gc.getWidth(), gc.getHeight(), Hero.getInstance().getX(),
-                Hero.getInstance().getY(), Hero.getInstance().getDirection());
         updateGameObjectViewList();
 
         tileView.render(g, camera);
@@ -145,7 +147,9 @@ public class GamePlayView {
         for (Class currentClass : renderOrder) {
             for (GameObjectView gameObjectView : gameObjectViewList) {
                 if (gameObjectView.getClass() == currentClass) {
-                    gameObjectView.render(g, camera);
+                    if (isInRenderRaius(gameObjectView)) {
+                        gameObjectView.render(g, camera);
+                    }
                 }
             }
         }
@@ -158,21 +162,29 @@ public class GamePlayView {
                 }
             }
             if (!isRendered) {
-                gameObjectView.render(g, camera);
+                if (isInRenderRaius(gameObjectView)) {
+                    gameObjectView.render(g, camera);
+                }
             }
         }
         inventoryView.render(g, camera.getWidth(), camera.getHeight());
 
 
-        skillPanelView.render(g);
+        //skillPanelView.render(g);
         heroInfoView.render(g, camera);
         itemPanelView.render(gc, g);
     }
 
     public void update(int delta) {
+        camera.update(delta, gc.getWidth(), gc.getHeight(), Hero.getInstance().getX(),
+                Hero.getInstance().getY(), Hero.getInstance().getDirection());
+
         for (GameObjectView gameObjectView : gameObjectViewList) {
-            gameObjectView.update(delta);
+            if (isInRenderRaius(gameObjectView)) {
+                gameObjectView.update(delta);
+            }
         }
+
         itemPanelView.update(delta);
     }
 
@@ -251,6 +263,11 @@ public class GamePlayView {
         /* Delete not required views */
         World.getInstance().getGameObjectToDeleteList().forEach(gameObject ->
                 gameObjectViewList.removeIf(gameObjectView -> gameObjectView.getGameObject() == gameObject));
+    }
+
+    private boolean isInRenderRaius(GameObjectView gameObjectView) {
+        return MathAdv.getDistance(gameObjectView.getGameObject().getX(), gameObjectView.getGameObject().getY(),
+                Hero.getInstance().getX(), Hero.getInstance().getY()) < RENDER_RADIUS;
     }
 
     public InventoryView getInventoryView() {
