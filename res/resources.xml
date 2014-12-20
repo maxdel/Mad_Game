@@ -442,6 +442,8 @@
             <sound name="bow_shot" path="/res/sounds/bow_shot.wav"/>
             <sound name="apple_bite" path="/res/sounds/apple_bite.wav"/>
             <sound name="fireball" path="/res/sounds/fireball.wav"/>
+            <sound name="golem_step" path="/res/sounds/golem_step.wav"/>
+            <sound name="golem_attack" path="/res/sounds/golem_attack.wav"/>
         </sounds>
         <quests>
             <quest name="Beat bandits">

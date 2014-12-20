@@ -3,6 +3,7 @@ package core.view.gameplay;
 import java.util.ArrayList;
 import java.util.List;
 
+import core.MathAdv;
 import core.view.gameplay.gameobject.GameObjectView;
 import core.view.gameplay.gameobject.LootView;
 import core.view.gameplay.gameobjectsolid.*;
@@ -28,6 +29,7 @@ import core.resourcemanager.tilemapadv.TiledMapAdv;
 * */
 public class GamePlayView {
 
+    private GameContainer gc;
     private List<GameObjectView> gameObjectViewList;
     private Camera camera;
     private InventoryView inventoryView;
@@ -37,8 +39,10 @@ public class GamePlayView {
     private TileView tileView;
 
     private List<Class> renderOrder;
+    private int RENDER_RADIUS = 1000;
 
     public GamePlayView(GameContainer gc, List<GameObject> gameObjectList, TiledMapAdv tiledMap) throws SlickException {
+        this.gc = gc;
         this.inventoryView = new InventoryView(Hero.getInstance().getInventory());
 
         this.heroInfoView = new HeroInfoView(gc);
@@ -135,8 +139,6 @@ public class GamePlayView {
     }
 
     public void render(GameContainer gc, Graphics g) throws SlickException {
-        camera.update(gc.getWidth(), gc.getHeight(), Hero.getInstance().getX(),
-                Hero.getInstance().getY(), Hero.getInstance().getDirection());
         updateGameObjectViewList();
 
         tileView.render(g, camera);
@@ -145,7 +147,9 @@ public class GamePlayView {
         for (Class currentClass : renderOrder) {
             for (GameObjectView gameObjectView : gameObjectViewList) {
                 if (gameObjectView.getClass() == currentClass) {
-                    gameObjectView.render(g, camera);
+                    if (isInRenderRaius(gameObjectView)) {
+                        gameObjectView.render(g, camera);
+                    }
                 }
             }
         }
@@ -158,7 +162,9 @@ public class GamePlayView {
                 }
             }
             if (!isRendered) {
-                gameObjectView.render(g, camera);
+                if (isInRenderRaius(gameObjectView)) {
+                    gameObjectView.render(g, camera);
+                }
             }
         }
         inventoryView.render(g, camera.getWidth(), camera.getHeight());
@@ -170,9 +176,15 @@ public class GamePlayView {
     }
 
     public void update(int delta) {
+        camera.update(delta, gc.getWidth(), gc.getHeight(), Hero.getInstance().getX(),
+                Hero.getInstance().getY(), Hero.getInstance().getDirection());
+
         for (GameObjectView gameObjectView : gameObjectViewList) {
-            gameObjectView.update(delta);
+            if (isInRenderRaius(gameObjectView)) {
+                gameObjectView.update(delta);
+            }
         }
+
         itemPanelView.update(delta);
     }
 
@@ -251,6 +263,11 @@ public class GamePlayView {
         /* Delete not required views */
         World.getInstance().getGameObjectToDeleteList().forEach(gameObject ->
                 gameObjectViewList.removeIf(gameObjectView -> gameObjectView.getGameObject() == gameObject));
+    }
+
+    private boolean isInRenderRaius(GameObjectView gameObjectView) {
+        return MathAdv.getDistance(gameObjectView.getGameObject().getX(), gameObjectView.getGameObject().getY(),
+                Hero.getInstance().getX(), Hero.getInstance().getY()) < RENDER_RADIUS;
     }
 
     public InventoryView getInventoryView() {
