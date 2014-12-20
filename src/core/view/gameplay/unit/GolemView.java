@@ -25,7 +25,7 @@ public class GolemView extends UnitView {
     private Sound attack;
     private Timer stepTimer;
 
-    public GolemView(GameObject golem) throws SlickException {
+    public GolemView(GameObject golem) {
         super(golem);
         walk = ResourceManager.getInstance().getAnimation("golem_walk");
         attackRight = ResourceManager.getInstance().getAnimation("golem_attack_right");

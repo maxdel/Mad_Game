@@ -10,7 +10,7 @@ import core.view.gameplay.Camera;
 
 public class GolemTinyView extends UnitView {
 
-    public GolemTinyView(GameObject golem) throws SlickException {
+    public GolemTinyView(GameObject golem) {
         super(golem);
         animation = ResourceManager.getInstance().getAnimation("golem_tiny");
     }

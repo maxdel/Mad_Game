@@ -3,6 +3,10 @@ package core.view.gameplay;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.SlickException;
+
 import core.MathAdv;
 import core.resourcemanager.ResourceManager;
 import core.view.gameplay.gameobject.GameObjectView;
@@ -15,13 +19,8 @@ import core.view.gameplay.gameobjectsolid.WallView;
 import core.view.gameplay.ui.HeroInfoView;
 import core.view.gameplay.ui.InventoryView;
 import core.view.gameplay.ui.ItemPanelView;
-//import core.view.gameplay.ui.SkillPanelView;
 import core.view.gameplay.ui.SkillPanelView;
 import core.view.gameplay.unit.*;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.SlickException;
-
 import core.model.gameplay.World;
 import core.model.gameplay.gameobjects.*;
 import core.resourcemanager.tilemapadv.TiledMapAdv;
@@ -43,8 +42,7 @@ public class GamePlayView {
     private List<Class> renderOrder;
     private int RENDER_RADIUS = 1000;
 
-    public GamePlayView(GameContainer gc, List<GameObject> gameObjectList, TiledMapAdv tiledMap) throws SlickException {
-        this.gc = gc;
+    public GamePlayView(GameContainer gc, List<GameObject> gameObjectList, TiledMapAdv tiledMap) throws SlickException {this.gc = gc;
         this.inventoryView = new InventoryView(Hero.getInstance().getInventory());
 
         this.heroInfoView = new HeroInfoView(gc);
@@ -56,61 +54,8 @@ public class GamePlayView {
 
         this.gameObjectViewList = new ArrayList<>();
         for (GameObject gameObject : gameObjectList) {
-            switch (gameObject.getType()) {
-                case WALL:
-                    gameObjectViewList.add(new WallView(gameObject));
-                    break;
-                case TREE:
-                    gameObjectViewList.add(new TreeView(gameObject));
-                    break;
-                case TREEBIG:
-                    gameObjectViewList.add(new TreeBigView(gameObject));
-                    break;
-                case ROCK:
-                    gameObjectViewList.add(new RockView(gameObject));
-                    break;
-                case ICEWALL:
-                    gameObjectViewList.add(new IceWallView(gameObject));
-                    break;
-                case HERO:
-                    gameObjectViewList.add(new HeroView(gameObject));
-                    break;
-                case BANDIT:
-                    gameObjectViewList.add(new BanditView(gameObject));
-                    break;
-                case BANDITARCHER:
-                    gameObjectViewList.add(new BanditArcherView(gameObject));
-                    break;
-                case BANDITBOSS:
-                    gameObjectViewList.add(new BanditBossView(gameObject));
-                    break;
-                case GOLEM:
-                    gameObjectViewList.add(new GolemView(gameObject));
-                    break;
-                case GOLEMTINY:
-                    gameObjectViewList.add(new GolemTinyView(gameObject));
-                    break;
-                case GOLEMBOSS:
-                    gameObjectViewList.add(new GolemBossView(gameObject));
-                    break;
-                case VAMPIRE:
-                    gameObjectViewList.add(new VampireView(gameObject));
-                    break;
-                case SKELETON:
-                    gameObjectViewList.add(new SkeletonView(gameObject));
-                    break;
-                case SKELETONMAGE:
-                    gameObjectViewList.add(new SkeletonMageView(gameObject));
-                    break;
-                case FIREELEMENTAL:
-                    gameObjectViewList.add(new FireElementalView(gameObject));
-                    break;
-                case WATERELEMENTAL:
-                    gameObjectViewList.add(new WaterElementalView(gameObject));
-                    break;
-                case WANDERER:
-                    gameObjectViewList.add(new NPCView(gameObject));
-                    break;
+            if (getGameObjecView(gameObject) != null) {
+                gameObjectViewList.add(getGameObjecView(gameObject));
             }
         }
 
@@ -171,7 +116,6 @@ public class GamePlayView {
         }
         inventoryView.render(g, camera.getWidth(), camera.getHeight());
 
-
         skillPanelView.render(g);
         heroInfoView.render(g, camera);
         itemPanelView.render(gc, g);
@@ -193,78 +137,64 @@ public class GamePlayView {
     private void updateGameObjectViewList() throws SlickException {
         /* Add required views */
         for (GameObject gameObject : World.getInstance().getGameObjectToAddList()) {
-            switch (gameObject.getType()) {
-                case ICEWALL:
-                    gameObjectViewList.add(new IceWallView(gameObject));
-                    break;
-                case LOOT:
-                    gameObjectViewList.add(new LootView(gameObject));
-                    break;
-                case WALL:
-                    gameObjectViewList.add(new WallView(gameObject));
-                    break;
-                case BANDIT:
-                    gameObjectViewList.add(new BanditView(gameObject));
-                    break;
-                case HERO:
-                    gameObjectViewList.add(new HeroView(gameObject));
-                    break;
-                case ARROW:
-                    gameObjectViewList.add(new ArrowView(gameObject));
-                    break;
-                case FIREBALL:
-                    gameObjectViewList.add(new FireballView(gameObject));
-                    break;
-                case THORN:
-                    gameObjectViewList.add(new ThornView(gameObject));
-                    break;
-                case STONE:
-                    gameObjectViewList.add(new StoneView(gameObject));
-                    break;
-                case WATERBALL:
-                    gameObjectViewList.add(new WaterballView(gameObject));
-                    break;
-                case VAMPIRICKNIFE:
-                    gameObjectViewList.add(new VampiricKnifeView(gameObject));
-                    break;
-                case DARKFLAME:
-                    gameObjectViewList.add(new DarkFlameView(gameObject));
-                    break;
-                case BANDITARCHER:
-                    gameObjectViewList.add(new BanditArcherView(gameObject));
-                    break;
-                case SKELETON:
-                    gameObjectViewList.add(new SkeletonView(gameObject));
-                    break;
-                case SKELETONMAGE:
-                    gameObjectViewList.add(new SkeletonMageView(gameObject));
-                    break;
-                case FIREELEMENTAL:
-                    gameObjectViewList.add(new FireElementalView(gameObject));
-                    break;
-                case WATERELEMENTAL:
-                    gameObjectViewList.add(new WaterElementalView(gameObject));
-                    break;
-                case BANDITBOSS:
-                    gameObjectViewList.add(new BanditBossView(gameObject));
-                    break;
-                case GOLEM:
-                    gameObjectViewList.add(new GolemView(gameObject));
-                    break;
-                case GOLEMTINY:
-                    gameObjectViewList.add(new GolemTinyView(gameObject));
-                    break;
-                case GOLEMBOSS:
-                    gameObjectViewList.add(new GolemBossView(gameObject));
-                    break;
-                case WANDERER:
-                    gameObjectViewList.add(new NPCView(gameObject));
-                    break;
+            if (getGameObjecView(gameObject) != null) {
+                gameObjectViewList.add(getGameObjecView(gameObject));
             }
         }
         /* Delete not required views */
         World.getInstance().getGameObjectToDeleteList().forEach(gameObject ->
                 gameObjectViewList.removeIf(gameObjectView -> gameObjectView.getGameObject() == gameObject));
+    }
+    
+    private GameObjectView getGameObjecView(GameObject gameObject) {
+        switch (gameObject.getType()) {
+            case ICEWALL:
+                return new IceWallView(gameObject);
+            case LOOT:
+                return new LootView(gameObject);
+            case WALL:
+                return new WallView(gameObject);
+            case BANDIT:
+                return new BanditView(gameObject);
+            case HERO:
+                return new HeroView(gameObject);
+            case ARROW:
+                return new ArrowView(gameObject);
+            case FIREBALL:
+                return new FireballView(gameObject);
+            case THORN:
+                return new ThornView(gameObject);
+            case STONE:
+                return new StoneView(gameObject);
+            case WATERBALL:
+                return new WaterballView(gameObject);
+            case VAMPIRICKNIFE:
+                return new VampiricKnifeView(gameObject);
+            case DARKFLAME:
+                return new DarkFlameView(gameObject);
+            case BANDITARCHER:
+                return new BanditArcherView(gameObject);
+            case SKELETON:
+                return new SkeletonView(gameObject);
+            case SKELETONMAGE:
+                return new SkeletonMageView(gameObject);
+            case FIREELEMENTAL:
+                return new FireElementalView(gameObject);
+            case WATERELEMENTAL:
+                return new WaterElementalView(gameObject);
+            case BANDITBOSS:
+                return new BanditBossView(gameObject);
+            case GOLEM:
+                return new GolemView(gameObject);
+            case GOLEMTINY:
+                return new GolemTinyView(gameObject);
+            case GOLEMBOSS:
+                return new GolemBossView(gameObject);
+            case WANDERER:
+                return new NPCView(gameObject);
+            default:
+                return null;
+        }
     }
 
     private boolean isInRenderRaius(GameObjectView gameObjectView) {

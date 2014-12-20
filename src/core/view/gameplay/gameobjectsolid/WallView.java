@@ -7,7 +7,7 @@ import core.resourcemanager.ResourceManager;
 
 public class WallView extends GameObjectSolidView {
 
-    public WallView(GameObject wall) throws SlickException {
+    public WallView(GameObject wall) {
         super(wall);
         animation = ResourceManager.getInstance().getAnimation("wall");
     }

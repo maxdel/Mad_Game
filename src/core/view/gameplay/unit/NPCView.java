@@ -17,7 +17,7 @@ public class NPCView extends UnitView {
     private TrueTypeFont replicaFont = ResourceManager.getInstance().getFont("replica_font");
     private Image selectedNPC;
 
-    public NPCView(GameObject npc) throws SlickException {
+    public NPCView(GameObject npc) {
         super(npc);
         animation = ResourceManager.getInstance().getAnimation("wanderer");
         selectedNPC = ResourceManager.getInstance().getImage("selected npc");

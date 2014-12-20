@@ -8,7 +8,7 @@ import core.resourcemanager.ResourceManager;
 
 public class SkeletonView extends UnitView {
 
-    public SkeletonView(GameObject skeleton) throws SlickException {
+    public SkeletonView(GameObject skeleton) {
         super(skeleton);
         animation = ResourceManager.getInstance().getAnimation("skeleton");
     }

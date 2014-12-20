@@ -9,7 +9,7 @@ import core.view.gameplay.Camera;
 
 public class GolemBossView extends UnitView {
 
-    public GolemBossView(GameObject golem) throws SlickException {
+    public GolemBossView(GameObject golem) {
         super(golem);
         animation = ResourceManager.getInstance().getAnimation("golem_boss");
     }

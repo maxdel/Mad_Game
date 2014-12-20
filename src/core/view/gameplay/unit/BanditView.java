@@ -15,7 +15,7 @@ public class BanditView extends UnitView {
     private Animation animationSwordAttack;
     private Animation animationWalkSword;
 
-    public BanditView(GameObject bandit) throws SlickException {
+    public BanditView(GameObject bandit) {
         super(bandit);
         animationWalkSword = ResourceManager.getInstance().getAnimation("bandit_walk_sword");
         animationSwordAttack = ResourceManager.getInstance().getAnimation("bandit_skill_sword_attack");

@@ -11,7 +11,7 @@ import core.resourcemanager.ResourceManager;
 
 public class BanditArcherView extends UnitView {
 
-    public BanditArcherView(GameObject banditArcher) throws SlickException {
+    public BanditArcherView(GameObject banditArcher) {
         super(banditArcher);
         animation = ResourceManager.getInstance().getAnimation("bandit_archer");
     }

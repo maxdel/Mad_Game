@@ -24,7 +24,7 @@ public class HeroView extends UnitView {
     private Animation animationFireball;
     private Item previousWeapon;
 
-    public HeroView(GameObject hero) throws SlickException {
+    public HeroView(GameObject hero) {
         super(hero);
         animation = ResourceManager.getInstance().getAnimation("hero_walk");
         animationWalkSword = ResourceManager.getInstance().getAnimation("hero_walk_sword");
