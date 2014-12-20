@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import core.MathAdv;
+import core.resourcemanager.ResourceManager;
 import core.view.gameplay.gameobject.GameObjectView;
 import core.view.gameplay.gameobject.LootView;
 import core.view.gameplay.gameobjectsolid.*;
@@ -15,6 +16,7 @@ import core.view.gameplay.ui.HeroInfoView;
 import core.view.gameplay.ui.InventoryView;
 import core.view.gameplay.ui.ItemPanelView;
 //import core.view.gameplay.ui.SkillPanelView;
+import core.view.gameplay.ui.SkillPanelView;
 import core.view.gameplay.unit.*;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -35,7 +37,7 @@ public class GamePlayView {
     private InventoryView inventoryView;
     private HeroInfoView heroInfoView;
     private ItemPanelView itemPanelView;
-    //private SkillPanelView skillPanelView;
+    private SkillPanelView skillPanelView;
     private TileView tileView;
 
     private List<Class> renderOrder;
@@ -49,8 +51,8 @@ public class GamePlayView {
         this.itemPanelView = new ItemPanelView();
 
         this.tileView = new TileView(tiledMap);
-        /*this.skillPanelView = new SkillPanelView(Hero.getInstance().getSkillList(),
-                ResourceManager.getInstance().getSkillInfos(), gc);*/
+        this.skillPanelView = new SkillPanelView(Hero.getInstance().getSkillList(),
+                ResourceManager.getInstance().getSkillInfos(), gc);
 
         this.gameObjectViewList = new ArrayList<>();
         for (GameObject gameObject : gameObjectList) {
@@ -170,7 +172,7 @@ public class GamePlayView {
         inventoryView.render(g, camera.getWidth(), camera.getHeight());
 
 
-        //skillPanelView.render(g);
+        skillPanelView.render(g);
         heroInfoView.render(g, camera);
         itemPanelView.render(gc, g);
     }

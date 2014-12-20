@@ -5,6 +5,7 @@ import core.model.gameplay.gameobjects.UnitState;
 import core.model.gameplay.items.ItemInstanceKind;
 import core.model.gameplay.skills.SkillInstanceKind;
 //import core.view.gameplay.ui.SkillPanelView;
+import core.view.gameplay.ui.SkillPanelView;
 import main.Main;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.*;
@@ -82,7 +83,7 @@ public class GamePlayController {
             }
 
             // Skill panel view showing
-            /*if (input.isKeyDown(Input.KEY_LSHIFT)) {
+            if (input.isKeyDown(Input.KEY_LSHIFT)) {
                 SkillPanelView.isOpacity = false;
             } else {
                 SkillPanelView.isOpacity = true;
@@ -90,7 +91,7 @@ public class GamePlayController {
 
             if (input.isKeyPressed(Input.KEY_TAB)) {
                 SkillPanelView.skillBarsIsActive = !SkillPanelView.skillBarsIsActive;
-            }*/
+            }
 
             if (input.isKeyPressed(Input.KEY_Q)) {
                 Hero.getInstance().changeWeapon();

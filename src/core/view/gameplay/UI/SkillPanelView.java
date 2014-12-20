@@ -1,7 +1,7 @@
 package core.view.gameplay.ui;
 
 import core.model.gameplay.World;
-import core.model.gameplay.gameobjects.GameObjectState;
+import core.model.gameplay.gameobjects.UnitState;
 import core.model.gameplay.gameobjects.Hero;
 import core.model.gameplay.items.ItemRecord;
 import core.model.gameplay.skills.Skill;
@@ -302,7 +302,7 @@ public class SkillPanelView {
 
         private void renderCastingBar(Graphics g, int width, int height, int x, int y) {
             Hero hero = Hero.getInstance();
-            if (hero.getCurrentState() == GameObjectState.SKILL && hero.getCastingSkill() == skill) {
+            if (hero.getCurrentState() == UnitState.SKILL && hero.getCastingSkill() == skill) {
                 int castTime = hero.getCastingSkill().getCastTime();
                 int preCastTime = hero.getCastingSkill().getPreApplyTime();
                 int postCastTime = castTime - preCastTime;
