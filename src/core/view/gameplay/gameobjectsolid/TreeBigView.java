@@ -5,7 +5,7 @@ import core.resourcemanager.ResourceManager;
 import org.newdawn.slick.SlickException;
 public class TreeBigView extends GameObjectSolidView {
 
-    public TreeBigView(GameObject tree) throws SlickException {
+    public TreeBigView(GameObject tree) {
         super(tree);
         animation = ResourceManager.getInstance().getAnimation("tree_big");
     }

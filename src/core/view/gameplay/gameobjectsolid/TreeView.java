@@ -7,7 +7,7 @@ import core.resourcemanager.ResourceManager;
 
 public class TreeView extends GameObjectSolidView {
 
-    public TreeView(GameObject tree) throws SlickException {
+    public TreeView(GameObject tree) {
         super(tree);
         animation = ResourceManager.getInstance().getAnimation("tree");
     }

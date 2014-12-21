@@ -43,7 +43,7 @@ public class BanditView extends UnitView {
                 case SKILL:
                     Skill castingSkill = bandit.getCastingSkill();
                     switch (castingSkill.getKind()) {
-                        case SWORD_ATTACK:
+                        case BANDIT_SWORD_ATTACK:
                             ResourceManager.getInstance().getSound("sword_attack").play();
                             animation = animationSwordAttack;
                             animation.restart();
@@ -54,6 +54,7 @@ public class BanditView extends UnitView {
                             break;
                     }
                     animation.start();
+                    break;
             }
 
         }

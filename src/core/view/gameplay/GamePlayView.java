@@ -148,6 +148,12 @@ public class GamePlayView {
     
     private GameObjectView getGameObjecView(GameObject gameObject) {
         switch (gameObject.getType()) {
+            case ROCK:
+                return new RockView(gameObject);
+            case TREEBIG:
+                return new TreeBigView(gameObject);
+            case TREE:
+                return new TreeView(gameObject);
             case ICEWALL:
                 return new IceWallView(gameObject);
             case LOOT:
@@ -192,6 +198,8 @@ public class GamePlayView {
                 return new GolemBossView(gameObject);
             case WANDERER:
                 return new NPCView(gameObject);
+            case VAMPIRE:
+                return new VampireView(gameObject);
             default:
                 return null;
         }

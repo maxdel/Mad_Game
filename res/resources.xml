@@ -15,7 +15,8 @@
             <animation name="bandit_walk_sword" path="/res/bandit/bandit_walk_sword.png" isImage = "false" frameWidth="160" frameHeight="160" speedCoef="5"/>
             <animation name="bandit_skill_sword_attack" path="/res/bandit/bandit_skill_sword_attack.png" isImage = "false" frameWidth="160" frameHeight="160" speedCoef="0.07"/>
 
-            <animation name="bandit_archer" path="/res/banditarcher/banditArcher.png" isImage = "true"/>
+            <animation name="bandit_archer_walk" path="/res/banditarcher/bandit_archer_walk.png" isImage = "false" frameWidth="160" frameHeight="160" speedCoef="5"/>
+            <animation name="bandit_archer_attack" path="/res/banditarcher/bandit_archer_attack.png" isImage = "false" frameWidth="160" frameHeight="160" speedCoef="0.07"/>
 
             <animation name="bandit_boss" path="/res/banditboss/banditboss.png" isImage = "true"/>
 
