@@ -32,7 +32,7 @@ public class WaterElementalView extends UnitView {
     }
 
     @Override
-    public void render(Graphics g, Camera camera) throws SlickException {
+    public void render(Graphics g, Camera camera) {
         super.render(g, camera);
         rotate(g, camera, true);
         ps.render((float) (gameObject.getX() - camera.getX()), (float) (gameObject.getY() - camera.getY()));

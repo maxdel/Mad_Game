@@ -38,7 +38,7 @@ public class HeroView extends UnitView {
     }
 
     @Override
-    public void render(Graphics g, Camera camera) throws SlickException {
+    public void render(Graphics g, Camera camera) {
         Hero hero = (Hero) gameObject;
 
         if (hero.getCurrentState() != previousState) {

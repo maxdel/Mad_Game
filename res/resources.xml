@@ -33,8 +33,13 @@
             <animation name="wanderer" path="/res/wanderer/wanderer.png" isImage = "true"/>
 
             <animation name="elemental" path="/res/fireelemental/elemental.png" isImage = "true"/>
-            <animation name="skeleton" path="/res/skeleton/skeleton.png" isImage = "true"/>
-            <animation name="skeleton_mage" path="/res/skeletonmage/skeletonMage.png" isImage = "true"/>
+
+            <animation name="skeleton_walk" path="/res/skeleton/skeleton_walk.png" isImage = "false" frameWidth="160" frameHeight="160" speedCoef="5"/>
+            <animation name="skeleton_attack" path="/res/skeleton/skeleton_attack.png" isImage = "false" frameWidth="160" frameHeight="160" speedCoef="0.07"/>
+
+            <animation name="skeleton_mage_walk" path="/res/skeletonmage/skeleton_mage_walk.png" isImage = "false" frameWidth="160" frameHeight="160" speedCoef="5"/>
+            <animation name="skeleton_mage_attack" path="/res/skeletonmage/skeleton_mage_attack.png" isImage = "false" frameWidth="160" frameHeight="160" speedCoef="0.07"/>
+
             <animation name="wall" path="/res/obstacles/wall.png" isImage = "true"/>
             <animation name="tree" path="/res/obstacles/tree.png" isImage = "true"/>
             <animation name="ice_wall" path="/res/obstacles/iceWall.png" isImage = "true"/>

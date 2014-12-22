@@ -42,6 +42,7 @@ public class BulletShot extends Skill {
                 break;
             case FIREBALL:
             case ELEMENTAL_FIREBALL:
+            case SKELETON_FIREBALL:
                 World.getInstance().getGameObjectToAddList().add(new core.model.gameplay.gameobjects.Bullet(owner, owner.getX(), owner.getY(), owner.getDirection(),
                         bulletSpeed, pAttack, mAttack, distance, GameObjInstanceKind.FIREBALL));
                 break;

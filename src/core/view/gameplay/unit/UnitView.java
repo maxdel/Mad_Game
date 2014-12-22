@@ -47,7 +47,7 @@ public abstract class UnitView extends GameObjectSolidView {
     }
 
     @Override
-    public void render(Graphics g, Camera camera) throws SlickException {
+    public void render(Graphics g, Camera camera) {
         Unit unit = (Unit) gameObject;
 
         rotate(g, camera, true);
@@ -83,7 +83,7 @@ public abstract class UnitView extends GameObjectSolidView {
 
 
 
-    private void renderParticleSystem(Graphics g, Camera camera) throws SlickException {
+    private void renderParticleSystem(Graphics g, Camera camera) {
         Unit unit = (Unit) gameObject;
 
         if (unit.getCurrentState() == UnitState.SKILL) {
