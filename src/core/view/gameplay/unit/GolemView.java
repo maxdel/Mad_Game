@@ -46,7 +46,7 @@ public class GolemView extends UnitView {
         if (golem.getCurrentState() == UnitState.MOVE && stepTimer.isTime()) {
             step.play();
             stepTimer.activate((int) (1f / golem.getAttribute().getCurrentSpeed() * ResourceManager.getInstance().getSpeedCoef("golem_walk")) * IntStream.of(animation.getDurations()).sum() / 2);
-            camera.shake(100);
+            //camera.shake(100);
         }
 
         if (golem.getCurrentState() != previousState) {

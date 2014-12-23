@@ -249,8 +249,7 @@ public abstract class Unit extends GameObjectSolid {
      */
     public void startCastSkill(SkillInstanceKind skillInstanceKind) {
         Skill skillToCast = getSkillByKind(skillInstanceKind);
-        if (((currentState == UnitState.STAND || currentState == UnitState.MOVE)) &&
-                skillToCast != null && canStartCast(skillToCast) ) {
+        if (isReadyToCast() && skillToCast != null && canStartCast(skillToCast) ) {
             stand();
             currentState = UnitState.SKILL;
 
@@ -263,6 +262,10 @@ public abstract class Unit extends GameObjectSolid {
 
             stealSkillCostAction.realized(this);
         }
+    }
+
+    public boolean isReadyToCast() {
+        return currentState == UnitState.STAND || currentState == UnitState.MOVE;
     }
 
     public Skill getSkillByKind(SkillInstanceKind skillInstanceKind) {

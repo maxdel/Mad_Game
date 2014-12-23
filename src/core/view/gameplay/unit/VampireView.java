@@ -19,6 +19,7 @@ public class VampireView extends UnitView {
 
     private ParticleSystem psPowerBeam;
     private ConfigurableEmitter cePowerBeam;
+    private boolean usePowerBeam;
 
     private UnitState previousState;
     private SkillInstanceKind previousSkill;
@@ -142,17 +143,19 @@ public class VampireView extends UnitView {
             previousSkill = vampire.getCastingSkill().getKind();
         }
         if (vampire.getCastingSkill() != null && vampire.getCastingSkill().getKind() == SkillInstanceKind.POWER_BEAM) {
-
             int preCastTime = vampire.getCastingSkill().getPreApplyTime();
             int currentCastTime = vampire.getCastingSkill().getCastTime() - vampire.getCurrentSkillCastingTime();
-            if (currentCastTime + 100 > preCastTime) {
+            if (currentCastTime + cePowerBeam.length.getMax() > preCastTime && !usePowerBeam) {
                 ConfigurableEmitter ce = cePowerBeam.duplicate();
                 ce.setPosition((float) (gameObject.getX()), (float) (gameObject.getY()));
                 ce.setEnabled(true);
                 ce.angularOffset.setValue((float) (ce.angularOffset.getValue(0) + gameObject.getDirection() / Math.PI * 180));
                 psPowerBeam.addEmitter(ce);
                 ResourceManager.getInstance().getSound("power_beam").play();
+                usePowerBeam = true;
             }
+        } else {
+            usePowerBeam = false;
         }
 
         g.rotate((float) camera.getCenterX(), (float) camera.getCenterY(), -camera.getDirectionDegrees());

@@ -196,11 +196,11 @@
                    castTime="400" postApplyTime="300" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="5"
                    pAttack="10" mAttack="20" bulletSpeed="0.4" distance="1000"/>
             <skill name="Power_beam" description="" path="/res/skills/empty skill.png" type="AreaDamage"
-                   castTime="1000" postApplyTime="150" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="0"
-                   pAttack="50" mAttack="0" radius="200" angle="60"/>
+                   castTime="1000" postApplyTime="300" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="0"
+                   pAttack="50" mAttack="0" radius="300" angle="60"/>
             <skill name="Doom" description="" path="/res/skills/empty skill.png" type="BulletShot"
                    castTime="1000" postApplyTime="500" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="0"
-                   pAttack="50" mAttack="50" bulletSpeed="0.2" distance="1000"/>
+                   pAttack="50" mAttack="50" bulletSpeed="0.4" distance="1000"/>
             <skill name="Sword_spin" description="" path="/res/skills/empty skill.png" type="AreaDamage"
                    castTime="400" postApplyTime="200" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="0"
                    pAttack="10" mAttack="0" radius="60" angle="360"/>
