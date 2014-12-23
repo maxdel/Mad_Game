@@ -106,7 +106,7 @@
    H4sIAAAAAAAAC+3cuQ7CMAwA0K7c18L/fylLKyRUcfWwk7y3ZEBCFhCndkK6DgAAAAAAAJjLPjoAgErJrwAAAAAAAMxlN/F1AMbJrwBkZy3KzTlBKJf8mpv8Sg020QEAVEp+ZU1L1g1qEqBl8isA0LpP/Y3tKlEAMCd73AC8mrqvqS6om+8XAAAA2qQnAACx3DUG/Gps39d/XKFOh4XfX08AniLO3EY+6ztj/JnPCMhsqAGH57lhTfkmd8lvMF2GPsy1H2/9eOrHc0As/EfvH9phvufkrjEAAKjbrz28DD2/MZfoABJy5haApWXeU79HBwAQyLN+btnWz6x1Pnll+w3znjkOZTFnAaB8ztwCJVB7tCHzHTlL3w9E+Y7RAQAAAAAAAAAARXkAa9NP4QAAAQA=
   </data>
  </layer>
- <objectgroup name="Слой объектов 1" visible="0">
+ <objectgroup name="Слой объектов 1">
   <object name="wall" gid="6" x="1594.24" y="817.502" width="32" height="32" rotation="530.431"/>
   <object name="wall" gid="6" x="1552.19" y="899.027" width="32" height="32" rotation="802.289"/>
   <object name="wall" gid="6" x="1566.93" y="853.4" width="32" height="32" rotation="473.102"/>

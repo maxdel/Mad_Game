@@ -146,15 +146,18 @@ public class VampireView extends UnitView {
             int preCastTime = vampire.getCastingSkill().getPreApplyTime();
             int currentCastTime = vampire.getCastingSkill().getCastTime() - vampire.getCurrentSkillCastingTime();
             if (currentCastTime + 100 > preCastTime) {
-                cePowerBeam.setPosition((float) (gameObject.getX()), (float) (gameObject.getY()));
-                psPowerBeam.addEmitter(cePowerBeam.duplicate());
+                ConfigurableEmitter ce = cePowerBeam.duplicate();
+                ce.setPosition((float) (gameObject.getX()), (float) (gameObject.getY()));
+                ce.setEnabled(true);
+                ce.angularOffset.setValue((float) (ce.angularOffset.getValue(0) + gameObject.getDirection() / Math.PI * 180));
+                psPowerBeam.addEmitter(ce);
                 ResourceManager.getInstance().getSound("power_beam").play();
             }
         }
 
-        rotate(g, camera, true);
-        psPowerBeam.render((float) (- camera.getX()), (float) (- camera.getY()));
-        rotate(g, camera, false);
+        g.rotate((float) camera.getCenterX(), (float) camera.getCenterY(), -camera.getDirectionDegrees());
+        psPowerBeam.render((float) (-camera.getX()), (float) (-camera.getY()));
+        g.rotate((float) camera.getCenterX(), (float) camera.getCenterY(), camera.getDirectionDegrees());
 
         super.render(g, camera);
     }
