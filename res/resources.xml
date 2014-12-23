@@ -6,7 +6,7 @@
             <animation name="hero_walk_sword" path="/res/hero/hero_walk_sword.png" isImage = "false" frameWidth="128" frameHeight="128" speedCoef="5"/>
             <animation name="hero_walk_bow" path="/res/hero/hero_walk_bow.png" isImage = "false" frameWidth="128" frameHeight="128" speedCoef="5"/>
             <animation name="hero_walk_staff" path="/res/hero/hero_walk_staff.png" isImage = "false" frameWidth="160" frameHeight="160" speedCoef="5"/>
-            <animation name="hero_skill_sword_attack" path="/res/hero/hero_skill_sword_attack.png" isImage = "false" frameWidth="128" frameHeight="128" speedCoef="0.07"/>
+            <animation name="hero_skill_sword_attack" path="/res/hero/hero_skill_sword_attack.png" isImage = "false" frameWidth="160" frameHeight="160" speedCoef="0.07"/>
             <animation name="hero_skill_strong_sword_attack" path="/res/hero/hero_skill_strong_sword_attack.png" isImage = "false" frameWidth="160" frameHeight="160" speedCoef="0.07"/>
             <animation name="hero_skill_bow_shot" path="/res/hero/hero_skill_bow_shot.png" isImage = "false" frameWidth="128" frameHeight="128" speedCoef="0.07"/>
             <animation name="hero_skill_fireball" path="/res/hero/hero_skill_fireball.png" isImage = "false" frameWidth="160" frameHeight="160" speedCoef="0.07"/>
@@ -28,7 +28,12 @@
 
             <animation name="golem_boss" path="/res/golemboss/golemboss.png" isImage = "true"/>
 
-            <animation name="vampire" path="/res/vampire/vampire.png" isImage = "true"/>
+            <animation name="vampire_walk" path="/res/vampire/vampire_walk.png" isImage = "false" frameWidth="160" frameHeight="160" speedCoef="5"/>
+            <animation name="vampire_sword_attack" path="/res/vampire/vampire_sword_attack.png" isImage = "false" frameWidth="160" frameHeight="160" speedCoef="5"/>
+            <animation name="vampire_spin_attack" path="/res/vampire/vampire_spin_attack.png" isImage = "false" frameWidth="160" frameHeight="160" speedCoef="5"/>
+            <animation name="vampire_doom" path="/res/vampire/vampire_doom.png" isImage = "false" frameWidth="160" frameHeight="160" speedCoef="5"/>
+            <animation name="vampire_power_beam" path="/res/vampire/vampire_power_beam.png" isImage = "false" frameWidth="160" frameHeight="160" speedCoef="5"/>
+            <animation name="vampire_throw_knife" path="/res/vampire/vampire_throw_knife.png" isImage = "false" frameWidth="160" frameHeight="160" speedCoef="5"/>
 
             <animation name="wanderer" path="/res/wanderer/wanderer.png" isImage = "true"/>
 
@@ -188,10 +193,10 @@
                    castTime="300" postApplyTime="150" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="0"
                    pAttack="15" mAttack="0" radius="55" angle="45"/>
             <skill name="Vampiric_knife" description="" path="/res/skills/empty skill.png" type="BulletShot"
-                   castTime="200" postApplyTime="100" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="5"
+                   castTime="400" postApplyTime="300" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="5"
                    pAttack="10" mAttack="20" bulletSpeed="0.4" distance="1000"/>
             <skill name="Power_beam" description="" path="/res/skills/empty skill.png" type="AreaDamage"
-                   castTime="700" postApplyTime="300" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="0"
+                   castTime="1000" postApplyTime="150" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="0"
                    pAttack="50" mAttack="0" radius="200" angle="60"/>
             <skill name="Doom" description="" path="/res/skills/empty skill.png" type="BulletShot"
                    castTime="1000" postApplyTime="500" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="0"
@@ -450,6 +455,7 @@
             <sound name="fireball" path="/res/sounds/fireball.wav"/>
             <sound name="golem_step" path="/res/sounds/golem_step.wav"/>
             <sound name="golem_attack" path="/res/sounds/golem_attack.wav"/>
+            <sound name="power_beam" path="/res/sounds/power_beam.wav"/>
         </sounds>
         <quests>
             <quest name="Beat bandits">

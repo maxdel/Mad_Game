@@ -53,8 +53,6 @@ public abstract class UnitView extends GameObjectSolidView {
         rotate(g, camera, true);
 
         draw(camera);
-        animation.draw((float) (gameObject.getX() - camera.getX() - animation.getWidth() / 2),
-                (float) (gameObject.getY() - camera.getY() - animation.getHeight() / 2));
         drawMask(g, camera.getX(), camera.getY());
 
         // Drawing bars

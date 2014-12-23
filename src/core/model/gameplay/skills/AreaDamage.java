@@ -87,4 +87,8 @@ public class AreaDamage extends Skill {
         return radius;
     }
 
+    public double getAngle() {
+        return angle;
+    }
+
 }

@@ -180,9 +180,6 @@ public class HeroView extends UnitView {
             }
             previousWeapon = Hero.getInstance().getInventory().getDressedWeapon().getItem();
         }
-        if (animation.getFrame() != 0) {
-            System.out.println();
-        }
         previousState = hero.getCurrentState();
 
         super.render(g, camera);
