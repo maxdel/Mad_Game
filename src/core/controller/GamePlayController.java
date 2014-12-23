@@ -155,7 +155,7 @@ public class GamePlayController {
                 Hero.getInstance().startCastSkill(SkillInstanceKind.BOW_SHOT);
                 Hero.getInstance().startCastSkill(SkillInstanceKind.FIREBALL);
             }
-            if (input.isKeyDown(input.KEY_2)) {
+            if (input.isKeyDown(input.KEY_7)) {
                 Hero.getInstance().startCastSkill(SkillInstanceKind.STRONG_SWORD_ATTACK);
             }
             if (input.isKeyDown(input.KEY_3)) {
@@ -167,10 +167,10 @@ public class GamePlayController {
             if (input.isKeyDown(input.KEY_5)) {
                 Hero.getInstance().startCastSkill(SkillInstanceKind.STAFF_ATTACK);
             }
-            if (input.isMouseButtonDown(input.KEY_6)) {
+            if (input.isMouseButtonDown(Input.MOUSE_RIGHT_BUTTON)) {
                 Hero.getInstance().startCastSkill(SkillInstanceKind.BLINK);
             }
-            if (input.isKeyDown(input.KEY_7)) {
+            if (input.isKeyDown(input.KEY_2)) {
                 Hero.getInstance().startCastSkill(SkillInstanceKind.ICE_WALL);
             }
             if (input.isKeyDown(input.KEY_8)) {
