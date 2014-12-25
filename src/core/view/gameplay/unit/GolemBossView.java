@@ -25,7 +25,7 @@ public class GolemBossView extends UnitView {
     }
 
     @Override
-    public void render(Graphics g, Camera camera) throws SlickException {
+    public void render(Graphics g, Camera camera) {
         Bot golem = (Bot) gameObject;
 
         if (golem.getCurrentState() != previousState) {

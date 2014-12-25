@@ -47,14 +47,12 @@ public abstract class UnitView extends GameObjectSolidView {
     }
 
     @Override
-    public void render(Graphics g, Camera camera) throws SlickException {
+    public void render(Graphics g, Camera camera) {
         Unit unit = (Unit) gameObject;
 
         rotate(g, camera, true);
 
         draw(camera);
-        animation.draw((float) (gameObject.getX() - camera.getX() - animation.getWidth() / 2),
-                (float) (gameObject.getY() - camera.getY() - animation.getHeight() / 2));
         drawMask(g, camera.getX(), camera.getY());
 
         // Drawing bars
@@ -83,7 +81,7 @@ public abstract class UnitView extends GameObjectSolidView {
 
 
 
-    private void renderParticleSystem(Graphics g, Camera camera) throws SlickException {
+    private void renderParticleSystem(Graphics g, Camera camera) {
         Unit unit = (Unit) gameObject;
 
         if (unit.getCurrentState() == UnitState.SKILL) {

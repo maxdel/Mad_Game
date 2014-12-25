@@ -98,6 +98,8 @@ public class VampireAI extends BotAI {
 
     private boolean RangedAttackBehavior(Timer blinkTimer, int blinkTime, Timer powerBeamTimer, int powerBeamTime,
                                          Timer doomTimer, int doomTime) {
+        System.out.println(doomTimer.getValue());
+
         owner.setDirection(MathAdv.getAngle(owner.getX(), owner.getY(),
                 Hero.getInstance().getX(), Hero.getInstance().getY()));
         if (blinkTimer.isTime() && owner.canStartCast(owner.getSkillByKind(SkillInstanceKind.SHIFT))) {
@@ -118,14 +120,16 @@ public class VampireAI extends BotAI {
         owner.stand();
         owner.setDirection(getPredictedDirection(owner.getSkillByKind(SkillInstanceKind.VAMPIRIC_KNIFE)));
         if (seeTarget(Hero.getInstance())) {
-            if (powerBeamTimer.isTime() && owner.canStartCast(owner.getSkillByKind(SkillInstanceKind.POWER_BEAM))) {
-                owner.startCastSkill(SkillInstanceKind.POWER_BEAM);
-                powerBeamTimer.activate(powerBeamTime);
-            } else if (doomTimer.isTime() && owner.canStartCast(owner.getSkillByKind(SkillInstanceKind.DOOM))) {
-                owner.startCastSkill(SkillInstanceKind.DOOM);
-                doomTimer.activate(doomTime);
-            } else {
-                owner.startCastSkill(SkillInstanceKind.VAMPIRIC_KNIFE);
+            if (owner.isReadyToCast()) {
+                if (doomTimer.isTime() && owner.canStartCast(owner.getSkillByKind(SkillInstanceKind.DOOM))) {
+                    owner.startCastSkill(SkillInstanceKind.DOOM);
+                    doomTimer.activate(doomTime);
+                } else if (powerBeamTimer.isTime() && owner.canStartCast(owner.getSkillByKind(SkillInstanceKind.POWER_BEAM))) {
+                    owner.startCastSkill(SkillInstanceKind.POWER_BEAM);
+                    powerBeamTimer.activate(powerBeamTime);
+                } else {
+                    owner.startCastSkill(SkillInstanceKind.VAMPIRIC_KNIFE);
+                }
             }
             return true;
         }

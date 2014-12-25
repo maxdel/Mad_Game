@@ -23,7 +23,7 @@ public class BanditView extends UnitView {
     }
 
     @Override
-    public void render(Graphics g, Camera camera) throws SlickException {
+    public void render(Graphics g, Camera camera) {
         Bot bandit = (Bot) gameObject;
 
         if (bandit.getCurrentState() != previousState) {

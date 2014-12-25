@@ -6,13 +6,11 @@ import core.model.gameplay.gameobjects.GameObject;
 import core.model.gameplay.gameobjects.UnitState;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.SlickException;
 
 import core.resourcemanager.ResourceManager;
 import core.view.gameplay.Camera;
 import org.newdawn.slick.Sound;
 
-import java.util.Arrays;
 import java.util.stream.IntStream;
 
 public class GolemView extends UnitView {
@@ -42,7 +40,7 @@ public class GolemView extends UnitView {
     }
 
     @Override
-    public void render(Graphics g, Camera camera) throws SlickException {
+    public void render(Graphics g, Camera camera) {
         Bot golem = (Bot) gameObject;
 
         if (golem.getCurrentState() == UnitState.MOVE && stepTimer.isTime()) {

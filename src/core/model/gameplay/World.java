@@ -111,7 +111,7 @@ public class World {
                             tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjInstanceKind.BANDITARCHER,
                             new BanditArcherAI());
                     gameObjectList.add(bot);
-                } else if (tileObjectName.equals("skeletonmage")) {
+                } else if (tileObjectName.equals("skeletmage")) {
                     Bot bot = new Bot(tiledMap.getTileWidth() * i + tiledMap.getTileWidth() / 2,
                             tiledMap.getTileHeight() * j + tiledMap.getTileHeight() / 2, 0, GameObjInstanceKind.SKELETONMAGE,
                             new SkeletonMageAI());
