@@ -18,15 +18,20 @@
             <animation name="bandit_archer_walk" path="/res/banditarcher/bandit_archer_walk.png" isImage = "false" frameWidth="160" frameHeight="160" speedCoef="5"/>
             <animation name="bandit_archer_attack" path="/res/banditarcher/bandit_archer_attack.png" isImage = "false" frameWidth="160" frameHeight="160" speedCoef="0.07"/>
 
-            <animation name="bandit_boss" path="/res/banditboss/banditboss.png" isImage = "true"/>
+            <animation name="bandit_boss_move" path="/res/banditboss/banditBossMove.png" isImage = "false" frameWidth="160" frameHeight="160" speedCoef="5"/>
+            <animation name="bandit_boss_attack" path="/res/banditboss/banditBossAttack.png" isImage = "false" frameWidth="160" frameHeight="160" speedCoef="0.07"/>
+            <animation name="bandit_boss_strong_attack" path="/res/banditboss/banditBossStrongAttack.png" isImage = "false" frameWidth="160" frameHeight="160" speedCoef="0.07"/>
 
             <animation name="golem_walk" path="/res/golem/golem_walk.png" isImage = "false" frameWidth="104" frameHeight="104" speedCoef="5"/>
             <animation name="golem_attack_right" path="/res/golem/golem_attack_right.png" isImage = "false" frameWidth="104" frameHeight="104" speedCoef="0.07"/>
             <animation name="golem_attack_left" path="/res/golem/golem_attack_left.png" isImage = "false" frameWidth="104" frameHeight="104" speedCoef="0.07"/>
 
-            <animation name="golem_tiny" path="/res/golemtiny/golemtiny.png" isImage = "true"/>
+            <animation name="golemtiny_walk" path="/res/golemtiny/golemtiny_walk.png" isImage = "false" frameWidth="85" frameHeight="85" speedCoef="8"/>
+            <animation name="golemtiny_attack" path="/res/golemtiny/golemtiny_attack.png" isImage = "false" frameWidth="95" frameHeight="95" speedCoef="8"/>
 
-            <animation name="golem_boss" path="/res/golemboss/golemboss.png" isImage = "true"/>
+            <animation name="golem_boss_move" path="/res/golemboss/move.png" isImage = "false" frameWidth="200" frameHeight="200" speedCoef="10"/>
+            <animation name="golem_boss_attack" path="/res/golemboss/attack.png" isImage = "false" frameWidth="200" frameHeight="200" speedCoef="10"/>
+            <animation name="golem_boss_throw" path="/res/golemboss/throw.png" isImage = "false" frameWidth="200" frameHeight="200" speedCoef="10"/>
 
             <animation name="vampire_walk" path="/res/vampire/vampire_walk.png" isImage = "false" frameWidth="160" frameHeight="160" speedCoef="5"/>
             <animation name="vampire_sword_attack" path="/res/vampire/vampire_sword_attack.png" isImage = "false" frameWidth="160" frameHeight="160" speedCoef="5"/>
@@ -70,7 +75,7 @@
             <mask name="arrow" shape="rectangle" width="20" height="3" radius="0"/>
             <mask name="fireball" shape="circle" width="0" height="0" radius="5"/>
             <mask name="thorn" shape="rectangle" width="10" height="3" radius="0"/>
-            <mask name="stone" shape="circle" width="0" height="0" radius="6"/>
+            <mask name="stone" shape="circle" width="0" height="0" radius="20"/>
             <mask name="waterball" shape="circle" width="0" height="0" radius="5"/>
             <mask name="darkflame" shape="circle" width="0" height="0" radius="4"/>
         </masks>
@@ -156,11 +161,11 @@
                    pAttack="55" mAttack="0" radius="60" angle="45"/>
             <skill name="Thorn" description="Thorn!!!" path="/res/skills/empty skill.png" type="BulletShot"
                    castTime="100" postApplyTime="50" cooldownTime="100" requiredItemType="" requiredHP="0" requiredMP="0"
-                   pAttack="20" mAttack="0" bulletSpeed="0.4" distance="40"/>
+                   pAttack="20" mAttack="0" bulletSpeed="0.3" distance="40"/>
 
             <skill name="Weak_punch" description="" path="/res/skills/empty skill.png" type="AreaDamage"
-                   castTime="400" postApplyTime="150" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="0"
-                   pAttack="20" mAttack="0" radius="55" angle="45"/>
+                   castTime="500" postApplyTime="150" cooldownTime="1000" requiredItemType="" requiredHP="0" requiredMP="0"
+                   pAttack="20" mAttack="0" radius="15" angle="45"/>
             <skill name="Weak_thorn" description="" path="/res/skills/empty skill.png" type="BulletShot"
                    castTime="100" postApplyTime="50" cooldownTime="100" requiredItemType="" requiredHP="0" requiredMP="0"
                    pAttack="10" mAttack="0" bulletSpeed="0.4" distance="40"/>
@@ -236,7 +241,7 @@
         </fonts>
         <units>
             <unit name="hero" mask="unit">
-                <attribute hp="300" mp="100" maximumSpeed="0.16" pAttack="10" mAttack="15" pArmor="5" mArmor="7" />
+                <attribute hp="30000" mp="100" maximumSpeed="0.16" pAttack="10" mAttack="15" pArmor="5" mArmor="7" />
                 <inventory>
                     <itemRecord name="Sword" number="1" />
                     <itemRecord name="Bow" number="1" />
@@ -293,7 +298,7 @@
                     <loot name="Strong_bow" probability="0.5"/>
                 </lootList>
             </unit>
-            <unit name="banditBoss" mask="unit_big">
+            <unit name="banditBoss" mask="unit">
                 <attribute hp="100" mp="100" maximumSpeed="0.14" pAttack="10" mAttack="15" pArmor="5" mArmor="7"/>
                 <inventory>
                     <itemRecord name="Strong_sword" number="1"/>
@@ -321,7 +326,7 @@
                     <loot name="Mana_flask" probability="1"/>
                 </lootList>
             </unit>
-            <unit name="golemTiny" mask="unit_small">
+            <unit name="golemTiny" mask="unit">
                 <attribute hp="100" mp="100" maximumSpeed="0.14" pAttack="10" mAttack="15" pArmor="5" mArmor="7"/>
                 <inventory>
 
