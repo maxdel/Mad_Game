@@ -12,6 +12,7 @@ import core.resourcemanager.ResourceManager;
 import core.view.gameplay.Camera;
 
 public class GolemBossView extends UnitView {
+
     private Animation walk;
     private Animation attack;
     private Animation skill;
