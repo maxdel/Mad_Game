@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="16" height="32" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="tiles" tilewidth="32" tileheight="32">
+  <image source="tiles.png" width="128" height="256"/>
+ </tileset>
+ <layer name="regions" width="16" height="32">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgoBzIQTE2NjJNjrmU6CfFHlzux8amtn5KAS575KF4oOwf6uE36v6BdT+99I+CUTBSAQCtXCbxAAgAAA==
+  </data>
+ </layer>
+ <layer name="input_Tiles" width="16" height="32">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2SjQqAIBCDhz7ACQYF9f7PWcJJq0gSfyDwg2hSc+sSKMccl1VtdQ2624fjG9Fnkm+VI7csR/mi2id6sGeivdhj9VkLQraQjjmiHWIvjzaETP7/uTk8v9ScW8GZC67n15GeX/z8zax5LqxrY3B2dsifP3t4r17UOD+r6g39+w8Gf2UHh9rMhgAIAAA=
+  </data>
+ </layer>
+ <layer name="output_Tiles" width="16" height="32">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgoA4QgNLCWOT4yTRThEx95AAxLGKiZJolhUVMkkyziAHSSGxxNDkZJLYEDe2HhZ8omp0jAYDiVgILGxQXUljYtASguCA1/EFuo1XaIAaM9PQzCkbBQAEAzj3K2QAIAAA=
+  </data>
+ </layer>
+</map>
