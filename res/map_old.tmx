@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="128" height="128" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="objects" tilewidth="32" tileheight="32">
+  <image source="objects.png" width="128" height="256"/>
+  <tile id="0">
+   <properties>
+    <property name="name" value="treebig"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="name" value="rock"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="name" value="tree"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="name" value="stonewall"/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="name" value="banditsword"/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="name" value="banditarcher"/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="name" value="skeletsword"/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="name" value="skeletmage"/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="name" value="vampire"/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="name" value="hero"/>
+   </properties>
+  </tile>
+  <tile id="14">
+   <properties>
+    <property name="name" value="fireelemental"/>
+   </properties>
+  </tile>
+  <tile id="15">
+   <properties>
+    <property name="name" value="waterelemental"/>
+   </properties>
+  </tile>
+  <tile id="16">
+   <properties>
+    <property name="name" value="golem"/>
+   </properties>
+  </tile>
+  <tile id="17">
+   <properties>
+    <property name="name" value="golemtiny"/>
+   </properties>
+  </tile>
+  <tile id="18">
+   <properties>
+    <property name="name" value="golemboss"/>
+   </properties>
+  </tile>
+  <tile id="19">
+   <properties>
+    <property name="name" value="banditboss"/>
+   </properties>
+  </tile>
+  <tile id="23">
+   <properties>
+    <property name="name" value="npc"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="33" name="tiles" tilewidth="32" tileheight="32">
+  <image source="tiles.png" width="128" height="256"/>
+ </tileset>
+ <layer name="Tiles" width="128" height="128">
+  <data encoding="base64" compression="gzip">
+   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
+  </data>
+ </layer>
+ <layer name="Obstacles" width="128" height="128" visible="0">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2d244cIQxEN5GS///kaB9G6Z1pmpvtKps60rwlbXDZ4Aaa/foS4pk/RW2JMaSJEJ/s5MUvs1ZwUK0/QgiBxrL2QtVxzPUjc9uEEGKEnfpbtbsQYoa/+tH8EKDsip9I/7Np6eD9Xiv9OVD+n430PxvpfzbSf47f6AYYU13/anpZY63D6HsDa/6ztqvH6hp8tvz33mvIqv8q2fT3BrkmikD6f3JSDEj/e06JAenfBr1HFkGvb177AJl8OrpfmvEsoPJ/DvR4YL13P/IMj7gebTvj+s2o7yP2UHfjQPm/BnocuLLTlsz6744NT/k58mwW/b85UX80TH1g1P8pv5h8twpTHxj1Z7RrCVMfpH88LH04tf5Dw9CH3TZI/3XQfbB4B5X+Y9ydO/DuQ69+tl7/i1y/tvbdyLkQj7XE6HUg6z2p1nPe/Wl97iZb/j8RuU9obUPjvx3e31Z6+Ez6+2I5Tkv/c/HyF/v5D8b9XwRZ879VNyr/17COA7bxX/neJ+L97wV6/J+hFzszscUeh70YGH1fZ8t/MU7U+b8VeuOG9N+HWX9Wu9ag7j6MPP/rQRX9EUTWf15I/3myrClH2GW81zzz9z9P8xjy+w/hy4j+nnY9YX+HZyDr+F+ZyFyU/meTWf+78xaRZ3Eq8O2nlfpud4za/Wa1pzF7HLC0L3P+j9oZsYWoFRnGrer6v2wx5FoL5BzGqL9XLqJz7QlP/Z/makb9I+nVkJHx0rNZaR2ORf9ZEHHgbQuBtd3I+m1Fm9n2RcXAzPkvy/Ena/5fiRwHPG0gqKC/Jb0azctf0j8HkfpH7D9Ifw4Y8z96Le7kv1/MqH+LWZ284wgVN5Z2M+kv1tD6n2jhocPIOoH052BWB6u5R/pz4L2/MGJX4ND8fzYjOlTad8xA9F4WAlTdKX5irQP7vQOn0sqNSvkv5qmoP3Ie8LDt2Z93HaJ8d0L+e/dxRCvWe1gy6b+SE2zni1s8tbFVy1msAVr4hnXfdlZ75Hx1Yv57n6fL9G4r/W2fm2HMv8bS6fpbrLUxfk80yrXNJ9w7gLZtzdO8wLwPj7SbRf+IujD7/s/KdzXiPyv+sIgHhA4tm6zvkU9Y5eQp5/8zjfuRnDD/I7TPshddWf8sOT97B8Hqt8G7/98S7zWYLNqjqaS/NJ+niv6ZdUeOyRXq/8x5bzW379h/h2XdCfGsHVbyxlLvVfsIZu32/hb6DLN+2l1jH8FLh15fs+gf9awKzMSk9M/Pnd7s5/BP1X9nvvCoCV/Pe4+XlVoCNe5k0v/KbLs99Y+mqv6z+b2yfmvJ0/MivztgedaVzHU/u30ru9nXfryp8P53928z6/6Cof1Z9I9YF2X8G3jedwHM+FL3P69z5zukD16xniH/q8LgA882IO8d9Hp3qXD35hXlP7YtaD8g9deP4yeEEC0yfh8j1pHebbJ811GNTDHJEiPodlS7h+1E5Ec+TtLkva9efWfwKUMbRDzRuleJs51+WNeTVXwaSaaaXgjxyT9lSjUcAAABAA==
+  </data>
+ </layer>
+ <layer name="Objects" width="128" height="128" visible="0">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3cOw7CMAwAUFb+34H7n5SFLKiAqraxm7y3INHFEtSpXSebDQAAAAAAADCXQ3QAAI2SXwEAAAAAAJjLfuJ1AIbJrwBkZy3KzZwgrJf8mpv8Sgu20QEANEp+paYl6wY1CdAz+RUA6N2//sauShQAzMk7bgA+TX2vqS5om98XAAAA+qQnAACxnDUGjDX03tceVwCYJmLm1rN+buawgbW4DXx3rR4F9CVbH+YUHQApPKIDAKq7Rwewcs4aAwCAto3t4WXr+fGdmVsAlpZ5ZugZHQBAIM/6uWVbP9X5jJXtP8xvme/xY3QAkFDmexYAainrYTnrr/Q51lKLmLmF6coe0LIH4Pz+vATE0iq1Rx+cmwsAAAAAAAAAQC9eKKBtcQAAAQA=
+  </data>
+ </layer>
+ <objectgroup name="Слой объектов 1" visible="0">
+  <object name="wall" gid="6" x="1594.24" y="817.502" width="32" height="32" rotation="530.431"/>
+  <object name="wall" gid="6" x="1552.19" y="899.027" width="32" height="32" rotation="802.289"/>
+  <object name="wall" gid="6" x="1566.93" y="853.4" width="32" height="32" rotation="473.102"/>
+  <object name="wall" gid="6" x="1462.29" y="977.008" width="32" height="32" rotation="473.102"/>
+  <object name="wall" gid="6" x="1489.65" y="1030.97" width="32" height="32" rotation="698.102"/>
+  <object name="wall" gid="6" x="1521.15" y="1002.11" width="32" height="32" rotation="473.102"/>
+  <object name="wall" gid="6" x="1550.59" y="1014.67" width="32" height="32" rotation="473.102"/>
+  <object name="wall" gid="6" x="1449.73" y="1006.44" width="32" height="32" rotation="473.102"/>
+  <object name="wall" gid="6" x="1483.5" y="1090.42" width="32" height="32" rotation="473.102"/>
+  <object name="wall" gid="6" x="1500.37" y="1132.4" width="32" height="32" rotation="563.102"/>
+  <object name="wall" gid="6" x="1496.04" y="1060.99" width="32" height="32" rotation="473.102"/>
+  <object name="wall" gid="6" x="1508.59" y="1031.55" width="32" height="32" rotation="473.102"/>
+  <object name="wall" gid="6" x="1147.1" y="1828.48" width="32" height="32" rotation="15"/>
+  <object name="wall" gid="6" x="1798.03" y="1024.86" width="32" height="32" rotation="472.457"/>
+  <object name="wall" gid="6" x="1878.07" y="1093.29" width="32" height="32" rotation="563.827"/>
+  <object name="wall" gid="6" x="1155.38" y="1797.75" width="32" height="32" rotation="15"/>
+  <object name="wall" gid="6" x="1173.14" y="1735.63" width="32" height="32" rotation="15"/>
+  <object name="wall" gid="6" x="1164.86" y="1766.37" width="32" height="32" rotation="15"/>
+  <object name="wall" gid="6" x="1192.14" y="1672.63" width="32" height="32" rotation="15"/>
+  <object name="wall" gid="6" x="1183.86" y="1703.37" width="32" height="32" rotation="15"/>
+  <object name="wall" gid="6" x="1148.54" y="1701.14" width="32" height="32" rotation="285"/>
+  <object name="wall" gid="6" x="1179.27" y="1709.42" width="32" height="32" rotation="285"/>
+  <object name="rock" gid="2" x="1433.37" y="1573.23" rotation="44.4282"/>
+  <object name="rock" gid="2" x="1300.22" y="1575.2" rotation="92.0979"/>
+  <object name="rock" gid="2" x="1479.91" y="1480.4" rotation="314.275"/>
+  <object name="rock" gid="2" x="1460.89" y="1921.17" rotation="306.707"/>
+ </objectgroup>
+</map>
