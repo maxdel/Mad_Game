@@ -16,9 +16,11 @@ Currently the project in "on-hold" state.
 
 #### Screenshots
 (Not the best quality due to using frames of recorded gameplay video)
-![Alt text](https://raw.githubusercontent.com/alexanderguk/Mad_Game/master/res/screenshots/screen01.jpg)
-![Alt text](https://raw.githubusercontent.com/alexanderguk/Mad_Game/master/res/screenshots/screen02.jpg)
-![Alt text](https://raw.githubusercontent.com/alexanderguk/Mad_Game/master/res/screenshots/screen03.jpg)
-![Alt text](https://raw.githubusercontent.com/alexanderguk/Mad_Game/master/res/screenshots/screen04.jpg)
-![Alt text](https://raw.githubusercontent.com/alexanderguk/Mad_Game/master/res/screenshots/screen05.jpg)
-![Alt text](https://raw.githubusercontent.com/alexanderguk/Mad_Game/master/res/screenshots/screen06.jpg)
+<p align="center">
+  <img src="https://raw.githubusercontent.com/alexanderguk/Mad_Game/master/res/screenshots/screen01.jpg"/>
+  <img src="https://raw.githubusercontent.com/alexanderguk/Mad_Game/master/res/screenshots/screen02.jpg"/>
+  <img src="https://raw.githubusercontent.com/alexanderguk/Mad_Game/master/res/screenshots/screen03.jpg"/>
+  <img src="https://raw.githubusercontent.com/alexanderguk/Mad_Game/master/res/screenshots/screen04.jpg"/>
+  <img src="https://raw.githubusercontent.com/alexanderguk/Mad_Game/master/res/screenshots/screen05.jpg"/>
+  <img src="https://raw.githubusercontent.com/alexanderguk/Mad_Game/master/res/screenshots/screen06.jpg"/>
+</p>
