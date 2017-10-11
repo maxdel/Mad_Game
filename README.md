@@ -1,9 +1,9 @@
 Mad Game
 ========
 
-Simple top down RPG developed by two students of the KPI, Ukraine.
+Simple top down RPG developed using Java programming language and Slick2D game library. Implementation style follows key game design patters. Game includes custom visuals.  
 
-Currently the project in "on-hold" state.
+Project is in "on-hold" state forever.
 
 #### Features
 * Slick2d game engine
